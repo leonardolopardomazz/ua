@@ -1,0 +1,98 @@
+package ar.com.ua.model;
+
+import java.util.Date;
+
+public class HistorialPuestos {
+
+	private Integer numeroLegajo;
+	private Parametro codigoPais;
+	private Parametro codigoOficina;
+	private Parametro codigoDireccion;
+	private Parametro codigoGerencia;
+	private Parametro codigoJefatura;
+	private Parametro codigoPuesto;
+	private Date fechaIngresoReconocida;
+	private Date fechaEgreso;
+	private boolean activo;
+
+	public Integer getNumeroLegajo() {
+		return numeroLegajo;
+	}
+
+	public void setNumeroLegajo(Integer numeroLegajo) {
+		this.numeroLegajo = numeroLegajo;
+	}
+
+	public Parametro getCodigoPais() {
+		return codigoPais;
+	}
+
+	public void setCodigoPais(Parametro codigoPais) {
+		this.codigoPais = codigoPais;
+	}
+
+	public Parametro getCodigoOficina() {
+		return codigoOficina;
+	}
+
+	public void setCodigoOficina(Parametro codigoOficina) {
+		this.codigoOficina = codigoOficina;
+	}
+
+	public Parametro getCodigoDireccion() {
+		return codigoDireccion;
+	}
+
+	public void setCodigoDireccion(Parametro codigoDireccion) {
+		this.codigoDireccion = codigoDireccion;
+	}
+
+	public Parametro getCodigoGerencia() {
+		return codigoGerencia;
+	}
+
+	public void setCodigoGerencia(Parametro codigoGerencia) {
+		this.codigoGerencia = codigoGerencia;
+	}
+
+	public Parametro getCodigoJefatura() {
+		return codigoJefatura;
+	}
+
+	public void setCodigoJefatura(Parametro codigoJefatura) {
+		this.codigoJefatura = codigoJefatura;
+	}
+
+	public Parametro getCodigoPuesto() {
+		return codigoPuesto;
+	}
+
+	public void setCodigoPuesto(Parametro codigoPuesto) {
+		this.codigoPuesto = codigoPuesto;
+	}
+
+	public Date getFechaIngresoReconocida() {
+		return fechaIngresoReconocida;
+	}
+
+	public void setFechaIngresoReconocida(Date fechaIngresoReconocida) {
+		this.fechaIngresoReconocida = fechaIngresoReconocida;
+	}
+
+	public Date getFechaEgreso() {
+		return fechaEgreso;
+	}
+
+	public void setFechaEgreso(Date fechaEgreso) {
+		this.fechaEgreso = fechaEgreso;
+	}
+
+	public boolean isActivo() {
+		return activo;
+	}
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
+
+}
