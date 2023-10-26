@@ -8,44 +8,44 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ar.com.ua.builder.CargaDeFamiliaBuilder;
+import ar.com.ua.builder.PuestoBuilder;
 import ar.com.ua.constant.CodigoRespuestaConstant;
 import ar.com.ua.constant.EndPointConstant;
 import ar.com.ua.constant.EndPointPathConstant;
 import ar.com.ua.constant.TipoMetodoConstant;
-import ar.com.ua.dto.CargaDeFamiliaDTO;
+import ar.com.ua.dto.PuestoDTO;
 import ar.com.ua.dto.response.ResponseDto;
 import ar.com.ua.dto.response.ResponseErrorDto;
 import ar.com.ua.dto.response.ResponseOKDto;
-import ar.com.ua.model.CargaDeFamilia;
-import ar.com.ua.service.CargaDeFamiliaService;
+import ar.com.ua.model.Puesto;
+import ar.com.ua.service.PuestoService;
 
-@RequestMapping("/cargadefamilia")
+@RequestMapping("/puesto")
 @RestController
-public class CargaDeFamiliaController implements IABMController<CargaDeFamiliaDTO> {
+public class PuestoController implements IABMController<PuestoDTO> {
 
 	@Autowired
-	private CargaDeFamiliaService cdfService;
+	private PuestoService puestoService;
 
 	@Autowired
-	private CargaDeFamiliaBuilder cdfBuilder;
+	private PuestoBuilder puestoBuilder;
 
-	static Logger logger = Logger.getLogger(CargaDeFamiliaController.class.getName());
+	static Logger logger = Logger.getLogger(PuestoController.class.getName());
 
-	private ResponseDto save(CargaDeFamiliaDTO dto, String tipoMetodoConstant) {
+	private ResponseDto save(PuestoDTO dto, String tipoMetodoConstant) {
 		List<String> mensajesError = new ArrayList<String>();
 
 		try {
-			CargaDeFamilia cdf = cdfBuilder.dtoToModel(dto);
-			CargaDeFamilia cdfGuardada = cdfService.save(cdf);
-			CargaDeFamiliaDTO cdfDto = cdfBuilder.modelToDto(cdfGuardada);
-			return new ResponseOKDto<CargaDeFamiliaDTO>(EndPointPathConstant.CARGA_DE_FAMILIA, tipoMetodoConstant,
-					CodigoRespuestaConstant.OK, cdfDto);
+			Puesto puesto = puestoBuilder.dtoToModel(dto);
+			Puesto puestoGuardado = puestoService.save(puesto);
+			PuestoDTO puestoDto = puestoBuilder.modelToDto(puestoGuardado);
+			return new ResponseOKDto<PuestoDTO>(EndPointPathConstant.PUESTO, tipoMetodoConstant,
+					CodigoRespuestaConstant.OK, puestoDto);
 		} catch (Exception e) {
 			String messageException = e.getMessage();
 			mensajesError.add(messageException);
 
-			return new ResponseErrorDto(EndPointPathConstant.CARGA_DE_FAMILIA, tipoMetodoConstant,
+			return new ResponseErrorDto(EndPointPathConstant.PUESTO, tipoMetodoConstant,
 					CodigoRespuestaConstant.ERROR, mensajesError);
 		}
 	}
@@ -56,7 +56,7 @@ public class CargaDeFamiliaController implements IABMController<CargaDeFamiliaDT
 	 * @return ResponseDto
 	 */
 	@Override
-	public ResponseDto add(CargaDeFamiliaDTO dto) {
+	public ResponseDto add(PuestoDTO dto) {
 		return this.save(dto, TipoMetodoConstant.POST);
 	}
 
@@ -64,7 +64,7 @@ public class CargaDeFamiliaController implements IABMController<CargaDeFamiliaDT
 	 * Actualiza una carga de familia en la tabla
 	 */
 	@Override
-	public ResponseDto modify(CargaDeFamiliaDTO dto) {
+	public ResponseDto modify(PuestoDTO dto) {
 		return this.save(dto, TipoMetodoConstant.PUT);
 	}
 
@@ -72,14 +72,14 @@ public class CargaDeFamiliaController implements IABMController<CargaDeFamiliaDT
 	 * Elimina una carga de familia de la tabla
 	 */
 	@Override
-	public ResponseDto deleteById(CargaDeFamiliaDTO dto) {
+	public ResponseDto deleteById(PuestoDTO dto) {
 		List<String> mensajesError = new ArrayList<String>();
 
 		try {
-			CargaDeFamilia cdf = cdfBuilder.dtoToModel(dto);
-			cdfService.delete(cdf);
+			Puesto puesto = puestoBuilder.dtoToModel(dto);
+			puestoService.delete(puesto);
 
-			return new ResponseOKDto<CargaDeFamiliaDTO>(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
+			return new ResponseOKDto<PuestoDTO>(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
 					CodigoRespuestaConstant.OK, dto);
 		} catch (Exception e) {
 			String messageException = e.getMessage();

@@ -2,9 +2,14 @@ package ar.com.ua.model;
 
 import java.util.Date;
 
-public class Externos {
-	
-	private String codigoSecuenciador;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "externos")
+public class EmpleadoExterno {
+
+	private String legajoExterno;
 	private String apellido;
 	private String nombre;
 	private Parametro codigoTipoDocumento;
@@ -22,112 +27,147 @@ public class Externos {
 	private Parametro codigoGenero;
 	private String emailPersonal;
 	private boolean activo;
-	
-	public String getCodigoSecuenciador() {
-		return codigoSecuenciador;
+
+	public String getLegajoExterno() {
+		return legajoExterno;
 	}
-	public void setCodigoSecuenciador(String codigoSecuenciador) {
-		this.codigoSecuenciador = codigoSecuenciador;
+
+	public void setLegajoExterno(String legajoExterno) {
+		this.legajoExterno = legajoExterno;
 	}
+
 	public String getApellido() {
 		return apellido;
 	}
+
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
+
 	public String getNombre() {
 		return nombre;
 	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
 	public Parametro getCodigoTipoDocumento() {
 		return codigoTipoDocumento;
 	}
+
 	public void setCodigoTipoDocumento(Parametro codigoTipoDocumento) {
 		this.codigoTipoDocumento = codigoTipoDocumento;
 	}
+
 	public String getNumeroDocumento() {
 		return numeroDocumento;
 	}
+
 	public void setNumeroDocumento(String numeroDocumento) {
 		this.numeroDocumento = numeroDocumento;
 	}
+
 	public Parametro getCodigoNacionalidad() {
 		return codigoNacionalidad;
 	}
+
 	public void setCodigoNacionalidad(Parametro codigoNacionalidad) {
 		this.codigoNacionalidad = codigoNacionalidad;
 	}
+
 	public Parametro getCodigoProveedor() {
 		return codigoProveedor;
 	}
+
 	public void setCodigoProveedor(Parametro codigoProveedor) {
 		this.codigoProveedor = codigoProveedor;
 	}
+
 	public Parametro getCodigoPais() {
 		return codigoPais;
 	}
+
 	public void setCodigoPais(Parametro codigoPais) {
 		this.codigoPais = codigoPais;
 	}
+
 	public Parametro getCodigoPuesto() {
 		return codigoPuesto;
 	}
+
 	public void setCodigoPuesto(Parametro codigoPuesto) {
 		this.codigoPuesto = codigoPuesto;
 	}
+
 	public Parametro getCodigoDivision() {
 		return codigoDivision;
 	}
+
 	public void setCodigoDivision(Parametro codigoDivision) {
 		this.codigoDivision = codigoDivision;
 	}
+
 	public Parametro getCodigoDireccion() {
 		return codigoDireccion;
 	}
+
 	public void setCodigoDireccion(Parametro codigoDireccion) {
 		this.codigoDireccion = codigoDireccion;
 	}
+
 	public Parametro getCodigoGerencia() {
 		return codigoGerencia;
 	}
+
 	public void setCodigoGerencia(Parametro codigoGerencia) {
 		this.codigoGerencia = codigoGerencia;
 	}
+
 	public Parametro getCodigoJefatura() {
 		return codigoJefatura;
 	}
+
 	public void setCodigoJefatura(Parametro codigoJefatura) {
 		this.codigoJefatura = codigoJefatura;
 	}
+
 	public Date getFechaIngreso() {
 		return fechaIngreso;
 	}
+
 	public void setFechaIngreso(Date fechaIngreso) {
 		this.fechaIngreso = fechaIngreso;
 	}
+
 	public Date getFechaEgreso() {
 		return fechaEgreso;
 	}
+
 	public void setFechaEgreso(Date fechaEgreso) {
 		this.fechaEgreso = fechaEgreso;
 	}
+
 	public Parametro getCodigoGenero() {
 		return codigoGenero;
 	}
+
 	public void setCodigoGenero(Parametro codigoGenero) {
 		this.codigoGenero = codigoGenero;
 	}
+
 	public String getEmailPersonal() {
 		return emailPersonal;
 	}
+
 	public void setEmailPersonal(String emailPersonal) {
 		this.emailPersonal = emailPersonal;
 	}
+
 	public boolean isActivo() {
 		return activo;
 	}
+
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}

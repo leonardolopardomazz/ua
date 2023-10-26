@@ -7,29 +7,29 @@ import ar.com.ua.dto.response.ResponseDto;
 
 /**
  * Interfase para listados
- * @author Leo
+ * @author Leonardo Lopardo
  *
- * @param <T>
+ * @param <Dto>
  */
-public interface IListController<T> {
+public interface IListController<Dto> {
 	/**
-	 * FindOne <T>
+	 * FindOne <Dto>
 	 * @param dto
 	 * @return
 	 */
 	@PostMapping(value = "/findOne")
-	ResponseDto findOne (@RequestBody T dto);
+	ResponseDto findOne (@RequestBody Dto dto);
 	
 	/**
-	 * FindAny  <T>
+	 * FindAny  <Dto>
 	 * @param dto
 	 * @return
 	 */
 	@PostMapping(value = "/findAny")
-	ResponseDto findAny (@RequestBody T dto);
+	ResponseDto findAny (@RequestBody Dto dto);
 
 	/**
-	 * FindAll <T>
+	 * FindAll <Dto>
 	 * @return
 	 */
 	@PostMapping(value = "/findAll")

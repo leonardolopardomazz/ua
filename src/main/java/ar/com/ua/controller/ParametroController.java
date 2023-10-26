@@ -8,44 +8,44 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ar.com.ua.builder.CargaDeFamiliaBuilder;
+import ar.com.ua.builder.ParametroBuilder;
 import ar.com.ua.constant.CodigoRespuestaConstant;
 import ar.com.ua.constant.EndPointConstant;
 import ar.com.ua.constant.EndPointPathConstant;
 import ar.com.ua.constant.TipoMetodoConstant;
-import ar.com.ua.dto.CargaDeFamiliaDTO;
+import ar.com.ua.dto.ParametroDTO;
 import ar.com.ua.dto.response.ResponseDto;
 import ar.com.ua.dto.response.ResponseErrorDto;
 import ar.com.ua.dto.response.ResponseOKDto;
-import ar.com.ua.model.CargaDeFamilia;
-import ar.com.ua.service.CargaDeFamiliaService;
+import ar.com.ua.model.Parametro;
+import ar.com.ua.service.ParametroService;
 
-@RequestMapping("/cargadefamilia")
+@RequestMapping("/parametro")
 @RestController
-public class CargaDeFamiliaController implements IABMController<CargaDeFamiliaDTO> {
+public class ParametroController implements IABMController<ParametroDTO> {
 
 	@Autowired
-	private CargaDeFamiliaService cdfService;
+	private ParametroService parametroService;
 
 	@Autowired
-	private CargaDeFamiliaBuilder cdfBuilder;
+	private ParametroBuilder parametroBuilder;
 
-	static Logger logger = Logger.getLogger(CargaDeFamiliaController.class.getName());
+	static Logger logger = Logger.getLogger(ParametroController.class.getName());
 
-	private ResponseDto save(CargaDeFamiliaDTO dto, String tipoMetodoConstant) {
+	private ResponseDto save(ParametroDTO dto, String tipoMetodoConstant) {
 		List<String> mensajesError = new ArrayList<String>();
 
 		try {
-			CargaDeFamilia cdf = cdfBuilder.dtoToModel(dto);
-			CargaDeFamilia cdfGuardada = cdfService.save(cdf);
-			CargaDeFamiliaDTO cdfDto = cdfBuilder.modelToDto(cdfGuardada);
-			return new ResponseOKDto<CargaDeFamiliaDTO>(EndPointPathConstant.CARGA_DE_FAMILIA, tipoMetodoConstant,
-					CodigoRespuestaConstant.OK, cdfDto);
+			Parametro parametro = parametroBuilder.dtoToModel(dto);
+			Parametro parametroGuardado = parametroService.save(parametro);
+			ParametroDTO parametroDto = parametroBuilder.modelToDto(parametroGuardado);
+			return new ResponseOKDto<ParametroDTO>(EndPointPathConstant.PARAMETRO, tipoMetodoConstant,
+					CodigoRespuestaConstant.OK, parametroDto);
 		} catch (Exception e) {
 			String messageException = e.getMessage();
 			mensajesError.add(messageException);
 
-			return new ResponseErrorDto(EndPointPathConstant.CARGA_DE_FAMILIA, tipoMetodoConstant,
+			return new ResponseErrorDto(EndPointPathConstant.PARAMETRO, tipoMetodoConstant,
 					CodigoRespuestaConstant.ERROR, mensajesError);
 		}
 	}
@@ -56,7 +56,7 @@ public class CargaDeFamiliaController implements IABMController<CargaDeFamiliaDT
 	 * @return ResponseDto
 	 */
 	@Override
-	public ResponseDto add(CargaDeFamiliaDTO dto) {
+	public ResponseDto add(ParametroDTO dto) {
 		return this.save(dto, TipoMetodoConstant.POST);
 	}
 
@@ -64,7 +64,7 @@ public class CargaDeFamiliaController implements IABMController<CargaDeFamiliaDT
 	 * Actualiza una carga de familia en la tabla
 	 */
 	@Override
-	public ResponseDto modify(CargaDeFamiliaDTO dto) {
+	public ResponseDto modify(ParametroDTO dto) {
 		return this.save(dto, TipoMetodoConstant.PUT);
 	}
 
@@ -72,14 +72,14 @@ public class CargaDeFamiliaController implements IABMController<CargaDeFamiliaDT
 	 * Elimina una carga de familia de la tabla
 	 */
 	@Override
-	public ResponseDto deleteById(CargaDeFamiliaDTO dto) {
+	public ResponseDto deleteById(ParametroDTO dto) {
 		List<String> mensajesError = new ArrayList<String>();
 
 		try {
-			CargaDeFamilia cdf = cdfBuilder.dtoToModel(dto);
-			cdfService.delete(cdf);
+			Parametro parametro = parametroBuilder.dtoToModel(dto);
+			parametroService.delete(parametro);
 
-			return new ResponseOKDto<CargaDeFamiliaDTO>(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
+			return new ResponseOKDto<ParametroDTO>(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
 					CodigoRespuestaConstant.OK, dto);
 		} catch (Exception e) {
 			String messageException = e.getMessage();

@@ -8,44 +8,44 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ar.com.ua.builder.CargaDeFamiliaBuilder;
+import ar.com.ua.builder.UsuarioBuilder;
 import ar.com.ua.constant.CodigoRespuestaConstant;
 import ar.com.ua.constant.EndPointConstant;
 import ar.com.ua.constant.EndPointPathConstant;
 import ar.com.ua.constant.TipoMetodoConstant;
-import ar.com.ua.dto.CargaDeFamiliaDTO;
+import ar.com.ua.dto.UsuarioDTO;
 import ar.com.ua.dto.response.ResponseDto;
 import ar.com.ua.dto.response.ResponseErrorDto;
 import ar.com.ua.dto.response.ResponseOKDto;
-import ar.com.ua.model.CargaDeFamilia;
-import ar.com.ua.service.CargaDeFamiliaService;
+import ar.com.ua.model.Usuario;
+import ar.com.ua.service.UsuarioService;
 
-@RequestMapping("/cargadefamilia")
+@RequestMapping("/usuario")
 @RestController
-public class CargaDeFamiliaController implements IABMController<CargaDeFamiliaDTO> {
+public class UsuarioController implements IABMController<UsuarioDTO> {
 
 	@Autowired
-	private CargaDeFamiliaService cdfService;
+	private UsuarioService usuarioService;
 
 	@Autowired
-	private CargaDeFamiliaBuilder cdfBuilder;
+	private UsuarioBuilder usuarioBuilder;
 
-	static Logger logger = Logger.getLogger(CargaDeFamiliaController.class.getName());
+	static Logger logger = Logger.getLogger(UsuarioController.class.getName());
 
-	private ResponseDto save(CargaDeFamiliaDTO dto, String tipoMetodoConstant) {
+	private ResponseDto save(UsuarioDTO dto, String tipoMetodoConstant) {
 		List<String> mensajesError = new ArrayList<String>();
 
 		try {
-			CargaDeFamilia cdf = cdfBuilder.dtoToModel(dto);
-			CargaDeFamilia cdfGuardada = cdfService.save(cdf);
-			CargaDeFamiliaDTO cdfDto = cdfBuilder.modelToDto(cdfGuardada);
-			return new ResponseOKDto<CargaDeFamiliaDTO>(EndPointPathConstant.CARGA_DE_FAMILIA, tipoMetodoConstant,
-					CodigoRespuestaConstant.OK, cdfDto);
+			Usuario usuario = usuarioBuilder.dtoToModel(dto);
+			Usuario usuarioGuardado = usuarioService.save(usuario);
+			UsuarioDTO usuarioDto = usuarioBuilder.modelToDto(usuarioGuardado);
+			return new ResponseOKDto<UsuarioDTO>(EndPointPathConstant.USUARIO, tipoMetodoConstant,
+					CodigoRespuestaConstant.OK, usuarioDto);
 		} catch (Exception e) {
 			String messageException = e.getMessage();
 			mensajesError.add(messageException);
 
-			return new ResponseErrorDto(EndPointPathConstant.CARGA_DE_FAMILIA, tipoMetodoConstant,
+			return new ResponseErrorDto(EndPointPathConstant.USUARIO, tipoMetodoConstant,
 					CodigoRespuestaConstant.ERROR, mensajesError);
 		}
 	}
@@ -56,7 +56,7 @@ public class CargaDeFamiliaController implements IABMController<CargaDeFamiliaDT
 	 * @return ResponseDto
 	 */
 	@Override
-	public ResponseDto add(CargaDeFamiliaDTO dto) {
+	public ResponseDto add(UsuarioDTO dto) {
 		return this.save(dto, TipoMetodoConstant.POST);
 	}
 
@@ -64,7 +64,7 @@ public class CargaDeFamiliaController implements IABMController<CargaDeFamiliaDT
 	 * Actualiza una carga de familia en la tabla
 	 */
 	@Override
-	public ResponseDto modify(CargaDeFamiliaDTO dto) {
+	public ResponseDto modify(UsuarioDTO dto) {
 		return this.save(dto, TipoMetodoConstant.PUT);
 	}
 
@@ -72,14 +72,14 @@ public class CargaDeFamiliaController implements IABMController<CargaDeFamiliaDT
 	 * Elimina una carga de familia de la tabla
 	 */
 	@Override
-	public ResponseDto deleteById(CargaDeFamiliaDTO dto) {
+	public ResponseDto deleteById(UsuarioDTO dto) {
 		List<String> mensajesError = new ArrayList<String>();
 
 		try {
-			CargaDeFamilia cdf = cdfBuilder.dtoToModel(dto);
-			cdfService.delete(cdf);
+			Usuario usuario = usuarioBuilder.dtoToModel(dto);
+			usuarioService.delete(usuario);
 
-			return new ResponseOKDto<CargaDeFamiliaDTO>(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
+			return new ResponseOKDto<UsuarioDTO>(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
 					CodigoRespuestaConstant.OK, dto);
 		} catch (Exception e) {
 			String messageException = e.getMessage();

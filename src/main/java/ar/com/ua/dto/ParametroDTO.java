@@ -1,7 +1,7 @@
-package ar.com.ua.model;
+package ar.com.ua.dto;
 
-public class Parametro {
-	
+public class ParametroDTO {
+
 	private String codigoParametro;
 	private String tipoParametro;
 	private String descripcion;
@@ -56,4 +56,5 @@ public class Parametro {
 	public void setTexto2(String texto2) {
 		this.texto2 = texto2;
 	}
+
 }
