@@ -1,12 +1,31 @@
 package ar.com.ua.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "parametros")
 public class Parametro {
 	
+	@Id
+	@Column(name = "cod_parametro", unique = true, nullable = false)
 	private String codigoParametro;
+	
+	@Column(name = "tipo_parametro")
 	private String tipoParametro;
+	
+	@Column(name = "descripcion")
 	private String descripcion;
+	
+	@Column(name = "activo")
 	private boolean activo;
+	
+	@Column(name = "texto1")
 	private String texto1;
+	
+	@Column(name = "texto2")
 	private String texto2;
 
 	public String getCodigoParametro() {

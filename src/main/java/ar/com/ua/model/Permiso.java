@@ -1,27 +1,58 @@
 package ar.com.ua.model;
 
+import java.util.List;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "permisos")
 public class Permiso {
-	
+
+	@Id
+	@Column(name = "cod_permiso", unique = true, nullable = false)
 	private Integer codigo;
+
+	@Column(name = "descripcion")
 	private String descripcion;
+
+	@Column(name = "activo")
 	private boolean activo;
-	
-	public Integer getCodigo() {
+
+	@ManyToMany(mappedBy = "permisos")
+	private List<Rol> roles;
+
+	protected Integer getCodigo() {
 		return codigo;
 	}
-	public void setCodigo(Integer codigo) {
+
+	protected void setCodigo(Integer codigo) {
 		this.codigo = codigo;
 	}
-	public String getDescripcion() {
+
+	protected String getDescripcion() {
 		return descripcion;
 	}
-	public void setDescripcion(String descripcion) {
+
+	protected void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public boolean isActivo() {
+
+	protected boolean isActivo() {
 		return activo;
 	}
-	public void setActivo(boolean activo) {
+
+	protected void setActivo(boolean activo) {
 		this.activo = activo;
 	}
-}
+
+	protected List<Rol> getRoles() {
+		return roles;
+	}
+
+	protected void setRoles(List<Rol> roles) {
+		this.roles = roles;
+	}}

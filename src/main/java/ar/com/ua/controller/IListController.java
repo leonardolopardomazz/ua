@@ -1,6 +1,6 @@
 package ar.com.ua.controller;
 
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import ar.com.ua.dto.response.ResponseDto;
@@ -17,7 +17,7 @@ public interface IListController<Dto> {
 	 * @param dto
 	 * @return
 	 */
-	@PostMapping(value = "/findOne")
+	@GetMapping(value = "/findOne")
 	ResponseDto findOne (@RequestBody Dto dto);
 	
 	/**
@@ -25,13 +25,13 @@ public interface IListController<Dto> {
 	 * @param dto
 	 * @return
 	 */
-	@PostMapping(value = "/findAny")
+	@GetMapping(value = "/findAny")
 	ResponseDto findAny (@RequestBody Dto dto);
 
 	/**
 	 * FindAll <Dto>
 	 * @return
 	 */
-	@PostMapping(value = "/findAll")
+	@GetMapping(value = "/findAll")
 	ResponseDto findAll ();
 }

@@ -1,19 +1,45 @@
 package ar.com.ua.model;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "puesto")
 public class Puesto {
 
+	@Id
+	@Column(name = "cod_puesto", unique = true, nullable = false)
 	private String codigoPuesto;
+
+	@Column(name = "descripcion", unique = true, nullable = false)
 	private String descripcion;
+
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cod_direccion", referencedColumnName = "cod_parametro")
 	private Parametro codigoDireccion;
+
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cod_gerencia", referencedColumnName = "cod_parametro")
 	private Parametro codigoGerencia;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cod_jefatura", referencedColumnName = "cod_parametro")
 	private Parametro codigoJefatura;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cod_categoria", referencedColumnName = "cod_parametro")
 	private Parametro codigoCategoria;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cod_puesto_al_que_reporta", referencedColumnName = "cod_parametro")
 	private Parametro codigoPuestoAlQueReporta;
+
+	@Column(name = "activo", unique = true, nullable = false)
 	private boolean activo;
 
 	public String getCodigoPuesto() {

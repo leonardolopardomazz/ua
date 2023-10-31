@@ -2,9 +2,12 @@ package ar.com.ua.model;
 
 import java.util.Date;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,10 +24,12 @@ public class CargaDeFamilia {
 	@Column(name = "nombre")
 	private String nombre;
 	
-	@Column(name = "cod_parentesco")
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cod_parentesco", referencedColumnName = "cod_parametro")
 	private Parametro codigoParentesco;
 	
-	@Column(name = "cod_tipo_doc")
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cod_tipo_doc", referencedColumnName = "cod_parametro")
 	private Parametro codigoTipoDocumento;
 	
 	@Column(name = "nro_doc")

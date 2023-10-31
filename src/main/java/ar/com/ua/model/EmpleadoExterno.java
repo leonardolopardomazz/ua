@@ -2,38 +2,90 @@ package ar.com.ua.model;
 
 import java.util.Date;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+
 
 @Entity
 @Table(name = "externos")
 public class EmpleadoExterno {
-
-	private String legajoExterno;
+	
+	@Id
+	@Column(name = "nro_legajo", unique = true, nullable = false)
+	private String numeroLegajo;
+	
+	@Column(name = "apellido")
 	private String apellido;
+	
+	@Column(name = "nombre")
 	private String nombre;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cod_tipo_doc", referencedColumnName = "cod_parametro")
 	private Parametro codigoTipoDocumento;
+	
+	@Column(name = "nro_doc")
 	private String numeroDocumento;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cod_nacionalidad", referencedColumnName = "cod_parametro")
 	private Parametro codigoNacionalidad;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cod_proveedor", referencedColumnName = "cod_parametro")
 	private Parametro codigoProveedor;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cod_pais", referencedColumnName = "cod_parametro")
 	private Parametro codigoPais;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cod_puesto", referencedColumnName = "cod_parametro")
 	private Parametro codigoPuesto;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cod_division", referencedColumnName = "cod_parametro")
 	private Parametro codigoDivision;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cod_direccion", referencedColumnName = "cod_parametro")
 	private Parametro codigoDireccion;
+    
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cod_gerencia", referencedColumnName = "cod_parametro")
 	private Parametro codigoGerencia;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cod_jefatura", referencedColumnName = "cod_parametro")
 	private Parametro codigoJefatura;
+	
+	@Column(name = "fecha_ingreso")
 	private Date fechaIngreso;
+	
+	@Column(name = "fecha_egreso")
 	private Date fechaEgreso;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cod_genero", referencedColumnName = "cod_parametro")
 	private Parametro codigoGenero;
+	
+	@Column(name = "email_personal")
 	private String emailPersonal;
+	
+	@Column(name = "activo")
 	private boolean activo;
 
-	public String getLegajoExterno() {
-		return legajoExterno;
+	protected String getNumeroLegajo() {
+		return numeroLegajo;
 	}
 
-	public void setLegajoExterno(String legajoExterno) {
-		this.legajoExterno = legajoExterno;
+	protected void setNumeroLegajo(String numeroLegajo) {
+		this.numeroLegajo = numeroLegajo;
 	}
 
 	public String getApellido() {

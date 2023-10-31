@@ -1,54 +1,85 @@
 package ar.com.ua.model;
 
 import java.util.Date;
+import java.util.List;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "usuarios")
 public class Usuario {
-	
-	private String codigoSecuenciador;
-	private Date rangoDesde;
-	private Date rangoHasta;
-	private String secuencia;
-	private String estado;
+
+	@Id
+	@GeneratedValue
+	@Column(name = "id", unique = true, nullable = false)
+	private Integer id;
+
+	@Column(name = "nombre_usuario")
+	private String nombreUsuario;
+
+	@Column(name = "fecha_alta")
+	private Date fechaAlta;
+
+	@Column(name = "fecha_baja")
+	private Date fechaBaja;
+
+	@Column(name = "activo")
 	private boolean activo;
-	
-	public String getCodigoSecuenciador() {
-		return codigoSecuenciador;
+
+	@ManyToMany(mappedBy = "usuarios")
+	private List<Rol> roles;
+
+	protected Integer getId() {
+		return id;
 	}
-	public void setCodigoSecuenciador(String codigoSecuenciador) {
-		this.codigoSecuenciador = codigoSecuenciador;
+
+	protected void setId(Integer id) {
+		this.id = id;
 	}
-	public Date getRangoDesde() {
-		return rangoDesde;
+
+	protected String getNombreUsuario() {
+		return nombreUsuario;
 	}
-	public void setRangoDesde(Date ragoDesde) {
-		this.rangoDesde = ragoDesde;
+
+	protected void setNombreUsuario(String nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
 	}
-	public Date getRangoHasta() {
-		return rangoHasta;
+
+	protected Date getFechaAlta() {
+		return fechaAlta;
 	}
-	public void setRagoHasta(Date ragoHasta) {
-		this.rangoHasta = ragoHasta;
+
+	protected void setFechaAlta(Date fechaAlta) {
+		this.fechaAlta = fechaAlta;
 	}
-	public String getSecuencia() {
-		return secuencia;
+
+	protected Date getFechaBaja() {
+		return fechaBaja;
 	}
-	public void setSecuencia(String secuencia) {
-		this.secuencia = secuencia;
+
+	protected void setFechaBaja(Date fechaBaja) {
+		this.fechaBaja = fechaBaja;
 	}
-	public String getEstado() {
-		return estado;
-	}
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-	public boolean isActivo() {
+
+	protected boolean isActivo() {
 		return activo;
 	}
-	public void setActivo(boolean activo) {
+
+	protected void setActivo(boolean activo) {
 		this.activo = activo;
 	}
-	
-	
-	
+
+	protected List<Rol> getRoles() {
+		return roles;
+	}
+
+	protected void setRoles(List<Rol> roles) {
+		this.roles = roles;
+	}
 
 }
