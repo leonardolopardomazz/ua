@@ -2,9 +2,12 @@ package ar.com.ua.builder;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import ar.com.ua.dto.EmpleadoExternoDTO;
 import ar.com.ua.model.EmpleadoExterno;
 
+@Component
 public class EmpleadoExternoBuilder implements IBuilder<EmpleadoExterno, EmpleadoExternoDTO> {
 
 	/**

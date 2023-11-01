@@ -2,9 +2,12 @@ package ar.com.ua.builder;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import ar.com.ua.dto.PuestoDTO;
 import ar.com.ua.model.Puesto;
 
+@Component
 public class PuestoBuilder implements IBuilder<Puesto, PuestoDTO> {
 
 	/**

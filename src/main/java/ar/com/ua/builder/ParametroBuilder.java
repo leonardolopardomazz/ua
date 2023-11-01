@@ -2,9 +2,12 @@ package ar.com.ua.builder;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import ar.com.ua.dto.ParametroDTO;
 import ar.com.ua.model.Parametro;
 
+@Component
 public class ParametroBuilder implements IBuilder<Parametro, ParametroDTO> {
 
 	/**

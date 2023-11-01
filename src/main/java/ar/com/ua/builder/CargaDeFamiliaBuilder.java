@@ -2,9 +2,12 @@ package ar.com.ua.builder;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import ar.com.ua.dto.CargaDeFamiliaDTO;
 import ar.com.ua.model.CargaDeFamilia;
 
+@Component
 public class CargaDeFamiliaBuilder implements IBuilder<CargaDeFamilia, CargaDeFamiliaDTO> {
 
 	/**

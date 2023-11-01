@@ -34,51 +34,51 @@ public class Usuario {
 	@ManyToMany(mappedBy = "usuarios")
 	private List<Rol> roles;
 
-	protected Integer getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	protected void setId(Integer id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	protected String getNombreUsuario() {
+	public String getNombreUsuario() {
 		return nombreUsuario;
 	}
 
-	protected void setNombreUsuario(String nombreUsuario) {
+	public void setNombreUsuario(String nombreUsuario) {
 		this.nombreUsuario = nombreUsuario;
 	}
 
-	protected Date getFechaAlta() {
+	public Date getFechaAlta() {
 		return fechaAlta;
 	}
 
-	protected void setFechaAlta(Date fechaAlta) {
+	public void setFechaAlta(Date fechaAlta) {
 		this.fechaAlta = fechaAlta;
 	}
 
-	protected Date getFechaBaja() {
+	public Date getFechaBaja() {
 		return fechaBaja;
 	}
 
-	protected void setFechaBaja(Date fechaBaja) {
+	public void setFechaBaja(Date fechaBaja) {
 		this.fechaBaja = fechaBaja;
 	}
 
-	protected boolean isActivo() {
+	public boolean isActivo() {
 		return activo;
 	}
 
-	protected void setActivo(boolean activo) {
+	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
 
-	protected List<Rol> getRoles() {
+	public List<Rol> getRoles() {
 		return roles;
 	}
 
-	protected void setRoles(List<Rol> roles) {
+	public void setRoles(List<Rol> roles) {
 		this.roles = roles;
 	}
 

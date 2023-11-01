@@ -4,51 +4,42 @@ import java.util.Date;
 
 public class UsuarioDTO {
 
-	private String codigoSecuenciador;
-	private Date rangoDesde;
-	private Date rangoHasta;
-	private String secuencia;
-	private String estado;
+	private Integer id;
+	private String nombreUsuario;
+	private Date fechaAlta;
+	private Date fechaBaja;
 	private boolean activo;
 
-	public String getCodigoSecuenciador() {
-		return codigoSecuenciador;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setCodigoSecuenciador(String codigoSecuenciador) {
-		this.codigoSecuenciador = codigoSecuenciador;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public Date getRangoDesde() {
-		return rangoDesde;
+	public String getNombreUsuario() {
+		return nombreUsuario;
 	}
 
-	public void setRangoDesde(Date rangoDesde) {
-		this.rangoDesde = rangoDesde;
+	public void setNombreUsuario(String nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
 	}
 
-	public Date getRangoHasta() {
-		return rangoHasta;
+	public Date getFechaAlta() {
+		return fechaAlta;
 	}
 
-	public void setRangoHasta(Date rangoHasta) {
-		this.rangoHasta = rangoHasta;
+	public void setFechaAlta(Date fechaAlta) {
+		this.fechaAlta = fechaAlta;
 	}
 
-	public String getSecuencia() {
-		return secuencia;
+	public Date getFechaBaja() {
+		return fechaBaja;
 	}
 
-	public void setSecuencia(String secuencia) {
-		this.secuencia = secuencia;
-	}
-
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setFechaBaja(Date fechaBaja) {
+		this.fechaBaja = fechaBaja;
 	}
 
 	public boolean isActivo() {
