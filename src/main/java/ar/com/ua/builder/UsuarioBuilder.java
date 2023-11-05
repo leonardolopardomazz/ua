@@ -1,5 +1,6 @@
 package ar.com.ua.builder;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,24 +16,50 @@ public class UsuarioBuilder implements IBuilder<Usuario, UsuarioDTO> {
 	public Usuario dtoToModel(UsuarioDTO dto) {
 		Usuario usuario = new Usuario();
 		usuario.setId(dto.getId());
+		usuario.setNumeroLegajo(dto.getNumeroLegajo());
 		usuario.setNombreUsuario(dto.getNombreUsuario());
 		usuario.setFechaAlta(new Date());
 		usuario.setFechaBaja(dto.getFechaBaja());
 		usuario.setActivo(dto.isActivo());
 		
+		if(!dto.getRoles().isEmpty()) {
+			usuario.setRoles(dto.getRoles());
+		}
+
 		return usuario;
 	}
 
 	@Override
 	public UsuarioDTO modelToDto(Usuario model) {
-		// TODO Auto-generated method stub
-		return null;
+		UsuarioDTO dto = new UsuarioDTO();
+		dto.setActivo(model.isActivo());
+		dto.setFechaAlta(model.getFechaAlta());
+		dto.setFechaBaja(model.getFechaBaja());
+		dto.setId(model.getId());
+		dto.setNombreUsuario(model.getNombreUsuario());
+		dto.setNumeroLegajo(model.getNumeroLegajo());
+		dto.setRoles(model.getRoles());
+		
+		return dto;
 	}
 
 	@Override
 	public List<UsuarioDTO> modelListToDto(List<Usuario> list) {
-		// TODO Auto-generated method stub
-		return null;
+		List<UsuarioDTO> dtoList = new ArrayList<>();
+
+		for (Usuario usuario : list) {
+			UsuarioDTO dto = new UsuarioDTO();
+			dto.setActivo(usuario.isActivo());
+			dto.setFechaAlta(usuario.getFechaAlta());
+			dto.setFechaBaja(usuario.getFechaBaja());
+			dto.setId(usuario.getId());
+			dto.setNombreUsuario(usuario.getNombreUsuario());
+			dto.setNumeroLegajo(usuario.getNumeroLegajo());
+			dto.setRoles(usuario.getRoles());
+			dtoList.add(dto);
+		}
+
+		return dtoList;
 	}
 
 }

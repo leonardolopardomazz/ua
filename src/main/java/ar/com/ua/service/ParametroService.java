@@ -1,9 +1,9 @@
 package ar.com.ua.service;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import ar.com.ua.model.Parametro;
 
-public interface ParametroService extends CrudRepository<Parametro, Long> {
+public interface ParametroService extends JpaRepository<Parametro, Long> {
 
 }

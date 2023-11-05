@@ -2,9 +2,16 @@ package ar.com.ua.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
@@ -13,8 +20,9 @@ import jakarta.persistence.Table;
 public class Permiso {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "cod_permiso", unique = true, nullable = false)
-	private Integer codigo;
+	private Long codigo;
 
 	@Column(name = "descripcion")
 	private String descripcion;
@@ -22,37 +30,42 @@ public class Permiso {
 	@Column(name = "activo")
 	private boolean activo;
 
-	@ManyToMany(mappedBy = "permisos")
+	@JsonIgnore
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "roles_permisos", joinColumns = {
+			@JoinColumn(name = "cod_permiso", referencedColumnName = "cod_permiso") }, inverseJoinColumns = {
+					@JoinColumn(name = "cod_rol", referencedColumnName = "cod_rol") })
 	private List<Rol> roles;
 
-	protected Integer getCodigo() {
+	public Long getCodigo() {
 		return codigo;
 	}
 
-	protected void setCodigo(Integer codigo) {
+	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
 
-	protected String getDescripcion() {
+	public String getDescripcion() {
 		return descripcion;
 	}
 
-	protected void setDescripcion(String descripcion) {
+	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 
-	protected boolean isActivo() {
+	public boolean isActivo() {
 		return activo;
 	}
 
-	protected void setActivo(boolean activo) {
+	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
 
-	protected List<Rol> getRoles() {
+	public List<Rol> getRoles() {
 		return roles;
 	}
 
-	protected void setRoles(List<Rol> roles) {
+	public void setRoles(List<Rol> roles) {
 		this.roles = roles;
-	}}
+	}
+}

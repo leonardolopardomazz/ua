@@ -1,7 +1,10 @@
 package ar.com.ua.controller;
 
+import java.util.Map;
+
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ar.com.ua.dto.response.ResponseDto;
 
@@ -17,21 +20,21 @@ public interface IListController<Dto> {
 	 * @param dto
 	 * @return
 	 */
-	@GetMapping(value = "/findOne")
-	ResponseDto findOne (@RequestBody Dto dto);
+	@GetMapping(value = "/{id}")
+	ResponseDto findOne (@PathVariable Long id);
 	
 	/**
 	 * FindAny  <Dto>
 	 * @param dto
 	 * @return
 	 */
-	@GetMapping(value = "/findAny")
-	ResponseDto findAny (@RequestBody Dto dto);
-
+	@GetMapping(value = "/")
+	ResponseDto findAny (@RequestParam Map<String,String> requestParams);
+	
 	/**
 	 * FindAll <Dto>
 	 * @return
 	 */
-	@GetMapping(value = "/findAll")
+	@GetMapping(value = "")
 	ResponseDto findAll ();
 }

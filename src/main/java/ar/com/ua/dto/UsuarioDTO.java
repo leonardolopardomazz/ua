@@ -1,21 +1,35 @@
 package ar.com.ua.dto;
 
 import java.util.Date;
+import java.util.List;
+
+import ar.com.ua.model.Rol;
 
 public class UsuarioDTO {
 
-	private Integer id;
+	private Long id;
+	private String numeroLegajo;
 	private String nombreUsuario;
 	private Date fechaAlta;
 	private Date fechaBaja;
 	private boolean activo;
+	
+	private List<Rol> roles;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getNumeroLegajo() {
+		return numeroLegajo;
+	}
+
+	public void setNumeroLegajo(String numeroLegajo) {
+		this.numeroLegajo = numeroLegajo;
 	}
 
 	public String getNombreUsuario() {
@@ -48,6 +62,14 @@ public class UsuarioDTO {
 
 	public void setActivo(boolean activo) {
 		this.activo = activo;
+	}
+
+	public List<Rol> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Rol> roles) {
+		this.roles = roles;
 	}
 
 }

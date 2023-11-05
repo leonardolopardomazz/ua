@@ -1,9 +1,9 @@
 package ar.com.ua.service;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import ar.com.ua.model.Usuario;
 
-public interface UsuarioService extends CrudRepository<Usuario, Long> {
+public interface UsuarioService extends JpaRepository<Usuario, Long> {
 
 }

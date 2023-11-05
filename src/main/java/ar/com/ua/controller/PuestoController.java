@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -64,7 +65,7 @@ public class PuestoController implements IABMController<PuestoDTO> {
 	 * Actualiza una carga de familia en la tabla
 	 */
 	@Override
-	public ResponseDto modify(PuestoDTO dto) {
+	public ResponseDto modify(@PathVariable Long id,PuestoDTO dto) {
 		return this.save(dto, TipoMetodoConstant.PUT);
 	}
 
@@ -72,15 +73,14 @@ public class PuestoController implements IABMController<PuestoDTO> {
 	 * Elimina una carga de familia de la tabla
 	 */
 	@Override
-	public ResponseDto deleteById(PuestoDTO dto) {
+	public ResponseDto deleteById(@PathVariable Long id) {
 		List<String> mensajesError = new ArrayList<String>();
 
 		try {
-			Puesto puesto = puestoBuilder.dtoToModel(dto);
-			puestoService.delete(puesto);
+			puestoService.deleteById(id);
 
 			return new ResponseOKDto<PuestoDTO>(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
-					CodigoRespuestaConstant.OK, dto);
+					CodigoRespuestaConstant.OK, null);
 		} catch (Exception e) {
 			String messageException = e.getMessage();
 			mensajesError.add(messageException);

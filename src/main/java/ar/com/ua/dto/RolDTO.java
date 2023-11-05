@@ -1,38 +1,18 @@
-package ar.com.ua.model;
+package ar.com.ua.dto;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import ar.com.ua.model.Permiso;
+import ar.com.ua.model.Usuario;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+public class RolDTO {
 
-@Entity
-@Table(name = "roles")
-public class Rol {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "cod_rol", unique = true, nullable = false)
 	private Long codigo;
-
-	@Column(name = "descripcion")
 	private String descripcion;
-
-	@Column(name = "activo")
 	private boolean activo;
-
-	@JsonIgnore
-	@ManyToMany(mappedBy = "roles")
+	
 	private List<Permiso> permisos;
 	
-	@JsonIgnore
-	@ManyToMany(mappedBy = "roles")
 	private List<Usuario> usuarios;
 
 	public Long getCodigo() {

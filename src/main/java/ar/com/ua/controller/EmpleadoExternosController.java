@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -64,7 +65,7 @@ public class EmpleadoExternosController implements IABMController<EmpleadoExtern
 	 * Actualiza un Empleado externo en la tabla
 	 */
 	@Override
-	public ResponseDto modify(EmpleadoExternoDTO dto) {
+	public ResponseDto modify(@PathVariable Long id, EmpleadoExternoDTO dto) {
 		return this.save(dto, TipoMetodoConstant.PUT);
 	}
 
@@ -72,15 +73,14 @@ public class EmpleadoExternosController implements IABMController<EmpleadoExtern
 	 * Elimina un empleado externo de la tabla
 	 */
 	@Override
-	public ResponseDto deleteById(EmpleadoExternoDTO dto) {
+	public ResponseDto deleteById(@PathVariable Long id) {
 		List<String> mensajesError = new ArrayList<String>();
 
 		try {
-			EmpleadoExterno eexterno = eexternoBuilder.dtoToModel(dto);
-			eexternoService.delete(eexterno);
+			eexternoService.deleteById(id);
 
 			return new ResponseOKDto<EmpleadoExternoDTO>(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
-					CodigoRespuestaConstant.OK, dto);
+					CodigoRespuestaConstant.OK, null);
 		} catch (Exception e) {
 			String messageException = e.getMessage();
 			mensajesError.add(messageException);

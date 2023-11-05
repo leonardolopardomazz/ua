@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -64,7 +65,7 @@ public class ParametroController implements IABMController<ParametroDTO> {
 	 * Actualiza una carga de familia en la tabla
 	 */
 	@Override
-	public ResponseDto modify(ParametroDTO dto) {
+	public ResponseDto modify(@PathVariable Long id, ParametroDTO dto) {
 		return this.save(dto, TipoMetodoConstant.PUT);
 	}
 
@@ -72,15 +73,14 @@ public class ParametroController implements IABMController<ParametroDTO> {
 	 * Elimina una carga de familia de la tabla
 	 */
 	@Override
-	public ResponseDto deleteById(ParametroDTO dto) {
+	public ResponseDto deleteById(@PathVariable Long id) {
 		List<String> mensajesError = new ArrayList<String>();
 
 		try {
-			Parametro parametro = parametroBuilder.dtoToModel(dto);
-			parametroService.delete(parametro);
+			parametroService.deleteById(id);
 
 			return new ResponseOKDto<ParametroDTO>(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
-					CodigoRespuestaConstant.OK, dto);
+					CodigoRespuestaConstant.OK, null);
 		} catch (Exception e) {
 			String messageException = e.getMessage();
 			mensajesError.add(messageException);

@@ -3,10 +3,16 @@ package ar.com.ua.model;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
@@ -15,9 +21,12 @@ import jakarta.persistence.Table;
 public class Usuario {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	private Integer id;
+	private Long id;
+
+	@Column(name = "nro_legajo")
+	private String numeroLegajo;
 
 	@Column(name = "nombre_usuario")
 	private String nombreUsuario;
@@ -31,14 +40,18 @@ public class Usuario {
 	@Column(name = "activo")
 	private boolean activo;
 
-	@ManyToMany(mappedBy = "usuarios")
+	@JsonIgnore
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "roles_usuarios", joinColumns = {
+			@JoinColumn(name = "id_usuario", referencedColumnName = "id") }, inverseJoinColumns = {
+					@JoinColumn(name = "cod_rol", referencedColumnName = "cod_rol") })
 	private List<Rol> roles;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -48,6 +61,14 @@ public class Usuario {
 
 	public void setNombreUsuario(String nombreUsuario) {
 		this.nombreUsuario = nombreUsuario;
+	}
+
+	public String getNumeroLegajo() {
+		return numeroLegajo;
+	}
+
+	public void setNumeroLegajo(String numeroLegajo) {
+		this.numeroLegajo = numeroLegajo;
 	}
 
 	public Date getFechaAlta() {

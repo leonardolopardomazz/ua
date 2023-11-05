@@ -1,6 +1,7 @@
 package ar.com.ua.controller;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +22,7 @@ public interface IABMController<T> {
 	 * @param dto
 	 * @return See path in Interface
 	 */
-	@PostMapping(value = "/add")
+	@PostMapping(value = "")
 	ResponseDto add(@RequestBody T dto);
 
 	/**
@@ -30,13 +31,13 @@ public interface IABMController<T> {
 	 * @param dto * See path in Interface
 	 * @return
 	 */
-	@PutMapping(value = "/modify")
-	ResponseDto modify(@RequestBody T dto);
+	@PutMapping(value = "/{id}")
+	ResponseDto modify(@PathVariable Long id, @RequestBody T dto);
 
 	/**
 	 * Delete <T> See path in Interface
 	 */
-	@DeleteMapping(value = "/delete")
-	ResponseDto deleteById(@RequestBody T dto);
+	@DeleteMapping(value = "/{id}")
+	ResponseDto deleteById(@PathVariable Long id);
 
 }
