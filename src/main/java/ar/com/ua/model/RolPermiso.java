@@ -14,7 +14,7 @@ public class RolPermiso {
 	private Long codigoRol;
 
 	@Id
-	@Column(name = "cod_permiso", unique = true, nullable = false)
+	@Column(name = "id_permiso", unique = true, nullable = false)
 	private Long codigoPermiso;
 
 	public Long getCodigoRol() {

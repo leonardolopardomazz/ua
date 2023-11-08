@@ -22,10 +22,6 @@ public class UsuarioBuilder implements IBuilder<Usuario, UsuarioDTO> {
 		usuario.setFechaBaja(dto.getFechaBaja());
 		usuario.setActivo(dto.isActivo());
 		
-		if(!dto.getRoles().isEmpty()) {
-			usuario.setRoles(dto.getRoles());
-		}
-
 		return usuario;
 	}
 

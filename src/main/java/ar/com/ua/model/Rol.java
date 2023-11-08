@@ -4,11 +4,14 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
@@ -27,8 +30,15 @@ public class Rol {
 	@Column(name = "activo")
 	private boolean activo;
 
+	/*
 	@JsonIgnore
 	@ManyToMany(mappedBy = "roles")
+	 */
+	@JsonIgnore
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "roles_permisos", joinColumns = {
+			@JoinColumn(name = "cod_rol", referencedColumnName = "cod_rol") }, inverseJoinColumns = {
+					@JoinColumn(name = "id_permiso", referencedColumnName = "id") })
 	private List<Permiso> permisos;
 	
 	@JsonIgnore

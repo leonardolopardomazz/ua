@@ -3,6 +3,7 @@ package ar.com.ua.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import ar.com.ua.builder.RolUsuarioBuilder;
 import ar.com.ua.constant.CodigoRespuestaConstant;
 import ar.com.ua.constant.EndPointConstant;
 import ar.com.ua.constant.EndPointPathConstant;
+import ar.com.ua.constant.MensajeError;
 import ar.com.ua.constant.TipoMetodoConstant;
 import ar.com.ua.dto.RolDTO;
 import ar.com.ua.dto.RolPermisoDTO;
@@ -82,7 +84,7 @@ public class RolController implements IABMController<RolDTO>, IListController<Ro
 	}
 
 	/**
-	 * Inserta una carga de familia a la tabla
+	 * Inserta un rol a la tabla
 	 * 
 	 * @return ResponseDto
 	 */
@@ -92,7 +94,7 @@ public class RolController implements IABMController<RolDTO>, IListController<Ro
 	}
 
 	/**
-	 * Actualiza una carga de familia en la tabla
+	 * Actualiza un rol en la tabla
 	 */
 	@Override
 	public ResponseDto modify(@PathVariable Long id, RolDTO dto) {
@@ -100,7 +102,7 @@ public class RolController implements IABMController<RolDTO>, IListController<Ro
 	}
 
 	/**
-	 * Elimina una carga de familia de la tabla
+	 * Elimina un rol de la tabla
 	 */
 	@Override
 	public ResponseDto deleteById(@PathVariable Long id) {
@@ -132,7 +134,7 @@ public class RolController implements IABMController<RolDTO>, IListController<Ro
 			List<String> mensajesError = new ArrayList<String>();
 			String messageException = e.getMessage();
 			mensajesError.add(messageException);
-			return new ResponseErrorDto(EndPointConstant.ADD, TipoMetodoConstant.DELETE, CodigoRespuestaConstant.ERROR,
+			return new ResponseErrorDto(EndPointConstant.ADD, TipoMetodoConstant.POST, CodigoRespuestaConstant.ERROR,
 					mensajesError);
 		}
 	}
@@ -150,15 +152,31 @@ public class RolController implements IABMController<RolDTO>, IListController<Ro
 			List<String> mensajesError = new ArrayList<String>();
 			String messageException = e.getMessage();
 			mensajesError.add(messageException);
-			return new ResponseErrorDto(EndPointConstant.ADD, TipoMetodoConstant.DELETE, CodigoRespuestaConstant.ERROR,
+			return new ResponseErrorDto(EndPointConstant.ADD, TipoMetodoConstant.POST, CodigoRespuestaConstant.ERROR,
 					mensajesError);
 		}
 	}
 
 	@Override
 	public ResponseDto findOne(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		// Get model object
+		Optional<Rol> value = rolService.findById(id);
+		if (value.isPresent()) {
+			Rol rol = value.get();
+
+			// Builder Model to Dto
+			RolDTO rolDto = rolBuilder.modelToDto(rol);
+
+			// return
+			return new ResponseOKDto<RolDTO>(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
+					CodigoRespuestaConstant.OK, rolDto);
+		} else {
+			List<String> mensajesError = new ArrayList<String>();
+			mensajesError.add(MensajeError.ELEMENT_NOTFOUND_MESSAGE);
+
+			return new ResponseErrorDto(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
+					CodigoRespuestaConstant.ERROR, mensajesError);
+		}
 	}
 
 	@Override

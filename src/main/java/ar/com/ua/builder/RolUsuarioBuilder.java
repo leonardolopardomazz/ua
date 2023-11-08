@@ -13,8 +13,9 @@ public class RolUsuarioBuilder implements IBuilder<RolUsuario, RolUsuarioDTO> {
 	@Override
 	public RolUsuario dtoToModel(RolUsuarioDTO dto) {
 		RolUsuario rolUsuario = new RolUsuario();
-		rolUsuario.setCodigo(dto.getCodigo());
 		rolUsuario.setId(dto.getId());
+		rolUsuario.setCodigo(dto.getCodigo());
+		
 		return rolUsuario;
 	}
 

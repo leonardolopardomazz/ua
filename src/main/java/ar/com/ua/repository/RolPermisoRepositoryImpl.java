@@ -29,7 +29,7 @@ public class RolPermisoRepositoryImpl implements RolPermisoRepository<RolPermiso
 		Long codigoRol = rolPermiso.getCodigoRol();
 		Long codigoPermiso = rolPermiso.getCodigoPermiso();
 
-		final String QUERY = "INSERT INTO ua.roles_permisos (cod_rol, cod_permiso) VALUES (? ,?)";
+		final String QUERY = "INSERT INTO ua.roles_permisos (cod_rol, id_permiso) VALUES (? ,?)";
 
 		if (rolService.existsById(codigoRol) && permisoService.existsById(codigoPermiso)) {
 			entityManager.createNativeQuery(QUERY)

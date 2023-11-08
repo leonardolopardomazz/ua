@@ -62,7 +62,7 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 	}
 
 	/**
-	 * Inserta una carga de familia a la tabla
+	 * Inserta un usuario a la tabla
 	 * 
 	 * @return ResponseDto
 	 */
@@ -72,7 +72,7 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 	}
 
 	/**
-	 * Actualiza una carga de familia en la tabla
+	 * Actualiza un usuario en la tabla
 	 */
 	@Override
 	public ResponseDto modify(@PathVariable Long id, UsuarioDTO dto) {
@@ -80,7 +80,7 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 	}
 
 	/**
-	 * Elimina una carga de familia de la tabla
+	 * Elimina un usuario de la tabla
 	 */
 	@Override
 	public ResponseDto deleteById(@PathVariable Long id) {

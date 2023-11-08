@@ -52,7 +52,7 @@ public class EmpleadoController implements IABMController<EmpleadoDTO> {
 	}
 
 	/**
-	 * Inserta un empleado externo a la tabla
+	 * Inserta un empleado a la tabla
 	 * 
 	 * @return ResponseDto
 	 */
@@ -62,7 +62,7 @@ public class EmpleadoController implements IABMController<EmpleadoDTO> {
 	}
 
 	/**
-	 * Actualiza un Empleado externo en la tabla
+	 * Actualiza un empleado  en la tabla
 	 */
 	@Override
 	public ResponseDto modify(@PathVariable Long id, EmpleadoDTO dto) {
@@ -70,7 +70,7 @@ public class EmpleadoController implements IABMController<EmpleadoDTO> {
 	}
 
 	/**
-	 * Elimina un empleado externo de la tabla
+	 * Elimina un empleado de la tabla
 	 */
 	@Override
 	public ResponseDto deleteById(@PathVariable Long id) {

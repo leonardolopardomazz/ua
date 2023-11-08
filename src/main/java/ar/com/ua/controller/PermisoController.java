@@ -39,7 +39,7 @@ public class PermisoController implements IABMController<PermisoDTO>, IListContr
 	
 	private ResponseDto save(Long id, PermisoDTO dto, String tipoMetodoConstant) {
 		//Setteo el id para la actualizacion
-		dto.setCodigo(id);
+		dto.setId(id);
 		return this.save(dto, tipoMetodoConstant);
 	}
 
@@ -62,7 +62,7 @@ public class PermisoController implements IABMController<PermisoDTO>, IListContr
 	}
 
 	/**
-	 * Inserta una carga de familia a la tabla
+	 * Inserta un permiso a la tabla
 	 * 
 	 * @return ResponseDto
 	 */
@@ -72,7 +72,7 @@ public class PermisoController implements IABMController<PermisoDTO>, IListContr
 	}
 
 	/**
-	 * Actualiza una carga de familia en la tabla
+	 * Actualiza un permiso en la tabla
 	 */
 	@Override
 	public ResponseDto modify(@PathVariable Long id, PermisoDTO dto) {
@@ -80,7 +80,7 @@ public class PermisoController implements IABMController<PermisoDTO>, IListContr
 	}
 
 	/**
-	 * Elimina una carga de familia de la tabla
+	 * Elimina un permiso de la tabla
 	 */
 	@Override
 	public ResponseDto deleteById(@PathVariable Long id) {

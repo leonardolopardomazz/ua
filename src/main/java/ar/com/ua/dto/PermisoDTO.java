@@ -6,18 +6,18 @@ import ar.com.ua.model.Rol;
 
 public class PermisoDTO {
 
-	private Long codigo;
+	private Long id;
 	private String descripcion;
 	private boolean activo;
 	
 	private List<Rol> roles;
 
-	public Long getCodigo() {
-		return codigo;
+	public Long getId() {
+		return id;
 	}
 
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getDescripcion() {

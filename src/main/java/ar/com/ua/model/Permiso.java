@@ -2,16 +2,11 @@ package ar.com.ua.model;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
@@ -21,8 +16,8 @@ public class Permiso {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "cod_permiso", unique = true, nullable = false)
-	private Long codigo;
+	@Column(name = "id", unique = true, nullable = false)
+	private Long id;
 
 	@Column(name = "descripcion")
 	private String descripcion;
@@ -30,19 +25,22 @@ public class Permiso {
 	@Column(name = "activo")
 	private boolean activo;
 
+	/*
 	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "roles_permisos", joinColumns = {
-			@JoinColumn(name = "cod_permiso", referencedColumnName = "cod_permiso") }, inverseJoinColumns = {
+			@JoinColumn(name = "id_permiso", referencedColumnName = "id") }, inverseJoinColumns = {
 					@JoinColumn(name = "cod_rol", referencedColumnName = "cod_rol") })
+					*/
+	@ManyToMany(mappedBy = "permisos")
 	private List<Rol> roles;
 
-	public Long getCodigo() {
-		return codigo;
+	public Long getId() {
+		return id;
 	}
 
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getDescripcion() {
