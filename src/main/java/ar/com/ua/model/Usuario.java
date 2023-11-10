@@ -3,6 +3,9 @@ package ar.com.ua.model;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -18,6 +21,8 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "usuarios")
+@SQLDelete(sql = "UPDATE ua.usuarios SET fecha_baja = CURRENT_TIMESTAMP, activo = 0 WHERE id = ?")
+@Where(clause = "fecha_baja IS NULL")
 public class Usuario {
 
 	@Id

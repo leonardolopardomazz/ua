@@ -30,10 +30,6 @@ public class Rol {
 	@Column(name = "activo")
 	private boolean activo;
 
-	/*
-	@JsonIgnore
-	@ManyToMany(mappedBy = "roles")
-	 */
 	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "roles_permisos", joinColumns = {

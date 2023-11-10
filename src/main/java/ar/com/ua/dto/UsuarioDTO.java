@@ -13,7 +13,6 @@ public class UsuarioDTO {
 	private Date fechaAlta;
 	private Date fechaBaja;
 	private boolean activo;
-	
 	private List<Rol> roles;
 
 	public Long getId() {

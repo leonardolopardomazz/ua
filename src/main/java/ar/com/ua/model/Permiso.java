@@ -2,6 +2,8 @@ package ar.com.ua.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,13 +27,7 @@ public class Permiso {
 	@Column(name = "activo")
 	private boolean activo;
 
-	/*
 	@JsonIgnore
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "roles_permisos", joinColumns = {
-			@JoinColumn(name = "id_permiso", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "cod_rol", referencedColumnName = "cod_rol") })
-					*/
 	@ManyToMany(mappedBy = "permisos")
 	private List<Rol> roles;
 
