@@ -11,85 +11,79 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ar.com.ua.builder.PermisoBuilder;
+import ar.com.ua.builder.TipoParametroBuilder;
 import ar.com.ua.constant.CodigoRespuestaConstant;
 import ar.com.ua.constant.EndPointConstant;
 import ar.com.ua.constant.EndPointPathConstant;
 import ar.com.ua.constant.MensajeError;
 import ar.com.ua.constant.TipoMetodoConstant;
-import ar.com.ua.dto.PermisoDTO;
+import ar.com.ua.dto.TipoParametroDTO;
 import ar.com.ua.dto.response.ResponseDto;
 import ar.com.ua.dto.response.ResponseErrorDto;
 import ar.com.ua.dto.response.ResponseOKDto;
 import ar.com.ua.dto.response.ResponseOKListDto;
-import ar.com.ua.model.Permiso;
-import ar.com.ua.service.PermisoService;
+import ar.com.ua.model.TipoParametro;
+import ar.com.ua.service.TipoParametroService;
 
-@RequestMapping("/permiso")
+@RequestMapping("/tipoparametro")
 @RestController
-public class PermisoController implements IABMController<PermisoDTO>, IListController<PermisoDTO> {
+public class TipoParametroController implements IABMController<TipoParametroDTO>, IListController<TipoParametroDTO> {
 
 	@Autowired
-	private PermisoService permisoService;
+	private TipoParametroService tpService;
 
 	@Autowired
-	private PermisoBuilder permisoBuilder;
+	private TipoParametroBuilder tpBuilder;
 
-	static Logger logger = Logger.getLogger(PermisoController.class.getName());
-	
-	private ResponseDto save(Long id, PermisoDTO dto, String tipoMetodoConstant) {
-		//Setteo el id para la actualizacion
-		dto.setId(id);
-		return this.save(dto, tipoMetodoConstant);
-	}
+	static Logger logger = Logger.getLogger(TipoParametroController.class.getName());
 
-	private ResponseDto save(PermisoDTO dto, String tipoMetodoConstant) {
+	private ResponseDto save(TipoParametroDTO dto, String tipoMetodoConstant) {
 		List<String> mensajesError = new ArrayList<String>();
 
 		try {
-			Permiso permiso = permisoBuilder.dtoToModel(dto);
-			Permiso permisoGuardado = permisoService.save(permiso);
-			PermisoDTO permisoDTO = permisoBuilder.modelToDto(permisoGuardado);
-			return new ResponseOKDto<PermisoDTO>(EndPointPathConstant.PERMISO, tipoMetodoConstant,
-					CodigoRespuestaConstant.OK, permisoDTO);
+			TipoParametro cdf = tpBuilder.dtoToModel(dto);
+			TipoParametro cdfGuardada = tpService.save(cdf);
+			TipoParametroDTO cdfDto = tpBuilder.modelToDto(cdfGuardada);
+			return new ResponseOKDto<TipoParametroDTO>(EndPointPathConstant.TIPO_PARAMETRO, tipoMetodoConstant,
+					CodigoRespuestaConstant.OK, cdfDto);
 		} catch (Exception e) {
 			String messageException = e.getMessage();
 			mensajesError.add(messageException);
 
-			return new ResponseErrorDto(EndPointPathConstant.PERMISO, tipoMetodoConstant,
+			return new ResponseErrorDto(EndPointPathConstant.TIPO_PARAMETRO, tipoMetodoConstant,
 					CodigoRespuestaConstant.ERROR, mensajesError);
 		}
 	}
 
 	/**
-	 * Inserta un permiso a la tabla
+	 * Inserta un tipo parametro a la tabla
 	 * 
 	 * @return ResponseDto
 	 */
 	@Override
-	public ResponseDto add(PermisoDTO dto) {
+	public ResponseDto add(TipoParametroDTO dto) {
 		return this.save(dto, TipoMetodoConstant.POST);
 	}
 
 	/**
-	 * Actualiza un permiso en la tabla
+	 * Actualiza un tipo parametro en la tabla
 	 */
 	@Override
-	public ResponseDto modify(@PathVariable Long id, PermisoDTO dto) {
-		return this.save(id, dto, TipoMetodoConstant.PUT);
+	public ResponseDto modify(@PathVariable Long id, TipoParametroDTO dto) {
+		return this.save(dto, TipoMetodoConstant.PUT);
 	}
 
 	/**
-	 * Elimina un permiso de la tabla
+	 * Elimina un tipo parametro de la tabla
 	 */
 	@Override
 	public ResponseDto deleteById(@PathVariable Long id) {
 		List<String> mensajesError = new ArrayList<String>();
 
 		try {
-			permisoService.deleteById(id);
+			tpService.deleteById(id);
 
-			return new ResponseOKDto<PermisoDTO>(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
+			return new ResponseOKDto<TipoParametroDTO>(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
 					CodigoRespuestaConstant.OK, null);
 		} catch (Exception e) {
 			String messageException = e.getMessage();
@@ -101,18 +95,17 @@ public class PermisoController implements IABMController<PermisoDTO>, IListContr
 
 	@Override
 	public ResponseDto findOne(Long id) {
-
 		// Get model object
-		Optional<Permiso> value = permisoService.findById(id);
+		Optional<TipoParametro> value = tpService.findById(id);
 		if (value.isPresent()) {
-			Permiso permiso = value.get();
+			TipoParametro tp = value.get();
 
 			// Builder Model to Dto
-			PermisoDTO permisoDto = permisoBuilder.modelToDto(permiso);
+			TipoParametroDTO tpDto = tpBuilder.modelToDto(tp);
 
 			// return
-			return new ResponseOKDto<PermisoDTO>(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
-					CodigoRespuestaConstant.OK, permisoDto);
+			return new ResponseOKDto<TipoParametroDTO>(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
+					CodigoRespuestaConstant.OK, tpDto);
 		} else {
 			List<String> mensajesError = new ArrayList<String>();
 			mensajesError.add(MensajeError.ELEMENT_NOTFOUND_MESSAGE);
@@ -127,13 +120,13 @@ public class PermisoController implements IABMController<PermisoDTO>, IListContr
 		try {
 			String descripcion = params.get("descripcion");
 
-			List<Permiso> listPermisos = permisoService.findByDescripcion(descripcion);
+			List<TipoParametro> listTp = tpService.findByDescripcion(descripcion);
 
-			if (!listPermisos.isEmpty()) {
-				List<PermisoDTO> listPermisosDto = permisoBuilder.modelListToDto(listPermisos);
+			if (!listTp.isEmpty()) {
+				List<TipoParametroDTO> listTpDto = tpBuilder.modelListToDto(listTp);
 
-				return new ResponseOKListDto<PermisoDTO>(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
-						CodigoRespuestaConstant.OK, listPermisosDto);
+				return new ResponseOKListDto<TipoParametroDTO>(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
+						CodigoRespuestaConstant.OK, listTpDto);
 			} else {
 				List<String> mensajesError = new ArrayList<String>();
 				mensajesError.add(MensajeError.ELEMENT_NOTFOUND_MESSAGE);
@@ -146,7 +139,7 @@ public class PermisoController implements IABMController<PermisoDTO>, IListContr
 			List<String> mensajesError = new ArrayList<String>();
 			String messageException = e.getMessage();
 			mensajesError.add(messageException);
-			return new ResponseErrorDto(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
+			return new ResponseErrorDto(EndPointConstant.FIND_ANY, TipoMetodoConstant.DELETE,
 					CodigoRespuestaConstant.ERROR, mensajesError);
 		}
 	}
@@ -155,14 +148,14 @@ public class PermisoController implements IABMController<PermisoDTO>, IListContr
 	public ResponseDto findAll() {
 		try {
 			// List
-			List<Permiso> permisos = (ArrayList<Permiso>) permisoService.findAll();
+			List<TipoParametro> tp = (ArrayList<TipoParametro>) tpService.findAll();
 
 			// Build Model List to Dto List
-			List<PermisoDTO> PermisoDTO = permisoBuilder.modelListToDto(permisos);
+			List<TipoParametroDTO> tpDTO = tpBuilder.modelListToDto(tp);
 
 			// return
-			return new ResponseOKListDto<PermisoDTO>(EndPointConstant.FIND_ALL, TipoMetodoConstant.GET,
-					CodigoRespuestaConstant.OK, PermisoDTO);
+			return new ResponseOKListDto<TipoParametroDTO>(EndPointConstant.FIND_ALL, TipoMetodoConstant.GET,
+					CodigoRespuestaConstant.OK, tpDTO);
 
 		} catch (Exception e) {
 			String messageException = e.getMessage();

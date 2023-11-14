@@ -39,7 +39,7 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 	static Logger logger = Logger.getLogger(UsuarioController.class.getName());
 
 	private ResponseDto save(Long id, UsuarioDTO dto, String tipoMetodoConstant) {
-		//Setteo el id para la actualizacion
+		// Setteo el id para la actualizacion
 		dto.setId(id);
 		return this.save(dto, tipoMetodoConstant);
 	}
@@ -102,49 +102,59 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 	@Override
 	public ResponseDto findOne(@PathVariable Long id) {
 
-		// Get model object
-		Optional<Usuario> value = usuarioService.findById(id);
-		if (value.isPresent()) {
-			Usuario usuario = value.get();
+		try {
+			Optional<Usuario> value = usuarioService.findById(id);
+			if (value.isPresent()) {
+				Usuario usuario = value.get();
 
-			// Builder Model to Dto
-			UsuarioDTO usuarioDto = usuarioBuilder.modelToDto(usuario);
+				UsuarioDTO usuarioDto = usuarioBuilder.modelToDto(usuario);
 
-			// return
-			return new ResponseOKDto<UsuarioDTO>(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
-					CodigoRespuestaConstant.OK, usuarioDto);
-		} else {
+				return new ResponseOKDto<UsuarioDTO>(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
+						CodigoRespuestaConstant.OK, usuarioDto);
+			} else {
+				List<String> mensajesError = new ArrayList<String>();
+				mensajesError.add(MensajeError.ELEMENT_NOTFOUND_MESSAGE);
+
+				return new ResponseErrorDto(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
+						CodigoRespuestaConstant.ERROR, mensajesError);
+			}
+		} catch (Exception e) {
 			List<String> mensajesError = new ArrayList<String>();
-			mensajesError.add(MensajeError.ELEMENT_NOTFOUND_MESSAGE);
-
+			String messageException = e.getMessage();
+			mensajesError.add(messageException);
 			return new ResponseErrorDto(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
 					CodigoRespuestaConstant.ERROR, mensajesError);
 		}
 	}
 
 	@Override
-	public ResponseDto findAny(@RequestParam Map<String,String> requestParams) {
-		
-		/*
-		@RequestMapping(value = "users/newuser", method = RequestMethod.POST)   
-		public String saveUser(@RequestParam Map<String,String> requestParams) throws Exception{
-		   String userName=requestParams.get("email");
-		   String password=requestParams.get("password");
+	public ResponseDto findAny(@RequestParam Map<String, String> params) {
 
-		   //perform DB operations
-
-		   return "profile";
-		}
-		*/
-		
 		try {
-			usuarioService.findBy(null, null);
+			String nombreUsuario = params.get("nombreUsuario");
+
+			List<Usuario> listUsuarios = usuarioService.findByNombreUsuario(nombreUsuario);
+
+			if (!listUsuarios.isEmpty()) {
+				List<UsuarioDTO> listUsuariosDto = usuarioBuilder.modelListToDto(listUsuarios);
+
+				return new ResponseOKListDto<UsuarioDTO>(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
+						CodigoRespuestaConstant.OK, listUsuariosDto);
+			} else {
+				List<String> mensajesError = new ArrayList<String>();
+				mensajesError.add(MensajeError.ELEMENT_NOTFOUND_MESSAGE);
+
+				return new ResponseErrorDto(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
+						CodigoRespuestaConstant.ERROR, mensajesError);
+			}
+
 		} catch (Exception e) {
-			// TODO: handle exception
+			List<String> mensajesError = new ArrayList<String>();
+			String messageException = e.getMessage();
+			mensajesError.add(messageException);
+			return new ResponseErrorDto(EndPointConstant.DELETE, TipoMetodoConstant.GET,
+					CodigoRespuestaConstant.ERROR, mensajesError);
 		}
-		
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

@@ -4,19 +4,19 @@ import java.util.Date;
 
 public class Secuenciador {
 
-	private String codigoSecuenciador;
+	private String codigo;
 	private Date rangoDesde;
 	private Date rangoHasta;
 	private String secuencia;
 	private String estado;
 	private boolean activo;
 
-	public String getCodigoSecuenciador() {
-		return codigoSecuenciador;
+	public String getCodigo() {
+		return codigo;
 	}
 
-	public void setCodigoSecuenciador(String codigoSecuenciador) {
-		this.codigoSecuenciador = codigoSecuenciador;
+	public void setCodigo(String codigoSecuenciador) {
+		this.codigo = codigoSecuenciador;
 	}
 
 	public Date getRangoDesde() {

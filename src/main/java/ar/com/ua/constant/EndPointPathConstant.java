@@ -12,5 +12,7 @@ public class EndPointPathConstant {
 	public static final String USUARIO = "/usuario";
 	public static final String ROL = "/rol";
 	public static final String PERMISO = "/permiso";
+	public static final String PAIS = "/pais";
+	public static final String TIPO_PARAMETRO = "/tipoparametro";
 	
 }

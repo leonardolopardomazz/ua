@@ -4,7 +4,8 @@ import ar.com.ua.model.Parametro;
 
 public class PuestoDTO {
 
-	private String codigoPuesto;
+	private Long id;
+	private String codigo;
 	private String descripcion;
 	private Parametro codigoDireccion;
 	private Parametro codigoGerencia;
@@ -12,13 +13,21 @@ public class PuestoDTO {
 	private Parametro codigoCategoria;
 	private Parametro codigoPuestoAlQueReporta;
 	private boolean activo;
-
-	public String getCodigoPuesto() {
-		return codigoPuesto;
+	
+	public Long getId() {
+		return id;
 	}
 
-	public void setCodigoPuesto(String codigoPuesto) {
-		this.codigoPuesto = codigoPuesto;
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
 	public String getDescripcion() {

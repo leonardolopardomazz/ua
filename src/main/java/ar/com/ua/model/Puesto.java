@@ -3,6 +3,8 @@ package ar.com.ua.model;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -11,10 +13,15 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "puesto")
 public class Puesto {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
+	private Long id;
 
 	@Id
 	@Column(name = "cod_puesto", unique = true, nullable = false)
-	private String codigoPuesto;
+	private String codigo;
 
 	@Column(name = "descripcion", unique = true, nullable = false)
 	private String descripcion;
@@ -41,13 +48,21 @@ public class Puesto {
 
 	@Column(name = "activo", unique = true, nullable = false)
 	private boolean activo;
-
-	public String getCodigoPuesto() {
-		return codigoPuesto;
+	
+	public Long getId() {
+		return id;
 	}
 
-	public void setCodigoPuesto(String codigoPuesto) {
-		this.codigoPuesto = codigoPuesto;
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
 	public String getDescripcion() {

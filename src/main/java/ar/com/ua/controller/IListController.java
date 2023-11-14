@@ -28,13 +28,13 @@ public interface IListController<Dto> {
 	 * @param dto
 	 * @return
 	 */
-	@GetMapping(value = "/")
-	ResponseDto findAny (@RequestParam Map<String,String> requestParams);
+	@GetMapping(value = "/buscar")
+	ResponseDto findAny (@RequestParam Map<String,String> params);
 	
 	/**
 	 * FindAll <Dto>
 	 * @return
 	 */
-	@GetMapping(value = "")
+	@GetMapping(value = "/")
 	ResponseDto findAll ();
 }

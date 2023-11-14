@@ -1,7 +1,7 @@
-package ar.com.ua.model;
+package ar.com.ua.dto;
 
-public class TipoParametro {
-
+public class TipoParametroDTO {
+	
 	private String codigo;
 	private String descripcion;
 	private boolean activo;

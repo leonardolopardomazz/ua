@@ -1,5 +1,6 @@
 package ar.com.ua.builder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -15,8 +16,18 @@ public class PuestoBuilder implements IBuilder<Puesto, PuestoDTO> {
 	 */
 	@Override
 	public Puesto dtoToModel(PuestoDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
+		Puesto puesto = new Puesto();
+		puesto.setId(dto.getId());
+		puesto.setCodigo(dto.getCodigo());
+		puesto.setActivo(dto.isActivo());
+		puesto.setDescripcion(dto.getDescripcion());
+		puesto.setCodigoCategoria(dto.getCodigoCategoria());
+		puesto.setCodigoDireccion(dto.getCodigoCategoria());
+		puesto.setCodigoGerencia(dto.getCodigoGerencia());
+		puesto.setCodigoJefatura(dto.getCodigoJefatura());
+		puesto.setCodigoPuestoAlQueReporta(dto.getCodigoPuestoAlQueReporta());
+		
+		return puesto;
 	}
 
 	/**
@@ -24,8 +35,17 @@ public class PuestoBuilder implements IBuilder<Puesto, PuestoDTO> {
 	 */
 	@Override
 	public PuestoDTO modelToDto(Puesto model) {
-		// TODO Auto-generated method stub
-		return null;
+		PuestoDTO dto = new PuestoDTO();
+		dto.setCodigo(model.getCodigo());
+		dto.setActivo(model.isActivo());
+		dto.setDescripcion(model.getDescripcion());
+		dto.setCodigoCategoria(model.getCodigoCategoria());
+		dto.setCodigoDireccion(model.getCodigoCategoria());
+		dto.setCodigoGerencia(model.getCodigoGerencia());
+		dto.setCodigoJefatura(model.getCodigoJefatura());
+		dto.setCodigoPuestoAlQueReporta(model.getCodigoPuestoAlQueReporta());
+		
+		return dto;
 	}
 
 	/**
@@ -33,8 +53,25 @@ public class PuestoBuilder implements IBuilder<Puesto, PuestoDTO> {
 	 */
 	@Override
 	public List<PuestoDTO> modelListToDto(List<Puesto> list) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<PuestoDTO> listPuestoDTO = new ArrayList<>();
+		
+		for (Puesto puesto : list) {
+			PuestoDTO puestoDTO = new PuestoDTO();
+			puestoDTO.setId(puesto.getId());
+			puestoDTO.setCodigo(puesto.getCodigo());
+			puestoDTO.setActivo(puesto.isActivo());
+			puestoDTO.setDescripcion(puesto.getDescripcion());
+			puestoDTO.setCodigoCategoria(puesto.getCodigoCategoria());
+			puestoDTO.setCodigoDireccion(puesto.getCodigoCategoria());
+			puestoDTO.setCodigoGerencia(puesto.getCodigoGerencia());
+			puestoDTO.setCodigoJefatura(puesto.getCodigoJefatura());
+			puestoDTO.setCodigoPuestoAlQueReporta(puesto.getCodigoPuestoAlQueReporta());
+			
+			listPuestoDTO.add(puestoDTO);
+		}
+		
+		return listPuestoDTO;
 	}
 
 }

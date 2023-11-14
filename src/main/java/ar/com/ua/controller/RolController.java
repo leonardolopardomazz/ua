@@ -180,9 +180,32 @@ public class RolController implements IABMController<RolDTO>, IListController<Ro
 	}
 
 	@Override
-	public ResponseDto findAny(Map<String, String> requestParams) {
-		// TODO Auto-generated method stub
-		return null;
+	public ResponseDto findAny(Map<String, String> params) {
+		try {
+			String descripcion = params.get("descripcion");
+
+			List<Rol> listRoles = rolService.findByDescripcion(descripcion);
+
+			if (!listRoles.isEmpty()) {
+				List<RolDTO> listRolesDto = rolBuilder.modelListToDto(listRoles);
+
+				return new ResponseOKListDto<RolDTO>(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
+						CodigoRespuestaConstant.OK, listRolesDto);
+			} else {
+				List<String> mensajesError = new ArrayList<String>();
+				mensajesError.add(MensajeError.ELEMENT_NOTFOUND_MESSAGE);
+
+				return new ResponseErrorDto(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
+						CodigoRespuestaConstant.ERROR, mensajesError);
+			}
+
+		} catch (Exception e) {
+			List<String> mensajesError = new ArrayList<String>();
+			String messageException = e.getMessage();
+			mensajesError.add(messageException);
+			return new ResponseErrorDto(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
+					CodigoRespuestaConstant.ERROR, mensajesError);
+		}
 	}
 
 	@Override
