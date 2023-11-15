@@ -9,89 +9,84 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import ar.com.ua.builder.UsuarioBuilder;
+import ar.com.ua.builder.SecuenciadorBuilder;
 import ar.com.ua.constant.CodigoRespuestaConstant;
 import ar.com.ua.constant.EndPointConstant;
 import ar.com.ua.constant.EndPointPathConstant;
 import ar.com.ua.constant.MensajeError;
 import ar.com.ua.constant.TipoMetodoConstant;
-import ar.com.ua.dto.UsuarioDTO;
+import ar.com.ua.dto.CargaDeFamiliaDTO;
+import ar.com.ua.dto.SecuenciadorDTO;
 import ar.com.ua.dto.response.ResponseDto;
 import ar.com.ua.dto.response.ResponseErrorDto;
 import ar.com.ua.dto.response.ResponseOKDto;
 import ar.com.ua.dto.response.ResponseOKListDto;
-import ar.com.ua.model.Usuario;
-import ar.com.ua.service.UsuarioService;
+import ar.com.ua.model.Secuenciador;
+import ar.com.ua.service.SecuenciadorService;
 
-@RequestMapping("/usuario")
+@RequestMapping("/secuenciador")
 @RestController
-public class UsuarioController implements IABMController<UsuarioDTO>, IListController<UsuarioDTO> {
+public class SecuenciadorController implements IABMController<SecuenciadorDTO>, IListController<SecuenciadorDTO> {
 
 	@Autowired
-	private UsuarioService usuarioService;
+	private SecuenciadorService secuenciadorService;
 
 	@Autowired
-	private UsuarioBuilder usuarioBuilder;
+	private SecuenciadorBuilder secuenciadorBuilder;
 
-	static Logger logger = Logger.getLogger(UsuarioController.class.getName());
+	static Logger logger = Logger.getLogger(SecuenciadorController.class.getName());
 
-	private ResponseDto save(Long id, UsuarioDTO dto, String tipoMetodoConstant) {
-		// Setteo el id para la actualizacion
-		dto.setId(id);
-		return this.save(dto, tipoMetodoConstant);
-	}
+	private ResponseDto save(SecuenciadorDTO dto, String tipoMetodoConstant) {
+		List<String> mensajesError = new ArrayList<String>();
 
-	private ResponseDto save(UsuarioDTO dto, String tipoMetodoConstant) {
 		try {
-			Usuario usuario = usuarioBuilder.dtoToModel(dto);
-			Usuario usuarioGuardado = usuarioService.save(usuario);
-			UsuarioDTO usuarioDto = usuarioBuilder.modelToDto(usuarioGuardado);
-			return new ResponseOKDto<UsuarioDTO>(EndPointPathConstant.USUARIO, tipoMetodoConstant,
-					CodigoRespuestaConstant.OK, usuarioDto);
+			Secuenciador secuenciador = secuenciadorBuilder.dtoToModel(dto);
+			Secuenciador secuenciadorGuardado = secuenciadorService.save(secuenciador);
+			SecuenciadorDTO secuenciadorDto = secuenciadorBuilder.modelToDto(secuenciadorGuardado);
+			return new ResponseOKDto<SecuenciadorDTO>(EndPointPathConstant.SECUENCIADOR, tipoMetodoConstant,
+					CodigoRespuestaConstant.OK, secuenciadorDto);
 		} catch (Exception e) {
-			List<String> mensajesError = new ArrayList<String>();
 			String messageException = e.getMessage();
 			mensajesError.add(messageException);
 
-			return new ResponseErrorDto(EndPointPathConstant.USUARIO, tipoMetodoConstant, CodigoRespuestaConstant.ERROR,
-					mensajesError);
+			return new ResponseErrorDto(EndPointPathConstant.SECUENCIADOR, tipoMetodoConstant,
+					CodigoRespuestaConstant.ERROR, mensajesError);
 		}
 	}
 
 	/**
-	 * Inserta un usuario a la tabla
+	 * Inserta un secuenciador a la tabla
 	 * 
 	 * @return ResponseDto
 	 */
 	@Override
-	public ResponseDto add(UsuarioDTO dto) {
+	public ResponseDto add(SecuenciadorDTO dto) {
 		return this.save(dto, TipoMetodoConstant.POST);
 	}
 
 	/**
-	 * Actualiza un usuario en la tabla
+	 * Actualiza una carga de familia en la tabla
 	 */
 	@Override
-	public ResponseDto modify(@PathVariable Long id, UsuarioDTO dto) {
-		return this.save(id, dto, TipoMetodoConstant.PUT);
+	public ResponseDto modify(@PathVariable Long id, SecuenciadorDTO dto) {
+		return this.save(dto, TipoMetodoConstant.PUT);
 	}
 
 	/**
-	 * Elimina un usuario de la tabla
+	 * Elimina un secuenciador de la tabla
 	 */
 	@Override
 	public ResponseDto deleteById(@PathVariable Long id) {
+		List<String> mensajesError = new ArrayList<String>();
 
 		try {
-			usuarioService.deleteById(id);
+			secuenciadorService.deleteById(id);
 
-			return new ResponseOKDto<UsuarioDTO>(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
+			return new ResponseOKDto<CargaDeFamiliaDTO>(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
 					CodigoRespuestaConstant.OK, null);
 		} catch (Exception e) {
-			List<String> mensajesError = new ArrayList<String>();
 			String messageException = e.getMessage();
 			mensajesError.add(messageException);
 			return new ResponseErrorDto(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
@@ -100,17 +95,17 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 	}
 
 	@Override
-	public ResponseDto findOne(@PathVariable Long id) {
+	public ResponseDto findOne(Long id) {
 
 		try {
-			Optional<Usuario> value = usuarioService.findById(id);
+			Optional<Secuenciador> value = secuenciadorService.findById(id);
 			if (value.isPresent()) {
-				Usuario usuario = value.get();
+				Secuenciador secuenciador = value.get();
 
-				UsuarioDTO usuarioDto = usuarioBuilder.modelToDto(usuario);
+				SecuenciadorDTO secuenciadorDto = secuenciadorBuilder.modelToDto(secuenciador);
 
-				return new ResponseOKDto<UsuarioDTO>(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
-						CodigoRespuestaConstant.OK, usuarioDto);
+				return new ResponseOKDto<SecuenciadorDTO>(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
+						CodigoRespuestaConstant.OK, secuenciadorDto);
 			} else {
 				List<String> mensajesError = new ArrayList<String>();
 				mensajesError.add(MensajeError.ELEMENT_NOTFOUND_MESSAGE);
@@ -128,18 +123,17 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 	}
 
 	@Override
-	public ResponseDto findAny(@RequestParam Map<String, String> params) {
-
+	public ResponseDto findAny(Map<String, String> params) {
 		try {
-			String nombreUsuario = params.get("nombreUsuario");
+			String codigo = params.get("codigo");
 
-			List<Usuario> listUsuarios = usuarioService.findByNombreUsuario(nombreUsuario);
+			List<Secuenciador> listSecuenciador = secuenciadorService.findByCodigo(codigo);
 
-			if (!listUsuarios.isEmpty()) {
-				List<UsuarioDTO> listUsuariosDto = usuarioBuilder.modelListToDto(listUsuarios);
+			if (!listSecuenciador.isEmpty()) {
+				List<SecuenciadorDTO> listSecuenciadorDto = secuenciadorBuilder.modelListToDto(listSecuenciador);
 
-				return new ResponseOKListDto<UsuarioDTO>(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
-						CodigoRespuestaConstant.OK, listUsuariosDto);
+				return new ResponseOKListDto<SecuenciadorDTO>(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
+						CodigoRespuestaConstant.OK, listSecuenciadorDto);
 			} else {
 				List<String> mensajesError = new ArrayList<String>();
 				mensajesError.add(MensajeError.ELEMENT_NOTFOUND_MESSAGE);
@@ -159,17 +153,16 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 
 	@Override
 	public ResponseDto findAll() {
-
 		try {
 			// List
-			List<Usuario> usuarios = (ArrayList<Usuario>) usuarioService.findAll();
+			List<Secuenciador> secuenciador = (ArrayList<Secuenciador>) secuenciadorService.findAll();
 
 			// Build Model List to Dto List
-			List<UsuarioDTO> usuariosDto = usuarioBuilder.modelListToDto(usuarios);
+			List<SecuenciadorDTO> secuenciadorDto = secuenciadorBuilder.modelListToDto(secuenciador);
 
 			// return
-			return new ResponseOKListDto<UsuarioDTO>(EndPointConstant.FIND_ALL, TipoMetodoConstant.GET,
-					CodigoRespuestaConstant.OK, usuariosDto);
+			return new ResponseOKListDto<SecuenciadorDTO>(EndPointConstant.FIND_ALL, TipoMetodoConstant.GET,
+					CodigoRespuestaConstant.OK, secuenciadorDto);
 
 		} catch (Exception e) {
 			String messageException = e.getMessage();
