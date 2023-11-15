@@ -1,8 +1,13 @@
 package ar.com.ua.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -10,11 +15,16 @@ import jakarta.persistence.Table;
 public class Parametro {
 	
 	@Id
-	@Column(name = "cod_parametro", unique = true, nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
+	private Long id;
+	
+	@Column(name = "cod_parametro")
 	private String codigoParametro;
 	
-	@Column(name = "tipo_parametro")
-	private String tipoParametro;
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "tipo_parametro", referencedColumnName = "cod_tipo_parametro")
+	private TipoParametro tipoParametro;
 	
 	@Column(name = "descripcion")
 	private String descripcion;
@@ -27,6 +37,14 @@ public class Parametro {
 	
 	@Column(name = "texto2")
 	private String texto2;
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getCodigoParametro() {
 		return codigoParametro;
@@ -36,11 +54,11 @@ public class Parametro {
 		this.codigoParametro = codigoParametro;
 	}
 
-	public String getTipoParametro() {
+	public TipoParametro getTipoParametro() {
 		return tipoParametro;
 	}
 
-	public void setTipoParametro(String tipoParametro) {
+	public void setTipoParametro(TipoParametro tipoParametro) {
 		this.tipoParametro = tipoParametro;
 	}
 

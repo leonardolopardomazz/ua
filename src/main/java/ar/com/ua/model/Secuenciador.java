@@ -2,14 +2,47 @@ package ar.com.ua.model;
 
 import java.util.Date;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "secuenciador")
 public class Secuenciador {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
+	private Long id;
+
+	@Column(name = "cod_secuenciador")
 	private String codigo;
-	private Date rangoDesde;
-	private Date rangoHasta;
+
+	@Column(name = "fecha_rango_desde")
+	private Date fechaRangoDesde;
+
+	@Column(name = "fecha_rango_hasta")
+	private Date fechaRangoHasta;
+
+	@Column(name = "secuencia")
 	private String secuencia;
+
+	@Column(name = "estado")
 	private String estado;
+
+	@Column(name = "activo")
 	private boolean activo;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getCodigo() {
 		return codigo;
@@ -19,20 +52,20 @@ public class Secuenciador {
 		this.codigo = codigoSecuenciador;
 	}
 
-	public Date getRangoDesde() {
-		return rangoDesde;
+	public Date getFechaRangoDesde() {
+		return fechaRangoDesde;
 	}
 
-	public void setRangoDesde(Date rangoDesde) {
-		this.rangoDesde = rangoDesde;
+	public void setFechaRangoDesde(Date fechaRangoDesde) {
+		this.fechaRangoDesde = fechaRangoDesde;
 	}
 
-	public Date getRangoHasta() {
-		return rangoHasta;
+	public Date getFechaRangoHasta() {
+		return fechaRangoHasta;
 	}
 
-	public void setRangoHasta(Date rangoHasta) {
-		this.rangoHasta = rangoHasta;
+	public void setFechaRangoHasta(Date fechaRangoHasta) {
+		this.fechaRangoHasta = fechaRangoHasta;
 	}
 
 	public String getSecuencia() {

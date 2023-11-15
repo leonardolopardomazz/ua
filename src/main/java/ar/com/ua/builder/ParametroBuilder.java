@@ -15,8 +15,9 @@ public class ParametroBuilder implements IBuilder<Parametro, ParametroDTO> {
 	 */
 	@Override
 	public Parametro dtoToModel(ParametroDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
+		Parametro parametro = new Parametro();
+		
+		return parametro;
 	}
 
 	/**

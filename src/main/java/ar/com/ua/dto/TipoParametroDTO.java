@@ -2,9 +2,18 @@ package ar.com.ua.dto;
 
 public class TipoParametroDTO {
 	
+	private Long id;
 	private String codigo;
 	private String descripcion;
 	private boolean activo;
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getCodigo() {
 		return codigo;

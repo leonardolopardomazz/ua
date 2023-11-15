@@ -1,11 +1,15 @@
 package ar.com.ua.builder;
 
 import java.util.ArrayList;
+
 import java.util.List;
+
+import org.springframework.stereotype.Component;
 
 import ar.com.ua.dto.PaisDTO;
 import ar.com.ua.model.Pais;
 
+@Component
 public class PaisBuilder implements IBuilder<Pais, PaisDTO> {
 
 	@Override

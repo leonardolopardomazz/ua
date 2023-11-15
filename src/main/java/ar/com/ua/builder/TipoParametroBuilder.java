@@ -14,9 +14,10 @@ public class TipoParametroBuilder implements IBuilder<TipoParametro, TipoParamet
 	@Override
 	public TipoParametro dtoToModel(TipoParametroDTO dto) {
 		TipoParametro tp = new TipoParametro();
-		tp.setActivo(dto.isActivo());
+		tp.setId(dto.getId());
 		tp.setCodigo(dto.getCodigo());
 		tp.setDescripcion(dto.getDescripcion());
+		tp.setActivo(dto.isActivo());
 
 		return tp;
 	}
@@ -24,9 +25,10 @@ public class TipoParametroBuilder implements IBuilder<TipoParametro, TipoParamet
 	@Override
 	public TipoParametroDTO modelToDto(TipoParametro model) {
 		TipoParametroDTO tpDto = new TipoParametroDTO();
-		tpDto.setActivo(model.isActivo());
+		tpDto.setId(model.getId());
 		tpDto.setCodigo(model.getCodigo());
 		tpDto.setDescripcion(model.getDescripcion());
+		tpDto.setActivo(model.isActivo());
 
 		return tpDto;
 	}
@@ -38,9 +40,10 @@ public class TipoParametroBuilder implements IBuilder<TipoParametro, TipoParamet
 
 		for (TipoParametro tp : list) {
 			TipoParametroDTO tpDto = new TipoParametroDTO();
-			tpDto.setActivo(tp.isActivo());
+			tpDto.setId(tp.getId());
 			tpDto.setCodigo(tp.getCodigo());
 			tpDto.setDescripcion(tp.getDescripcion());
+			tpDto.setActivo(tp.isActivo());
 
 			listTpDto.add(tpDto);
 		}

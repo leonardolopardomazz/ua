@@ -1,10 +1,13 @@
 package ar.com.ua.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -22,8 +25,8 @@ public class Pais {
 	@Column(name = "descripcion")
 	private String descripcion;
 	
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "address_id", referencedColumnName = "id")
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_secuenciador", referencedColumnName = "id")
 	private Secuenciador secuenciador;
 	
 	@Column(name = "activo")

@@ -19,7 +19,6 @@ public class Puesto {
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 
-	@Id
 	@Column(name = "cod_puesto", unique = true, nullable = false)
 	private String codigo;
 
