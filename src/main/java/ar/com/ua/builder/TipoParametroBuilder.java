@@ -18,7 +18,6 @@ public class TipoParametroBuilder implements IBuilder<TipoParametro, TipoParamet
 		tp.setCodigo(dto.getCodigo());
 		tp.setDescripcion(dto.getDescripcion());
 		tp.setActivo(dto.isActivo());
-
 		return tp;
 	}
 
@@ -29,7 +28,6 @@ public class TipoParametroBuilder implements IBuilder<TipoParametro, TipoParamet
 		tpDto.setCodigo(model.getCodigo());
 		tpDto.setDescripcion(model.getDescripcion());
 		tpDto.setActivo(model.isActivo());
-
 		return tpDto;
 	}
 

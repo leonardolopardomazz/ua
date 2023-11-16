@@ -36,6 +36,12 @@ public class TipoParametroController implements IABMController<TipoParametroDTO>
 	private TipoParametroBuilder tpBuilder;
 
 	static Logger logger = Logger.getLogger(TipoParametroController.class.getName());
+	
+	private ResponseDto save(Long id, TipoParametroDTO dto, String tipoMetodoConstant) {
+		// Setteo el id para la actualizacion
+		dto.setId(id);
+		return this.save(dto, tipoMetodoConstant);
+	}
 
 	private ResponseDto save(TipoParametroDTO dto, String tipoMetodoConstant) {
 		List<String> mensajesError = new ArrayList<String>();
@@ -70,7 +76,7 @@ public class TipoParametroController implements IABMController<TipoParametroDTO>
 	 */
 	@Override
 	public ResponseDto modify(@PathVariable Long id, TipoParametroDTO dto) {
-		return this.save(dto, TipoMetodoConstant.PUT);
+		return this.save(id, dto, TipoMetodoConstant.PUT);
 	}
 
 	/**

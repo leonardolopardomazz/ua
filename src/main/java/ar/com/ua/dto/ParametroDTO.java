@@ -1,27 +1,38 @@
 package ar.com.ua.dto;
 
+import ar.com.ua.model.TipoParametro;
+
 public class ParametroDTO {
 
-	private String codigoParametro;
-	private String tipoParametro;
+	private Long id;
+	private String codigo;
+	private TipoParametro tipoParametro;
 	private String descripcion;
 	private boolean activo;
 	private String texto1;
 	private String texto2;
-
-	public String getCodigoParametro() {
-		return codigoParametro;
+	
+	public Long getId() {
+		return id;
 	}
 
-	public void setCodigoParametro(String codigoParametro) {
-		this.codigoParametro = codigoParametro;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getTipoParametro() {
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	public TipoParametro getTipoParametro() {
 		return tipoParametro;
 	}
 
-	public void setTipoParametro(String tipoParametro) {
+	public void setTipoParametro(TipoParametro tipoParametro) {
 		this.tipoParametro = tipoParametro;
 	}
 

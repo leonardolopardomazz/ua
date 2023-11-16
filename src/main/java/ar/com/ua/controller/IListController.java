@@ -35,6 +35,6 @@ public interface IListController<Dto> {
 	 * FindAll <Dto>
 	 * @return
 	 */
-	@GetMapping(value = "/")
+	@GetMapping(value = "")
 	ResponseDto findAll ();
 }

@@ -101,7 +101,6 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 
 	@Override
 	public ResponseDto findOne(@PathVariable Long id) {
-
 		try {
 			Optional<Usuario> value = usuarioService.findById(id);
 			if (value.isPresent()) {
@@ -159,7 +158,6 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 
 	@Override
 	public ResponseDto findAll() {
-
 		try {
 			// List
 			List<Usuario> usuarios = (ArrayList<Usuario>) usuarioService.findAll();

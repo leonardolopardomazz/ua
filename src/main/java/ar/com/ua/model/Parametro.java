@@ -20,10 +20,10 @@ public class Parametro {
 	private Long id;
 	
 	@Column(name = "cod_parametro")
-	private String codigoParametro;
+	private String codigo;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "tipo_parametro", referencedColumnName = "cod_tipo_parametro")
+	@OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "id_tipo_parametro", referencedColumnName = "id")
 	private TipoParametro tipoParametro;
 	
 	@Column(name = "descripcion")
@@ -46,12 +46,12 @@ public class Parametro {
 		this.id = id;
 	}
 
-	public String getCodigoParametro() {
-		return codigoParametro;
+	public String getCodigo() {
+		return codigo;
 	}
 
-	public void setCodigoParametro(String codigoParametro) {
-		this.codigoParametro = codigoParametro;
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
 	public TipoParametro getTipoParametro() {
