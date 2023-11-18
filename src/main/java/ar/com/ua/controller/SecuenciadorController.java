@@ -37,6 +37,12 @@ public class SecuenciadorController implements IABMController<SecuenciadorDTO>, 
 	private SecuenciadorBuilder secuenciadorBuilder;
 
 	static Logger logger = Logger.getLogger(SecuenciadorController.class.getName());
+	
+	private ResponseDto save(Long id, SecuenciadorDTO dto, String tipoMetodoConstant) {
+		//Setteo el id para la actualizacion
+		dto.setId(id);
+		return this.save(dto, tipoMetodoConstant);
+	}
 
 	private ResponseDto save(SecuenciadorDTO dto, String tipoMetodoConstant) {
 		List<String> mensajesError = new ArrayList<String>();
@@ -71,7 +77,7 @@ public class SecuenciadorController implements IABMController<SecuenciadorDTO>, 
 	 */
 	@Override
 	public ResponseDto modify(@PathVariable Long id, SecuenciadorDTO dto) {
-		return this.save(dto, TipoMetodoConstant.PUT);
+		return this.save(id, dto, TipoMetodoConstant.PUT);
 	}
 
 	/**

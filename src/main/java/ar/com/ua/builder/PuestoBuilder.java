@@ -36,6 +36,7 @@ public class PuestoBuilder implements IBuilder<Puesto, PuestoDTO> {
 	@Override
 	public PuestoDTO modelToDto(Puesto model) {
 		PuestoDTO dto = new PuestoDTO();
+		dto.setId(model.getId());
 		dto.setCodigo(model.getCodigo());
 		dto.setActivo(model.isActivo());
 		dto.setDescripcion(model.getDescripcion());

@@ -125,9 +125,9 @@ public class PaisController implements IABMController<PaisDTO>, IListController<
 	@Override
 	public ResponseDto findAny(Map<String, String> params) {
 		try {
-			String descripcion = params.get("descripcion");
+			String codigo = params.get("codigo");
 
-			List<Pais> listPaises = paisService.findByDescripcion(descripcion);
+			List<Pais> listPaises = paisService.findByCodigo(codigo);
 
 			if (!listPaises.isEmpty()) {
 				List<PaisDTO> listPaisDto = paisBuilder.modelListToDto(listPaises);

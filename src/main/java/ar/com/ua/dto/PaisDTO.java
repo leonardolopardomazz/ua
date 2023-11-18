@@ -6,7 +6,6 @@ public class PaisDTO {
 
 	private Long id;
 	private String codigo;
-	private String descripcion;
 	private Secuenciador secuenciador;
 	private boolean activo;
 	
@@ -24,14 +23,6 @@ public class PaisDTO {
 
 	public void setCodigo(String codigoPais) {
 		this.codigo = codigoPais;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
 	}
 
 	public Secuenciador getSecuenciador() {

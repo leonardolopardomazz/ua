@@ -22,10 +22,7 @@ public class Pais {
 	@Column(name = "cod_pais")
 	private String codigo;
 	
-	@Column(name = "descripcion")
-	private String descripcion;
-	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "id_secuenciador", referencedColumnName = "id")
 	private Secuenciador secuenciador;
 	
@@ -46,14 +43,6 @@ public class Pais {
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
 	}
 
 	public Secuenciador getSecuenciador() {

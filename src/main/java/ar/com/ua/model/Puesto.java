@@ -1,13 +1,10 @@
 package ar.com.ua.model;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,31 +16,26 @@ public class Puesto {
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 
-	@Column(name = "cod_puesto", unique = true, nullable = false)
+	@Column(name = "cod_puesto")
 	private String codigo;
 
-	@Column(name = "descripcion", unique = true, nullable = false)
+	@Column(name = "descripcion")
 	private String descripcion;
 
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cod_direccion", referencedColumnName = "cod_parametro")
-	private Parametro codigoDireccion;
+    @Column(name = "cod_direccion")
+	private String codigoDireccion;
 
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cod_gerencia", referencedColumnName = "cod_parametro")
-	private Parametro codigoGerencia;
+    @Column(name = "cod_gerencia")
+	private String codigoGerencia;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cod_jefatura", referencedColumnName = "cod_parametro")
-	private Parametro codigoJefatura;
+	@Column(name = "cod_jefatura")
+	private String codigoJefatura;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cod_categoria", referencedColumnName = "cod_parametro")
-	private Parametro codigoCategoria;
+	@Column(name = "cod_categoria")
+	private String codigoCategoria;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cod_puesto_al_que_reporta", referencedColumnName = "cod_parametro")
-	private Parametro codigoPuestoAlQueReporta;
+	@Column(name = "cod_puesto_al_que_reporta")
+	private String codigoPuestoAlQueReporta;
 
 	@Column(name = "activo", unique = true, nullable = false)
 	private boolean activo;
@@ -72,43 +64,43 @@ public class Puesto {
 		this.descripcion = descripcion;
 	}
 
-	public Parametro getCodigoDireccion() {
+	public String getCodigoDireccion() {
 		return codigoDireccion;
 	}
 
-	public void setCodigoDireccion(Parametro codigoDireccion) {
+	public void setCodigoDireccion(String codigoDireccion) {
 		this.codigoDireccion = codigoDireccion;
 	}
 
-	public Parametro getCodigoGerencia() {
+	public String getCodigoGerencia() {
 		return codigoGerencia;
 	}
 
-	public void setCodigoGerencia(Parametro codigoGerencia) {
+	public void setCodigoGerencia(String codigoGerencia) {
 		this.codigoGerencia = codigoGerencia;
 	}
 
-	public Parametro getCodigoJefatura() {
+	public String getCodigoJefatura() {
 		return codigoJefatura;
 	}
 
-	public void setCodigoJefatura(Parametro codigoJefatura) {
+	public void setCodigoJefatura(String codigoJefatura) {
 		this.codigoJefatura = codigoJefatura;
 	}
 
-	public Parametro getCodigoCategoria() {
+	public String getCodigoCategoria() {
 		return codigoCategoria;
 	}
 
-	public void setCodigoCategoria(Parametro codigoCategoria) {
+	public void setCodigoCategoria(String codigoCategoria) {
 		this.codigoCategoria = codigoCategoria;
 	}
 
-	public Parametro getCodigoPuestoAlQueReporta() {
+	public String getCodigoPuestoAlQueReporta() {
 		return codigoPuestoAlQueReporta;
 	}
 
-	public void setCodigoPuestoAlQueReporta(Parametro codigoPuestoAlQueReporta) {
+	public void setCodigoPuestoAlQueReporta(String codigoPuestoAlQueReporta) {
 		this.codigoPuestoAlQueReporta = codigoPuestoAlQueReporta;
 	}
 

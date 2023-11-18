@@ -17,7 +17,6 @@ public class PaisBuilder implements IBuilder<Pais, PaisDTO> {
 		Pais pais = new Pais();
 		pais.setId(dto.getId());
 		pais.setCodigo(dto.getCodigo());
-		pais.setDescripcion(dto.getDescripcion());
 		pais.setActivo(dto.isActivo());
 		pais.setSecuenciador(dto.getSecuenciador());
 		return pais;
@@ -28,7 +27,6 @@ public class PaisBuilder implements IBuilder<Pais, PaisDTO> {
 		PaisDTO paisDTO = new PaisDTO();
 		paisDTO.setId(model.getId());
 		paisDTO.setCodigo(model.getCodigo());
-		paisDTO.setDescripcion(model.getDescripcion());
 		paisDTO.setActivo(model.isActivo());
 		paisDTO.setSecuenciador(model.getSecuenciador());
 		return paisDTO;
@@ -43,7 +41,6 @@ public class PaisBuilder implements IBuilder<Pais, PaisDTO> {
 			dto.setId(pais.getId());
 			dto.setActivo(pais.isActivo());
 			dto.setCodigo(pais.getCodigo());
-			dto.setDescripcion(pais.getDescripcion());
 			dto.setSecuenciador(pais.getSecuenciador());
 
 			listDTO.add(dto);
