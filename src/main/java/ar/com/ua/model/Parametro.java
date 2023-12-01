@@ -22,7 +22,7 @@ public class Parametro {
 	@Column(name = "cod_parametro")
 	private String codigo;
 	
-	@OneToOne(cascade = CascadeType.MERGE)
+	@OneToOne()
     @JoinColumn(name = "id_tipo_parametro", referencedColumnName = "id")
 	private TipoParametro tipoParametro;
 	
