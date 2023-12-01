@@ -15,5 +15,8 @@ public class EndPointPathConstant {
 	public static final String PAIS = "/pais";
 	public static final String TIPO_PARAMETRO = "/tipoparametro";
 	public static final String SECUENCIADOR = "/secuenciador";
+	public static final String HISTORIAL_DE_LICENCIAS = "/historiallicencias";
+	public static final String HISTORIAL_DE_PUESTOS = "/historialpuestos";
+	public static final String HISTORIAL_DE_INGRESOS_CAIDOS = "/historialdeingresoscaidos";
 	
 }

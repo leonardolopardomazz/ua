@@ -7,90 +7,77 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ar.com.ua.builder.EmpleadoBuilder;
+import ar.com.ua.builder.HistorialLicenciasBuilder;
 import ar.com.ua.constant.CodigoRespuestaConstant;
 import ar.com.ua.constant.EndPointConstant;
 import ar.com.ua.constant.EndPointPathConstant;
 import ar.com.ua.constant.MensajeError;
 import ar.com.ua.constant.TipoMetodoConstant;
-import ar.com.ua.dto.EmpleadoDTO;
+import ar.com.ua.dto.HistorialLicenciasDTO;
 import ar.com.ua.dto.response.ResponseDto;
 import ar.com.ua.dto.response.ResponseErrorDto;
 import ar.com.ua.dto.response.ResponseOKDto;
 import ar.com.ua.dto.response.ResponseOKListDto;
-import ar.com.ua.model.Empleado;
-import ar.com.ua.service.EmpleadoService;
+import ar.com.ua.model.HistorialLicencias;
+import ar.com.ua.service.HistorialLicenciasService;
 
-@RequestMapping("/empleado")
+@RequestMapping("/historiallicencias")
 @RestController
-public class EmpleadoController implements IABMController<EmpleadoDTO>, IListController<EmpleadoDTO> {
+public class HistorialLicenciasController implements IABMController<HistorialLicenciasDTO>, IListController<HistorialLicenciasDTO> {
+	
+	@Autowired
+	private HistorialLicenciasService hlService;
 
 	@Autowired
-	private EmpleadoService empleadoService;
-
-	@Autowired
-	private EmpleadoBuilder empleadoBuilder;
-
-	static Logger logger = Logger.getLogger(EmpleadoController.class.getName());
-
-	private ResponseDto save(Long id, EmpleadoDTO dto, String tipoMetodoConstant) {
+	private HistorialLicenciasBuilder hlBuilder;
+	
+	static Logger logger = Logger.getLogger(HistorialLicenciasController.class.getName());
+	
+	private ResponseDto save(Long id, HistorialLicenciasDTO dto, String tipoMetodoConstant) {
+		// Setteo el id para la actualizacion
 		dto.setId(id);
 		return this.save(dto, tipoMetodoConstant);
 	}
-
-	private ResponseDto save(EmpleadoDTO dto, String tipoMetodoConstant) {
+	
+	private ResponseDto save(HistorialLicenciasDTO dto, String tipoMetodoConstant) {
 		List<String> mensajesError = new ArrayList<String>();
 
 		try {
-			Empleado empleado = empleadoBuilder.dtoToModel(dto);
-			Empleado empleadoGuardado = empleadoService.save(empleado);
-			EmpleadoDTO eexternoDto = empleadoBuilder.modelToDto(empleadoGuardado);
-			return new ResponseOKDto<EmpleadoDTO>(EndPointPathConstant.EMPLEADO, tipoMetodoConstant,
-					CodigoRespuestaConstant.OK, eexternoDto);
+			HistorialLicencias hl = hlBuilder.dtoToModel(dto);
+			HistorialLicencias hlGuardado = hlService.save(hl);
+			HistorialLicenciasDTO hlDto = hlBuilder.modelToDto(hlGuardado);
+			return new ResponseOKDto<HistorialLicenciasDTO>(EndPointPathConstant.HISTORIAL_DE_LICENCIAS, tipoMetodoConstant,
+					CodigoRespuestaConstant.OK, hlDto);
 		} catch (Exception e) {
 			String messageException = e.getMessage();
 			mensajesError.add(messageException);
 
-			return new ResponseErrorDto(EndPointPathConstant.EMPLEADO, tipoMetodoConstant,
+			return new ResponseErrorDto(EndPointPathConstant.HISTORIAL_DE_LICENCIAS, tipoMetodoConstant,
 					CodigoRespuestaConstant.ERROR, mensajesError);
 		}
 	}
 
-	/**
-	 * Inserta un empleado a la tabla
-	 * 
-	 * @return ResponseDto
-	 */
 	@Override
-	public ResponseDto add(EmpleadoDTO dto) {
+	public ResponseDto add(HistorialLicenciasDTO dto) {
 		return this.save(dto, TipoMetodoConstant.POST);
 	}
 
-	/**
-	 * Actualiza un empleado en la tabla
-	 */
 	@Override
-	public ResponseDto modify(@PathVariable Long id, EmpleadoDTO dto) {
+	public ResponseDto modify(Long id, HistorialLicenciasDTO dto) {
 		return this.save(id, dto, TipoMetodoConstant.PUT);
 	}
 
-	/**
-	 * Elimina un empleado de la tabla
-	 */
 	@Override
-	public ResponseDto deleteById(@PathVariable Long id) {
+	public ResponseDto deleteById(Long id) {
 		List<String> mensajesError = new ArrayList<String>();
 
 		try {
-			empleadoService.deleteById(id);
+			hlService.deleteById(id);
 
-			return new ResponseOKDto<EmpleadoDTO>(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
+			return new ResponseOKDto<HistorialLicenciasDTO>(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
 					CodigoRespuestaConstant.OK, null);
 		} catch (Exception e) {
 			String messageException = e.getMessage();
@@ -103,14 +90,14 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 	@Override
 	public ResponseDto findOne(Long id) {
 		try {
-			Optional<Empleado> value = empleadoService.findById(id);
+			Optional<HistorialLicencias> value = hlService.findById(id);
 			if (value.isPresent()) {
-				Empleado empleado = value.get();
+				HistorialLicencias hl = value.get();
 
-				EmpleadoDTO empleadoDto = empleadoBuilder.modelToDto(empleado);
+				HistorialLicenciasDTO hlDto = hlBuilder.modelToDto(hl);
 
-				return new ResponseOKDto<EmpleadoDTO>(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
-						CodigoRespuestaConstant.OK, empleadoDto);
+				return new ResponseOKDto<HistorialLicenciasDTO>(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
+						CodigoRespuestaConstant.OK, hlDto);
 			} else {
 				List<String> mensajesError = new ArrayList<String>();
 				mensajesError.add(MensajeError.ELEMENT_NOTFOUND_MESSAGE);
@@ -129,6 +116,7 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 
 	@Override
 	public ResponseDto findAny(Map<String, String> params) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -136,14 +124,14 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 	public ResponseDto findAll() {
 		try {
 			// List
-			List<Empleado> empleado = (ArrayList<Empleado>) empleadoService.findAll();
+			List<HistorialLicencias> hl = (ArrayList<HistorialLicencias>) hlService.findAll();
 
 			// Build Model List to Dto List
-			List<EmpleadoDTO> empleadoDto = empleadoBuilder.modelListToDto(empleado);
+			List<HistorialLicenciasDTO> hlDto = hlBuilder.modelListToDto(hl);
 
 			// return
-			return new ResponseOKListDto<EmpleadoDTO>(EndPointConstant.FIND_ALL, TipoMetodoConstant.GET,
-					CodigoRespuestaConstant.OK, empleadoDto);
+			return new ResponseOKListDto<HistorialLicenciasDTO>(EndPointConstant.FIND_ALL, TipoMetodoConstant.GET,
+					CodigoRespuestaConstant.OK, hlDto);
 
 		} catch (Exception e) {
 			String messageException = e.getMessage();
@@ -153,12 +141,5 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 					CodigoRespuestaConstant.ERROR, mensajes);
 		}
 	}
-
-//	@PutMapping(value = "/{id}")
-//	public ResponseDto changeState(@PathVariable Long id, @RequestBody EmpleadoDTO dto) {
-//		
-//		
-//		return this.save(id, dto, TipoMetodoConstant.PUT);
-//	}
 
 }

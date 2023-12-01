@@ -2,9 +2,10 @@ package ar.com.ua.model;
 
 import java.util.Date;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -15,6 +16,10 @@ import jakarta.persistence.Table;
 public class Empleado {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
+	private Long id;
+
 	@Column(name = "nro_legajo", unique = true, nullable = false)
 	private String numeroLegajo;
 
@@ -24,14 +29,14 @@ public class Empleado {
 	@Column(name = "apellido")
 	private String apellido;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cod_tipo_doc", referencedColumnName = "cod_parametro")
+	@OneToOne()
+	@JoinColumn(name = "cod_tipo_doc", referencedColumnName = "id")
 	private Parametro codigoTipoDocumento;
 
-	@Column(name = "nro_documento_personal")
+	@Column(name = "nro_doc_personal")
 	private String numeroDocumentoPersonal;
 
-	@Column(name = "nro_documento_laboral")
+	@Column(name = "nro_doc_laboral")
 	private String numeroDocumentoLaboral;
 
 	@Column(name = "fecha_nacimiento")
@@ -40,20 +45,20 @@ public class Empleado {
 	@Column(name = "fecha_ingreso")
 	private Date fechaIngreso;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cod_pais", referencedColumnName = "cod_parametro")
-	private Parametro codigoPais;
+	@OneToOne()
+	@JoinColumn(name = "cod_pais", referencedColumnName = "id")
+	private Pais codigoPais;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cod_oficina", referencedColumnName = "cod_parametro")
+	@OneToOne()
+	@JoinColumn(name = "cod_oficina", referencedColumnName = "id")
 	private Parametro codigoOficina;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cod_direccion", referencedColumnName = "cod_parametro")
+	@OneToOne()
+	@JoinColumn(name = "cod_direccion", referencedColumnName = "id")
 	private Parametro codigoDireccion;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cod_puesto", referencedColumnName = "cod_puesto")
+	@OneToOne()
+	@JoinColumn(name = "cod_puesto", referencedColumnName = "id")
 	private Puesto codigoPuesto;
 
 	@Column(name = "segundo_nombre")
@@ -62,47 +67,42 @@ public class Empleado {
 	@Column(name = "nombre_preferido")
 	private String nombrePreferido;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cod_generacion", referencedColumnName = "cod_parametro")
+	@OneToOne()
+	@JoinColumn(name = "cod_generacion", referencedColumnName = "id")
 	private Parametro codigoGeneracion;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cod_nacionalidad", referencedColumnName = "cod_parametro")
+	@OneToOne()
+	@JoinColumn(name = "cod_nacionalidad", referencedColumnName = "id")
 	private Parametro codigoNacionalidad;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cod_genero", referencedColumnName = "cod_parametro")
+	@OneToOne()
+	@JoinColumn(name = "cod_genero", referencedColumnName = "id")
 	private Parametro codigoGenero;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cod_provincia", referencedColumnName = "cod_parametro")
+	@OneToOne()
+	@JoinColumn(name = "cod_provincia", referencedColumnName = "id")
 	private Parametro codigoProvincia;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "calle_residencia", referencedColumnName = "cod_parametro")
-	private Parametro calleResidencia;
+	@Column(name = "calle_residencia")
+	private String calleResidencia;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "numero_residencia", referencedColumnName = "cod_parametro")
-	private Parametro numeroResidencia;
+	@Column(name = "numero_residencia")
+	private String numeroResidencia;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "departamento_residencia", referencedColumnName = "cod_parametro")
-	private Parametro departamentoResidencia;
+	@Column(name = "depto_residencia")
+	private String departamentoResidencia;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "piso_residencia", referencedColumnName = "cod_parametro")
-	private Parametro pisoResidencia;
+	@Column(name = "piso_residencia")
+	private String pisoResidencia;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "localidad_residencia", referencedColumnName = "cod_parametro")
-	private Parametro localidadResidencia;
+	@Column(name = "localidad_residencia")
+	private String localidadResidencia;
 
 	@Column(name = "email_personal")
 	private String emailPersonal;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "codigo_banco", referencedColumnName = "cod_parametro")
+	@OneToOne()
+	@JoinColumn(name = "cod_banco", referencedColumnName = "id")
 	private Parametro codigoBanco;
 
 	@Column(name = "cbu")
@@ -111,8 +111,8 @@ public class Empleado {
 	@Column(name = "fecha_ingreso_reconocida")
 	private Date fechaIngresoReconocida;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "codigo_tipo_contratacion", referencedColumnName = "cod_parametro")
+	@OneToOne()
+	@JoinColumn(name = "cod_tipo_contratacion", referencedColumnName = "id")
 	private Parametro codigoTipoContratacion;
 
 	@Column(name = "horas_semanales")
@@ -121,76 +121,88 @@ public class Empleado {
 	@Column(name = "fte")
 	private double fte;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cod_frec_liquidacion", referencedColumnName = "cod_parametro")
+	@OneToOne()
+	@JoinColumn(name = "cod_frec_liquidacion", referencedColumnName = "id")
 	private Parametro codigoFrecuenciaLiquidacion;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cod_tipo_empleo", referencedColumnName = "cod_parametro")
+	@OneToOne()
+	@JoinColumn(name = "cod_tipo_empleo", referencedColumnName = "id")
 	private Parametro codigoTipoEmpleo;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cod_tipo_jornada", referencedColumnName = "cod_parametro")
+	@OneToOne()
+	@JoinColumn(name = "cod_tipo_jornada", referencedColumnName = "id")
 	private Parametro codigoTipoJornada;
 
 	@Column(name = "email_laboral")
 	private String emailLaboral;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cod_categoria_empleado", referencedColumnName = "cod_parametro")
+	@OneToOne()
+	@JoinColumn(name = "cod_categoria_empleado", referencedColumnName = "id")
 	private Parametro codigoCategoriaEmpleado;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cod_division", referencedColumnName = "cod_parametro")
+	@OneToOne()
+	@JoinColumn(name = "cod_division", referencedColumnName = "id")
 	private Parametro codigoDivision;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cod_centro_de_costo", referencedColumnName = "cod_parametro")
+	@OneToOne()
+	@JoinColumn(name = "cod_centro_de_costo", referencedColumnName = "id")
 	private Parametro codigoCentroDeCosto;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cod_prepaga", referencedColumnName = "cod_parametro")
+	@OneToOne()
+	@JoinColumn(name = "cod_prepaga", referencedColumnName = "id")
 	private Parametro codigoPrepaga;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cod_obra_social", referencedColumnName = "cod_parametro")
+	@OneToOne()
+	@JoinColumn(name = "cod_obra_social", referencedColumnName = "id")
 	private Parametro codigoObraSocial;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "obra_social_nro_afiliado", referencedColumnName = "cod_parametro")
-	private Parametro obraSocialNumeroAfiliado;
-
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cod_plan_prepaga", referencedColumnName = "cod_parametro")
-	private Parametro codigoPlanPrepaga;
-
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cod_convenio", referencedColumnName = "cod_parametro")
+	@OneToOne()
+	@JoinColumn(name = "cod_convenio", referencedColumnName = "id")
 	private Parametro codigoConvenio;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cod_categoria_convenio", referencedColumnName = "cod_parametro")
+	@OneToOne()
+	@JoinColumn(name = "cod_categoria_convenio", referencedColumnName = "id")
 	private Parametro codigoCategoriaConvenio;
 
 	@Column(name = "afiliado_sindicato")
 	private boolean afiliadoSindicato;
 
-	@Column(name = "fecha_fin_contrado")
+	@Column(name = "fecha_fin_contrato")
 	private Date fechaFinContrato;
 
 	@Column(name = "fecha_egreso")
 	private Date fechaEgreso;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cod_tipo_egreso", referencedColumnName = "cod_parametro")
+	@OneToOne()
+	@JoinColumn(name = "cod_tipo_egreso", referencedColumnName = "id")
 	private Parametro codigoTipoEgreso;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cod_estado_empleado", referencedColumnName = "cod_parametro")
+
+	@OneToOne()
+	@JoinColumn(name = "cod_estado_empleado", referencedColumnName = "id")
 	private Parametro codigoEstadoEmpleado;
 
 	@Column(name = "observaciones")
 	private String observaciones;
+
+	@OneToOne()
+	@JoinColumn(name = "cod_pais_residencia", referencedColumnName = "id")
+	private Pais codigoPaisResidencia;
+
+	@OneToOne()
+	@JoinColumn(name = "cod_estado_civil", referencedColumnName = "id")
+	private Parametro codigoEstadoCivil;
+
+	@OneToOne()
+	@JoinColumn(name = "cod_grado", referencedColumnName = "id")
+	private Parametro codigoGrado;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getNumeroLegajo() {
 		return numeroLegajo;
@@ -256,11 +268,11 @@ public class Empleado {
 		this.fechaIngreso = fechaIngreso;
 	}
 
-	public Parametro getCodigoPais() {
+	public Pais getCodigoPais() {
 		return codigoPais;
 	}
 
-	public void setCodigoPais(Parametro codigoPais) {
+	public void setCodigoPais(Pais codigoPais) {
 		this.codigoPais = codigoPais;
 	}
 
@@ -336,43 +348,43 @@ public class Empleado {
 		this.codigoProvincia = codigoProvincia;
 	}
 
-	public Parametro getCalleResidencia() {
+	public String getCalleResidencia() {
 		return calleResidencia;
 	}
 
-	public void setCalleResidencia(Parametro calleResidencia) {
+	public void setCalleResidencia(String calleResidencia) {
 		this.calleResidencia = calleResidencia;
 	}
 
-	public Parametro getNumeroResidencia() {
+	public String getNumeroResidencia() {
 		return numeroResidencia;
 	}
 
-	public void setNumeroResidencia(Parametro numeroResidencia) {
+	public void setNumeroResidencia(String numeroResidencia) {
 		this.numeroResidencia = numeroResidencia;
 	}
 
-	public Parametro getDepartamentoResidencia() {
+	public String getDepartamentoResidencia() {
 		return departamentoResidencia;
 	}
 
-	public void setDepartamentoResidencia(Parametro departamentoResidencia) {
+	public void setDepartamentoResidencia(String departamentoResidencia) {
 		this.departamentoResidencia = departamentoResidencia;
 	}
 
-	public Parametro getPisoResidencia() {
+	public String getPisoResidencia() {
 		return pisoResidencia;
 	}
 
-	public void setPisoResidencia(Parametro pisoResidencia) {
+	public void setPisoResidencia(String pisoResidencia) {
 		this.pisoResidencia = pisoResidencia;
 	}
 
-	public Parametro getLocalidadResidencia() {
+	public String getLocalidadResidencia() {
 		return localidadResidencia;
 	}
 
-	public void setLocalidadResidencia(Parametro localidadResidencia) {
+	public void setLocalidadResidencia(String localidadResidencia) {
 		this.localidadResidencia = localidadResidencia;
 	}
 
@@ -504,22 +516,6 @@ public class Empleado {
 		this.codigoObraSocial = codigoObraSocial;
 	}
 
-	public Parametro getObraSocialNumeroAfiliado() {
-		return obraSocialNumeroAfiliado;
-	}
-
-	public void setObraSocialNumeroAfiliado(Parametro obraSocialNumeroAfiliado) {
-		this.obraSocialNumeroAfiliado = obraSocialNumeroAfiliado;
-	}
-
-	public Parametro getCodigoPlanPrepaga() {
-		return codigoPlanPrepaga;
-	}
-
-	public void setCodigoPlanPrepaga(Parametro codigoPlanPrepaga) {
-		this.codigoPlanPrepaga = codigoPlanPrepaga;
-	}
-
 	public Parametro getCodigoConvenio() {
 		return codigoConvenio;
 	}
@@ -582,6 +578,30 @@ public class Empleado {
 
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
+	}
+
+	public Pais getCodigoPaisResidencia() {
+		return codigoPaisResidencia;
+	}
+
+	public void setCodigoPaisResidencia(Pais codigoPaisResidencia) {
+		this.codigoPaisResidencia = codigoPaisResidencia;
+	}
+
+	public Parametro getCodigoEstadoCivil() {
+		return codigoEstadoCivil;
+	}
+
+	public void setCodigoEstadoCivil(Parametro codigoEstadoCivil) {
+		this.codigoEstadoCivil = codigoEstadoCivil;
+	}
+
+	public Parametro getCodigoGrado() {
+		return codigoGrado;
+	}
+
+	public void setCodigoGrado(Parametro codigoGrado) {
+		this.codigoGrado = codigoGrado;
 	}
 
 }

@@ -2,9 +2,10 @@ package ar.com.ua.model;
 
 import java.util.Date;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -16,6 +17,9 @@ import jakarta.persistence.Table;
 public class EmpleadoExterno {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
 	@Column(name = "nro_legajo", unique = true, nullable = false)
 	private String numeroLegajo;
 	
@@ -25,43 +29,43 @@ public class EmpleadoExterno {
 	@Column(name = "nombre")
 	private String nombre;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cod_tipo_doc", referencedColumnName = "cod_parametro")
+	@OneToOne()
+    @JoinColumn(name = "cod_tipo_doc", referencedColumnName = "id")
 	private Parametro codigoTipoDocumento;
 	
 	@Column(name = "nro_doc")
 	private String numeroDocumento;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cod_nacionalidad", referencedColumnName = "cod_parametro")
+	@OneToOne()
+    @JoinColumn(name = "cod_nacionalidad", referencedColumnName = "id")
 	private Parametro codigoNacionalidad;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cod_proveedor", referencedColumnName = "cod_parametro")
+	@OneToOne()
+    @JoinColumn(name = "cod_proveedor", referencedColumnName = "id")
 	private Parametro codigoProveedor;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cod_pais", referencedColumnName = "cod_parametro")
+	@OneToOne()
+    @JoinColumn(name = "cod_pais", referencedColumnName = "id")
 	private Parametro codigoPais;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cod_puesto", referencedColumnName = "cod_parametro")
+	@OneToOne()
+    @JoinColumn(name = "cod_puesto", referencedColumnName = "id")
 	private Parametro codigoPuesto;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cod_division", referencedColumnName = "cod_parametro")
+	@OneToOne()
+    @JoinColumn(name = "cod_division", referencedColumnName = "id")
 	private Parametro codigoDivision;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cod_direccion", referencedColumnName = "cod_parametro")
+	@OneToOne()
+    @JoinColumn(name = "cod_direccion", referencedColumnName = "id")
 	private Parametro codigoDireccion;
     
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cod_gerencia", referencedColumnName = "cod_parametro")
+	@OneToOne()
+    @JoinColumn(name = "cod_gerencia", referencedColumnName = "id")
 	private Parametro codigoGerencia;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cod_jefatura", referencedColumnName = "cod_parametro")
+	@OneToOne()
+    @JoinColumn(name = "cod_jefatura", referencedColumnName = "id")
 	private Parametro codigoJefatura;
 	
 	@Column(name = "fecha_ingreso")
@@ -70,8 +74,8 @@ public class EmpleadoExterno {
 	@Column(name = "fecha_egreso")
 	private Date fechaEgreso;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cod_genero", referencedColumnName = "cod_parametro")
+	@OneToOne()
+    @JoinColumn(name = "cod_genero", referencedColumnName = "id")
 	private Parametro codigoGenero;
 	
 	@Column(name = "email_personal")
@@ -79,12 +83,20 @@ public class EmpleadoExterno {
 	
 	@Column(name = "activo")
 	private boolean activo;
+	
+	public Long getId() {
+		return id;
+	}
 
-	protected String getNumeroLegajo() {
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNumeroLegajo() {
 		return numeroLegajo;
 	}
 
-	protected void setNumeroLegajo(String numeroLegajo) {
+	public void setNumeroLegajo(String numeroLegajo) {
 		this.numeroLegajo = numeroLegajo;
 	}
 

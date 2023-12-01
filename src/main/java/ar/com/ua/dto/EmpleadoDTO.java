@@ -2,10 +2,13 @@ package ar.com.ua.dto;
 
 import java.util.Date;
 
+import ar.com.ua.model.Pais;
 import ar.com.ua.model.Parametro;
+import ar.com.ua.model.Puesto;
 
 public class EmpleadoDTO {
 
+	private Long id;
 	private String numeroLegajo;
 	private String nombre;
 	private String apellido;
@@ -14,21 +17,21 @@ public class EmpleadoDTO {
 	private String numeroDocumentoLaboral;
 	private Date fechaNacimiento;
 	private Date fechaIngreso;
-	private Parametro codigoPais;
+	private Pais codigoPais;
 	private Parametro codigoOficina;
 	private Parametro codigoDireccion;
-	private Parametro codigoPuesto;
+	private Puesto codigoPuesto;
 	private String segundoNombre;
 	private String nombrePreferido;
 	private Parametro codigoGeneracion;
 	private Parametro codigoNacionalidad;
 	private Parametro codigoGenero;
 	private Parametro codigoProvincia;
-	private Parametro calleResidencia;
-	private Parametro numeroResidencia;
-	private Parametro departamentoResidencia;
-	private Parametro pisoResidencia;
-	private Parametro localidadResidencia;
+	private String calleResidencia;
+	private String numeroResidencia;
+	private String departamentoResidencia;
+	private String pisoResidencia;
+	private String localidadResidencia;
 	private String emailPersonal;
 	private Parametro codigoBanco;
 	private String cbu;
@@ -45,8 +48,6 @@ public class EmpleadoDTO {
 	private Parametro codigoCentroDeCosto;
 	private Parametro codigoPrepaga;
 	private Parametro codigoObraSocial;
-	private Parametro obraSocialNumeroAfiliado;
-	private Parametro codigoPlanPrepaga;
 	private Parametro codigoConvenio;
 	private Parametro codigoCategoriaConvenio;
 	private boolean afiliadoSindicato;
@@ -55,6 +56,17 @@ public class EmpleadoDTO {
 	private Parametro codigoTipoEgreso;
 	private Parametro codigoEstadoEmpleado;
 	private String observaciones;
+	private Pais codigoPaisResidencia;
+	private Parametro codigoEstadoCivil;
+	private Parametro codigoGrado;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getNumeroLegajo() {
 		return numeroLegajo;
@@ -120,11 +132,11 @@ public class EmpleadoDTO {
 		this.fechaIngreso = fechaIngreso;
 	}
 
-	public Parametro getCodigoPais() {
+	public Pais getCodigoPais() {
 		return codigoPais;
 	}
 
-	public void setCodigoPais(Parametro codigoPais) {
+	public void setCodigoPais(Pais codigoPais) {
 		this.codigoPais = codigoPais;
 	}
 
@@ -144,11 +156,11 @@ public class EmpleadoDTO {
 		this.codigoDireccion = codigoDireccion;
 	}
 
-	public Parametro getCodigoPuesto() {
+	public Puesto getCodigoPuesto() {
 		return codigoPuesto;
 	}
 
-	public void setCodigoPuesto(Parametro codigoPuesto) {
+	public void setCodigoPuesto(Puesto codigoPuesto) {
 		this.codigoPuesto = codigoPuesto;
 	}
 
@@ -200,43 +212,43 @@ public class EmpleadoDTO {
 		this.codigoProvincia = codigoProvincia;
 	}
 
-	public Parametro getCalleResidencia() {
+	public String getCalleResidencia() {
 		return calleResidencia;
 	}
 
-	public void setCalleResidencia(Parametro calleResidencia) {
+	public void setCalleResidencia(String calleResidencia) {
 		this.calleResidencia = calleResidencia;
 	}
 
-	public Parametro getNumeroResidencia() {
+	public String getNumeroResidencia() {
 		return numeroResidencia;
 	}
 
-	public void setNumeroResidencia(Parametro numeroResidencia) {
+	public void setNumeroResidencia(String numeroResidencia) {
 		this.numeroResidencia = numeroResidencia;
 	}
 
-	public Parametro getDepartamentoResidencia() {
+	public String getDepartamentoResidencia() {
 		return departamentoResidencia;
 	}
 
-	public void setDepartamentoResidencia(Parametro departamentoResidencia) {
+	public void setDepartamentoResidencia(String departamentoResidencia) {
 		this.departamentoResidencia = departamentoResidencia;
 	}
 
-	public Parametro getPisoResidencia() {
+	public String getPisoResidencia() {
 		return pisoResidencia;
 	}
 
-	public void setPisoResidencia(Parametro pisoResidencia) {
+	public void setPisoResidencia(String pisoResidencia) {
 		this.pisoResidencia = pisoResidencia;
 	}
 
-	public Parametro getLocalidadResidencia() {
+	public String getLocalidadResidencia() {
 		return localidadResidencia;
 	}
 
-	public void setLocalidadResidencia(Parametro localidadResidencia) {
+	public void setLocalidadResidencia(String localidadResidencia) {
 		this.localidadResidencia = localidadResidencia;
 	}
 
@@ -368,22 +380,6 @@ public class EmpleadoDTO {
 		this.codigoObraSocial = codigoObraSocial;
 	}
 
-	public Parametro getObraSocialNumeroAfiliado() {
-		return obraSocialNumeroAfiliado;
-	}
-
-	public void setObraSocialNumeroAfiliado(Parametro obraSocialNumeroAfiliado) {
-		this.obraSocialNumeroAfiliado = obraSocialNumeroAfiliado;
-	}
-
-	public Parametro getCodigoPlanPrepaga() {
-		return codigoPlanPrepaga;
-	}
-
-	public void setCodigoPlanPrepaga(Parametro codigoPlanPrepaga) {
-		this.codigoPlanPrepaga = codigoPlanPrepaga;
-	}
-
 	public Parametro getCodigoConvenio() {
 		return codigoConvenio;
 	}
@@ -446,6 +442,30 @@ public class EmpleadoDTO {
 
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
+	}
+
+	public Pais getCodigoPaisResidencia() {
+		return codigoPaisResidencia;
+	}
+
+	public void setCodigoPaisResidencia(Pais codigoPaisResidencia) {
+		this.codigoPaisResidencia = codigoPaisResidencia;
+	}
+
+	public Parametro getCodigoEstadoCivil() {
+		return codigoEstadoCivil;
+	}
+
+	public void setCodigoEstadoCivil(Parametro codigoEstadoCivil) {
+		this.codigoEstadoCivil = codigoEstadoCivil;
+	}
+
+	public Parametro getCodigoGrado() {
+		return codigoGrado;
+	}
+
+	public void setCodigoGrado(Parametro codigoGrado) {
+		this.codigoGrado = codigoGrado;
 	}
 
 }

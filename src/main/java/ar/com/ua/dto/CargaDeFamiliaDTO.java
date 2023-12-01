@@ -6,7 +6,8 @@ import ar.com.ua.model.Parametro;
 
 public class CargaDeFamiliaDTO {
 
-	private Integer numeroLegajo;
+	private Long id;
+	private String numeroLegajo;
 	private String apellido;
 	private String nombre;
 	private Parametro codigoParentesco;
@@ -14,12 +15,20 @@ public class CargaDeFamiliaDTO {
 	private String numeroDocumento;
 	private Date fechaNacimiento;
 	private boolean activo;
+	
+	public Long getId() {
+		return id;
+	}
 
-	public Integer getNumeroLegajo() {
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNumeroLegajo() {
 		return numeroLegajo;
 	}
 
-	public void setNumeroLegajo(Integer numeroLegajo) {
+	public void setNumeroLegajo(String numeroLegajo) {
 		this.numeroLegajo = numeroLegajo;
 	}
 

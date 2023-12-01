@@ -6,7 +6,8 @@ import ar.com.ua.model.Parametro;
 
 public class EmpleadoExternoDTO {
 
-	private Integer legajoExterno;
+	private Long id;
+	private String numeroLegajo;
 	private String apellido;
 	private String nombre;
 	private Parametro codigoTipoDocumento;
@@ -25,12 +26,20 @@ public class EmpleadoExternoDTO {
 	private String emailPersonal;
 	private boolean activo;
 
-	public Integer getLegajoExterno() {
-		return legajoExterno;
+	public Long getId() {
+		return id;
 	}
 
-	public void setLegajoExterno(Integer legajoExterno) {
-		this.legajoExterno = legajoExterno;
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNumeroLegajo() {
+		return numeroLegajo;
+	}
+
+	public void setNumeroLegajo(String legajoExterno) {
+		this.numeroLegajo = legajoExterno;
 	}
 
 	public String getApellido() {

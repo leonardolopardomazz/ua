@@ -39,4 +39,20 @@ public class RolPermisoRepositoryImpl implements RolPermisoRepository<RolPermiso
 		}
 	}
 
+	@Override
+	public void customDelete(RolPermiso rolPermiso) {
+		Long codigoRol = rolPermiso.getCodigoRol();
+		Long codigoPermiso = rolPermiso.getCodigoPermiso();
+
+		final String QUERY = "DELETE FROM ua.roles_permisos WHERE cod_rol = ? AND id_permiso = ?";
+		
+		if (rolService.existsById(codigoRol) && permisoService.existsById(codigoPermiso)) {
+			entityManager.createNativeQuery(QUERY)
+				.setParameter(1, codigoRol)
+				.setParameter(2, codigoPermiso)
+				.executeUpdate();
+		}
+		
+	}
+
 }

@@ -1,59 +1,21 @@
-package ar.com.ua.model;
+package ar.com.ua.dto;
 
 import java.util.Date;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import ar.com.ua.model.Parametro;
 
-@Entity
-@Table(name = "historial_de_puestos")
-public class HistorialPuestos {
+public class HistorialPuestosDTO {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
-
-	@Column(name = "nro_legajo", unique = true, nullable = false)
 	private String numeroLegajo;
-
-	@OneToOne()
-	@JoinColumn(name = "cod_pais", referencedColumnName = "id")
 	private Parametro codigoPais;
-
-	@OneToOne()
-	@JoinColumn(name = "cod_oficina", referencedColumnName = "id")
 	private Parametro codigoOficina;
-
-	@OneToOne()
-	@JoinColumn(name = "cod_direccion", referencedColumnName = "id")
 	private Parametro codigoDireccion;
-
-	@OneToOne()
-	@JoinColumn(name = "cod_gerencia", referencedColumnName = "id")
 	private Parametro codigoGerencia;
-
-	@OneToOne()
-	@JoinColumn(name = "cod_jefatura", referencedColumnName = "id")
 	private Parametro codigoJefatura;
-
-	@OneToOne()
-	@JoinColumn(name = "cod_puesto", referencedColumnName = "id")
 	private Parametro codigoPuesto;
-
-	@Column(name = "fecha_ingreso_reconocida")
 	private Date fechaIngresoReconocida;
-
-	@Column(name = "fecha_egreso")
 	private Date fechaEgreso;
-
-	@Column(name = "activo")
 	private boolean activo;
 
 	public Long getId() {

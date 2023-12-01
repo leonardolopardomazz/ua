@@ -39,4 +39,20 @@ public class RolUsuarioRepositoryImpl implements RolUsuarioRepository<RolUsuario
 		}
 	}
 
+	@Override
+	public void customDelete(RolUsuario rolUsuario) {
+		Long codigoRol = rolUsuario.getCodigo();
+		Long idUsuario = rolUsuario.getId();
+
+		final String QUERY = "DELETE FROM ua.roles_usuarios WHERE cod_rol = ? AND id_usuario = ?";
+
+		if (rolService.existsById(codigoRol) && usuarioService.existsById(idUsuario)) {
+			entityManager.createNativeQuery(QUERY)
+				.setParameter(1, codigoRol)
+				.setParameter(2, idUsuario)
+				.executeUpdate();
+		}
+		
+	}
+
 }

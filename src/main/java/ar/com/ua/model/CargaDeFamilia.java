@@ -2,9 +2,10 @@ package ar.com.ua.model;
 
 import java.util.Date;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -13,39 +14,51 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "cargas_de_familia")
 public class CargaDeFamilia {
-	
+
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
+	private Long id;
+
 	@Column(name = "nro_legajo", unique = true, nullable = false)
-	private Integer numeroLegajo;
-	
+	private String numeroLegajo;
+
 	@Column(name = "apellido")
 	private String apellido;
-	
+
 	@Column(name = "nombre")
 	private String nombre;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cod_parentesco", referencedColumnName = "cod_parametro")
+
+	@OneToOne()
+	@JoinColumn(name = "cod_parentesco", referencedColumnName = "id")
 	private Parametro codigoParentesco;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cod_tipo_doc", referencedColumnName = "cod_parametro")
+
+	@OneToOne()
+	@JoinColumn(name = "cod_tipo_doc", referencedColumnName = "id")
 	private Parametro codigoTipoDocumento;
-	
+
 	@Column(name = "nro_doc")
 	private String numeroDocumento;
-	
+
 	@Column(name = "fecha_nacimiento")
 	private Date fechaNacimiento;
-	
+
 	@Column(name = "activo")
 	private boolean activo;
 
-	public Integer getNumeroLegajo() {
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNumeroLegajo() {
 		return numeroLegajo;
 	}
 
-	public void setNumeroLegajo(Integer numeroLegajo) {
+	public void setNumeroLegajo(String numeroLegajo) {
 		this.numeroLegajo = numeroLegajo;
 	}
 

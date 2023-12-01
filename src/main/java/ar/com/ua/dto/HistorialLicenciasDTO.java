@@ -1,33 +1,13 @@
-package ar.com.ua.model;
+package ar.com.ua.dto;
 
 import java.util.Date;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+public class HistorialLicenciasDTO {
 
-@Entity
-@Table(name = "historial_de_licencias")
-public class HistorialLicencias {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
-	
-	@Column(name = "nro_legajo", unique = true, nullable = false)
 	private String numeroLegajo;
-	
-	@Column(name = "fecha_inicio")
 	private Date fechaInicio;
-	
-	@Column(name = "fecha_fin")
 	private Date fechaFin;
-	
-	@Column(name = "activo")
 	private boolean activo;
 
 	public Long getId() {
@@ -69,4 +49,5 @@ public class HistorialLicencias {
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
+
 }

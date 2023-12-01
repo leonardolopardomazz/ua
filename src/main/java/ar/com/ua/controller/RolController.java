@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -138,6 +139,25 @@ public class RolController implements IABMController<RolDTO>, IListController<Ro
 					mensajesError);
 		}
 	}
+	
+	// Relacion roles-usuarios
+	@DeleteMapping(value = "/usuario")
+	public ResponseDto deleteRolToUsuario(@RequestBody RolUsuarioDTO dto) {
+		try {
+			RolUsuario rolUsuario = rolUsuarioBuilder.dtoToModel(dto);
+			this.rolUsuarioService.customDelete(rolUsuario);
+
+			return new ResponseOKDto<RolDTO>(EndPointConstant.DELETE, TipoMetodoConstant.DELETE, CodigoRespuestaConstant.OK,
+					null);
+		} catch (Exception e) {
+			List<String> mensajesError = new ArrayList<String>();
+			String messageException = e.getMessage();
+			mensajesError.add(messageException);
+			return new ResponseErrorDto(EndPointConstant.DELETE, TipoMetodoConstant.DELETE, CodigoRespuestaConstant.ERROR,
+					mensajesError);
+		}
+	}
+	
 
 	// Relacion roles-permisos
 	@PostMapping(value = "/permiso")

@@ -17,6 +17,7 @@ public class CargaDeFamiliaBuilder implements IBuilder<CargaDeFamilia, CargaDeFa
 	@Override
 	public CargaDeFamilia dtoToModel(CargaDeFamiliaDTO dto) {
 		CargaDeFamilia cdf = new CargaDeFamilia();
+		cdf.setId(dto.getId());
 		cdf.setNombre(dto.getNombre());
 		cdf.setApellido(dto.getApellido());
 		cdf.setCodigoParentesco(dto.getCodigoParentesco());
@@ -34,6 +35,7 @@ public class CargaDeFamiliaBuilder implements IBuilder<CargaDeFamilia, CargaDeFa
 	@Override
 	public CargaDeFamiliaDTO modelToDto(CargaDeFamilia model) {
 		CargaDeFamiliaDTO dto = new CargaDeFamiliaDTO();
+		dto.setId(model.getId());
 		dto.setNombre(model.getNombre());
 		dto.setApellido(model.getApellido());
 		dto.setCodigoParentesco(model.getCodigoParentesco());
@@ -54,6 +56,7 @@ public class CargaDeFamiliaBuilder implements IBuilder<CargaDeFamilia, CargaDeFa
 
 		for (CargaDeFamilia cdf : list) {
 			CargaDeFamiliaDTO dto = new CargaDeFamiliaDTO();
+			dto.setId(cdf.getId());
 			dto.setNombre(cdf.getNombre());
 			dto.setApellido(cdf.getApellido());
 			dto.setCodigoParentesco(cdf.getCodigoParentesco());
