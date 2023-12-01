@@ -176,6 +176,24 @@ public class RolController implements IABMController<RolDTO>, IListController<Ro
 					mensajesError);
 		}
 	}
+	
+	// Relacion roles-permisos
+	@DeleteMapping(value = "/permiso")
+	public ResponseDto deleteRolToPermiso(@RequestBody RolPermisoDTO dto) {
+		try {
+			RolPermiso rolPermiso = rolPermisoBuilder.dtoToModel(dto);
+			this.rolPermisoService.customDelete(rolPermiso);
+			
+			return new ResponseOKDto<RolDTO>(EndPointConstant.DELETE, TipoMetodoConstant.DELETE, CodigoRespuestaConstant.OK,
+					null);
+		} catch (Exception e) {
+			List<String> mensajesError = new ArrayList<String>();
+			String messageException = e.getMessage();
+			mensajesError.add(messageException);
+			return new ResponseErrorDto(EndPointConstant.DELETE, TipoMetodoConstant.DELETE, CodigoRespuestaConstant.ERROR,
+					mensajesError);
+		}
+	}
 
 	@Override
 	public ResponseDto findOne(Long id) {

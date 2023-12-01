@@ -15,4 +15,8 @@ public class RolPermisoService {
 	public void customSave(RolPermiso rolPermiso) {
 		this.repository.customSave(rolPermiso);
 	}
+	
+	public void customDelete(RolPermiso rolPermiso) {
+		this.repository.customDelete(rolPermiso);
+	}
 }
