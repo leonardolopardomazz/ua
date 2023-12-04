@@ -16,9 +16,8 @@ public class SecuenciadorBuilder implements IBuilder<Secuenciador, SecuenciadorD
 		Secuenciador secuenciador = new Secuenciador();
 		secuenciador.setId(dto.getId());
 		secuenciador.setCodigo(dto.getCodigo());
-		secuenciador.setEstado(dto.getEstado());
-		secuenciador.setFechaRangoDesde(dto.getFechaRangoDesde());
-		secuenciador.setFechaRangoHasta(dto.getFechaRangoHasta());
+		secuenciador.setRangoDesde(dto.getRangoDesde());
+		secuenciador.setRangoHasta(dto.getRangoHasta());
 		secuenciador.setSecuencia(dto.getSecuencia());
 		secuenciador.setActivo(dto.isActivo());
 		return secuenciador;
@@ -29,9 +28,8 @@ public class SecuenciadorBuilder implements IBuilder<Secuenciador, SecuenciadorD
 		SecuenciadorDTO secuenciadorDto = new SecuenciadorDTO();
 		secuenciadorDto.setId(model.getId());
 		secuenciadorDto.setCodigo(model.getCodigo());
-		secuenciadorDto.setEstado(model.getEstado());
-		secuenciadorDto.setFechaRangoDesde(model.getFechaRangoDesde());
-		secuenciadorDto.setFechaRangoHasta(model.getFechaRangoHasta());
+		secuenciadorDto.setRangoDesde(model.getRangoDesde());
+		secuenciadorDto.setRangoHasta(model.getRangoHasta());
 		secuenciadorDto.setSecuencia(model.getSecuencia());
 		secuenciadorDto.setActivo(model.isActivo());
 		return secuenciadorDto;
@@ -46,9 +44,8 @@ public class SecuenciadorBuilder implements IBuilder<Secuenciador, SecuenciadorD
 			SecuenciadorDTO secuenciadorDto = new SecuenciadorDTO();
 			secuenciadorDto.setId(secuenciador.getId());
 			secuenciadorDto.setCodigo(secuenciador.getCodigo());
-			secuenciadorDto.setEstado(secuenciador.getEstado());
-			secuenciadorDto.setFechaRangoDesde(secuenciador.getFechaRangoDesde());
-			secuenciadorDto.setFechaRangoHasta(secuenciador.getFechaRangoHasta());
+			secuenciadorDto.setRangoDesde(secuenciador.getRangoDesde());
+			secuenciadorDto.setRangoHasta(secuenciador.getRangoHasta());
 			secuenciadorDto.setSecuencia(secuenciador.getSecuencia());
 			secuenciadorDto.setActivo(secuenciador.isActivo());
 

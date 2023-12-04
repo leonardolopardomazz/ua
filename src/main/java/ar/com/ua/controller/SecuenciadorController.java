@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +18,6 @@ import ar.com.ua.constant.EndPointConstant;
 import ar.com.ua.constant.EndPointPathConstant;
 import ar.com.ua.constant.MensajeError;
 import ar.com.ua.constant.TipoMetodoConstant;
-import ar.com.ua.dto.CargaDeFamiliaDTO;
 import ar.com.ua.dto.SecuenciadorDTO;
 import ar.com.ua.dto.response.ResponseDto;
 import ar.com.ua.dto.response.ResponseErrorDto;
@@ -37,9 +37,9 @@ public class SecuenciadorController implements IABMController<SecuenciadorDTO>, 
 	private SecuenciadorBuilder secuenciadorBuilder;
 
 	static Logger logger = Logger.getLogger(SecuenciadorController.class.getName());
-	
+
 	private ResponseDto save(Long id, SecuenciadorDTO dto, String tipoMetodoConstant) {
-		//Setteo el id para la actualizacion
+		// Setteo el id para la actualizacion
 		dto.setId(id);
 		return this.save(dto, tipoMetodoConstant);
 	}
@@ -90,12 +90,30 @@ public class SecuenciadorController implements IABMController<SecuenciadorDTO>, 
 		try {
 			secuenciadorService.deleteById(id);
 
-			return new ResponseOKDto<CargaDeFamiliaDTO>(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
+			return new ResponseOKDto<SecuenciadorDTO>(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
 					CodigoRespuestaConstant.OK, null);
 		} catch (Exception e) {
 			String messageException = e.getMessage();
 			mensajesError.add(messageException);
 			return new ResponseErrorDto(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
+					CodigoRespuestaConstant.ERROR, mensajesError);
+		}
+	}
+
+	@GetMapping(value = "/secuencia/{codigo}")
+	public ResponseDto getMaxValue(@PathVariable String codigo) {
+
+		try {
+			Secuenciador secuenciador = this.secuenciadorService.findByCodigo(codigo);
+			SecuenciadorDTO secuenciadorDto = secuenciadorBuilder.modelToDto(secuenciador);
+
+			return new ResponseOKDto<SecuenciadorDTO>(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
+					CodigoRespuestaConstant.OK, secuenciadorDto);
+		} catch (Exception e) {
+			List<String> mensajesError = new ArrayList<String>();
+			String messageException = e.getMessage();
+			mensajesError.add(messageException);
+			return new ResponseErrorDto(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
 					CodigoRespuestaConstant.ERROR, mensajesError);
 		}
 	}
@@ -130,31 +148,7 @@ public class SecuenciadorController implements IABMController<SecuenciadorDTO>, 
 
 	@Override
 	public ResponseDto findAny(Map<String, String> params) {
-		try {
-			String codigo = params.get("codigo");
-
-			List<Secuenciador> listSecuenciador = secuenciadorService.findByCodigo(codigo);
-
-			if (!listSecuenciador.isEmpty()) {
-				List<SecuenciadorDTO> listSecuenciadorDto = secuenciadorBuilder.modelListToDto(listSecuenciador);
-
-				return new ResponseOKListDto<SecuenciadorDTO>(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
-						CodigoRespuestaConstant.OK, listSecuenciadorDto);
-			} else {
-				List<String> mensajesError = new ArrayList<String>();
-				mensajesError.add(MensajeError.ELEMENT_NOTFOUND_MESSAGE);
-
-				return new ResponseErrorDto(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
-						CodigoRespuestaConstant.ERROR, mensajesError);
-			}
-
-		} catch (Exception e) {
-			List<String> mensajesError = new ArrayList<String>();
-			String messageException = e.getMessage();
-			mensajesError.add(messageException);
-			return new ResponseErrorDto(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
-					CodigoRespuestaConstant.ERROR, mensajesError);
-		}
+		return null;
 	}
 
 	@Override

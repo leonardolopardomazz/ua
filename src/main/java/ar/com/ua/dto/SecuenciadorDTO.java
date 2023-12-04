@@ -1,15 +1,12 @@
 package ar.com.ua.dto;
 
-import java.util.Date;
-
 public class SecuenciadorDTO {
 
 	private Long id;
 	private String codigo;
-	private Date fechaRangoDesde;
-	private Date fechaRangoHasta;
+	private Long rangoDesde;
+	private Long rangoHasta;
 	private String secuencia;
-	private String estado;
 	private boolean activo;
 
 	public Long getId() {
@@ -28,20 +25,20 @@ public class SecuenciadorDTO {
 		this.codigo = codigoSecuenciador;
 	}
 
-	public Date getFechaRangoDesde() {
-		return fechaRangoDesde;
+	public Long getRangoDesde() {
+		return rangoDesde;
 	}
 
-	public void setFechaRangoDesde(Date fechaRangoDesde) {
-		this.fechaRangoDesde = fechaRangoDesde;
+	public void setRangoDesde(Long rangoDesde) {
+		this.rangoDesde = rangoDesde;
 	}
 
-	public Date getFechaRangoHasta() {
-		return fechaRangoHasta;
+	public Long getRangoHasta() {
+		return rangoHasta;
 	}
 
-	public void setFechaRangoHasta(Date fechaRangoHasta) {
-		this.fechaRangoHasta = fechaRangoHasta;
+	public void setRangoHasta(Long rangoHasta) {
+		this.rangoHasta = rangoHasta;
 	}
 
 	public String getSecuencia() {
@@ -50,14 +47,6 @@ public class SecuenciadorDTO {
 
 	public void setSecuencia(String secuencia) {
 		this.secuencia = secuencia;
-	}
-
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
 	}
 
 	public boolean isActivo() {

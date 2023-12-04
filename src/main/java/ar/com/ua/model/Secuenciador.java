@@ -1,7 +1,5 @@
 package ar.com.ua.model;
 
-import java.util.Date;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,17 +19,14 @@ public class Secuenciador {
 	@Column(name = "cod_secuenciador")
 	private String codigo;
 
-	@Column(name = "fecha_rango_desde")
-	private Date fechaRangoDesde;
+	@Column(name = "rango_desde")
+	private Long rangoDesde;
 
-	@Column(name = "fecha_rango_hasta")
-	private Date fechaRangoHasta;
+	@Column(name = "rango_hasta")
+	private Long rangoHasta;
 
 	@Column(name = "secuencia")
 	private String secuencia;
-
-	@Column(name = "estado")
-	private String estado;
 
 	@Column(name = "activo")
 	private boolean activo;
@@ -52,20 +47,20 @@ public class Secuenciador {
 		this.codigo = codigoSecuenciador;
 	}
 
-	public Date getFechaRangoDesde() {
-		return fechaRangoDesde;
+	public Long getRangoDesde() {
+		return rangoDesde;
 	}
 
-	public void setFechaRangoDesde(Date fechaRangoDesde) {
-		this.fechaRangoDesde = fechaRangoDesde;
+	public void setRangoDesde(Long rangoDesde) {
+		this.rangoDesde = rangoDesde;
 	}
 
-	public Date getFechaRangoHasta() {
-		return fechaRangoHasta;
+	public Long getRangoHasta() {
+		return rangoHasta;
 	}
 
-	public void setFechaRangoHasta(Date fechaRangoHasta) {
-		this.fechaRangoHasta = fechaRangoHasta;
+	public void setRangoHasta(Long rangoHasta) {
+		this.rangoHasta = rangoHasta;
 	}
 
 	public String getSecuencia() {
@@ -74,14 +69,6 @@ public class Secuenciador {
 
 	public void setSecuencia(String secuencia) {
 		this.secuencia = secuencia;
-	}
-
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
 	}
 
 	public boolean isActivo() {
