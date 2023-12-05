@@ -22,7 +22,7 @@ public class Pais {
 	@Column(name = "cod_pais")
 	private String codigo;
 	
-	@OneToOne(cascade = CascadeType.MERGE)
+	@OneToOne()
     @JoinColumn(name = "id_secuenciador", referencedColumnName = "id")
 	private Secuenciador secuenciador;
 	
