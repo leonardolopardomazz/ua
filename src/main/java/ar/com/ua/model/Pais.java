@@ -1,6 +1,5 @@
 package ar.com.ua.model;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,6 +21,9 @@ public class Pais {
 	@Column(name = "cod_pais")
 	private String codigo;
 	
+	@Column(name = "descripcion")
+	private String descripcion;
+
 	@OneToOne()
     @JoinColumn(name = "id_secuenciador", referencedColumnName = "id")
 	private Secuenciador secuenciador;
@@ -43,6 +45,14 @@ public class Pais {
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+	
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	public Secuenciador getSecuenciador() {
