@@ -26,7 +26,7 @@ public class Secuenciador {
 	private Long rangoHasta;
 
 	@Column(name = "secuencia")
-	private String secuencia;
+	private Long secuencia;
 
 	@Column(name = "activo")
 	private boolean activo;
@@ -63,11 +63,11 @@ public class Secuenciador {
 		this.rangoHasta = rangoHasta;
 	}
 
-	public String getSecuencia() {
+	public Long getSecuencia() {
 		return secuencia;
 	}
 
-	public void setSecuencia(String secuencia) {
+	public void setSecuencia(Long secuencia) {
 		this.secuencia = secuencia;
 	}
 

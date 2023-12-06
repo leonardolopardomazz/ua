@@ -6,7 +6,7 @@ public class SecuenciadorDTO {
 	private String codigo;
 	private Long rangoDesde;
 	private Long rangoHasta;
-	private String secuencia;
+	private Long secuencia;
 	private boolean activo;
 
 	public Long getId() {
@@ -41,11 +41,11 @@ public class SecuenciadorDTO {
 		this.rangoHasta = rangoHasta;
 	}
 
-	public String getSecuencia() {
+	public Long getSecuencia() {
 		return secuencia;
 	}
 
-	public void setSecuencia(String secuencia) {
+	public void setSecuencia(Long secuencia) {
 		this.secuencia = secuencia;
 	}
 
