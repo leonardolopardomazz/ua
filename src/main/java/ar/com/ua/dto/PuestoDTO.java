@@ -1,17 +1,19 @@
 package ar.com.ua.dto;
 
+import ar.com.ua.model.Parametro;
+
 public class PuestoDTO {
 
 	private Long id;
-	private String codigo;
+	private Parametro codigo;
 	private String descripcion;
-	private String codigoDireccion;
-	private String codigoGerencia;
-	private String codigoJefatura;
-	private String codigoCategoria;
-	private String codigoPuestoAlQueReporta;
+	private Parametro codigoDireccion;
+	private Parametro codigoGerencia;
+	private Parametro codigoJefatura;
+	private Parametro codigoCategoria;
+	private Parametro codigoPuestoAlQueReporta;
 	private boolean activo;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -20,11 +22,11 @@ public class PuestoDTO {
 		this.id = id;
 	}
 
-	public String getCodigo() {
+	public Parametro getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(String codigo) {
+	public void setCodigo(Parametro codigo) {
 		this.codigo = codigo;
 	}
 
@@ -36,43 +38,43 @@ public class PuestoDTO {
 		this.descripcion = descripcion;
 	}
 
-	public String getCodigoDireccion() {
+	public Parametro getCodigoDireccion() {
 		return codigoDireccion;
 	}
 
-	public void setCodigoDireccion(String codigoDireccion) {
+	public void setCodigoDireccion(Parametro codigoDireccion) {
 		this.codigoDireccion = codigoDireccion;
 	}
 
-	public String getCodigoGerencia() {
+	public Parametro getCodigoGerencia() {
 		return codigoGerencia;
 	}
 
-	public void setCodigoGerencia(String codigoGerencia) {
+	public void setCodigoGerencia(Parametro codigoGerencia) {
 		this.codigoGerencia = codigoGerencia;
 	}
 
-	public String getCodigoJefatura() {
+	public Parametro getCodigoJefatura() {
 		return codigoJefatura;
 	}
 
-	public void setCodigoJefatura(String codigoJefatura) {
+	public void setCodigoJefatura(Parametro codigoJefatura) {
 		this.codigoJefatura = codigoJefatura;
 	}
 
-	public String getCodigoCategoria() {
+	public Parametro getCodigoCategoria() {
 		return codigoCategoria;
 	}
 
-	public void setCodigoCategoria(String codigoCategoria) {
+	public void setCodigoCategoria(Parametro codigoCategoria) {
 		this.codigoCategoria = codigoCategoria;
 	}
 
-	public String getCodigoPuestoAlQueReporta() {
+	public Parametro getCodigoPuestoAlQueReporta() {
 		return codigoPuestoAlQueReporta;
 	}
 
-	public void setCodigoPuestoAlQueReporta(String codigoPuestoAlQueReporta) {
+	public void setCodigoPuestoAlQueReporta(Parametro codigoPuestoAlQueReporta) {
 		this.codigoPuestoAlQueReporta = codigoPuestoAlQueReporta;
 	}
 

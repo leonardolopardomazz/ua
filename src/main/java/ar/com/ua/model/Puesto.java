@@ -5,41 +5,49 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "puesto")
 public class Puesto {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 
-	@Column(name = "cod_puesto")
-	private String codigo;
+	@OneToOne()
+	@JoinColumn(name = "cod_puesto", referencedColumnName = "id")
+	private Parametro codigo;
 
 	@Column(name = "descripcion")
 	private String descripcion;
 
-    @Column(name = "cod_direccion")
-	private String codigoDireccion;
+	@OneToOne()
+	@JoinColumn(name = "cod_direccion", referencedColumnName = "id")
+	private Parametro codigoDireccion;
 
-    @Column(name = "cod_gerencia")
-	private String codigoGerencia;
+	@OneToOne()
+	@JoinColumn(name = "cod_gerencia", referencedColumnName = "id")
+	private Parametro codigoGerencia;
 
-	@Column(name = "cod_jefatura")
-	private String codigoJefatura;
+	@OneToOne()
+	@JoinColumn(name = "cod_jefatura", referencedColumnName = "id")
+	private Parametro codigoJefatura;
 
-	@Column(name = "cod_categoria")
-	private String codigoCategoria;
+	@OneToOne()
+	@JoinColumn(name = "cod_categoria", referencedColumnName = "id")
+	private Parametro codigoCategoria;
 
-	@Column(name = "cod_puesto_al_que_reporta")
-	private String codigoPuestoAlQueReporta;
+	@OneToOne()
+	@JoinColumn(name = "cod_puesto_al_que_reporta", referencedColumnName = "id")
+	private Parametro codigoPuestoAlQueReporta;
 
 	@Column(name = "activo", unique = true, nullable = false)
 	private boolean activo;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -48,11 +56,11 @@ public class Puesto {
 		this.id = id;
 	}
 
-	public String getCodigo() {
+	public Parametro getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(String codigo) {
+	public void setCodigo(Parametro codigo) {
 		this.codigo = codigo;
 	}
 
@@ -64,43 +72,43 @@ public class Puesto {
 		this.descripcion = descripcion;
 	}
 
-	public String getCodigoDireccion() {
+	public Parametro getCodigoDireccion() {
 		return codigoDireccion;
 	}
 
-	public void setCodigoDireccion(String codigoDireccion) {
+	public void setCodigoDireccion(Parametro codigoDireccion) {
 		this.codigoDireccion = codigoDireccion;
 	}
 
-	public String getCodigoGerencia() {
+	public Parametro getCodigoGerencia() {
 		return codigoGerencia;
 	}
 
-	public void setCodigoGerencia(String codigoGerencia) {
+	public void setCodigoGerencia(Parametro codigoGerencia) {
 		this.codigoGerencia = codigoGerencia;
 	}
 
-	public String getCodigoJefatura() {
+	public Parametro getCodigoJefatura() {
 		return codigoJefatura;
 	}
 
-	public void setCodigoJefatura(String codigoJefatura) {
+	public void setCodigoJefatura(Parametro codigoJefatura) {
 		this.codigoJefatura = codigoJefatura;
 	}
 
-	public String getCodigoCategoria() {
+	public Parametro getCodigoCategoria() {
 		return codigoCategoria;
 	}
 
-	public void setCodigoCategoria(String codigoCategoria) {
+	public void setCodigoCategoria(Parametro codigoCategoria) {
 		this.codigoCategoria = codigoCategoria;
 	}
 
-	public String getCodigoPuestoAlQueReporta() {
+	public Parametro getCodigoPuestoAlQueReporta() {
 		return codigoPuestoAlQueReporta;
 	}
 
-	public void setCodigoPuestoAlQueReporta(String codigoPuestoAlQueReporta) {
+	public void setCodigoPuestoAlQueReporta(Parametro codigoPuestoAlQueReporta) {
 		this.codigoPuestoAlQueReporta = codigoPuestoAlQueReporta;
 	}
 
