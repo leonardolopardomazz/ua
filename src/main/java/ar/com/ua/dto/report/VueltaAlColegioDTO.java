@@ -1,20 +1,18 @@
 package ar.com.ua.dto.report;
 
-import java.util.List;
-
 public class VueltaAlColegioDTO {
 	
-	private List<String> pais;
+	private String pais;
 	private String numeroLegajo;
 	private String apellido;
 	private Long codigoPais;
 	private Long codigoDireccion;
 	private Long codigoPuesto;
 	
-	public List<String> getPais() {
+	public String getPais() {
 		return pais;
 	}
-	public void setPais(List<String> pais) {
+	public void setPais(String pais) {
 		this.pais = pais;
 	}
 	public String getNumeroLegajo() {
