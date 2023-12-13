@@ -47,8 +47,8 @@ public class Puesto {
 
 	@OneToOne()
 	@JoinColumn(name = "cod_pais", referencedColumnName = "id")
-	private Pais pais;
-
+	private Pais codigoPais;
+	
 	@Column(name = "activo", unique = true, nullable = false)
 	private boolean activo;
 
@@ -124,12 +124,12 @@ public class Puesto {
 		this.activo = activo;
 	}
 
-	public Pais getPais() {
-		return pais;
+	public Pais getCodigoPais() {
+		return codigoPais;
 	}
 
-	public void setPais(Pais pais) {
-		this.pais = pais;
+	public void setCodigoPais(Pais pais) {
+		this.codigoPais = pais;
 	}
 
 }

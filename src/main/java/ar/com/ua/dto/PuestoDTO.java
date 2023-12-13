@@ -1,5 +1,6 @@
 package ar.com.ua.dto;
 
+import ar.com.ua.model.Pais;
 import ar.com.ua.model.Parametro;
 import ar.com.ua.model.Puesto;
 
@@ -13,6 +14,7 @@ public class PuestoDTO {
 	private Parametro codigoJefatura;
 	private Parametro codigoCategoria;
 	private Puesto codigoPuestoAlQueReporta;
+	private Pais codigoPais;
 	private boolean activo;
 
 	public Long getId() {
@@ -77,6 +79,14 @@ public class PuestoDTO {
 
 	public void setCodigoPuestoAlQueReporta(Puesto codigoPuestoAlQueReporta) {
 		this.codigoPuestoAlQueReporta = codigoPuestoAlQueReporta;
+	}
+	
+	public Pais getCodigoPais() {
+		return codigoPais;
+	}
+
+	public void setCodigoPais(Pais codigoPais) {
+		this.codigoPais = codigoPais;
 	}
 
 	public boolean isActivo() {

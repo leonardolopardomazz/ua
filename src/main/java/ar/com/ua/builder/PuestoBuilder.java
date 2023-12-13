@@ -26,6 +26,7 @@ public class PuestoBuilder implements IBuilder<Puesto, PuestoDTO> {
 		puesto.setCodigoGerencia(dto.getCodigoGerencia());
 		puesto.setCodigoJefatura(dto.getCodigoJefatura());
 		puesto.setCodigoPuestoAlQueReporta(dto.getCodigoPuestoAlQueReporta());
+		puesto.setCodigoPais(dto.getCodigoPais());
 		
 		return puesto;
 	}
@@ -45,7 +46,7 @@ public class PuestoBuilder implements IBuilder<Puesto, PuestoDTO> {
 		dto.setCodigoGerencia(model.getCodigoGerencia());
 		dto.setCodigoJefatura(model.getCodigoJefatura());
 		dto.setCodigoPuestoAlQueReporta(model.getCodigoPuestoAlQueReporta());
-		
+		dto.setCodigoPais(model.getCodigoPais());
 		return dto;
 	}
 
@@ -68,6 +69,7 @@ public class PuestoBuilder implements IBuilder<Puesto, PuestoDTO> {
 			puestoDTO.setCodigoGerencia(puesto.getCodigoGerencia());
 			puestoDTO.setCodigoJefatura(puesto.getCodigoJefatura());
 			puestoDTO.setCodigoPuestoAlQueReporta(puesto.getCodigoPuestoAlQueReporta());
+			puestoDTO.setCodigoPais(puesto.getCodigoPais());
 			
 			listPuestoDTO.add(puestoDTO);
 		}
