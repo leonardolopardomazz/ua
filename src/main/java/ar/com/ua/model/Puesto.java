@@ -19,8 +19,8 @@ public class Puesto {
 	private Long id;
 
 	@OneToOne()
-	@JoinColumn(name = "cod_puesto", referencedColumnName = "id")
-	private Parametro codigo;
+	@JoinColumn(name = "cod_centro_de_costo", referencedColumnName = "id")
+	private Parametro codigoCentroDeCosto;
 
 	@Column(name = "descripcion")
 	private String descripcion;
@@ -43,7 +43,11 @@ public class Puesto {
 
 	@OneToOne()
 	@JoinColumn(name = "cod_puesto_al_que_reporta", referencedColumnName = "id")
-	private Parametro codigoPuestoAlQueReporta;
+	private Puesto codigoPuestoAlQueReporta;
+
+	@OneToOne()
+	@JoinColumn(name = "cod_pais", referencedColumnName = "id")
+	private Pais pais;
 
 	@Column(name = "activo", unique = true, nullable = false)
 	private boolean activo;
@@ -56,12 +60,12 @@ public class Puesto {
 		this.id = id;
 	}
 
-	public Parametro getCodigo() {
-		return codigo;
+	public Parametro getCodigoCentroDeCosto() {
+		return codigoCentroDeCosto;
 	}
 
-	public void setCodigo(Parametro codigo) {
-		this.codigo = codigo;
+	public void setCodigoCentroDeCosto(Parametro codigoCentroDeCosto) {
+		this.codigoCentroDeCosto = codigoCentroDeCosto;
 	}
 
 	public String getDescripcion() {
@@ -104,11 +108,11 @@ public class Puesto {
 		this.codigoCategoria = codigoCategoria;
 	}
 
-	public Parametro getCodigoPuestoAlQueReporta() {
+	public Puesto getCodigoPuestoAlQueReporta() {
 		return codigoPuestoAlQueReporta;
 	}
 
-	public void setCodigoPuestoAlQueReporta(Parametro codigoPuestoAlQueReporta) {
+	public void setCodigoPuestoAlQueReporta(Puesto codigoPuestoAlQueReporta) {
 		this.codigoPuestoAlQueReporta = codigoPuestoAlQueReporta;
 	}
 
@@ -118,6 +122,14 @@ public class Puesto {
 
 	public void setActivo(boolean activo) {
 		this.activo = activo;
+	}
+
+	public Pais getPais() {
+		return pais;
+	}
+
+	public void setPais(Pais pais) {
+		this.pais = pais;
 	}
 
 }

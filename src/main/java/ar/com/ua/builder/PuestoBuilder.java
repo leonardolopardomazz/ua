@@ -18,7 +18,7 @@ public class PuestoBuilder implements IBuilder<Puesto, PuestoDTO> {
 	public Puesto dtoToModel(PuestoDTO dto) {
 		Puesto puesto = new Puesto();
 		puesto.setId(dto.getId());
-		puesto.setCodigo(dto.getCodigo());
+		puesto.setCodigoCentroDeCosto(dto.getCodigoCentroDeCosto());
 		puesto.setActivo(dto.isActivo());
 		puesto.setDescripcion(dto.getDescripcion());
 		puesto.setCodigoCategoria(dto.getCodigoCategoria());
@@ -37,7 +37,7 @@ public class PuestoBuilder implements IBuilder<Puesto, PuestoDTO> {
 	public PuestoDTO modelToDto(Puesto model) {
 		PuestoDTO dto = new PuestoDTO();
 		dto.setId(model.getId());
-		dto.setCodigo(model.getCodigo());
+		dto.setCodigoCentroDeCosto(model.getCodigoCentroDeCosto());
 		dto.setActivo(model.isActivo());
 		dto.setDescripcion(model.getDescripcion());
 		dto.setCodigoCategoria(model.getCodigoCategoria());
@@ -60,7 +60,7 @@ public class PuestoBuilder implements IBuilder<Puesto, PuestoDTO> {
 		for (Puesto puesto : list) {
 			PuestoDTO puestoDTO = new PuestoDTO();
 			puestoDTO.setId(puesto.getId());
-			puestoDTO.setCodigo(puesto.getCodigo());
+			puestoDTO.setCodigoCentroDeCosto(puesto.getCodigoCentroDeCosto());
 			puestoDTO.setActivo(puesto.isActivo());
 			puestoDTO.setDescripcion(puesto.getDescripcion());
 			puestoDTO.setCodigoCategoria(puesto.getCodigoCategoria());

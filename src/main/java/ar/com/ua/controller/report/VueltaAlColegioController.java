@@ -19,8 +19,8 @@ public class VueltaAlColegioController implements IReport {
 	@Override
 	public ResponseDto generateReport(Map<String, String> params) {
 		
-		this.reporteService.generateVueltaAlColegio(null);
-		return null;
+		 this.reporteService.generateVueltaAlColegio(params);
+		 return null;
 	}
 	
 	

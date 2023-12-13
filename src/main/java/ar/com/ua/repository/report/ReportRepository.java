@@ -1,5 +1,7 @@
 package ar.com.ua.repository.report;
 
+import java.util.List;
+
 import ar.com.ua.dto.report.CentroDeCostoDTO;
 import ar.com.ua.dto.report.DirectoresDTO;
 import ar.com.ua.dto.report.ExternosDTO;
@@ -11,7 +13,7 @@ import ar.com.ua.dto.report.VueltaAlColegioDTO;
 
 public interface ReportRepository {
 	
-	String reportVueltaAlColegio(VueltaAlColegioDTO dto);
+	List<?> reportVueltaAlColegio(VueltaAlColegioDTO dto);
 
 	String reportCentroDeCosto(CentroDeCostoDTO dto);
 

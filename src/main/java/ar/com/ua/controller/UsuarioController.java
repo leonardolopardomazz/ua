@@ -24,6 +24,7 @@ import ar.com.ua.dto.response.ResponseErrorDto;
 import ar.com.ua.dto.response.ResponseOKDto;
 import ar.com.ua.dto.response.ResponseOKListDto;
 import ar.com.ua.model.Usuario;
+import ar.com.ua.service.EmpleadoService;
 import ar.com.ua.service.UsuarioService;
 
 @RequestMapping("/usuario")
@@ -32,11 +33,24 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	private EmpleadoService empleadoService;
 
 	@Autowired
 	private UsuarioBuilder usuarioBuilder;
 
 	static Logger logger = Logger.getLogger(UsuarioController.class.getName());
+	
+	/**
+	 * Validacion existe Numero legajo en la tabla Empleado
+	 * @param dto
+	 * @throws Exception
+	 */
+	private void existeNumeroLegajo(UsuarioDTO dto) throws Exception {
+		boolean existeNumeroLegajo = this.empleadoService.existsByNumeroLegajo(dto.getNumeroLegajo());
+		if(!existeNumeroLegajo) {throw new Exception("El numero de legajo no existe en la tabla usuario");}
+	}
 
 	private ResponseDto save(Long id, UsuarioDTO dto, String tipoMetodoConstant) {
 		// Setteo el id para la actualizacion
@@ -47,6 +61,10 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 	private ResponseDto save(UsuarioDTO dto, String tipoMetodoConstant) {
 		try {
 			Usuario usuario = usuarioBuilder.dtoToModel(dto);
+
+			//Validacion existe Numero legajo en la tabla Empleado
+			this.existeNumeroLegajo(dto);
+			
 			Usuario usuarioGuardado = usuarioService.save(usuario);
 			UsuarioDTO usuarioDto = usuarioBuilder.modelToDto(usuarioGuardado);
 			return new ResponseOKDto<UsuarioDTO>(EndPointPathConstant.USUARIO, tipoMetodoConstant,

@@ -1,17 +1,18 @@
 package ar.com.ua.dto;
 
 import ar.com.ua.model.Parametro;
+import ar.com.ua.model.Puesto;
 
 public class PuestoDTO {
 
 	private Long id;
-	private Parametro codigo;
+	private Parametro codigoCentroDeCosto;
 	private String descripcion;
 	private Parametro codigoDireccion;
 	private Parametro codigoGerencia;
 	private Parametro codigoJefatura;
 	private Parametro codigoCategoria;
-	private Parametro codigoPuestoAlQueReporta;
+	private Puesto codigoPuestoAlQueReporta;
 	private boolean activo;
 
 	public Long getId() {
@@ -22,12 +23,12 @@ public class PuestoDTO {
 		this.id = id;
 	}
 
-	public Parametro getCodigo() {
-		return codigo;
+	public Parametro getCodigoCentroDeCosto() {
+		return codigoCentroDeCosto;
 	}
 
-	public void setCodigo(Parametro codigo) {
-		this.codigo = codigo;
+	public void setCodigoCentroDeCosto(Parametro codigo) {
+		this.codigoCentroDeCosto = codigo;
 	}
 
 	public String getDescripcion() {
@@ -70,11 +71,11 @@ public class PuestoDTO {
 		this.codigoCategoria = codigoCategoria;
 	}
 
-	public Parametro getCodigoPuestoAlQueReporta() {
+	public Puesto getCodigoPuestoAlQueReporta() {
 		return codigoPuestoAlQueReporta;
 	}
 
-	public void setCodigoPuestoAlQueReporta(Parametro codigoPuestoAlQueReporta) {
+	public void setCodigoPuestoAlQueReporta(Puesto codigoPuestoAlQueReporta) {
 		this.codigoPuestoAlQueReporta = codigoPuestoAlQueReporta;
 	}
 
