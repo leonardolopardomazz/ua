@@ -11,12 +11,16 @@ import ar.com.ua.dto.report.VueltaAlColegioDTO;
 import ar.com.ua.dto.report.VueltaAlColegioResponseDTO;
 import ar.com.ua.dto.response.ResponseDto;
 import ar.com.ua.repository.report.ReportRepository;
+import ar.com.ua.service.EmpleadoService;
 
 @Component
 public class ReporteService {
 
 	@Autowired
 	private ReportRepository repository;
+	
+	@Autowired
+	private EmpleadoService empservice;
 
 	@Autowired
 	private VueltaAlColegioBuilder vacBuilder;
@@ -27,7 +31,9 @@ public class ReporteService {
 		
 		VueltaAlColegioResponseDTO vacDto = vacBuilder.listToDTo(result);
 		
-		//ResponseDto responseDto = new 
+		//ResponseDto responseDto = new
+		
+		
 		
 		return null;
 	}

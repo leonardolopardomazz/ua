@@ -22,7 +22,7 @@ public class PuestoBuilder implements IBuilder<Puesto, PuestoDTO> {
 		puesto.setActivo(dto.isActivo());
 		puesto.setDescripcion(dto.getDescripcion());
 		puesto.setCodigoCategoria(dto.getCodigoCategoria());
-		puesto.setCodigoDireccion(dto.getCodigoCategoria());
+		puesto.setCodigoDireccion(dto.getCodigoDireccion());
 		puesto.setCodigoGerencia(dto.getCodigoGerencia());
 		puesto.setCodigoJefatura(dto.getCodigoJefatura());
 		puesto.setCodigoPuestoAlQueReporta(dto.getCodigoPuestoAlQueReporta());
@@ -42,7 +42,7 @@ public class PuestoBuilder implements IBuilder<Puesto, PuestoDTO> {
 		dto.setActivo(model.isActivo());
 		dto.setDescripcion(model.getDescripcion());
 		dto.setCodigoCategoria(model.getCodigoCategoria());
-		dto.setCodigoDireccion(model.getCodigoCategoria());
+		dto.setCodigoDireccion(model.getCodigoDireccion());
 		dto.setCodigoGerencia(model.getCodigoGerencia());
 		dto.setCodigoJefatura(model.getCodigoJefatura());
 		dto.setCodigoPuestoAlQueReporta(model.getCodigoPuestoAlQueReporta());
@@ -65,7 +65,7 @@ public class PuestoBuilder implements IBuilder<Puesto, PuestoDTO> {
 			puestoDTO.setActivo(puesto.isActivo());
 			puestoDTO.setDescripcion(puesto.getDescripcion());
 			puestoDTO.setCodigoCategoria(puesto.getCodigoCategoria());
-			puestoDTO.setCodigoDireccion(puesto.getCodigoCategoria());
+			puestoDTO.setCodigoDireccion(puesto.getCodigoDireccion());
 			puestoDTO.setCodigoGerencia(puesto.getCodigoGerencia());
 			puestoDTO.setCodigoJefatura(puesto.getCodigoJefatura());
 			puestoDTO.setCodigoPuestoAlQueReporta(puesto.getCodigoPuestoAlQueReporta());

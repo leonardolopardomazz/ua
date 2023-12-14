@@ -13,7 +13,6 @@ import ar.com.ua.dto.report.HistorialLaboralDTO;
 import ar.com.ua.dto.report.InternationalDataCollectionDTO;
 import ar.com.ua.dto.report.LicenciaDTO;
 import ar.com.ua.dto.report.VueltaAlColegioDTO;
-import ar.com.ua.dto.report.VueltaAlColegioResponseDTO;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
