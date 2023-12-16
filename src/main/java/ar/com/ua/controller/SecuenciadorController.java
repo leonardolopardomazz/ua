@@ -148,7 +148,30 @@ public class SecuenciadorController implements IABMController<SecuenciadorDTO>, 
 
 	@Override
 	public ResponseDto findAny(Map<String, String> params) {
-		return null;
+		try {
+			String codigo = params.get("codigo");
+			Secuenciador model = secuenciadorService.findByCodigo(codigo);
+
+			if (model != null) {
+				SecuenciadorDTO dto = secuenciadorBuilder.modelToDto(model);
+
+				return new ResponseOKDto<SecuenciadorDTO>(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
+						CodigoRespuestaConstant.OK, dto);
+			} else {
+				List<String> mensajesError = new ArrayList<String>();
+				mensajesError.add(MensajeError.ELEMENT_NOTFOUND_MESSAGE);
+
+				return new ResponseErrorDto(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
+						CodigoRespuestaConstant.ERROR, mensajesError);
+			}
+
+		} catch (Exception e) {
+			List<String> mensajesError = new ArrayList<String>();
+			String messageException = e.getMessage();
+			mensajesError.add(messageException);
+			return new ResponseErrorDto(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
+					CodigoRespuestaConstant.ERROR, mensajesError);
+		}
 	}
 
 	@Override

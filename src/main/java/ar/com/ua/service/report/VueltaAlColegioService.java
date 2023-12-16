@@ -10,31 +10,28 @@ import ar.com.ua.builder.report.VueltaAlColegioBuilder;
 import ar.com.ua.dto.report.VueltaAlColegioDTO;
 import ar.com.ua.dto.report.VueltaAlColegioResponseDTO;
 import ar.com.ua.dto.response.ResponseDto;
-import ar.com.ua.repository.report.ReportRepository;
-import ar.com.ua.service.EmpleadoService;
+import ar.com.ua.repository.report.VueltaAlColegioRepository;
 
 @Component
-public class ReporteService {
+public class VueltaAlColegioService {
 
 	@Autowired
-	private ReportRepository repository;
-	
-	@Autowired
-	private EmpleadoService empservice;
+	private VueltaAlColegioRepository repository;
 
 	@Autowired
 	private VueltaAlColegioBuilder vacBuilder;
 
 	public ResponseDto generateVueltaAlColegio(Map<String, String> params) {
 		VueltaAlColegioDTO dto = vacBuilder.mapToDto(params);
-		List result = this.repository.reportVueltaAlColegio(dto);
+		List<?> result = this.repository.reportVueltaAlColegio(dto.getApellido(), dto.getNumeroLegajo(),
+				dto.getCodigoPuesto(), dto.getCodigoDireccion());
 		
+		
+
 		VueltaAlColegioResponseDTO vacDto = vacBuilder.listToDTo(result);
-		
-		//ResponseDto responseDto = new
-		
-		
-		
+
+		// ResponseDto responseDto = new
+
 		return null;
 	}
 

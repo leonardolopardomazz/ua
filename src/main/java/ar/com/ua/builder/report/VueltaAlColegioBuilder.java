@@ -23,7 +23,6 @@ public class VueltaAlColegioBuilder implements IBuilder<Map<String, String>, Vue
 		dto.setPais(map.get("pais"));
 		dto.setNumeroLegajo(map.get("numeroLegajo"));
 		dto.setApellido(map.get("apellido"));
-		dto.setCodigoPais(Long.valueOf(map.get("codigoPais")));
 		dto.setCodigoDireccion(Long.valueOf(map.get("codigoDireccion")));
 		dto.setCodigoPuesto(Long.valueOf(map.get("codigoPuesto")));
 		dto.setEstadoEmpleado(Boolean.getBoolean(map.get("estadoEmpleado")));
@@ -34,6 +33,16 @@ public class VueltaAlColegioBuilder implements IBuilder<Map<String, String>, Vue
 	@Override
 	public VueltaAlColegioResponseDTO listToDTo(List<?> list) {
 		VueltaAlColegioResponseDTO dto = new VueltaAlColegioResponseDTO();
+		
+		String resultado = String.valueOf(list.get(0));
+
+		List <String> tablaAMostrar = new ArrayList<>();
+		for (String object : resultado.split(",")) {
+			tablaAMostrar.add(object);
+		}
+		
+		
+		
 		dto.setNumeroLegajo(String.valueOf(list.get(0)));
 		dto.setApellido(String.valueOf(list.get(1)));
 		dto.setNombre(String.valueOf(list.get(2)));

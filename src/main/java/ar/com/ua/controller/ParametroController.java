@@ -128,8 +128,31 @@ public class ParametroController implements IABMController<ParametroDTO>, IListC
 
 	@Override
 	public ResponseDto findAny(Map<String, String> params) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			String descripcion = params.get("descripcion");
+
+			List<Parametro> listModel = parametroService.findByDescripcion(descripcion);
+
+			if (!listModel.isEmpty()) {
+				List<ParametroDTO> listDto = parametroBuilder.modelListToDto(listModel);
+
+				return new ResponseOKListDto<ParametroDTO>(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
+						CodigoRespuestaConstant.OK, listDto);
+			} else {
+				List<String> mensajesError = new ArrayList<String>();
+				mensajesError.add(MensajeError.ELEMENT_NOTFOUND_MESSAGE);
+
+				return new ResponseErrorDto(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
+						CodigoRespuestaConstant.ERROR, mensajesError);
+			}
+
+		} catch (Exception e) {
+			List<String> mensajesError = new ArrayList<String>();
+			String messageException = e.getMessage();
+			mensajesError.add(messageException);
+			return new ResponseErrorDto(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
+					CodigoRespuestaConstant.ERROR, mensajesError);
+		}
 	}
 
 	@Override

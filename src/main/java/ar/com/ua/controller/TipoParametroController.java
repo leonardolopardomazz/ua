@@ -126,13 +126,13 @@ public class TipoParametroController implements IABMController<TipoParametroDTO>
 		try {
 			String descripcion = params.get("descripcion");
 
-			List<TipoParametro> listTp = tpService.findByDescripcion(descripcion);
+			List<TipoParametro> listModel = tpService.findByDescripcion(descripcion);
 
-			if (!listTp.isEmpty()) {
-				List<TipoParametroDTO> listTpDto = tpBuilder.modelListToDto(listTp);
+			if (!listModel.isEmpty()) {
+				List<TipoParametroDTO> listDto = tpBuilder.modelListToDto(listModel);
 
 				return new ResponseOKListDto<TipoParametroDTO>(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
-						CodigoRespuestaConstant.OK, listTpDto);
+						CodigoRespuestaConstant.OK, listDto);
 			} else {
 				List<String> mensajesError = new ArrayList<String>();
 				mensajesError.add(MensajeError.ELEMENT_NOTFOUND_MESSAGE);

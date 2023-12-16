@@ -5,7 +5,6 @@ public class VueltaAlColegioDTO {
 	private String pais;
 	private String numeroLegajo;
 	private String apellido;
-	private Long codigoPais;
 	private Long codigoDireccion;
 	private Long codigoPuesto;
 	private boolean estadoEmpleado;
@@ -32,14 +31,6 @@ public class VueltaAlColegioDTO {
 
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
-	}
-
-	public Long getCodigoPais() {
-		return codigoPais;
-	}
-
-	public void setCodigoPais(Long codigoPais) {
-		this.codigoPais = codigoPais;
 	}
 
 	public Long getCodigoDireccion() {
