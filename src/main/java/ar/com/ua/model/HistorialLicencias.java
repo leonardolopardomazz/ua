@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,19 +19,23 @@ public class HistorialLicencias {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
-	
+
 	@Column(name = "nro_legajo", unique = true, nullable = false)
 	private String numeroLegajo;
-	
+
 	@Column(name = "fecha_inicio")
 	private Date fechaInicio;
-	
+
 	@Column(name = "fecha_fin")
 	private Date fechaFin;
-	
+
 	@Column(name = "activo")
 	private boolean activo;
 
+	@OneToOne()
+	@JoinColumn(name = "id_empleado", referencedColumnName = "id")
+	private Empleado empleado;
+	
 	public Long getId() {
 		return id;
 	}
@@ -69,4 +75,13 @@ public class HistorialLicencias {
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
+
+	public Empleado getEmpleado() {
+		return empleado;
+	}
+
+	public void setEmpleado(Empleado empleado) {
+		this.empleado = empleado;
+	}
+
 }

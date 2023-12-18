@@ -38,7 +38,7 @@ public class EmpleadoDTO {
 	private Date fechaIngresoReconocida;
 	private Parametro codigoTipoContratacion;
 	private int horasSemanales;
-	private double fte;
+	private Parametro fte;
 	private Parametro codigoFrecuenciaLiquidacion;
 	private Parametro codigoTipoEmpleo;
 	private Parametro codigoTipoJornada;
@@ -300,11 +300,11 @@ public class EmpleadoDTO {
 		this.horasSemanales = horasSemanales;
 	}
 
-	public double getFte() {
+	public Parametro getFte() {
 		return fte;
 	}
 
-	public void setFte(double fte) {
+	public void setFte(Parametro fte) {
 		this.fte = fte;
 	}
 

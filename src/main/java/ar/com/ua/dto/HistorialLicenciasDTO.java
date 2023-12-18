@@ -2,6 +2,8 @@ package ar.com.ua.dto;
 
 import java.util.Date;
 
+import ar.com.ua.model.Empleado;
+
 public class HistorialLicenciasDTO {
 
 	private Long id;
@@ -9,6 +11,7 @@ public class HistorialLicenciasDTO {
 	private Date fechaInicio;
 	private Date fechaFin;
 	private boolean activo;
+	private Empleado empleado;
 
 	public Long getId() {
 		return id;
@@ -48,6 +51,14 @@ public class HistorialLicenciasDTO {
 
 	public void setActivo(boolean activo) {
 		this.activo = activo;
+	}
+
+	public Empleado getEmpleado() {
+		return empleado;
+	}
+
+	public void setEmpleado(Empleado empleado) {
+		this.empleado = empleado;
 	}
 
 }

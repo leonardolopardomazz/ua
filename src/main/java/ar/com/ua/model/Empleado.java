@@ -118,8 +118,9 @@ public class Empleado {
 	@Column(name = "horas_semanales")
 	private int horasSemanales;
 
-	@Column(name = "fte")
-	private double fte;
+	@OneToOne()
+	@JoinColumn(name = "fte", referencedColumnName = "id")
+	private Parametro fte;
 
 	@OneToOne()
 	@JoinColumn(name = "cod_frec_liquidacion", referencedColumnName = "id")
@@ -436,11 +437,11 @@ public class Empleado {
 		this.horasSemanales = horasSemanales;
 	}
 
-	public double getFte() {
+	public Parametro getFte() {
 		return fte;
 	}
 
-	public void setFte(double fte) {
+	public void setFte(Parametro fte) {
 		this.fte = fte;
 	}
 

@@ -33,54 +33,49 @@ public class VueltaAlColegioBuilder implements IBuilder<Map<String, String>, Vue
 	@Override
 	public VueltaAlColegioResponseDTO listToDTo(List<?> list) {
 		VueltaAlColegioResponseDTO dto = new VueltaAlColegioResponseDTO();
-		
-		String resultado = String.valueOf(list.get(0));
 
-		List <String> tablaAMostrar = new ArrayList<>();
-		for (String object : resultado.split(",")) {
-			tablaAMostrar.add(object);
-		}
-		
-		
-		
-		dto.setNumeroLegajo(String.valueOf(list.get(0)));
-		dto.setApellido(String.valueOf(list.get(1)));
-		dto.setNombre(String.valueOf(list.get(2)));
+		String[] resultadoParseado = list.get(0).toString().split(",");
+
+		dto.setNumeroLegajo(resultadoParseado[0]);
+		dto.setApellido(resultadoParseado[1]);
+		dto.setNombre(resultadoParseado[2]);
+		// dto.setFechaNacimiento(resultadoParseado.get);
 
 		String fechas = String.valueOf(list.get(2));
 		// dto.set
 		List<String> fechasACalcular = this.parsearFecha(fechas);
-		
+
 		this.calcularEdad(fechasACalcular);
-		
+
 		// TODO Auto-generated method stub
 		return null;
 	}
-	//2023-11-23 15:28:26,2023-11-20 15:28:26
+
+	// 2023-11-23 15:28:26,2023-11-20 15:28:26
 	private List<String> parsearFecha(String fechas) {
-		String [] arrayFecha = fechas.split(",");
-		
+		String[] arrayFecha = fechas.split(",");
+
 		List<String> fechaParseada = new ArrayList<>();
 		for (String fecha : arrayFecha) {
 			String parse = fecha.substring(0, 9);
 			fechaParseada.add(parse);
 		}
-		
+
 		return fechaParseada;
 	}
-	
-	private String calcularEdad (List<String> fechas) {
-		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		
-		for (String fecha : fechas) {
-			
-		LocalDate fechaNac = LocalDate.parse(fecha, fmt);
-		LocalDate ahora = LocalDate.now();
 
-		Period periodo = Period.between(fechaNac, ahora);
-		System.out.printf("Tu edad es: %s años, %s meses y %s días",
-		                    periodo.getYears(), periodo.getMonths(), periodo.getDays());
-		
+	private String calcularEdad(List<String> fechas) {
+		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+		for (String fecha : fechas) {
+
+			LocalDate fechaNac = LocalDate.parse(fecha, fmt);
+			LocalDate ahora = LocalDate.now();
+
+			Period periodo = Period.between(fechaNac, ahora);
+			System.out.printf("Tu edad es: %s años, %s meses y %s días", periodo.getYears(), periodo.getMonths(),
+					periodo.getDays());
+
 		}
 		return null;
 	}

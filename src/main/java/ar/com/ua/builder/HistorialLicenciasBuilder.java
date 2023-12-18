@@ -19,6 +19,7 @@ public class HistorialLicenciasBuilder implements IBuilder<HistorialLicencias, H
 		hl.setFechaFin(dto.getFechaFin());
 		hl.setNumeroLegajo(dto.getNumeroLegajo());
 		hl.setActivo(dto.isActivo());
+		hl.setEmpleado(dto.getEmpleado());
 
 		return hl;
 	}
@@ -31,6 +32,7 @@ public class HistorialLicenciasBuilder implements IBuilder<HistorialLicencias, H
 		dto.setFechaFin(model.getFechaFin());
 		dto.setNumeroLegajo(model.getNumeroLegajo());
 		dto.setActivo(model.isActivo());
+		dto.setEmpleado(model.getEmpleado());
 
 		return dto;
 	}
@@ -47,7 +49,7 @@ public class HistorialLicenciasBuilder implements IBuilder<HistorialLicencias, H
 			dto.setFechaFin(hl.getFechaFin());
 			dto.setNumeroLegajo(hl.getNumeroLegajo());
 			dto.setActivo(hl.isActivo());
-
+			dto.setEmpleado(hl.getEmpleado());
 			listDto.add(dto);
 		}
 

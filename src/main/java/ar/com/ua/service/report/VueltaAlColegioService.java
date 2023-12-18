@@ -23,10 +23,18 @@ public class VueltaAlColegioService {
 
 	public ResponseDto generateVueltaAlColegio(Map<String, String> params) {
 		VueltaAlColegioDTO dto = vacBuilder.mapToDto(params);
-		List<?> result = this.repository.reportVueltaAlColegio(dto.getApellido(), dto.getNumeroLegajo(),
+		List result = this.repository.reportVueltaAlColegio(dto.getApellido(), dto.getNumeroLegajo(),
 				dto.getCodigoPuesto(), dto.getCodigoDireccion());
 		
+		String strArr[];
 		
+//		for(int i = 0 ; i < result.size() ; i ++){  
+//			   try {
+//			      strArr[i] = result[i].toString();
+//			   } catch (NullPointerException ex) {
+//			       // do some default initialization
+//			   }
+//			}  
 
 		VueltaAlColegioResponseDTO vacDto = vacBuilder.listToDTo(result);
 

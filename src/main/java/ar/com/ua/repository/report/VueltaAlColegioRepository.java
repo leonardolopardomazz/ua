@@ -8,13 +8,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import ar.com.ua.dto.report.VueltaAlColegioResponseDTO;
 import ar.com.ua.model.Empleado;
 
 @Repository
 @Transactional(readOnly = false)
 public interface VueltaAlColegioRepository extends JpaRepository<Empleado, Long> {
 
-	@Query(value = "SELECT emp.nro_legajo, emp.apellido, emp.nombre, GROUP_CONCAT(cdf.fecha_nacimiento) "
+	@Query(value = "SELECT emp.nro_legajo as numeroLegajo, emp.apellido, emp.nombre, GROUP_CONCAT(cdf.fecha_nacimiento) as fechaNacimiento "
 			+ "FROM ua.empleados emp, ua.cargas_de_familia cdf, ua.pais pais "
 			+ "WHERE emp.nro_legajo = cdf.nro_legajo " 
 			+ "AND emp.cod_pais = pais.id "
@@ -24,7 +25,7 @@ public interface VueltaAlColegioRepository extends JpaRepository<Empleado, Long>
 			+ "AND emp.cod_direccion= :codigoDireccion "
 			+ "AND cdf.activo = 1 AND cdf.tipo_familiar = 'hijo' "
 			+ "GROUP BY  emp.nro_legajo, emp.apellido, emp.nombre", nativeQuery = true)
-	List<?> reportVueltaAlColegio(@Param("apellido") String apellido, @Param("numeroLegajo") String numeroLegajo,
+	List<String> reportVueltaAlColegio(@Param("apellido") String apellido, @Param("numeroLegajo") String numeroLegajo,
 			@Param("codigoPuesto") Long codigoPuesto, @Param("codigoDireccion") Long codigoDireccion);
 
 	/*
