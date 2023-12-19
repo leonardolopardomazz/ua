@@ -29,7 +29,7 @@ public class RolUsuarioRepositoryImpl implements RolUsuarioRepository<RolUsuario
 		Long codigoRol = rolUsuario.getCodigo();
 		Long idUsuario = rolUsuario.getId();
 
-		final String QUERY = "INSERT INTO ua.roles_usuarios (cod_rol, id_usuario) VALUES (? ,?)";
+		final String QUERY = "INSERT INTO roles_usuarios (cod_rol, id_usuario) VALUES (? ,?)";
 
 		if (rolService.existsById(codigoRol) && usuarioService.existsById(idUsuario)) {
 			entityManager.createNativeQuery(QUERY)
@@ -44,7 +44,7 @@ public class RolUsuarioRepositoryImpl implements RolUsuarioRepository<RolUsuario
 		Long codigoRol = rolUsuario.getCodigo();
 		Long idUsuario = rolUsuario.getId();
 
-		final String QUERY = "DELETE FROM ua.roles_usuarios WHERE cod_rol = ? AND id_usuario = ?";
+		final String QUERY = "DELETE FROM roles_usuarios WHERE cod_rol = ? AND id_usuario = ?";
 
 		if (rolService.existsById(codigoRol) && usuarioService.existsById(idUsuario)) {
 			entityManager.createNativeQuery(QUERY)

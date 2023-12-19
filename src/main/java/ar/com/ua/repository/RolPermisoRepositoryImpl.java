@@ -29,7 +29,7 @@ public class RolPermisoRepositoryImpl implements RolPermisoRepository<RolPermiso
 		Long codigoRol = rolPermiso.getCodigoRol();
 		Long codigoPermiso = rolPermiso.getCodigoPermiso();
 
-		final String QUERY = "INSERT INTO ua.roles_permisos (cod_rol, id_permiso) VALUES (? ,?)";
+		final String QUERY = "INSERT INTO roles_permisos (cod_rol, id_permiso) VALUES (? ,?)";
 
 		if (rolService.existsById(codigoRol) && permisoService.existsById(codigoPermiso)) {
 			entityManager.createNativeQuery(QUERY)
@@ -44,7 +44,7 @@ public class RolPermisoRepositoryImpl implements RolPermisoRepository<RolPermiso
 		Long codigoRol = rolPermiso.getCodigoRol();
 		Long codigoPermiso = rolPermiso.getCodigoPermiso();
 
-		final String QUERY = "DELETE FROM ua.roles_permisos WHERE cod_rol = ? AND id_permiso = ?";
+		final String QUERY = "DELETE FROM roles_permisos WHERE cod_rol = ? AND id_permiso = ?";
 		
 		if (rolService.existsById(codigoRol) && permisoService.existsById(codigoPermiso)) {
 			entityManager.createNativeQuery(QUERY)
