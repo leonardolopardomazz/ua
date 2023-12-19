@@ -67,6 +67,7 @@ public class EmpleadoBuilder implements IBuilder<Empleado, EmpleadoDTO> {
 		empleado.setCodigoPaisResidencia(dto.getCodigoPaisResidencia());
 		empleado.setCodigoEstadoCivil(dto.getCodigoEstadoCivil());
 		empleado.setCodigoGrado(dto.getCodigoGrado());
+		empleado.setCodigoPrepaga(dto.getCodigoPrepaga());
 		
 		return empleado;
 	}
@@ -127,6 +128,7 @@ public class EmpleadoBuilder implements IBuilder<Empleado, EmpleadoDTO> {
 		empleadoDto.setCodigoPaisResidencia(model.getCodigoPaisResidencia());
 		empleadoDto.setCodigoEstadoCivil(model.getCodigoEstadoCivil());
 		empleadoDto.setCodigoGrado(model.getCodigoGrado());
+		empleadoDto.setCodigoPrepaga(model.getCodigoPrepaga());
 		
 		return empleadoDto;
 	}
@@ -191,6 +193,7 @@ public class EmpleadoBuilder implements IBuilder<Empleado, EmpleadoDTO> {
 			empleadoDto.setCodigoPaisResidencia(empleado.getCodigoPaisResidencia());
 			empleadoDto.setCodigoEstadoCivil(empleado.getCodigoEstadoCivil());
 			empleadoDto.setCodigoGrado(empleado.getCodigoGrado());
+			empleadoDto.setCodigoPrepaga(empleado.getCodigoPrepaga());
 			
 			listEmpleadoDto.add(empleadoDto);
 		}

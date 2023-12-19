@@ -21,7 +21,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "usuarios")
-@SQLDelete(sql = "UPDATE ua.usuarios SET fecha_baja = CURRENT_TIMESTAMP, activo = 0 WHERE id = ?")
+@SQLDelete(sql = "UPDATE usuarios SET fecha_baja = CURRENT_TIMESTAMP, activo = 0 WHERE id = ?")
 @Where(clause = "fecha_baja IS NULL")
 public class Usuario {
 
