@@ -20,6 +20,7 @@ public class HistorialLicenciasBuilder implements IBuilder<HistorialLicencias, H
 		hl.setNumeroLegajo(dto.getNumeroLegajo());
 		hl.setActivo(dto.isActivo());
 		hl.setEmpleado(dto.getEmpleado());
+		hl.setTipoLicencia(dto.getTipoLicencia());
 
 		return hl;
 	}
@@ -33,6 +34,7 @@ public class HistorialLicenciasBuilder implements IBuilder<HistorialLicencias, H
 		dto.setNumeroLegajo(model.getNumeroLegajo());
 		dto.setActivo(model.isActivo());
 		dto.setEmpleado(model.getEmpleado());
+		dto.setTipoLicencia(model.getTipoLicencia());
 
 		return dto;
 	}
@@ -50,6 +52,7 @@ public class HistorialLicenciasBuilder implements IBuilder<HistorialLicencias, H
 			dto.setNumeroLegajo(hl.getNumeroLegajo());
 			dto.setActivo(hl.isActivo());
 			dto.setEmpleado(hl.getEmpleado());
+			dto.setTipoLicencia(hl.getTipoLicencia());
 			listDto.add(dto);
 		}
 

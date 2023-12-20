@@ -33,9 +33,13 @@ public class HistorialLicencias {
 	private boolean activo;
 
 	@OneToOne()
+	@JoinColumn(name = "cod_tipo_licencia", referencedColumnName = "id")
+	private Parametro tipoLicencia;
+
+	@OneToOne()
 	@JoinColumn(name = "id_empleado", referencedColumnName = "id")
 	private Empleado empleado;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -82,6 +86,14 @@ public class HistorialLicencias {
 
 	public void setEmpleado(Empleado empleado) {
 		this.empleado = empleado;
+	}
+
+	public Parametro getTipoLicencia() {
+		return tipoLicencia;
+	}
+
+	public void setTipoLicencia(Parametro tipoLicencia) {
+		this.tipoLicencia = tipoLicencia;
 	}
 
 }

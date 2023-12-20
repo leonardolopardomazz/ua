@@ -3,6 +3,7 @@ package ar.com.ua.dto;
 import java.util.Date;
 
 import ar.com.ua.model.Empleado;
+import ar.com.ua.model.Parametro;
 
 public class HistorialLicenciasDTO {
 
@@ -12,6 +13,7 @@ public class HistorialLicenciasDTO {
 	private Date fechaFin;
 	private boolean activo;
 	private Empleado empleado;
+	private Parametro tipoLicencia;
 
 	public Long getId() {
 		return id;
@@ -59,6 +61,14 @@ public class HistorialLicenciasDTO {
 
 	public void setEmpleado(Empleado empleado) {
 		this.empleado = empleado;
+	}
+
+	public Parametro getTipoLicencia() {
+		return tipoLicencia;
+	}
+
+	public void setTipoLicencia(Parametro tipoLicencia) {
+		this.tipoLicencia = tipoLicencia;
 	}
 
 }
