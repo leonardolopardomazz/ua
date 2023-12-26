@@ -29,7 +29,7 @@ public class Usuario {
 	private Long id;
 
 	@Column(name = "nro_legajo")
-	private String numeroLegajo;
+	private Long numeroLegajo;
 
 	@Column(name = "nombre_usuario")
 	private String nombreUsuario;
@@ -66,11 +66,11 @@ public class Usuario {
 		this.nombreUsuario = nombreUsuario;
 	}
 
-	public String getNumeroLegajo() {
+	public Long getNumeroLegajo() {
 		return numeroLegajo;
 	}
 
-	public void setNumeroLegajo(String numeroLegajo) {
+	public void setNumeroLegajo(Long numeroLegajo) {
 		this.numeroLegajo = numeroLegajo;
 	}
 

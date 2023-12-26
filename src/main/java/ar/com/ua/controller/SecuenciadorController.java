@@ -23,7 +23,9 @@ import ar.com.ua.dto.response.ResponseDto;
 import ar.com.ua.dto.response.ResponseErrorDto;
 import ar.com.ua.dto.response.ResponseOKDto;
 import ar.com.ua.dto.response.ResponseOKListDto;
+import ar.com.ua.model.HistorialIngresoCaidos;
 import ar.com.ua.model.Secuenciador;
+import ar.com.ua.service.HistorialIngresoCaidosService;
 import ar.com.ua.service.SecuenciadorService;
 
 @RequestMapping("/secuenciador")
@@ -32,6 +34,9 @@ public class SecuenciadorController implements IABMController<SecuenciadorDTO>, 
 
 	@Autowired
 	private SecuenciadorService secuenciadorService;
+
+	@Autowired
+	private HistorialIngresoCaidosService hicService;
 
 	@Autowired
 	private SecuenciadorBuilder secuenciadorBuilder;
@@ -100,11 +105,43 @@ public class SecuenciadorController implements IABMController<SecuenciadorDTO>, 
 		}
 	}
 
+	private Long setNumeroLegajoIfExistsInHistorialIngresoCaido(String codigo) {
+		try {
+			// Si existe un ingreso caido, tengo que detectar cual es el legajo que se le
+			// asignó a ese empleado según el país.
+			if (this.hicService.count() != 0) {
+				List<HistorialIngresoCaidos> hics = this.hicService.findAllByEmpleadoIsNotNull();
+
+				
+				for (HistorialIngresoCaidos hic : hics) {
+					if (hic.getEmpleado().getCodigoPais().getSecuenciador().getCodigo().equals(codigo) && hic.isActivo() == true) {
+						hic.setActivo(false);
+						this.hicService.save(hic);
+						return hic.getEmpleado().getNumeroLegajo();
+					}
+				}
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+
+		return null;
+	}
+
 	@GetMapping(value = "/secuencia/{codigo}")
 	public ResponseDto getMaxValue(@PathVariable String codigo) {
 
 		try {
+
+			Long numeroLegajo = setNumeroLegajoIfExistsInHistorialIngresoCaido(codigo);
+
 			Secuenciador secuenciador = this.secuenciadorService.findByCodigo(codigo);
+			if (numeroLegajo != null) {
+				secuenciador.setSecuencia(numeroLegajo);
+			} else {
+				secuenciador.setSecuencia(secuenciador.getSecuencia() + 1);
+			}
+
 			SecuenciadorDTO secuenciadorDto = secuenciadorBuilder.modelToDto(secuenciador);
 
 			return new ResponseOKDto<SecuenciadorDTO>(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,

@@ -23,14 +23,14 @@ import ar.com.ua.dto.response.ResponseErrorDto;
 import ar.com.ua.dto.response.ResponseOKDto;
 import ar.com.ua.dto.response.ResponseOKListDto;
 import ar.com.ua.model.HistorialIngresoCaidos;
-import ar.com.ua.service.HistorialIngreslCaidosService;
+import ar.com.ua.service.HistorialIngresoCaidosService;
 
 @RequestMapping("/historialingresoscaidos")
 @RestController
 public class HistorialIngresosCaidosController implements IABMController<HistorialIngresoCaidosDTO>, IListController<HistorialIngresoCaidosDTO> {
 
 	@Autowired
-	private HistorialIngreslCaidosService hicService;
+	private HistorialIngresoCaidosService hicService;
 
 	@Autowired
 	private HistorialIngreslCaidosBuilder hicBuilder;

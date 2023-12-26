@@ -34,11 +34,21 @@ public class VueltaAlColegioBuilder implements IBuilder<Map<String, String>, Vue
 	public VueltaAlColegioResponseDTO listToDTo(List<?> list) {
 		VueltaAlColegioResponseDTO dto = new VueltaAlColegioResponseDTO();
 
-		String[] resultadoParseado = list.get(0).toString().split(",");
-
+		String resultadoParseado;
+		
+		for(int i = 0 ; i < list.size() ; i ++){  
+			   try {
+				   resultadoParseado = list.get(i).toString();
+			   } catch (NullPointerException ex) {
+			       // do some default initialization
+			   }
+			}  
+		
+/*
 		dto.setNumeroLegajo(resultadoParseado[0]);
 		dto.setApellido(resultadoParseado[1]);
 		dto.setNombre(resultadoParseado[2]);
+		*/
 		// dto.setFechaNacimiento(resultadoParseado.get);
 
 		String fechas = String.valueOf(list.get(2));

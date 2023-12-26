@@ -21,7 +21,7 @@ public class Empleado {
 	private Long id;
 
 	@Column(name = "nro_legajo", unique = true, nullable = false)
-	private String numeroLegajo;
+	private Long numeroLegajo;
 
 	@Column(name = "nombre")
 	private String nombre;
@@ -205,11 +205,11 @@ public class Empleado {
 		this.id = id;
 	}
 
-	public String getNumeroLegajo() {
+	public Long getNumeroLegajo() {
 		return numeroLegajo;
 	}
 
-	public void setNumeroLegajo(String numeroLegajo) {
+	public void setNumeroLegajo(Long numeroLegajo) {
 		this.numeroLegajo = numeroLegajo;
 	}
 

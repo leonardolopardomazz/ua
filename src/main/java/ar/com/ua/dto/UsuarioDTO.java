@@ -8,7 +8,7 @@ import ar.com.ua.model.Rol;
 public class UsuarioDTO {
 
 	private Long id;
-	private String numeroLegajo;
+	private Long numeroLegajo;
 	private String nombreUsuario;
 	private Date fechaAlta;
 	private Date fechaBaja;
@@ -23,11 +23,11 @@ public class UsuarioDTO {
 		this.id = id;
 	}
 
-	public String getNumeroLegajo() {
+	public Long getNumeroLegajo() {
 		return numeroLegajo;
 	}
 
-	public void setNumeroLegajo(String numeroLegajo) {
+	public void setNumeroLegajo(Long numeroLegajo) {
 		this.numeroLegajo = numeroLegajo;
 	}
 

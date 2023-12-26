@@ -9,7 +9,7 @@ import ar.com.ua.model.Puesto;
 public class EmpleadoDTO {
 
 	private Long id;
-	private String numeroLegajo;
+	private Long numeroLegajo;
 	private String nombre;
 	private String apellido;
 	private Parametro codigoTipoDocumento;
@@ -68,11 +68,11 @@ public class EmpleadoDTO {
 		this.id = id;
 	}
 
-	public String getNumeroLegajo() {
+	public Long getNumeroLegajo() {
 		return numeroLegajo;
 	}
 
-	public void setNumeroLegajo(String numeroLegajo) {
+	public void setNumeroLegajo(Long numeroLegajo) {
 		this.numeroLegajo = numeroLegajo;
 	}
 
