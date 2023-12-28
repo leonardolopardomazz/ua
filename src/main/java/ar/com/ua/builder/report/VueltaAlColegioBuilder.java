@@ -1,20 +1,37 @@
 package ar.com.ua.builder.report;
 
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import ar.com.ua.dto.report.VueltaAlColegioDTO;
 import ar.com.ua.dto.report.VueltaAlColegioResponseDTO;
+import ar.com.ua.wrapper.report.VueltaAlColegioWrapper;
 
 @Component
 public class VueltaAlColegioBuilder implements IBuilder<Map<String, String>, VueltaAlColegioDTO>,
 		IBuilderResponse<List<?>, VueltaAlColegioResponseDTO> {
+
+	@Autowired
+	private VueltaAlColegioWrapper wrapper;
+
+	private List<String> arrayToList(String[] queryResult) {
+		List<String> parserResult = new ArrayList<>();
+		for (String result : queryResult) {
+			parserResult.add(result);
+		}
+		return parserResult;
+	}
+
+	private boolean isNotNull(String field) {
+		if (field != null) {
+			return true;
+		}
+		return false;
+	}
 
 	@Override
 	public VueltaAlColegioDTO mapToDto(Map<String, String> map) {
@@ -23,10 +40,21 @@ public class VueltaAlColegioBuilder implements IBuilder<Map<String, String>, Vue
 		dto.setPais(map.get("pais"));
 		dto.setNumeroLegajo(map.get("numeroLegajo"));
 		dto.setApellido(map.get("apellido"));
-		dto.setCodigoDireccion(Long.valueOf(map.get("codigoDireccion")));
-		dto.setCodigoPuesto(Long.valueOf(map.get("codigoPuesto")));
-		dto.setEstadoEmpleado(Boolean.getBoolean(map.get("estadoEmpleado")));
 
+		String direccion = map.get("codigoDireccion");
+		if (isNotNull(direccion)) {
+			dto.setCodigoDireccion(Long.valueOf(direccion));
+		}
+
+		String codigoPuesto = map.get("codigoPuesto");
+		if (isNotNull(codigoPuesto)) {
+			dto.setCodigoDireccion(Long.valueOf(codigoPuesto));
+		}
+
+		String estadoEmpleado = map.get("estadoEmpleado");
+		if (isNotNull(estadoEmpleado)) {
+			dto.setEstadoEmpleado(Boolean.getBoolean(estadoEmpleado));
+		}
 		return dto;
 	}
 
@@ -34,60 +62,20 @@ public class VueltaAlColegioBuilder implements IBuilder<Map<String, String>, Vue
 	public VueltaAlColegioResponseDTO listToDTo(List<?> list) {
 		VueltaAlColegioResponseDTO dto = new VueltaAlColegioResponseDTO();
 
-		String resultadoParseado;
-		
-		for(int i = 0 ; i < list.size() ; i ++){  
-			   try {
-				   resultadoParseado = list.get(i).toString();
-			   } catch (NullPointerException ex) {
-			       // do some default initialization
-			   }
-			}  
-		
-/*
-		dto.setNumeroLegajo(resultadoParseado[0]);
-		dto.setApellido(resultadoParseado[1]);
-		dto.setNombre(resultadoParseado[2]);
-		*/
-		// dto.setFechaNacimiento(resultadoParseado.get);
+		try {
+			String[] queryResult = list.get(0).toString().split(",");
+			List<String> parserResult = arrayToList(queryResult);
+			List<String> initialData = parserResult.subList(0, 3);
 
-		String fechas = String.valueOf(list.get(2));
-		// dto.set
-		List<String> fechasACalcular = this.parsearFecha(fechas);
+			int size = parserResult.size();
+			List<String> dates = parserResult.subList(3, size);
 
-		this.calcularEdad(fechasACalcular);
+			dto = wrapper.result(initialData, dates);
 
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	// 2023-11-23 15:28:26,2023-11-20 15:28:26
-	private List<String> parsearFecha(String fechas) {
-		String[] arrayFecha = fechas.split(",");
-
-		List<String> fechaParseada = new ArrayList<>();
-		for (String fecha : arrayFecha) {
-			String parse = fecha.substring(0, 9);
-			fechaParseada.add(parse);
-		}
-
-		return fechaParseada;
-	}
-
-	private String calcularEdad(List<String> fechas) {
-		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-		for (String fecha : fechas) {
-
-			LocalDate fechaNac = LocalDate.parse(fecha, fmt);
-			LocalDate ahora = LocalDate.now();
-
-			Period periodo = Period.between(fechaNac, ahora);
-			System.out.printf("Tu edad es: %s años, %s meses y %s días", periodo.getYears(), periodo.getMonths(),
-					periodo.getDays());
-
-		}
-		return null;
+			return dto;
+		} catch (Exception e) {
+			throw e;
+		} 
 	}
 
 }

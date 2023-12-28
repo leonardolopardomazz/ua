@@ -19,4 +19,7 @@ public class EndPointPathConstant {
 	public static final String HISTORIAL_DE_PUESTOS = "/historialpuestos";
 	public static final String HISTORIAL_DE_INGRESOS_CAIDOS = "/historialdeingresoscaidos";
 	
+	//REPORTES
+	public static final String REPORTE_VUELTA_AL_COLEGIO = "/vueltaalcolegio";
+	
 }

@@ -5,8 +5,6 @@ public class VueltaAlColegioResponseDTO {
 	private String numeroLegajo;
 	private String apellido;
 	private String nombre;
-	private String fechaNacimiento;
-
 	private String pais;
 	private int cantidadHijos;
 	private String edades;
@@ -33,14 +31,6 @@ public class VueltaAlColegioResponseDTO {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public String getFechaNacimiento() {
-		return fechaNacimiento;
-	}
-
-	public void setFechaNacimiento(String fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
 	}
 
 	public String getPais() {
