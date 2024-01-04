@@ -11,36 +11,35 @@ import org.springframework.web.bind.annotation.RestController;
 import ar.com.ua.constant.CodigoRespuestaConstant;
 import ar.com.ua.constant.EndPointPathConstant;
 import ar.com.ua.constant.TipoMetodoConstant;
-import ar.com.ua.dto.report.VueltaAlColegioResponseDTO;
+import ar.com.ua.dto.report.CentroDeCostoResponseDTO;
 import ar.com.ua.dto.response.ResponseDto;
 import ar.com.ua.dto.response.ResponseErrorDto;
 import ar.com.ua.dto.response.ResponseOKListDto;
-import ar.com.ua.service.report.VueltaAlColegioService;
+import ar.com.ua.service.report.CentroDeCostoService;
 
-@RequestMapping("/reporte/vueltaalcolegio")
+@RequestMapping("/reporte/centrodecosto")
 @RestController
-public class VueltaAlColegioController implements IReport {
-
+public class CentroDeCostoController implements IReport {
+	
 	@Autowired
-	private VueltaAlColegioService reporteService;
+	private CentroDeCostoService cdcService;
 
 	@Override
 	public ResponseDto generarReporte(Map<String, String> params) {
 
 		try {
-			List<VueltaAlColegioResponseDTO> vacDto = this.reporteService.generarReporte(params);
+			List<CentroDeCostoResponseDTO> cdcDto = this.cdcService.generarReporte(params);
 
-			return new ResponseOKListDto<VueltaAlColegioResponseDTO>(EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO,
-					TipoMetodoConstant.GET, CodigoRespuestaConstant.OK, vacDto);
+			return new ResponseOKListDto<CentroDeCostoResponseDTO>(EndPointPathConstant.REPORTE_CENTRO_DE_COSTO,
+					TipoMetodoConstant.GET, CodigoRespuestaConstant.OK, cdcDto);
 
 		} catch (Exception e) {
 			List<String> mensajesError = new ArrayList<String>();
 			String messageException = e.getMessage();
 			mensajesError.add(messageException);
 
-			return new ResponseErrorDto(EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO, TipoMetodoConstant.GET,
+			return new ResponseErrorDto(EndPointPathConstant.REPORTE_CENTRO_DE_COSTO, TipoMetodoConstant.GET,
 					CodigoRespuestaConstant.ERROR, mensajesError);
 		}
 	}
-
 }

@@ -18,21 +18,6 @@ public class VueltaAlColegioBuilder implements IBuilder<Map<String, String>, Vue
 	@Autowired
 	private VueltaAlColegioWrapper wrapper;
 
-	private List<String> arrayToList(String[] queryResult) {
-		List<String> parserResult = new ArrayList<>();
-		for (String result : queryResult) {
-			parserResult.add(result);
-		}
-		return parserResult;
-	}
-
-	private boolean isNotNull(String field) {
-		if (field != null) {
-			return true;
-		}
-		return false;
-	}
-
 	@Override
 	public VueltaAlColegioDTO mapToDto(Map<String, String> map) {
 		VueltaAlColegioDTO dto = new VueltaAlColegioDTO();
@@ -42,40 +27,40 @@ public class VueltaAlColegioBuilder implements IBuilder<Map<String, String>, Vue
 		dto.setApellido(map.get("apellido"));
 
 		String direccion = map.get("codigoDireccion");
-		if (isNotNull(direccion)) {
+		if (CommonsValidator.isNotNull(direccion)) {
 			dto.setCodigoDireccion(Long.valueOf(direccion));
 		}
 
 		String codigoPuesto = map.get("codigoPuesto");
-		if (isNotNull(codigoPuesto)) {
+		if (CommonsValidator.isNotNull(codigoPuesto)) {
 			dto.setCodigoDireccion(Long.valueOf(codigoPuesto));
 		}
 
 		String estadoEmpleado = map.get("estadoEmpleado");
-		if (isNotNull(estadoEmpleado)) {
+		if (CommonsValidator.isNotNull(estadoEmpleado)) {
 			dto.setEstadoEmpleado(Boolean.getBoolean(estadoEmpleado));
 		}
 		return dto;
 	}
 
 	@Override
-	public VueltaAlColegioResponseDTO listToDTo(List<?> list) {
-		VueltaAlColegioResponseDTO dto = new VueltaAlColegioResponseDTO();
+	public List<VueltaAlColegioResponseDTO> listToDto(List<?> list) {
 
+		List<VueltaAlColegioResponseDTO> listDto = new ArrayList<>();
 		try {
-			String[] queryResult = list.get(0).toString().split(",");
-			List<String> parserResult = arrayToList(queryResult);
-			List<String> initialData = parserResult.subList(0, 3);
+			for (Object object : list) {
+				List<String> parserResult = CommonsBuilder.arrayToList(object.toString().split(","));
+				List<String> initialData = parserResult.subList(0, 3);
 
-			int size = parserResult.size();
-			List<String> dates = parserResult.subList(3, size);
+				int size = parserResult.size();
+				List<String> dates = parserResult.subList(3, size);
 
-			dto = wrapper.result(initialData, dates);
-
-			return dto;
+				listDto.add(wrapper.result(initialData, dates));
+			}
+			return listDto;
 		} catch (Exception e) {
 			throw e;
-		} 
+		}
 	}
 
 }

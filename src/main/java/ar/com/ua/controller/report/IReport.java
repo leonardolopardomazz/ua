@@ -10,6 +10,6 @@ import ar.com.ua.dto.response.ResponseDto;
 public interface IReport {
 	
 	@GetMapping(value = "/generar")
-	ResponseDto generateReport (@RequestParam Map<String,String> params); 
+	ResponseDto generarReporte (@RequestParam Map<String,String> params); 
 
 }

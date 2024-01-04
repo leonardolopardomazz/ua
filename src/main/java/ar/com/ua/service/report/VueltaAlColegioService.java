@@ -20,13 +20,32 @@ public class VueltaAlColegioService {
 	@Autowired
 	private VueltaAlColegioBuilder vacBuilder;
 
-	public VueltaAlColegioResponseDTO generateVueltaAlColegio(Map<String, String> params) {
+	public List<VueltaAlColegioResponseDTO> generarReporte(Map<String, String> params) {
+		
+		/*
+		 * 		CentroDeCostoDTO cdcDto = this.cdcBuilder.mapToDto(params);
+
+		List<String> resultado = this.cdcRepository.reporteCentroDeCosto(cdcDto);
+
+		Integer idDireccion = Integer.getInteger(params.get("idDireccion"));
+		String descripcionDireccion = paramRepository.descripcion(idDireccion);
+
+		Integer idGerencia = Integer.getInteger(params.get("idGerencia"));
+		String descripcionGerencia = paramRepository.descripcion(idGerencia);
+
+		Integer idCentroDeCostos = Integer.getInteger(params.get("idcentrodecostos"));
+		String descripcionCentroDeCostos = paramRepository.descripcion(idCentroDeCostos);
+
+		return this.cdcBuilder.listToDTo(resultado);
+		 */
+		
+		
 		VueltaAlColegioDTO dto = vacBuilder.mapToDto(params);
 		
-		List<String> result = this.repository.reportVueltaAlColegio(dto.getApellido(), dto.getNumeroLegajo(),
+		List<String> result = this.repository.reporteVueltaAlColegio(dto.getApellido(), dto.getNumeroLegajo(),
 				dto.getCodigoPuesto(), dto.getCodigoDireccion());
 
-		VueltaAlColegioResponseDTO vacDto = vacBuilder.listToDTo(result);
+		List<VueltaAlColegioResponseDTO> vacDto = vacBuilder.listToDto(result);
 		return vacDto;
 	}
 
