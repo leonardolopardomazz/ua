@@ -1,7 +1,5 @@
 package ar.com.ua.dto.report;
 
-import java.util.Date;
-
 public class HistorialLaboralDTO {
 
 	String idPais;

@@ -38,7 +38,7 @@ El reporte estará ordenado por País, Dirección, Gerencia, Centro de costo, Ap
 			+ "AND emp.cod_direccion = :idDireccion OR emp.cod_direccion IS NULL "
 			+ "AND emp.cod_pais = :idPais OR emp.cod_pais IS NULL "
 			+ "AND emp.nro_legajo = hp.nro_legajo "
-			+ "AND hp.fecha_ingreso_reconocida between :fechaIngresoDesde and :fechaIngresoHasta "
+			+ "AND hp.fecha_ingreso_reconocida between :fechaIngresoDesde and :fechaIngresoHasta OR hp.fecha_ingreso_reconocida IS NOT NULL "
 			+ "GROUP BY emp.nro_legajo", nativeQuery = true)
 	List<String> reporte(@Param("idPais") String idPais, 
 			@Param("idDireccion") String idDireccion, @Param("estado") String estado, @Param("fechaIngresoDesde") String fechaIngresoDesde, 
