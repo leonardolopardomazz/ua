@@ -21,27 +21,29 @@ import ar.com.ua.dto.response.ResponseDto;
 import ar.com.ua.dto.response.ResponseErrorDto;
 import ar.com.ua.dto.response.ResponseOKDto;
 import ar.com.ua.dto.response.ResponseOKListDto;
+import ar.com.ua.model.Empleado;
 import ar.com.ua.model.HistorialLicencias;
 import ar.com.ua.service.HistorialLicenciasService;
 
 @RequestMapping("/historiallicencias")
 @RestController
-public class HistorialLicenciasController implements IABMController<HistorialLicenciasDTO>, IListController<HistorialLicenciasDTO> {
-	
+public class HistorialLicenciasController
+		implements IABMController<HistorialLicenciasDTO>, IListController<HistorialLicenciasDTO> {
+
 	@Autowired
 	private HistorialLicenciasService hlService;
 
 	@Autowired
 	private HistorialLicenciasBuilder hlBuilder;
-	
+
 	static Logger logger = Logger.getLogger(HistorialLicenciasController.class.getName());
-	
+
 	private ResponseDto save(Long id, HistorialLicenciasDTO dto, String tipoMetodoConstant) {
 		// Setteo el id para la actualizacion
 		dto.setId(id);
 		return this.save(dto, tipoMetodoConstant);
 	}
-	
+
 	private ResponseDto save(HistorialLicenciasDTO dto, String tipoMetodoConstant) {
 		List<String> mensajesError = new ArrayList<String>();
 
@@ -49,8 +51,8 @@ public class HistorialLicenciasController implements IABMController<HistorialLic
 			HistorialLicencias hl = hlBuilder.dtoToModel(dto);
 			HistorialLicencias hlGuardado = hlService.save(hl);
 			HistorialLicenciasDTO hlDto = hlBuilder.modelToDto(hlGuardado);
-			return new ResponseOKDto<HistorialLicenciasDTO>(EndPointPathConstant.HISTORIAL_DE_LICENCIAS, tipoMetodoConstant,
-					CodigoRespuestaConstant.OK, hlDto);
+			return new ResponseOKDto<HistorialLicenciasDTO>(EndPointPathConstant.HISTORIAL_DE_LICENCIAS,
+					tipoMetodoConstant, CodigoRespuestaConstant.OK, hlDto);
 		} catch (Exception e) {
 			String messageException = e.getMessage();
 			mensajesError.add(messageException);
@@ -116,8 +118,24 @@ public class HistorialLicenciasController implements IABMController<HistorialLic
 
 	@Override
 	public ResponseDto findAny(Map<String, String> params) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			Long idEmpleado = Long.parseLong(params.get("idempleado"));
+
+			Empleado empleado = new Empleado();
+			empleado.setId(idEmpleado);
+
+			HistorialLicencias hl = hlService.findOneByEmpleadoAndActivoTrue(empleado);
+			HistorialLicenciasDTO hlDto = hlBuilder.modelToDto(hl);
+
+			return new ResponseOKDto<HistorialLicenciasDTO>(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
+					CodigoRespuestaConstant.OK, hlDto);
+		} catch (Exception e) {
+			List<String> mensajesError = new ArrayList<String>();
+			String messageException = e.getMessage();
+			mensajesError.add(messageException);
+			return new ResponseErrorDto(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
+					CodigoRespuestaConstant.ERROR, mensajesError);
+		}
 	}
 
 	@Override
