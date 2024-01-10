@@ -29,7 +29,7 @@ public class VueltaAlColegioWrapper {
 		int cantidadHijos = 0;
 
 		for (Integer edad : edades) {
-			if (edad < 18) {
+			if (edad <= 20) {
 				cantidadHijos++;
 			}
 		}

@@ -24,8 +24,8 @@ public class CentroDeCostoService {
 
 		CentroDeCostoDTO cdcDto = this.cdcBuilder.mapToDto(params);
 
-		List<String> resultado = this.cdcRepository.reporteCentroDeCosto(cdcDto.getIdCentroDeCosto(),
-				cdcDto.getEstado(), cdcDto.getIdDireccion(), cdcDto.getIdGerencia());
+		List<String> resultado = this.cdcRepository.reporte(cdcDto.getIdCentroDeCosto(),
+				cdcDto.getEstado(), cdcDto.getIdDireccion());
 
 		return this.cdcBuilder.listToDto(resultado);
 	}

@@ -22,18 +22,4 @@ public interface VueltaAlColegioRepository extends JpaRepository<Empleado, Long>
 			+ "GROUP BY  emp.nro_legajo, emp.apellido, emp.nombre", nativeQuery = true)
 	List<String> reporte(@Param("pais") String pais);
 
-	/*
-	 * 
-	 * String reportHistorialLaboral(HistorialLaboralDTO dto);
-	 * 
-	 * String reportInternationalDataCollection(InternationalDataCollectionDTO dto);
-	 * 
-	 * String reportExternos(ExternosDTO dto);
-	 * 
-	 * String reportDirectores(DirectoresDTO dto);
-	 * 
-	 * String reportGenerico(GenericoDTO dto);
-	 * 
-	 * String reportLicencia(LicenciaDTO dto);
-	 */
 }

@@ -22,24 +22,6 @@ public class VueltaAlColegioService {
 
 	public List<VueltaAlColegioResponseDTO> generarReporte(Map<String, String> params) {
 		
-		/*
-		 * 		CentroDeCostoDTO cdcDto = this.cdcBuilder.mapToDto(params);
-
-		List<String> resultado = this.cdcRepository.reporteCentroDeCosto(cdcDto);
-
-		Integer idDireccion = Integer.getInteger(params.get("idDireccion"));
-		String descripcionDireccion = paramRepository.descripcion(idDireccion);
-
-		Integer idGerencia = Integer.getInteger(params.get("idGerencia"));
-		String descripcionGerencia = paramRepository.descripcion(idGerencia);
-
-		Integer idCentroDeCostos = Integer.getInteger(params.get("idcentrodecostos"));
-		String descripcionCentroDeCostos = paramRepository.descripcion(idCentroDeCostos);
-
-		return this.cdcBuilder.listToDTo(resultado);
-		 */
-		
-		
 		VueltaAlColegioDTO dto = vacBuilder.mapToDto(params);
 		
 		List<String> result = this.repository.reporte(dto.getPais());
