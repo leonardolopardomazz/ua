@@ -45,7 +45,7 @@ public class HistorialPuestos {
 
 	@OneToOne()
 	@JoinColumn(name = "cod_puesto", referencedColumnName = "id")
-	private Parametro codigoPuesto;
+	private Puesto codigoPuesto;
 
 	@Column(name = "fecha_ingreso_reconocida")
 	private Date fechaIngresoReconocida;
@@ -112,11 +112,11 @@ public class HistorialPuestos {
 		this.codigoJefatura = codigoJefatura;
 	}
 
-	public Parametro getCodigoPuesto() {
+	public Puesto getCodigoPuesto() {
 		return codigoPuesto;
 	}
 
-	public void setCodigoPuesto(Parametro codigoPuesto) {
+	public void setCodigoPuesto(Puesto codigoPuesto) {
 		this.codigoPuesto = codigoPuesto;
 	}
 

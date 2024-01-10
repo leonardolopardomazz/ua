@@ -1,17 +1,30 @@
 package ar.com.ua.dto.report;
 
-public class ExternosDTO {
+public class ExternosResponseDTO {
 
+	private String numeroLegajo;
 	private String codigoTipoDocumento;
+	private String numeroDocumento;
 	private String codigoPais;
 	private String codigoProveedor;
 	private String codigoPuesto;
 	private String codigoJefatura;
 	private String codigoDivision;
-	private String codigoDireccion;
-	private String codigoGerencia;
+	private String apellidoNombre;
+	private String manager;
+	private String startDate;
 	private String codigoGenero;
 	private String activo;
+	private String fechaEgreso;
+	private String email;
+
+	public String getNumeroLegajo() {
+		return numeroLegajo;
+	}
+
+	public void setNumeroLegajo(String numeroLegajo) {
+		this.numeroLegajo = numeroLegajo;
+	}
 
 	public String getCodigoTipoDocumento() {
 		return codigoTipoDocumento;
@@ -19,6 +32,14 @@ public class ExternosDTO {
 
 	public void setCodigoTipoDocumento(String codigoTipoDocumento) {
 		this.codigoTipoDocumento = codigoTipoDocumento;
+	}
+
+	public String getNumeroDocumento() {
+		return numeroDocumento;
+	}
+
+	public void setNumeroDocumento(String numeroDocumento) {
+		this.numeroDocumento = numeroDocumento;
 	}
 
 	public String getCodigoPais() {
@@ -61,20 +82,28 @@ public class ExternosDTO {
 		this.codigoDivision = codigoDivision;
 	}
 
-	public String getCodigoDireccion() {
-		return codigoDireccion;
+	public String getApellidoNombre() {
+		return apellidoNombre;
 	}
 
-	public void setCodigoDireccion(String codigoDireccion) {
-		this.codigoDireccion = codigoDireccion;
+	public void setApellidoNombre(String apellidoNombre) {
+		this.apellidoNombre = apellidoNombre;
 	}
 
-	public String getCodigoGerencia() {
-		return codigoGerencia;
+	public String getManager() {
+		return manager;
 	}
 
-	public void setCodigoGerencia(String codigoGerencia) {
-		this.codigoGerencia = codigoGerencia;
+	public void setManager(String manager) {
+		this.manager = manager;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
 	}
 
 	public String getCodigoGenero() {
@@ -91,6 +120,22 @@ public class ExternosDTO {
 
 	public void setActivo(String activo) {
 		this.activo = activo;
+	}
+
+	public String getFechaEgreso() {
+		return fechaEgreso;
+	}
+
+	public void setFechaEgreso(String fechaEgreso) {
+		this.fechaEgreso = fechaEgreso;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }

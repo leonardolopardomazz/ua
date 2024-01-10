@@ -14,23 +14,6 @@ import ar.com.ua.model.Empleado;
 @Transactional(readOnly = true)
 public interface HistorialLaboralRepository extends JpaRepository<Empleado, Long>  {
 	
-	/*
-	 * Permitir seleccionar País (selección múltiple, default ARG), 
-	 * Dirección (si null seleccionar todos), 
-	 * Estado_empleado (selección múltiple: Activo (default), inactivo, baja), 
-	 * Fecha_ingreso_desde; Fecha_ingreso_hasta
-	 * 
-	 * 
-Recuperar datos de la tabla “Empleado” para Cod_país = selección (si null seleccionar todos); Cód_dirección = selección, Estado_empleado = selección. Tabla “Parámetros” para tipo_parámetro = 6 (dirección), 12 (gerencia). Tabla “Puesto”. Tabla “Historial Puestos” F_ingreso_reconocida >= Selección desde y <= selección hasta
-El reporte estará ordenado por País, Dirección, Gerencia, Centro de costo, Apellido (alfabéticamente) y Fecha_ingreso_reconocida; y estará compuesto por los siguientes campos:
-
-Número de legajo del empleado
-Apellido del empleado
-Nombre del empleado
-Puesto
-Fecha desde y hasta de cada puesto: se obtiene de la tabla “Historial de cambios de puesto”
-	 */
-
 	@Query(value = "SELECT emp.nro_legajo, emp.apellido, emp.nombre, puesto.descripcion as puesto, "
 			+ "hp.fecha_ingreso_reconocida, hp.fecha_egreso "
 			+ "FROM empleados emp, parametros param, puesto puesto, historial_de_puestos hp "

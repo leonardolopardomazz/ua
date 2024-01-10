@@ -3,6 +3,7 @@ package ar.com.ua.dto;
 import java.util.Date;
 
 import ar.com.ua.model.Parametro;
+import ar.com.ua.model.Puesto;
 
 public class HistorialPuestosDTO {
 
@@ -13,7 +14,7 @@ public class HistorialPuestosDTO {
 	private Parametro codigoDireccion;
 	private Parametro codigoGerencia;
 	private Parametro codigoJefatura;
-	private Parametro codigoPuesto;
+	private Puesto codigoPuesto;
 	private Date fechaIngresoReconocida;
 	private Date fechaEgreso;
 	private boolean activo;
@@ -74,11 +75,11 @@ public class HistorialPuestosDTO {
 		this.codigoJefatura = codigoJefatura;
 	}
 
-	public Parametro getCodigoPuesto() {
+	public Puesto getCodigoPuesto() {
 		return codigoPuesto;
 	}
 
-	public void setCodigoPuesto(Parametro codigoPuesto) {
+	public void setCodigoPuesto(Puesto codigoPuesto) {
 		this.codigoPuesto = codigoPuesto;
 	}
 

@@ -2,11 +2,11 @@ package ar.com.ua.dto.report;
 
 public class HistorialLaboralDTO {
 
-	String idPais;
-	String idDireccion;
-	String estado;
-	String fechaIngresoDesde;
-	String fechaIngresoHasta;
+	private String idPais;
+	private String idDireccion;
+	private String estado;
+	private String fechaIngresoDesde;
+	private String fechaIngresoHasta;
 
 	public String getIdPais() {
 		return idPais;

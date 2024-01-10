@@ -2,12 +2,12 @@ package ar.com.ua.dto.report;
 
 public class HistorialLaboralResponseDTO {
 
-	String numeroLegajo;
-	String apellido;
-	String nombre;
-	String puesto;
-	String fechaIngresoReconocida;
-	String fechaEgreso;
+	private String numeroLegajo;
+	private String apellido;
+	private String nombre;
+	private String puesto;
+	private String fechaIngresoReconocida;
+	private String fechaEgreso;
 
 	public String getNumeroLegajo() {
 		return numeroLegajo;
