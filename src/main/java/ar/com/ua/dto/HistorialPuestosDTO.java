@@ -2,6 +2,7 @@ package ar.com.ua.dto;
 
 import java.util.Date;
 
+import ar.com.ua.model.Pais;
 import ar.com.ua.model.Parametro;
 import ar.com.ua.model.Puesto;
 
@@ -9,7 +10,7 @@ public class HistorialPuestosDTO {
 
 	private Long id;
 	private String numeroLegajo;
-	private Parametro codigoPais;
+	private Pais codigoPais;
 	private Parametro codigoOficina;
 	private Parametro codigoDireccion;
 	private Parametro codigoGerencia;
@@ -35,11 +36,11 @@ public class HistorialPuestosDTO {
 		this.numeroLegajo = numeroLegajo;
 	}
 
-	public Parametro getCodigoPais() {
+	public Pais getCodigoPais() {
 		return codigoPais;
 	}
 
-	public void setCodigoPais(Parametro codigoPais) {
+	public void setCodigoPais(Pais codigoPais) {
 		this.codigoPais = codigoPais;
 	}
 

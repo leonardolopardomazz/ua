@@ -25,7 +25,7 @@ public class HistorialPuestos {
 
 	@OneToOne()
 	@JoinColumn(name = "cod_pais", referencedColumnName = "id")
-	private Parametro codigoPais;
+	private Pais codigoPais;
 
 	@OneToOne()
 	@JoinColumn(name = "cod_oficina", referencedColumnName = "id")
@@ -72,11 +72,11 @@ public class HistorialPuestos {
 		this.numeroLegajo = numeroLegajo;
 	}
 
-	public Parametro getCodigoPais() {
+	public Pais getCodigoPais() {
 		return codigoPais;
 	}
 
-	public void setCodigoPais(Parametro codigoPais) {
+	public void setCodigoPais(Pais codigoPais) {
 		this.codigoPais = codigoPais;
 	}
 
