@@ -21,25 +21,7 @@ public class VueltaAlColegioBuilder implements IBuilder<Map<String, String>, Vue
 	@Override
 	public VueltaAlColegioDTO mapToDto(Map<String, String> map) {
 		VueltaAlColegioDTO dto = new VueltaAlColegioDTO();
-
 		dto.setPais(map.get("pais"));
-		dto.setNumeroLegajo(map.get("numeroLegajo"));
-		dto.setApellido(map.get("apellido"));
-
-		String direccion = map.get("codigoDireccion");
-		if (CommonsValidator.isNotNull(direccion)) {
-			dto.setCodigoDireccion(Long.valueOf(direccion));
-		}
-
-		String codigoPuesto = map.get("codigoPuesto");
-		if (CommonsValidator.isNotNull(codigoPuesto)) {
-			dto.setCodigoDireccion(Long.valueOf(codigoPuesto));
-		}
-
-		String estadoEmpleado = map.get("estadoEmpleado");
-		if (CommonsValidator.isNotNull(estadoEmpleado)) {
-			dto.setEstadoEmpleado(Boolean.getBoolean(estadoEmpleado));
-		}
 		return dto;
 	}
 

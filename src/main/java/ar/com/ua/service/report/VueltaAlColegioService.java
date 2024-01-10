@@ -42,8 +42,7 @@ public class VueltaAlColegioService {
 		
 		VueltaAlColegioDTO dto = vacBuilder.mapToDto(params);
 		
-		List<String> result = this.repository.reporteVueltaAlColegio(dto.getApellido(), dto.getNumeroLegajo(),
-				dto.getCodigoPuesto(), dto.getCodigoDireccion());
+		List<String> result = this.repository.reporte(dto.getPais());
 
 		List<VueltaAlColegioResponseDTO> vacDto = vacBuilder.listToDto(result);
 		return vacDto;

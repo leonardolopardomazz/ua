@@ -18,14 +18,9 @@ public interface VueltaAlColegioRepository extends JpaRepository<Empleado, Long>
 			+ "FROM empleados emp, cargas_de_familia cdf, pais pais "
 			+ "WHERE emp.nro_legajo = cdf.nro_legajo " 
 			+ "AND emp.cod_pais = pais.id OR emp.cod_pais IS NULL "
-			+ "AND emp.apellido= :apellido OR emp.apellido IS NULL "
-			+ "AND emp.nro_legajo= :numeroLegajo OR emp.nro_legajo IS NULL "
-			+ "AND emp.cod_puesto= :codigoPuesto OR emp.cod_puesto IS NULL " 
-			+ "AND emp.cod_direccion= :codigoDireccion OR emp.cod_direccion IS NULL "
 			+ "AND cdf.activo = 1 AND cdf.tipo_familiar = 'hijo' "
 			+ "GROUP BY  emp.nro_legajo, emp.apellido, emp.nombre", nativeQuery = true)
-	List<String> reporteVueltaAlColegio(@Param("apellido") String apellido, @Param("numeroLegajo") String numeroLegajo,
-			@Param("codigoPuesto") Long codigoPuesto, @Param("codigoDireccion") Long codigoDireccion);
+	List<String> reporte(@Param("pais") String pais);
 
 	/*
 	 * 

@@ -107,6 +107,7 @@ public class SecuenciadorController implements IABMController<SecuenciadorDTO>, 
 
 	private Long setNumeroLegajoIfExistsInHistorialIngresoCaido(String codigo) {
 		try {
+			Long numeroLegajo = null;
 			// Si existe un ingreso caido, tengo que detectar cual es el legajo que se le
 			// asignó a ese empleado según el país.
 			if (this.hicService.count() != 0) {
@@ -117,15 +118,14 @@ public class SecuenciadorController implements IABMController<SecuenciadorDTO>, 
 					if (hic.getEmpleado().getCodigoPais().getSecuenciador().getCodigo().equals(codigo) && hic.isActivo() == true) {
 						hic.setActivo(false);
 						this.hicService.save(hic);
-						return hic.getEmpleado().getNumeroLegajo();
+						numeroLegajo = hic.getEmpleado().getNumeroLegajo();
 					}
 				}
 			}
+			return numeroLegajo;
 		} catch (Exception e) {
 			throw e;
 		}
-
-		return null;
 	}
 
 	@GetMapping(value = "/secuencia/{codigo}")
