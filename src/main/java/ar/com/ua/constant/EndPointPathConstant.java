@@ -24,5 +24,6 @@ public class EndPointPathConstant {
 	public static final String REPORTE_CENTRO_DE_COSTO = "/centrodecosto";
 	public static final String HISTORIAL_LABORAL = "/historiallaboral";
 	public static final String EXTERNOS = "/externos";
+	public static final String DIRECTORES = "/directores";
 	
 }
