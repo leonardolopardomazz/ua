@@ -21,10 +21,8 @@ public class DirectoresService {
 
 	public List<DirectoresResponseDTO> generar(DirectoresDTO dto) {
 
-		List<String> resultado = this.directoresRepository.reporte(dto.getIdPais(), dto.getIdLugarTrabajo(),
-				dto.getIdCategoria(), dto.getIdManager(), dto.getIdCargoManager(), dto.getIdDireccion(),
-				dto.getIdGerencia(), dto.getIdJefatura(), dto.getIdDivision(), dto.getIdCentroDeCostos(),
-				dto.getIdConvenio());
+		List<String> resultado = this.directoresRepository.reporte(dto.getEstado(), dto.getIdDireccion(),
+				dto.getIdGerencia());
 
 		return this.directoresBuilder.listToDto(resultado);
 	}

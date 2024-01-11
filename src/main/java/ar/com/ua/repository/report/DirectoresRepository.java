@@ -33,11 +33,7 @@ public interface DirectoresRepository extends JpaRepository<Empleado, Long>  {
 			+ "(SELECT descripcion FROM parametros WHERE id= :idConvenio) as convenio "
 			+ "FROM empleados emp, pais pais, puesto puesto "
 			+ "GROUP BY nro_legajo", nativeQuery = true)
-	List<String> reporte(@Param("idPais") String idPais, @Param("idLugarTrabajo") String idLugarTrabajo,
-			@Param("idCategoria") String idCategoria, @Param("idManager") String idManager,
-			@Param("idCargoManager") String idCargoManager, @Param("idDireccion") String idDireccion, 
-			@Param("idGerencia") String idGerencia,  @Param("idJefatura") String idJefatura, 
-			@Param("idDivision") String idDivision,  @Param("idCentroDeCostos") String idCentroDeCostos,
-			@Param("idConvenio") String idConvenio);
+	List<String> reporte(@Param("estado") List<String> estado, @Param("idDireccion") String idDireccion,
+			@Param("idGerencia") String idGerencia);
 
 }
