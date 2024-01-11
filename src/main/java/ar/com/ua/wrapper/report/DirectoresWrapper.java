@@ -15,11 +15,11 @@ public class DirectoresWrapper {
 		dto.setApellidoNombre(data.get(1));
 		dto.setFechaIngreso(data.get(2));
 		dto.setFechaIngresoReconocida(data.get(3));
-		dto.setEmailLaboral(data.get(4));
-		dto.setPuesto(data.get(5));
-		dto.setCategoria(data.get(6));
-		dto.setManagerJefe(data.get(7));
-		dto.setCargoManagerJefe(data.get(8));
+		dto.setPais(data.get(4));
+		dto.setEmailLaboral(data.get(5));
+		dto.setPuesto(data.get(6));
+		dto.setCategoria(data.get(7));
+		dto.setManagerJefe(data.get(8));
 		dto.setDireccion(data.get(9));
 		dto.setGerencia(data.get(10));
 		dto.setJefatura(data.get(11));

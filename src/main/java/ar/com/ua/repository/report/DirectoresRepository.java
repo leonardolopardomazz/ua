@@ -14,25 +14,28 @@ import ar.com.ua.model.Empleado;
 @Transactional(readOnly = true)
 public interface DirectoresRepository extends JpaRepository<Empleado, Long>  {
 
-	@Query(value = "SELECT emp.nro_legajo as nro_legajo, "
-			+ "CONCAT (emp.apellido, \" \", emp.nombre) as apellido_nombre, "
+	@Query(value = "SELECT emp.nro_legajo, "
+			+ "CONCAT(emp.apellido, \" \", emp.nombre) as apellido_nombre, "
 			+ "emp.fecha_ingreso as fecha_ingreso, "
 			+ "emp.fecha_ingreso_reconocida as fecha_ingreso_reconocida, "
-			+ "(SELECT descripcion FROM pais WHERE id= :idPais) as pais, "
-			+ "(SELECT descripcion FROM pais WHERE id= :idLugarTrabajo) as lugar_de_trabajo, "
+			+ "emp.cod_pais as idPais, "
 			+ "emp.email_laboral as email_laboral, "
-			+ "puesto.descripcion, "
-			+ "(SELECT descripcion FROM parametros WHERE id= :idCategoria) as categoria, "
-			+ "(SELECT descripcion FROM parametros WHERE id= :idManager) as manager_jefe, "
-			+ "(SELECT descripcion FROM parametros WHERE id= :idCargoManager) as cargo_manager_jefe, "
-			+ "(SELECT descripcion FROM parametros WHERE id= :idDireccion) as direccion, "
-			+ "(SELECT descripcion FROM parametros WHERE id= :idGerencia) as gerencia, "
-			+ "(SELECT descripcion FROM parametros WHERE id= :idJefatura) as jefatura, "
-			+ "(SELECT descripcion FROM parametros WHERE id= :idDivision) as division, "
-			+ "(SELECT descripcion FROM parametros WHERE id= :idCentroDeCostos) as centro_de_costos, "
-			+ "(SELECT descripcion FROM parametros WHERE id= :idConvenio) as convenio "
-			+ "FROM empleados emp, pais pais, puesto puesto "
-			+ "GROUP BY nro_legajo", nativeQuery = true)
+			+ "emp.cod_puesto as idPuesto, "
+			+ "puesto.cod_categoria, "
+			+ "puesto.cod_puesto_al_que_reporta, "
+			+ "puesto.cod_direccion, "
+			+ "puesto.cod_gerencia, "
+			+ "puesto.cod_jefatura, "
+			+ "emp.cod_division, "
+			+ "emp.cod_centro_de_costo, "
+			+ "emp.cod_convenio "
+			+ "FROM EMPLEADOS as emp, PUESTO as puesto "
+			+ "WHERE "
+			+ "emp.cod_puesto = puesto.id "
+			+ "AND  emp.cod_estado_empleado IN :estado "
+			+ "AND emp.cod_direccion = :idDireccion "
+			+ "AND puesto.cod_gerencia = :idGerencia "
+			+ "GROUP BY emp.nro_legajo", nativeQuery = true)
 	List<String> reporte(@Param("estado") List<String> estado, @Param("idDireccion") String idDireccion,
 			@Param("idGerencia") String idGerencia);
 
