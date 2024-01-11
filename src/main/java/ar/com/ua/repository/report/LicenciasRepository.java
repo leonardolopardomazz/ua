@@ -13,9 +13,9 @@ import ar.com.ua.model.Empleado;
 @Repository
 @Transactional(readOnly = true)
 public interface LicenciasRepository extends JpaRepository<Empleado, Long> {
-	
+	/*
 	@Query(value = "", nativeQuery = true)
 	List<String> reporte(@Param("idDireccion") String idDireccion, @Param("idGerencia") String idGerencia,
 			@Param("estado") String estado);
-
+*/
 }

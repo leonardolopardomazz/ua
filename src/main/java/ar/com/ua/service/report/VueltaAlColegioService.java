@@ -1,7 +1,6 @@
 package ar.com.ua.service.report;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,12 +19,9 @@ public class VueltaAlColegioService {
 	@Autowired
 	private VueltaAlColegioBuilder vacBuilder;
 
-	public List<VueltaAlColegioResponseDTO> generarReporte(Map<String, String> params) {
 		
-		VueltaAlColegioDTO dto = vacBuilder.mapToDto(params);
-		
-		List<String> result = this.repository.reporte(dto.getPais());
-
+	public List<VueltaAlColegioResponseDTO> generar(VueltaAlColegioDTO dto) {
+		List<String> result = this.repository.reporte(dto.getPais(), dto.getEstadoEmpleado());
 		List<VueltaAlColegioResponseDTO> vacDto = vacBuilder.listToDto(result);
 		return vacDto;
 	}

@@ -19,11 +19,12 @@ import ar.com.ua.service.report.CentroDeCostoService;
 
 @RequestMapping("/reporte/centrodecosto")
 @RestController
-public class CentroDeCostoController implements IReport {
+public class CentroDeCostoController //implements IReport 
+{
 	
 	@Autowired
 	private CentroDeCostoService cdcService;
-
+/*
 	@Override
 	public ResponseDto generarReporte(Map<String, String> params) {
 
@@ -42,4 +43,5 @@ public class CentroDeCostoController implements IReport {
 					CodigoRespuestaConstant.ERROR, mensajesError);
 		}
 	}
+	*/
 }

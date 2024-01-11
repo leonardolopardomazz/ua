@@ -19,11 +19,12 @@ import ar.com.ua.service.report.DirectoresService;
 
 @RequestMapping("/reporte/directores")
 @RestController
-public class DirectoresController implements IReport {
+public class DirectoresController //implements IReport 
+{
 	
 	@Autowired
 	private DirectoresService directoresService;
-
+/*
 	@Override
 	public ResponseDto generarReporte(Map<String, String> params) {
 
@@ -42,4 +43,5 @@ public class DirectoresController implements IReport {
 					CodigoRespuestaConstant.ERROR, mensajesError);
 		}
 	}
+	*/
 }

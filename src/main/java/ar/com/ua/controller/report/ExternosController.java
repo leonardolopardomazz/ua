@@ -19,8 +19,9 @@ import ar.com.ua.service.report.ExternosService;
 
 @RequestMapping("/reporte/externos")
 @RestController
-public class ExternosController implements IReport {
-	
+public class ExternosController //implements IReport 
+{
+	/*
 	@Autowired
 	private ExternosService extService;
 
@@ -42,4 +43,5 @@ public class ExternosController implements IReport {
 					CodigoRespuestaConstant.ERROR, mensajesError);
 		}
 	}
+	*/
 }

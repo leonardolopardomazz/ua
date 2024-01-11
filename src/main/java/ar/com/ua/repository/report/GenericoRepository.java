@@ -13,7 +13,7 @@ import ar.com.ua.model.Empleado;
 @Repository
 @Transactional(readOnly = true)
 public interface GenericoRepository extends JpaRepository<Empleado, Long>  {
-
+/*
 	@Query(value = "SELECT emp.nro_legajo, "
 			+ "CONCAT(emp.apellido, \" \", emp.nombre, \" \", emp.segundo_nombre), "
 			+ "emp.nombre_preferido, "
@@ -69,5 +69,5 @@ public interface GenericoRepository extends JpaRepository<Empleado, Long>  {
 			+ "GROUP BY nro_legajo", nativeQuery = true)
 	List<String> reporte(@Param("idDireccion") String idDireccion, @Param("idGerencia") String idGerencia,
 			@Param("estado") String estado);
-
+*/
 }

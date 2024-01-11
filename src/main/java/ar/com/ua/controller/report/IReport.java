@@ -1,15 +1,13 @@
 package ar.com.ua.controller.report;
 
-import java.util.Map;
-
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import ar.com.ua.dto.response.ResponseDto;
 
-public interface IReport {
+public interface IReport<T> {
 	
 	@GetMapping(value = "/generar")
-	ResponseDto generarReporte (@RequestParam Map<String,String> params); 
+	ResponseDto generar (@RequestBody T dto); 
 
 }

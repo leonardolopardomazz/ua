@@ -19,8 +19,9 @@ import ar.com.ua.service.report.HistorialLaboralService;
 
 @RequestMapping("/reporte/historiallaboral")
 @RestController
-public class HistorialLaboralController implements IReport {
-	
+public class HistorialLaboralController //implements IReport 
+{
+	/*
 	@Autowired
 	private HistorialLaboralService hlService;
 
@@ -42,4 +43,5 @@ public class HistorialLaboralController implements IReport {
 					CodigoRespuestaConstant.ERROR, mensajesError);
 		}
 	}
+	*/
 }
