@@ -77,7 +77,7 @@ public class EmpleadoExternoBuilder implements IBuilder<EmpleadoExterno, Emplead
 	@Override
 	public List<EmpleadoExternoDTO> modelListToDto(List<EmpleadoExterno> list) {
 		List<EmpleadoExternoDTO> listDto = new ArrayList<>();
-		
+
 		for (EmpleadoExterno listExterno : list) {
 			EmpleadoExternoDTO dto = new EmpleadoExternoDTO();
 			dto.setId(listExterno.getId());
@@ -100,7 +100,7 @@ public class EmpleadoExternoBuilder implements IBuilder<EmpleadoExterno, Emplead
 			dto.setNumeroDocumento(listExterno.getNumeroDocumento());
 			dto.setNumeroLegajo(listExterno.getNumeroLegajo());
 			dto.setNumeroDocumentoLaboral(listExterno.getNumeroDocumentoLaboral());
-			
+
 			listDto.add(dto);
 		}
 		return listDto;

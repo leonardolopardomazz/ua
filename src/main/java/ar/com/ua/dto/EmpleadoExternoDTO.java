@@ -2,7 +2,9 @@ package ar.com.ua.dto;
 
 import java.util.Date;
 
+import ar.com.ua.model.Pais;
 import ar.com.ua.model.Parametro;
+import ar.com.ua.model.Puesto;
 
 public class EmpleadoExternoDTO {
 
@@ -14,8 +16,8 @@ public class EmpleadoExternoDTO {
 	private String numeroDocumento;
 	private Parametro codigoNacionalidad;
 	private Parametro codigoProveedor;
-	private Parametro codigoPais;
-	private Parametro codigoPuesto;
+	private Pais codigoPais;
+	private Puesto codigoPuesto;
 	private Parametro codigoDivision;
 	private Parametro codigoDireccion;
 	private Parametro codigoGerencia;
@@ -91,19 +93,19 @@ public class EmpleadoExternoDTO {
 		this.codigoProveedor = codigoProveedor;
 	}
 
-	public Parametro getCodigoPais() {
+	public Pais getCodigoPais() {
 		return codigoPais;
 	}
 
-	public void setCodigoPais(Parametro codigoPais) {
+	public void setCodigoPais(Pais codigoPais) {
 		this.codigoPais = codigoPais;
 	}
 
-	public Parametro getCodigoPuesto() {
+	public Puesto getCodigoPuesto() {
 		return codigoPuesto;
 	}
 
-	public void setCodigoPuesto(Parametro codigoPuesto) {
+	public void setCodigoPuesto(Puesto codigoPuesto) {
 		this.codigoPuesto = codigoPuesto;
 	}
 

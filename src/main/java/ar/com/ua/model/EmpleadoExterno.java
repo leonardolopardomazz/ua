@@ -45,11 +45,11 @@ public class EmpleadoExterno {
 
 	@OneToOne()
 	@JoinColumn(name = "cod_pais", referencedColumnName = "id")
-	private Parametro codigoPais;
+	private Pais codigoPais;
 
 	@OneToOne()
 	@JoinColumn(name = "cod_puesto", referencedColumnName = "id")
-	private Parametro codigoPuesto;
+	private Puesto codigoPuesto;
 
 	@OneToOne()
 	@JoinColumn(name = "cod_division", referencedColumnName = "id")
@@ -150,19 +150,19 @@ public class EmpleadoExterno {
 		this.codigoProveedor = codigoProveedor;
 	}
 
-	public Parametro getCodigoPais() {
+	public Pais getCodigoPais() {
 		return codigoPais;
 	}
 
-	public void setCodigoPais(Parametro codigoPais) {
+	public void setCodigoPais(Pais codigoPais) {
 		this.codigoPais = codigoPais;
 	}
 
-	public Parametro getCodigoPuesto() {
+	public Puesto getCodigoPuesto() {
 		return codigoPuesto;
 	}
 
-	public void setCodigoPuesto(Parametro codigoPuesto) {
+	public void setCodigoPuesto(Puesto codigoPuesto) {
 		this.codigoPuesto = codigoPuesto;
 	}
 
