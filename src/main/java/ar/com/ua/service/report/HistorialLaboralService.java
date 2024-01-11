@@ -1,7 +1,6 @@
 package ar.com.ua.service.report;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,9 +19,7 @@ public class HistorialLaboralService {
 	@Autowired
 	private HistorialLaboralRepository hlRepository;
 
-	public List<HistorialLaboralResponseDTO> generarReporte(Map<String, String> params) {
-
-		HistorialLaboralDTO hlDto = this.hlBuilder.mapToDto(params);
+	public List<HistorialLaboralResponseDTO> generarReporte(HistorialLaboralDTO hlDto) {
 
 		List<String> resultado = this.hlRepository.reporte(hlDto.getIdPais(), hlDto.getIdDireccion(), hlDto.getEstado(),
 				hlDto.getFechaIngresoDesde(), hlDto.getFechaIngresoHasta());

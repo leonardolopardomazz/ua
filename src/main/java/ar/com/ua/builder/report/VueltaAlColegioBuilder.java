@@ -2,28 +2,18 @@ package ar.com.ua.builder.report;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import ar.com.ua.dto.report.VueltaAlColegioDTO;
 import ar.com.ua.dto.report.VueltaAlColegioResponseDTO;
 import ar.com.ua.wrapper.report.VueltaAlColegioWrapper;
 
 @Component
-public class VueltaAlColegioBuilder implements IBuilder<Map<String, String>, VueltaAlColegioDTO>,
-		IBuilderResponse<List<?>, VueltaAlColegioResponseDTO> {
+public class VueltaAlColegioBuilder implements IBuilderResponse<List<?>, VueltaAlColegioResponseDTO> {
 
 	@Autowired
 	private VueltaAlColegioWrapper wrapper;
-
-	@Override
-	public VueltaAlColegioDTO mapToDto(Map<String, String> map) {
-		VueltaAlColegioDTO dto = new VueltaAlColegioDTO();
-		
-		return dto;
-	}
 
 	@Override
 	public List<VueltaAlColegioResponseDTO> listToDto(List<?> list) {

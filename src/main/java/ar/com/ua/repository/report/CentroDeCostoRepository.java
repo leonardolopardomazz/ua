@@ -16,13 +16,13 @@ public interface CentroDeCostoRepository extends JpaRepository<Empleado, Long>  
 
 	@Query(value = "SELECT emp.nro_legajo, emp.apellido, emp.nombre, "
 			+ "emp.cod_direccion, (SELECT descripcion FROM ua.parametros WHERE id = :idDireccion) as direccion, "
-			+ "puesto.cod_gerencia, (SELECT descripcion FROM ua.parametros WHERE id = :idGerencia) as gerencia, "
+			+ "puesto.cod_gerencia, "
 			+ "emp.cod_centro_de_costo, (SELECT descripcion FROM ua.parametros WHERE id = :idCentroDeCosto) as centro_de_costo, "
 			+ "emp.fte "
 			+ "FROM empleados emp, parametros param, puesto puesto "
 			+ "WHERE emp.cod_centro_de_costo = :idCentroDeCosto OR emp.cod_centro_de_costo IS NULL "
-			+ "AND emp.cod_direccion = :idDireccion OR emp.cod_direccion IS NULL,"
-			+ "AND emp.activo = :estado OR emp.activo IS NULL "
+			+ "AND emp.cod_direccion = :idDireccion OR emp.cod_direccion IS NULL "
+			+ "AND emp.cod_estado_empleado = :estado OR emp.cod_estado_empleado IS NULL "
 			+ "GROUP BY emp.nro_legajo ", nativeQuery = true)
 	List<String> reporte(@Param("idCentroDeCosto") String idCentroDeCosto, @Param("estado") String estado,
 			@Param("idDireccion") String idDireccion);

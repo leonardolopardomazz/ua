@@ -19,9 +19,9 @@ public class VueltaAlColegioService {
 	@Autowired
 	private VueltaAlColegioBuilder vacBuilder;
 
-		
 	public List<VueltaAlColegioResponseDTO> generar(VueltaAlColegioDTO dto) {
-		List<String> result = this.repository.reporte(dto.getPais(), dto.getEstadoEmpleado());
+		
+		List<String> result = this.repository.reporte(dto.getPais());
 		List<VueltaAlColegioResponseDTO> vacDto = vacBuilder.listToDto(result);
 		return vacDto;
 	}

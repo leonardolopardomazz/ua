@@ -1,7 +1,6 @@
 package ar.com.ua.service.report;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,13 +19,11 @@ public class CentroDeCostoService {
 	@Autowired
 	private CentroDeCostoRepository cdcRepository;
 
-	public List<CentroDeCostoResponseDTO>generarReporte(Map<String, String> params) {
+	public List<CentroDeCostoResponseDTO>generar(CentroDeCostoDTO dto) {
 
-		CentroDeCostoDTO cdcDto = this.cdcBuilder.mapToDto(params);
-
-		List<String> resultado = this.cdcRepository.reporte(cdcDto.getIdCentroDeCosto(),
-				cdcDto.getEstado(), cdcDto.getIdDireccion());
-
+		List<String> resultado = this.cdcRepository.reporte(dto.getIdCentroDeCosto(),
+				dto.getEstado(), dto.getIdDireccion());
+		
 		return this.cdcBuilder.listToDto(resultado);
 	}
 

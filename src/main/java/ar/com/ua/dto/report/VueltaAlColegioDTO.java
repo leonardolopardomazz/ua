@@ -5,7 +5,6 @@ import java.util.List;
 public class VueltaAlColegioDTO {
 
 	private List<String> pais;
-	private String estadoEmpleado;
 
 	public List<String> getPais() {
 		return pais;
@@ -15,11 +14,4 @@ public class VueltaAlColegioDTO {
 		this.pais = pais;
 	}
 
-	public String getEstadoEmpleado() {
-		return estadoEmpleado;
-	}
-
-	public void setEstadoEmpleado(String estadoEmpleado) {
-		this.estadoEmpleado = estadoEmpleado;
-	}
 }
