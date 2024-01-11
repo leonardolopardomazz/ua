@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -151,6 +152,28 @@ public class EmpleadoExternosController implements IABMController<EmpleadoExtern
 			mensajes.add(messageException);
 			return new ResponseErrorDto(EndPointConstant.FIND_ALL, TipoMetodoConstant.GET,
 					CodigoRespuestaConstant.ERROR, mensajes);
+		}
+	}
+	
+	@GetMapping(value = "/siguientelegajo")
+	public ResponseDto getMaxValue() {
+
+		try {
+
+			String numeroLegajo = this.eexternoService.findMaxNumeroLegajo();
+			EmpleadoExterno eext = new EmpleadoExterno();
+			eext.setNumeroLegajo(numeroLegajo);
+			
+			EmpleadoExternoDTO dto = this.eexternoBuilder.modelToDto(eext);
+
+			return new ResponseOKDto<EmpleadoExternoDTO>(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
+					CodigoRespuestaConstant.OK, dto);
+		} catch (Exception e) {
+			List<String> mensajesError = new ArrayList<String>();
+			String messageException = e.getMessage();
+			mensajesError.add(messageException);
+			return new ResponseErrorDto(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
+					CodigoRespuestaConstant.ERROR, mensajesError);
 		}
 	}
 

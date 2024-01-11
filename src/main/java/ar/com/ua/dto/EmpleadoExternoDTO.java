@@ -25,6 +25,7 @@ public class EmpleadoExternoDTO {
 	private Parametro codigoGenero;
 	private String emailPersonal;
 	private boolean activo;
+	private String numeroDocumentoLaboral;
 
 	public Long getId() {
 		return id;
@@ -176,6 +177,14 @@ public class EmpleadoExternoDTO {
 
 	public void setActivo(boolean activo) {
 		this.activo = activo;
+	}
+
+	public String getNumeroDocumentoLaboral() {
+		return numeroDocumentoLaboral;
+	}
+
+	public void setNumeroDocumentoLaboral(String numeroDocumentoLaboral) {
+		this.numeroDocumentoLaboral = numeroDocumentoLaboral;
 	}
 
 }

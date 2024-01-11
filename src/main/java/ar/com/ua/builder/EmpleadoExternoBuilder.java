@@ -36,6 +36,7 @@ public class EmpleadoExternoBuilder implements IBuilder<EmpleadoExterno, Emplead
 		externo.setNombre(dto.getNombre());
 		externo.setNumeroDocumento(dto.getNumeroDocumento());
 		externo.setNumeroLegajo(dto.getNumeroLegajo());
+		externo.setNumeroDocumentoLaboral(dto.getNumeroDocumentoLaboral());
 
 		return externo;
 	}
@@ -65,6 +66,7 @@ public class EmpleadoExternoBuilder implements IBuilder<EmpleadoExterno, Emplead
 		dto.setNombre(model.getNombre());
 		dto.setNumeroDocumento(model.getNumeroDocumento());
 		dto.setNumeroLegajo(model.getNumeroLegajo());
+		dto.setNumeroDocumentoLaboral(model.getNumeroDocumentoLaboral());
 
 		return dto;
 	}
@@ -97,6 +99,7 @@ public class EmpleadoExternoBuilder implements IBuilder<EmpleadoExterno, Emplead
 			dto.setNombre(listExterno.getNombre());
 			dto.setNumeroDocumento(listExterno.getNumeroDocumento());
 			dto.setNumeroLegajo(listExterno.getNumeroLegajo());
+			dto.setNumeroDocumentoLaboral(listExterno.getNumeroDocumentoLaboral());
 			
 			listDto.add(dto);
 		}

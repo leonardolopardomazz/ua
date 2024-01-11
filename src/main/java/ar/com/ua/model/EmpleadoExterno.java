@@ -11,79 +11,81 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-
 @Entity
 @Table(name = "externos")
 public class EmpleadoExterno {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(name = "nro_legajo", unique = true, nullable = false)
 	private String numeroLegajo;
-	
+
 	@Column(name = "apellido")
 	private String apellido;
-	
+
 	@Column(name = "nombre")
 	private String nombre;
-	
+
 	@OneToOne()
-    @JoinColumn(name = "cod_tipo_doc", referencedColumnName = "id")
+	@JoinColumn(name = "cod_tipo_doc", referencedColumnName = "id")
 	private Parametro codigoTipoDocumento;
-	
+
 	@Column(name = "nro_doc")
 	private String numeroDocumento;
-	
+
 	@OneToOne()
-    @JoinColumn(name = "cod_nacionalidad", referencedColumnName = "id")
+	@JoinColumn(name = "cod_nacionalidad", referencedColumnName = "id")
 	private Parametro codigoNacionalidad;
-	
+
 	@OneToOne()
-    @JoinColumn(name = "cod_proveedor", referencedColumnName = "id")
+	@JoinColumn(name = "cod_proveedor", referencedColumnName = "id")
 	private Parametro codigoProveedor;
-	
+
 	@OneToOne()
-    @JoinColumn(name = "cod_pais", referencedColumnName = "id")
+	@JoinColumn(name = "cod_pais", referencedColumnName = "id")
 	private Parametro codigoPais;
-	
+
 	@OneToOne()
-    @JoinColumn(name = "cod_puesto", referencedColumnName = "id")
+	@JoinColumn(name = "cod_puesto", referencedColumnName = "id")
 	private Parametro codigoPuesto;
-	
+
 	@OneToOne()
-    @JoinColumn(name = "cod_division", referencedColumnName = "id")
+	@JoinColumn(name = "cod_division", referencedColumnName = "id")
 	private Parametro codigoDivision;
-	
+
 	@OneToOne()
-    @JoinColumn(name = "cod_direccion", referencedColumnName = "id")
+	@JoinColumn(name = "cod_direccion", referencedColumnName = "id")
 	private Parametro codigoDireccion;
-    
+
 	@OneToOne()
-    @JoinColumn(name = "cod_gerencia", referencedColumnName = "id")
+	@JoinColumn(name = "cod_gerencia", referencedColumnName = "id")
 	private Parametro codigoGerencia;
-	
+
 	@OneToOne()
-    @JoinColumn(name = "cod_jefatura", referencedColumnName = "id")
+	@JoinColumn(name = "cod_jefatura", referencedColumnName = "id")
 	private Parametro codigoJefatura;
-	
+
 	@Column(name = "fecha_ingreso")
 	private Date fechaIngreso;
-	
+
 	@Column(name = "fecha_egreso")
 	private Date fechaEgreso;
-	
+
 	@OneToOne()
-    @JoinColumn(name = "cod_genero", referencedColumnName = "id")
+	@JoinColumn(name = "cod_genero", referencedColumnName = "id")
 	private Parametro codigoGenero;
-	
+
 	@Column(name = "email_personal")
 	private String emailPersonal;
-	
+
 	@Column(name = "activo")
 	private boolean activo;
-	
+
+	@Column(name = "nro_doc_laboral")
+	private String numeroDocumentoLaboral;
+
 	public Long getId() {
 		return id;
 	}
@@ -234,6 +236,14 @@ public class EmpleadoExterno {
 
 	public void setActivo(boolean activo) {
 		this.activo = activo;
+	}
+
+	public String getNumeroDocumentoLaboral() {
+		return numeroDocumentoLaboral;
+	}
+
+	public void setNumeroDocumentoLaboral(String numeroDocumentoLaboral) {
+		this.numeroDocumentoLaboral = numeroDocumentoLaboral;
 	}
 
 }
