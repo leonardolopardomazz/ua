@@ -6,19 +6,19 @@ public class DirectoresResponseDTO {
 	private String apellidoNombre;
 	private String fechaIngreso;
 	private String fechaIngresoReconocida;
-	private String pais;
-	private String lugarDeTrabajo;
+	private String descripcionPais;
+	private String descripcionLugarDeTrabajo;
 	private String emailLaboral;
-	private String puesto;
-	private String categoria;
-	private String managerJefe;
-	private String cargoManagerJefe;
-	private String direccion;
-	private String gerencia;
-	private String jefatura;
-	private String division;
-	private String centroDeCostos;
-	private String convenio;
+	private String descripcionPuesto;
+	private String descripcionCategoria;
+	private String descripcionManagerJefe;
+	private String descripcionCargoManagerJefe;
+	private String descripcionDireccion;
+	private String descripcionGerencia;
+	private String descripcionJefatura;
+	private String descripcionDivision;
+	private String descripcionCentroDeCostos;
+	private String descripcionConvenio;
 
 	public String getNumeroLegajo() {
 		return numeroLegajo;
@@ -52,20 +52,20 @@ public class DirectoresResponseDTO {
 		this.fechaIngresoReconocida = fechaIngresoReconocida;
 	}
 
-	public String getPais() {
-		return pais;
+	public String getDescripcionPais() {
+		return descripcionPais;
 	}
 
-	public void setPais(String pais) {
-		this.pais = pais;
+	public void setDescripcionPais(String descripcionPais) {
+		this.descripcionPais = descripcionPais;
 	}
 
-	public String getLugarDeTrabajo() {
-		return lugarDeTrabajo;
+	public String getDescripcionLugarDeTrabajo() {
+		return descripcionLugarDeTrabajo;
 	}
 
-	public void setLugarDeTrabajo(String lugarDeTrabajo) {
-		this.lugarDeTrabajo = lugarDeTrabajo;
+	public void setDescripcionLugarDeTrabajo(String descripcionLugarDeTrabajo) {
+		this.descripcionLugarDeTrabajo = descripcionLugarDeTrabajo;
 	}
 
 	public String getEmailLaboral() {
@@ -76,84 +76,84 @@ public class DirectoresResponseDTO {
 		this.emailLaboral = emailLaboral;
 	}
 
-	public String getPuesto() {
-		return puesto;
+	public String getDescripcionPuesto() {
+		return descripcionPuesto;
 	}
 
-	public void setPuesto(String puesto) {
-		this.puesto = puesto;
+	public void setDescripcionPuesto(String descripcionPuesto) {
+		this.descripcionPuesto = descripcionPuesto;
 	}
 
-	public String getCategoria() {
-		return categoria;
+	public String getDescripcionCategoria() {
+		return descripcionCategoria;
 	}
 
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
+	public void setDescripcionCategoria(String descripcionCategoria) {
+		this.descripcionCategoria = descripcionCategoria;
 	}
 
-	public String getManagerJefe() {
-		return managerJefe;
+	public String getDescripcionManagerJefe() {
+		return descripcionManagerJefe;
 	}
 
-	public void setManagerJefe(String managerJefe) {
-		this.managerJefe = managerJefe;
+	public void setDescripcionManagerJefe(String descripcionManagerJefe) {
+		this.descripcionManagerJefe = descripcionManagerJefe;
 	}
 
-	public String getCargoManagerJefe() {
-		return cargoManagerJefe;
+	public String getDescripcionCargoManagerJefe() {
+		return descripcionCargoManagerJefe;
 	}
 
-	public void setCargoManagerJefe(String cargoManagerJefe) {
-		this.cargoManagerJefe = cargoManagerJefe;
+	public void setDescripcionCargoManagerJefe(String descripcionCargoManagerJefe) {
+		this.descripcionCargoManagerJefe = descripcionCargoManagerJefe;
 	}
 
-	public String getDireccion() {
-		return direccion;
+	public String getDescripcionDireccion() {
+		return descripcionDireccion;
 	}
 
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
+	public void setDescripcionDireccion(String descripcionDireccion) {
+		this.descripcionDireccion = descripcionDireccion;
 	}
 
-	public String getGerencia() {
-		return gerencia;
+	public String getDescripcionGerencia() {
+		return descripcionGerencia;
 	}
 
-	public void setGerencia(String gerencia) {
-		this.gerencia = gerencia;
+	public void setDescripcionGerencia(String descripcionGerencia) {
+		this.descripcionGerencia = descripcionGerencia;
 	}
 
-	public String getJefatura() {
-		return jefatura;
+	public String getDescripcionJefatura() {
+		return descripcionJefatura;
 	}
 
-	public void setJefatura(String jefatura) {
-		this.jefatura = jefatura;
+	public void setDescripcionJefatura(String descripcionJefatura) {
+		this.descripcionJefatura = descripcionJefatura;
 	}
 
-	public String getDivision() {
-		return division;
+	public String getDescripcionDivision() {
+		return descripcionDivision;
 	}
 
-	public void setDivision(String division) {
-		this.division = division;
+	public void setDescripcionDivision(String descripcionDivision) {
+		this.descripcionDivision = descripcionDivision;
 	}
 
-	public String getCentroDeCostos() {
-		return centroDeCostos;
+	public String getDescripcionCentroDeCostos() {
+		return descripcionCentroDeCostos;
 	}
 
-	public void setCentroDeCostos(String centroDeCostos) {
-		this.centroDeCostos = centroDeCostos;
+	public void setDescripcionCentroDeCostos(String descripcionCentroDeCostos) {
+		this.descripcionCentroDeCostos = descripcionCentroDeCostos;
 	}
 
-	public String getConvenio() {
-		return convenio;
+	public String getDescripcionConvenio() {
+		return descripcionConvenio;
 	}
 
-	public void setConvenio(String convenio) {
-		this.convenio = convenio;
+	public void setDescripcionConvenio(String descripcionConvenio) {
+		this.descripcionConvenio = descripcionConvenio;
 	}
 
 }
