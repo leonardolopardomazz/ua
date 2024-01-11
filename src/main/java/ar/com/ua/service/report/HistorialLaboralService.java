@@ -19,9 +19,9 @@ public class HistorialLaboralService {
 	@Autowired
 	private HistorialLaboralRepository hlRepository;
 
-	public List<HistorialLaboralResponseDTO> generarReporte(HistorialLaboralDTO hlDto) {
+	public List<HistorialLaboralResponseDTO> generar(HistorialLaboralDTO hlDto) {
 
-		List<String> resultado = this.hlRepository.reporte(hlDto.getIdPais(), hlDto.getIdDireccion(), hlDto.getEstado(),
+		List<String> resultado = this.hlRepository.reporte(hlDto.getPais(), hlDto.getIdDireccion(), hlDto.getEstado(),
 				hlDto.getFechaIngresoDesde(), hlDto.getFechaIngresoHasta());
 
 		return this.hlBuilder.listToDto(resultado);

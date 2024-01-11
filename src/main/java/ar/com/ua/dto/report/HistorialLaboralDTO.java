@@ -1,19 +1,21 @@
 package ar.com.ua.dto.report;
 
-public class HistorialLaboralDTO {
+import java.util.List;
 
-	private String idPais;
+public class HistorialLaboralDTO {
+	
+	private List<String> pais;
 	private String idDireccion;
-	private String estado;
+	private List<String> estado;
 	private String fechaIngresoDesde;
 	private String fechaIngresoHasta;
 
-	public String getIdPais() {
-		return idPais;
+	public List<String> getPais() {
+		return pais;
 	}
 
-	public void setIdPais(String idPais) {
-		this.idPais = idPais;
+	public void setPais(List<String> pais) {
+		this.pais = pais;
 	}
 
 	public String getIdDireccion() {
@@ -24,11 +26,11 @@ public class HistorialLaboralDTO {
 		this.idDireccion = idDireccion;
 	}
 
-	public String getEstado() {
+	public List<String> getEstado() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(List<String> estado) {
 		this.estado = estado;
 	}
 

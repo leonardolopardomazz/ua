@@ -14,7 +14,7 @@ public class HistorialLaboralBuilder implements IBuilderResponse<List<?>, Histor
 
 	@Autowired
 	private HistorialLaboralWrapper wrapper;
-
+	
 	@Override
 	public List<HistorialLaboralResponseDTO> listToDto(List<?> list) {
 
