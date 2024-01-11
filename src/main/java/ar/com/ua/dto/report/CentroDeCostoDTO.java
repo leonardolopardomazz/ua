@@ -1,10 +1,12 @@
 package ar.com.ua.dto.report;
 
+import java.util.List;
+
 public class CentroDeCostoDTO {
 
 	private String idDireccion;
 	private String idCentroDeCosto;
-	private String estado;
+	private List<String> estado;
 
 	public String getIdDireccion() {
 		return idDireccion;
@@ -22,11 +24,11 @@ public class CentroDeCostoDTO {
 		this.idCentroDeCosto = idCentroDeCosto;
 	}
 
-	public String getEstado() {
+	public List<String> getEstado() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(List<String> estado) {
 		this.estado = estado;
 	}
 
