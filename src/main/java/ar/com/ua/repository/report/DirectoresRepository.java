@@ -15,11 +15,11 @@ import ar.com.ua.model.Empleado;
 public interface DirectoresRepository extends JpaRepository<Empleado, Long>  {
 
 	@Query(value = "SELECT emp.nro_legajo as nro_legajo, "
-			+ "CONCAT (emp.apellido, \" \", emp.nombre) as apellido_nombre,  "
+			+ "CONCAT (emp.apellido, \" \", emp.nombre) as apellido_nombre, "
 			+ "emp.fecha_ingreso as fecha_ingreso, "
 			+ "emp.fecha_ingreso_reconocida as fecha_ingreso_reconocida, "
 			+ "(SELECT descripcion FROM pais WHERE id= :idPais) as pais, "
-			+ "(SELECT descripcion FROM pais WHERE id= idLugarTrabajo) as lugar_de_trabajo, "
+			+ "(SELECT descripcion FROM pais WHERE id= :idLugarTrabajo) as lugar_de_trabajo, "
 			+ "emp.email_laboral as email_laboral, "
 			+ "puesto.descripcion, "
 			+ "(SELECT descripcion FROM parametros WHERE id= :idCategoria) as categoria, "

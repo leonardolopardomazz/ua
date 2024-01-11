@@ -5,11 +5,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import ar.com.ua.dto.report.DirectoresDTO;
 import ar.com.ua.dto.report.DirectoresResponseDTO;
 import ar.com.ua.wrapper.report.DirectoresWrapper;
 
+@Component
 public class DirectoresBuilder
 		implements IBuilder<Map<String, String>, DirectoresDTO>, IBuilderResponse<List<?>, DirectoresResponseDTO> {
 
