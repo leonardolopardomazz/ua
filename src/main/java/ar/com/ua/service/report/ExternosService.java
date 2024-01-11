@@ -20,9 +20,7 @@ public class ExternosService {
 	@Autowired
 	private ExternosRepository extRepository;
 
-	public List<ExternosResponseDTO> generarReporte(Map<String, String> params) {
-
-		ExternosDTO extDto = this.extBuilder.mapToDto(params);
+	public List<ExternosResponseDTO> generarReporte(ExternosDTO extDto) {
 
 		List<String> resultado = this.extRepository.reporte(extDto.getCodigoTipoDocumento(), extDto.getCodigoPais(),
 				extDto.getCodigoProveedor(), extDto.getCodigoPuesto(), extDto.getCodigoJefatura(),
