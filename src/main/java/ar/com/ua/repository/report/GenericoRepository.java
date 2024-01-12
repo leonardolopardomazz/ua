@@ -12,62 +12,66 @@ import ar.com.ua.model.Empleado;
 
 @Repository
 @Transactional(readOnly = true)
-public interface GenericoRepository extends JpaRepository<Empleado, Long>  {
+public interface GenericoRepository extends JpaRepository<Empleado, Long> {
+	
 /*
-	@Query(value = "SELECT emp.nro_legajo, "
+	edad
+	Denominación
+	Lugar de Trabajo (tabla)
+	
+	
+	Manager / Jefe
+	Cargo de Manager / Jefe 
+	Dirección / C.M.
+	Subcentro de Costo
+	Cargas de Familia
+	*/
+	
+	@Query(value = "SELECT emp.nro_legajo, " 
 			+ "CONCAT(emp.apellido, \" \", emp.nombre, \" \", emp.segundo_nombre), "
-			+ "emp.nombre_preferido, "
-			+ "emp.fecha_nacimiento, "
-			+ "-- calcular edad "
-			+ "(SELECT descripcion FROM parametros WHERE id = :idGeneracion) as generacion, "
-			+ "(SELECT descripcion FROM parametros WHERE id = :idNacionalidad) as nacionalidad, "
-			+ "(SELECT descripcion FROM parametros WHERE id = :idGenero) as genero, "
-			+ "-- ??? Denominación "
-			+ "-- ???CUIL "
-			+ "emp.nro_doc_personal as dni, "
+			+ "emp.nombre_preferido, " 
+			+ "emp.fecha_nacimiento, " 
+			+ "emp.cod_generacion, "
+			+ "emp.cod_nacionalidad, "
+			+ "emp.cod_genero, " 
+			+ "emp.nro_doc_laboral, " 
+			+ "emp.nro_doc_personal, " 
 			+ "emp.calle_residencia as domicilio, "
-			+ "emp.numero_residencia, "
-			+ "emp.piso_residencia, "
+			+ "emp.numero_residencia, " 
+			+ "emp.piso_residencia, " 
 			+ "emp.localidad_residencia, "
-			+ "(SELECT descripcion FROM parametros WHERE id = :idProvincia) as provincia, "
-			+ "emp.email_laboral, "
-			+ "emp.fecha_ingreso, "
+			+ "emp.cod_provincia as provincia, " 
+			+ "emp.email_personal, "
+			+ "emp.fecha_ingreso, " 
 			+ "emp.fecha_ingreso_reconocida, "
-			+ "(SELECT descripcion FROM parametros WHERE id = :idTipoContratacion) as tipo_contratacion, "
-			+ "emp.horas_semanales, "
+			+ "emp.cod_tipo_contratacion as tipo_contratacion, "
+			+ "emp.horas_semanales, " 
 			+ "emp.fte, "
-			+ "(SELECT descripcion FROM parametros WHERE id = :idFrecuenciaLiquidacion) as frecuencia_liquidacion, "
-			+ "(SELECT descripcion FROM parametros WHERE id = :idTipoEmpleado) as tipo_de_empleado, "
-			+ "(SELECT descripcion FROM parametros WHERE id = :idTipoDeJornada) as tipo_de_jornada, "
-			+ "(SELECT descripcion FROM parametros WHERE id = :idPais) as pais, "
-			+ "-- Lugar de Trabajo (tabla) "
-			+ "emp.email_laboral, "
-			+ "(SELECT descripcion FROM parametros WHERE id = :idPuesto) as puesto, "
-			+ "(SELECT descripcion FROM parametros WHERE id = :idCategoria) as categoria, "
-			+ "(SELECT descripcion FROM parametros WHERE id = :idManagerJefe) as manager_jefe, "
-			+ "(SELECT descripcion FROM parametros WHERE id = :idCargoManagerJefe) as cargo_manager_jefe, "
-			+ "(SELECT descripcion FROM parametros WHERE id = :idDireccion) as direccion, "
-			+ "(SELECT descripcion FROM parametros WHERE id = :idGerencia) as gerencia, "
-			+ "(SELECT descripcion FROM parametros WHERE id = :idJefatura) as jefatura, "
-			+ "(SELECT descripcion FROM parametros WHERE id = :idDivision) as division, "
-			+ "(SELECT descripcion FROM parametros WHERE id = :idCentroDeCostos) as centro_de_costos, "
-			+ "(SELECT descripcion FROM parametros WHERE id = :idPrepaga) as prepaga, "
-			+ "(SELECT descripcion FROM parametros WHERE id = :idObraSocial) as obra_social, "
-			+ "(SELECT descripcion FROM parametros WHERE id = :idPlanPrepaga) as plan_prepaga, "
-			+ "(SELECT descripcion FROM parametros WHERE id = :idBanco) as banco, "
-			+ "emp.cbu as cbu, "
-			+ "-- Cargas de Familia ??? "
-			+ "(SELECT descripcion FROM parametros WHERE id = :idConvenio) as convenio, "
-			+ "emp.afiliado_sindicato as afiliado_sindicato, "
-			+ "emp.fecha_fin_contrato as fecha_fin_contrado, "
+			+ "emp.cod_frec_liquidacion as frecuencia_liquidacion, "
+			+ "emp.cod_tipo_de_empleo as tipo_de_empleo, "
+			+ "emp.tipo_de_jornada as tipo_de_jornada, "
+			+ "emp.cod_pais, " 
+			+ "emp.email_laboral, " 
+			+ "emp.cod_puesto, "
+			+ "emp.cod_categoria, "
+			+ "emp.cod_direccion, "
+			+ "emp.cod_gerencia, "
+			+ "emp.cod_jefatura, "
+			+ "emp.cod_division, "
+			+ "emp.cod_centro_de_costo, "
+			+ "emp.cod_prepaga, "
+			+ "emp.cod_obra_social, "
+			+ "emp.cod_plan_prepaga, "
+			+ "emp.cod_banco, " 
+			+ "emp.cbu, "
+			+ "emp.cod_convenio, "
+			+ "emp.afiliado_sindicato, " 
+			+ "emp.fecha_fin_contrato, "
 			+ "emp.fecha_egreso as fecha_egreso, "
-			+ "(SELECT descripcion FROM parametros WHERE id = :idTipoEgreso) as tipo_egreso, "
-			+ "-- Motivo de Egreso "
-			+ "(SELECT descripcion FROM parametros WHERE id = :idEstadoCivil) as estado_civil, "
-			+ "(SELECT descripcion FROM parametros WHERE id = :idGrado) as grado "
+			+ "emp.cod_tipo_egreso, " 
+			+ "emp.cod_estado_civil, "
+			+ "emp.cod_grado "
 			+ "FROM empleados emp, parametros "
-			+ "GROUP BY nro_legajo", nativeQuery = true)
-	List<String> reporte(@Param("idDireccion") String idDireccion, @Param("idGerencia") String idGerencia,
-			@Param("estado") String estado);
-*/
+			+ "GROUP BY nro_legajo ", nativeQuery = true)
+	List<String> reporte(@Param("estado") List<String> estado, @Param("idDireccion") String idDireccion, @Param("idGerencia") String idGerencia);
 }

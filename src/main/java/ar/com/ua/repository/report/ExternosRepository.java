@@ -31,7 +31,7 @@ public interface ExternosRepository extends JpaRepository<EmpleadoExterno, Long>
 			+ "ext.cod_genero as gender, "
 			+ "ext.fecha_egreso, "
 			+ "ext.email_personal "
-			+ "FROM EXTERNOS ext "
+			+ "FROM externos ext "
 			+ "WHERE ext.activo IN :activo "
 			+ "GROUP BY ext.nro_legajo", nativeQuery = true)
 	List<String> reporte(@Param("activo") List<String> activo);

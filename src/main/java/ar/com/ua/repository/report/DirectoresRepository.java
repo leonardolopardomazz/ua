@@ -29,7 +29,7 @@ public interface DirectoresRepository extends JpaRepository<Empleado, Long>  {
 			+ "emp.cod_division, "
 			+ "emp.cod_centro_de_costo, "
 			+ "emp.cod_convenio "
-			+ "FROM EMPLEADOS as emp, PUESTO as puesto "
+			+ "FROM empleados as emp, PUESTO as puesto "
 			+ "WHERE "
 			+ "emp.cod_puesto = puesto.id "
 			+ "AND  emp.cod_estado_empleado IN :estado "

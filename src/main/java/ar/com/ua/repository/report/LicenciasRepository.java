@@ -27,7 +27,7 @@ public interface LicenciasRepository extends JpaRepository<Empleado, Long> {
 			+ "puesto.cod_gerencia, "
 			+ "puesto.cod_jefatura, "
 			+ "puesto.descripcion "
-			+ "FROM EMPLEADOS as emp, historial_de_licencias as hdl, puesto as puesto "
+			+ "FROM empleados as emp, historial_de_licencias as hdl, puesto as puesto "
 			+ "WHERE "
 			+ "emp.cod_puesto = hdl.id AND emp.cod_puesto = puesto.id "
 			+ "AND emp.cod_estado_empleado IN :estadoEmpleado "

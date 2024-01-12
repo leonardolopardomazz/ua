@@ -15,9 +15,9 @@ import ar.com.ua.model.Empleado;
 public interface CentroDeCostoRepository extends JpaRepository<Empleado, Long>  {
 
 	@Query(value = "SELECT emp.nro_legajo, emp.apellido, emp.nombre, "
-			+ "emp.cod_direccion, (SELECT descripcion FROM ua.parametros WHERE id = :idDireccion) as direccion, "
+			+ "emp.cod_direccion, (SELECT descripcion FROM parametros WHERE id = :idDireccion) as direccion, "
 			+ "puesto.cod_gerencia, "
-			+ "emp.cod_centro_de_costo, (SELECT descripcion FROM ua.parametros WHERE id = :idCentroDeCosto) as centro_de_costo, "
+			+ "emp.cod_centro_de_costo, (SELECT descripcion FROM parametros WHERE id = :idCentroDeCosto) as centro_de_costo, "
 			+ "emp.fte "
 			+ "FROM empleados emp, parametros param, puesto puesto "
 			+ "WHERE emp.cod_centro_de_costo = :idCentroDeCosto OR emp.cod_centro_de_costo IS NULL "
