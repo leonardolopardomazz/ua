@@ -1,7 +1,6 @@
 package ar.com.ua.service.report;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,19 +14,16 @@ import ar.com.ua.repository.report.ExternosRepository;
 public class ExternosService {
 
 	@Autowired
-	private ExternosBuilder extBuilder;
+	private ExternosBuilder builder;
 
 	@Autowired
 	private ExternosRepository extRepository;
 
-	public List<ExternosResponseDTO> generarReporte(ExternosDTO extDto) {
+	public List<ExternosResponseDTO> generar(ExternosDTO extDto) {
 
-		List<String> resultado = this.extRepository.reporte(extDto.getCodigoTipoDocumento(), extDto.getCodigoPais(),
-				extDto.getCodigoProveedor(), extDto.getCodigoPuesto(), extDto.getCodigoJefatura(),
-				extDto.getCodigoDivision(), extDto.getCodigoDireccion(), extDto.getCodigoGerencia(),
-				extDto.getCodigoGenero(), extDto.getActivo());
+		List<String> resultado = this.extRepository.reporte(extDto.getActivo());
 
-		return this.extBuilder.listToDto(resultado);
+		return this.builder.listToDto(resultado);
 	}
 
 }

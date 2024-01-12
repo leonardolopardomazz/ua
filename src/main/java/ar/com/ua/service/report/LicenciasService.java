@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import ar.com.ua.builder.report.LicenciasBuilder;
-import ar.com.ua.controller.report.LicenciasDTO;
+import ar.com.ua.dto.report.LicenciasDTO;
 import ar.com.ua.dto.report.LicenciasResponseDTO;
 import ar.com.ua.repository.report.LicenciasRepository;
 

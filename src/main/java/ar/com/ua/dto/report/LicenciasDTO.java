@@ -1,4 +1,4 @@
-package ar.com.ua.controller.report;
+package ar.com.ua.dto.report;
 
 import java.util.List;
 

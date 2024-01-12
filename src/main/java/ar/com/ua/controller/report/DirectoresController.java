@@ -29,7 +29,7 @@ public class DirectoresController implements IReport<DirectoresDTO> {
 		try {
 			List<DirectoresResponseDTO> directoresDto = this.directoresService.generar(dto);
 
-			return new ResponseOKListDto<DirectoresResponseDTO>(EndPointPathConstant.DIRECTORES, TipoMetodoConstant.GET,
+			return new ResponseOKListDto<DirectoresResponseDTO>(EndPointPathConstant.DIRECTORES, TipoMetodoConstant.POST,
 					CodigoRespuestaConstant.OK, directoresDto);
 
 		} catch (Exception e) {
@@ -37,7 +37,7 @@ public class DirectoresController implements IReport<DirectoresDTO> {
 			String messageException = e.getMessage();
 			mensajesError.add(messageException);
 
-			return new ResponseErrorDto(EndPointPathConstant.DIRECTORES, TipoMetodoConstant.GET,
+			return new ResponseErrorDto(EndPointPathConstant.DIRECTORES, TipoMetodoConstant.POST,
 					CodigoRespuestaConstant.ERROR, mensajesError);
 		}
 	}

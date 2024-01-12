@@ -14,32 +14,26 @@ import ar.com.ua.model.EmpleadoExterno;
 @Transactional(readOnly = true)
 public interface ExternosRepository extends JpaRepository<EmpleadoExterno, Long> {
 
-	@Query(value = "SELECT ext.nro_legajo as nro_legajo, "
-			+ "(select descripcion from parametros where id = :cod_tipo_doc) as tipo_documento, "
-			+ "ext.nro_doc as nro_documento, "
-			+ "(select descripcion from parametros where id = :cod_pais) as country, "
-			+ "(select descripcion from parametros where id = :cod_proveedor) as ext_company, "
-			+ "(select descripcion from parametros where id = :cod_puesto) as position_title, "
-			+ "(select descripcion from parametros where id = :cod_jefatura) as departament, "
-			+ "(select descripcion from parametros where id = :cod_division) as division, "
+	@Query(value = "SELECT ext.nro_legajo, "
+			+ "ext.cod_tipo_doc, "
+			+ "ext.nro_doc, "
+			+ "ext.cod_pais as country, "
+			+ "ext.cod_proveedor as ext_company, "
+			+ "ext.cod_puesto as position_title, "
+			+ "ext.cod_jefatura as department, "
+			+ "ext.cod_division as division, "
 			+ "CONCAT (ext.apellido, \" \", ext.nombre) as apellido_nombre, "
-			+ "CONCAT ("
-			+ "		  	(select descripcion from parametros where id = :cod_direccion), "
-			+ "			(select descripcion from parametros where id = :cod_gerencia), "
-			+ "        	(select descripcion from parametros where id = :cod_jefatura) " 
-			+ "        	) as manager, "
-			+ "ext.fecha_ingreso as start_date, "
-			+ "(select descripcion from parametros where id = :cod_genero) as Gender, "
+			+ "ext.cod_direccion, "
+			+ "ext.cod_gerencia, "
+			+ "ext.cod_jefatura,  "
 			+ "ext.activo, "
+			+ "ext.fecha_ingreso as start_date, "
+			+ "ext.cod_genero as gender, "
 			+ "ext.fecha_egreso, "
 			+ "ext.email_personal "
-			+ "FROM externos as ext, parametros "
-			+ "WHERE ext.activo = :activo OR ext.activo IS NULL "
+			+ "FROM EXTERNOS ext "
+			+ "WHERE ext.activo IN :activo "
 			+ "GROUP BY ext.nro_legajo", nativeQuery = true)
-	List<String> reporte(@Param("cod_tipo_doc") String codigoTipoDocumento, @Param("cod_pais") String codigoPais,
-			@Param("cod_proveedor") String codigoProveedor, @Param("cod_puesto") String codigoPuesto, 
-			@Param("cod_jefatura") String codigoJefatura , @Param("cod_division") String codigoDivision,
-			@Param("cod_direccion") String codigoDireccion , @Param("cod_gerencia") String codigoGerencia,
-			@Param("cod_genero") String codigoGenero, @Param("activo") String activo);
+	List<String> reporte(@Param("activo") List<String> activo);
 
 }

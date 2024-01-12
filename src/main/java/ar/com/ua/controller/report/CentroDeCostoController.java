@@ -30,14 +30,14 @@ public class CentroDeCostoController implements IReport <CentroDeCostoDTO> {
 			List<CentroDeCostoResponseDTO> cdcDto = this.cdcService.generar(dto);
 
 			return new ResponseOKListDto<CentroDeCostoResponseDTO>(EndPointPathConstant.REPORTE_CENTRO_DE_COSTO,
-					TipoMetodoConstant.GET, CodigoRespuestaConstant.OK, cdcDto);
+					TipoMetodoConstant.POST, CodigoRespuestaConstant.OK, cdcDto);
 
 		} catch (Exception e) {
 			List<String> mensajesError = new ArrayList<String>();
 			String messageException = e.getMessage();
 			mensajesError.add(messageException);
 
-			return new ResponseErrorDto(EndPointPathConstant.REPORTE_CENTRO_DE_COSTO, TipoMetodoConstant.GET,
+			return new ResponseErrorDto(EndPointPathConstant.REPORTE_CENTRO_DE_COSTO, TipoMetodoConstant.POST,
 					CodigoRespuestaConstant.ERROR, mensajesError);
 		}
 	}

@@ -32,14 +32,14 @@ public class VueltaAlColegioController implements IReport<VueltaAlColegioDTO> {
 			List<VueltaAlColegioResponseDTO> vacDto = this.reporteService.generar(dto);
 
 			return new ResponseOKListDto<VueltaAlColegioResponseDTO>(EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO,
-					TipoMetodoConstant.GET, CodigoRespuestaConstant.OK, vacDto);
+					TipoMetodoConstant.POST, CodigoRespuestaConstant.OK, vacDto);
 
 		} catch (Exception e) {
 			List<String> mensajesError = new ArrayList<String>();
 			String messageException = e.getMessage();
 			mensajesError.add(messageException);
 
-			return new ResponseErrorDto(EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO, TipoMetodoConstant.GET,
+			return new ResponseErrorDto(EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO, TipoMetodoConstant.POST,
 					CodigoRespuestaConstant.ERROR, mensajesError);
 		}
 	}

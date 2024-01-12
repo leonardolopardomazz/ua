@@ -15,6 +15,7 @@ public class ExternosResponseDTO {
 	private String startDate;
 	private String codigoGenero;
 	private String activo;
+	private String fechaIngreso;
 	private String fechaEgreso;
 	private String email;
 
@@ -120,6 +121,14 @@ public class ExternosResponseDTO {
 
 	public void setActivo(String activo) {
 		this.activo = activo;
+	}
+	
+	public String getFechaIngreso() {
+		return fechaIngreso;
+	}
+
+	public void setFechaIngreso(String fechaIngreso) {
+		this.fechaIngreso = fechaIngreso;
 	}
 
 	public String getFechaEgreso() {

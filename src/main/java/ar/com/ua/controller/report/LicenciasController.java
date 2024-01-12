@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ar.com.ua.constant.CodigoRespuestaConstant;
 import ar.com.ua.constant.EndPointPathConstant;
 import ar.com.ua.constant.TipoMetodoConstant;
+import ar.com.ua.dto.report.LicenciasDTO;
 import ar.com.ua.dto.report.LicenciasResponseDTO;
 import ar.com.ua.dto.response.ResponseDto;
 import ar.com.ua.dto.response.ResponseErrorDto;
@@ -29,14 +30,14 @@ public class LicenciasController implements IReport <LicenciasDTO> {
 			List<LicenciasResponseDTO> licenciasDto = this.service.generar(dto);
 
 			return new ResponseOKListDto<LicenciasResponseDTO>(EndPointPathConstant.LICENCIAS,
-					TipoMetodoConstant.GET, CodigoRespuestaConstant.OK, licenciasDto);
+					TipoMetodoConstant.POST, CodigoRespuestaConstant.OK, licenciasDto);
 
 		} catch (Exception e) {
 			List<String> mensajesError = new ArrayList<String>();
 			String messageException = e.getMessage();
 			mensajesError.add(messageException);
 
-			return new ResponseErrorDto(EndPointPathConstant.LICENCIAS, TipoMetodoConstant.GET,
+			return new ResponseErrorDto(EndPointPathConstant.LICENCIAS, TipoMetodoConstant.POST,
 					CodigoRespuestaConstant.ERROR, mensajesError);
 		}
 	}
