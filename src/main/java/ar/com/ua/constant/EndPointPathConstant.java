@@ -27,5 +27,7 @@ public class EndPointPathConstant {
 	public static final String DIRECTORES = "/directores";
 	public static final String LICENCIAS = "/licencias";
 	public static final String GENERICO = "/generico";
+	public static final String INTERNATION_DATA_COLLECTION = "/internationalDataCollection";
+	
 	
 }

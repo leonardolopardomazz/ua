@@ -15,7 +15,6 @@ public class GenericoWrapper {
 	private ParametrosRepository repository;
 
 	public GenericoResponseDTO result(List<String> data) {
-		
 		GenericoResponseDTO dto = new GenericoResponseDTO();
 		dto.setNumeroLegajo(data.get(0));
 		dto.setNombres(data.get(1));
@@ -34,12 +33,12 @@ public class GenericoWrapper {
 		dto.setEmailPersonal(data.get(14));
 		dto.setFechaIngreso(data.get(15));
 		dto.setFechaIngresoReconocida(data.get(16));
-		dto.setTipoContratacion(data.get(17));
+		dto.setTipoContratacion(repository.descripcion(data.get(17)));
 		dto.setHorasSemanales(data.get(18));
 		dto.setFte(data.get(19));
-		dto.setFrecuenciaLiquidacion(data.get(20));
-		dto.setTipoEmpleo(data.get(21));
-		dto.setTipoJornada(data.get(22));
+		dto.setFrecuenciaLiquidacion(repository.descripcion(data.get(20)));
+		dto.setTipoEmpleo(repository.descripcion(data.get(21)));
+		dto.setTipoJornada(repository.descripcion(data.get(22)));
 		dto.setPais(repository.descripcion(data.get(23)));
 		dto.setEmailLaboral(data.get(24));
 		dto.setPuesto(repository.descripcion(data.get(25)));
@@ -53,14 +52,14 @@ public class GenericoWrapper {
 		dto.setObraSocial(repository.descripcion(data.get(33)));
 		dto.setPlanPrepaga(repository.descripcion(data.get(34)));
 		dto.setBanco(repository.descripcion(data.get(35)));
-		dto.setCbu(repository.descripcion(data.get(36)));
-		dto.setConvenio(data.get(37));
+		dto.setCbu(data.get(36));
+		dto.setConvenio(repository.descripcion(data.get(37)));
 		dto.setAfiliadoSindicato(data.get(38));
 		dto.setFinFechaContrato(data.get(39));
 		dto.setFechaEgreso(data.get(40));
-		dto.setTipoEgreso(data.get(41));
-		dto.setEstadoCivil(data.get(42));
-		dto.setGrado(data.get(43));
+		dto.setTipoEgreso(repository.descripcion(data.get(41)));
+		dto.setEstadoCivil(repository.descripcion(data.get(42)));
+		dto.setGrado(repository.descripcion(data.get(43)));
 
 		return dto;
 	}
