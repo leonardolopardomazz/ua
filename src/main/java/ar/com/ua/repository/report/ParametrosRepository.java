@@ -14,6 +14,16 @@ public interface ParametrosRepository extends JpaRepository<Parametro, Long> {
 	@Query(value = "SELECT param.descripcion as descripcion "
 			+ "FROM parametros param "
 			+ "WHERE param.id = :id ", nativeQuery = true)
-	String descripcion (String id);
+	String descripcion(String id);
+
+	@Query(value = "SELECT param.cod_parametro as codigo "
+			+ "FROM parametros param "
+			+ "WHERE param.id = :id ", nativeQuery = true)
+	String codigo(String id);
+
+	@Query(value = "SELECT param.texto2 as texto2 "
+			+ "FROM parametros param "
+			+ "WHERE param.id = :id ", nativeQuery = true)
+	String texto2(String id);
 
 }
