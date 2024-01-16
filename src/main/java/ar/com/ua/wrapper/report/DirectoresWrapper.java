@@ -10,7 +10,7 @@ import ar.com.ua.repository.report.ParametrosRepository;
 
 @Component
 public class DirectoresWrapper {
-	
+
 	@Autowired
 	private ParametrosRepository repository;
 
@@ -20,17 +20,18 @@ public class DirectoresWrapper {
 		dto.setApellidoNombre(data.get(1));
 		dto.setFechaIngreso(data.get(2));
 		dto.setFechaIngresoReconocida(data.get(3));
-		dto.setDescripcionPais(repository.descripcion(data.get(4)));
+		dto.setDescripcionPais(data.get(4));
 		dto.setEmailLaboral(data.get(5));
-		dto.setDescripcionPuesto(repository.descripcion(data.get(6)));
-		dto.setDescripcionCategoria(repository.descripcion(data.get(7)));
-		dto.setDescripcionManagerJefe(repository.descripcion(data.get(8)));
+		dto.setDescripcionOficina(repository.descripcion(data.get(6)));
+		dto.setDescripcionPuesto(data.get(7));
+		dto.setDescripcionCategoria(repository.descripcion(data.get(8)));
 		dto.setDescripcionDireccion(repository.descripcion(data.get(9)));
-		dto.setDescripcionDireccion(repository.descripcion(data.get(10)));
+		dto.setDescripcionGerencia(repository.descripcion(data.get(10)));
 		dto.setDescripcionJefatura(repository.descripcion(data.get(11)));
-		dto.setDescripcionDivision(data.get(12));
-		dto.setDescripcionCentroDeCostos(repository.descripcion(data.get(13)));
-		dto.setDescripcionConvenio(repository.descripcion(data.get(14)));
+		dto.setDescripcionManagerJefe(data.get(12));
+		dto.setDescripcionDivision(repository.descripcion(data.get(13)));
+		dto.setDescripcionCentroDeCostos(repository.descripcion(data.get(14)));
+		dto.setDescripcionConvenio(repository.descripcion(data.get(15)));
 		return dto;
 	}
 }

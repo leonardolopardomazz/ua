@@ -22,10 +22,10 @@ public class VueltaAlColegioBuilder implements IBuilderResponse<List<?>, VueltaA
 		try {
 			for (Object object : list) {
 				List<String> parserResult = CommonsBuilder.arrayToList(object.toString().split(","));
-				List<String> initialData = parserResult.subList(0, 3);
+				List<String> initialData = parserResult.subList(0, 4);
 
 				int size = parserResult.size();
-				List<String> dates = parserResult.subList(3, size);
+				List<String> dates = parserResult.subList(4, size);
 
 				listDto.add(wrapper.result(initialData, dates));
 			}

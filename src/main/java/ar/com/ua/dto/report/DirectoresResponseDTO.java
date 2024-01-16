@@ -9,6 +9,7 @@ public class DirectoresResponseDTO {
 	private String descripcionPais;
 	private String descripcionLugarDeTrabajo;
 	private String emailLaboral;
+	private String descripcionOficina;
 	private String descripcionPuesto;
 	private String descripcionCategoria;
 	private String descripcionManagerJefe;
@@ -74,6 +75,14 @@ public class DirectoresResponseDTO {
 
 	public void setEmailLaboral(String emailLaboral) {
 		this.emailLaboral = emailLaboral;
+	}
+
+	public String getDescripcionOficina() {
+		return descripcionOficina;
+	}
+
+	public void setDescripcionOficina(String descripcionOficina) {
+		this.descripcionOficina = descripcionOficina;
 	}
 
 	public String getDescripcionPuesto() {

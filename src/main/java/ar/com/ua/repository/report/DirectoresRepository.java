@@ -12,30 +12,16 @@ import ar.com.ua.model.Empleado;
 
 @Repository
 @Transactional(readOnly = true)
-public interface DirectoresRepository extends JpaRepository<Empleado, Long>  {
+public interface DirectoresRepository extends JpaRepository<Empleado, Long> {
 
-	@Query(value = "SELECT emp.nro_legajo, "
-			+ "CONCAT(emp.apellido, \" \", emp.nombre) as apellido_nombre, "
-			+ "emp.fecha_ingreso as fecha_ingreso, "
-			+ "emp.fecha_ingreso_reconocida as fecha_ingreso_reconocida, "
-			+ "emp.cod_pais as idPais, "
-			+ "emp.email_laboral as email_laboral, "
-			+ "emp.cod_puesto as idPuesto, "
-			+ "puesto.cod_categoria, "
-			+ "puesto.cod_puesto_al_que_reporta, "
-			+ "puesto.cod_direccion, "
-			+ "puesto.cod_gerencia, "
-			+ "puesto.cod_jefatura, "
-			+ "emp.cod_division, "
-			+ "emp.cod_centro_de_costo, "
-			+ "emp.cod_convenio "
-			+ "FROM empleados as emp, PUESTO as puesto "
-			+ "WHERE "
-			+ "emp.cod_puesto = puesto.id "
-			+ "AND  emp.cod_estado_empleado IN :estado "
-			+ "AND emp.cod_direccion = :idDireccion "
-			+ "AND puesto.cod_gerencia = :idGerencia "
-			+ "GROUP BY emp.nro_legajo", nativeQuery = true)
+	@Query(value = "SELECT emp.nro_legajo, CONCAT(emp.apellido, \" \", emp.nombre) AS apellido_nombre, emp.fecha_ingreso AS fecha_ingreso, "
+			+ "emp.fecha_ingreso_reconocida AS fecha_ingreso_reconocida, pais.descripcion AS pais, emp.email_laboral AS email_laboral, "
+			+ "emp.cod_oficina, p.descripcion AS puesto, p.cod_categoria, p.cod_direccion, p.cod_gerencia, p.cod_jefatura, pr.descripcion AS puesto_manager, "
+			+ "emp.cod_division,emp.cod_centro_de_costo,emp.cod_convenio "
+			+ "FROM empleados emp JOIN pais pais ON emp.cod_pais = pais.id JOIN puesto p ON emp.cod_puesto = p.id JOIN puesto pr ON p.cod_puesto_al_que_reporta = pr.id "
+			+ "WHERE emp.cod_estado_empleado IN :estado "
+			+ "AND (emp.cod_direccion = :idDireccion OR :idDireccion IS NULL) "
+			+ "AND (p.cod_gerencia = :idGerencia OR :idGerencia IS NULL) ", nativeQuery = true)
 	List<String> reporte(@Param("estado") List<String> estado, @Param("idDireccion") String idDireccion,
 			@Param("idGerencia") String idGerencia);
 

@@ -19,5 +19,4 @@ public interface VueltaAlColegioRepository extends JpaRepository<Empleado, Long>
 			+ "(emp.cod_pais IN :pais OR emp.cod_pais IS NULL) " + "AND cdf.activo = 1 "
 			+ "AND cdf.cod_parentesco = (SELECT id FROM parametros WHERE descripcion = 'hijo/a') GROUP BY emp.nro_legajo", nativeQuery = true)
 	List<String> reporte(@Param("pais") List<String> pais);
-
 }

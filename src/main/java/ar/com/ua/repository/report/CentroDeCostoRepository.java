@@ -12,18 +12,13 @@ import ar.com.ua.model.Empleado;
 
 @Repository
 @Transactional(readOnly = true)
-public interface CentroDeCostoRepository extends JpaRepository<Empleado, Long>  {
+public interface CentroDeCostoRepository extends JpaRepository<Empleado, Long> {
 
-	@Query(value = "SELECT emp.nro_legajo, emp.apellido, emp.nombre, "
-			+ "emp.cod_direccion, (SELECT descripcion FROM parametros WHERE id = :idDireccion) as direccion, "
-			+ "puesto.cod_gerencia, "
-			+ "emp.cod_centro_de_costo, (SELECT descripcion FROM parametros WHERE id = :idCentroDeCosto) as centro_de_costo, "
-			+ "emp.fte "
-			+ "FROM empleados emp, parametros param, puesto puesto "
-			+ "WHERE emp.cod_centro_de_costo = :idCentroDeCosto OR emp.cod_centro_de_costo IS NULL "
-			+ "AND emp.cod_direccion = :idDireccion OR emp.cod_direccion IS NULL "
-			+ "AND emp.cod_estado_empleado IN :estado OR emp.cod_estado_empleado IS NULL "
-			+ "GROUP BY emp.nro_legajo ", nativeQuery = true)
+	@Query(value = "SELECT emp.nro_legajo, emp.apellido, emp.nombre, emp.cod_direccion, p.cod_gerencia, emp.cod_centro_de_costo, emp.fte "
+			+ "FROM empleados emp JOIN puesto p ON emp.cod_puesto = p.id "
+			+ "WHERE (emp.cod_centro_de_costo = :idCentroDeCosto OR :idCentroDeCosto IS NULL) "
+			+ "AND (emp.cod_direccion = :idDireccion OR :idDireccion IS NULL) "
+			+ "AND (emp.cod_estado_empleado IN :estado) ", nativeQuery = true)
 	List<String> reporte(@Param("idCentroDeCosto") String idCentroDeCosto, @Param("estado") List<String> estado,
 			@Param("idDireccion") String idDireccion);
 

@@ -19,9 +19,9 @@ public class ExternosWrapper {
 		dto.setNumeroLegajo(data.get(0));
 		dto.setCodigoTipoDocumento(data.get(1));
 		dto.setNumeroDocumento(data.get(2));
-		dto.setCodigoPais(repository.descripcion(data.get(3)));
+		dto.setCodigoPais(data.get(3));
 		dto.setCodigoProveedor(repository.descripcion(data.get(4)));
-		dto.setCodigoPuesto(repository.descripcion(data.get(5)));
+		dto.setCodigoPuesto(data.get(5));
 		dto.setCodigoJefatura(repository.descripcion(data.get(6)));
 		dto.setCodigoDivision(repository.descripcion(data.get(7)));
 		dto.setApellidoNombre(data.get(8));

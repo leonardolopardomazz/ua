@@ -20,14 +20,14 @@ public class LicenciasWrapper {
 		dto.setApellido(data.get(1));
 		dto.setNombre(data.get(2));
 		dto.setDescripcionLicencia(repository.descripcion(data.get(3)));
-		dto.setFechaFin(data.get(4));
+		dto.setFechaInicio(data.get(4));
 		dto.setFechaFin(data.get(5));
 		dto.setEstado(data.get(6));
-		dto.setPais(repository.descripcion(data.get(7)));
+		dto.setPais(data.get(7));
 		dto.setDireccion(repository.descripcion(data.get(8)));
 		dto.setGerencia(repository.descripcion(data.get(9)));
 		dto.setJefatura(repository.descripcion(data.get(10)));
-		dto.setDescripcionLicencia(data.get(11));
+		dto.setPuesto(data.get(11));
 		return dto;
 	}
 

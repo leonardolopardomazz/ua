@@ -65,7 +65,7 @@ public class VueltaAlColegioWrapper {
 		dto.setNumeroLegajo(initialData.get(0));
 		dto.setApellido(initialData.get(1));
 		dto.setNombre(initialData.get(2));
-
+		dto.setPais(initialData.get(3));
 		List<Integer> edades = calcularEdades(dates);
 		dto.setCantidadHijos(calcularCantidadHijos(edades));
 		dto.setEdades(devolverEdadesAcumuladas(edades));

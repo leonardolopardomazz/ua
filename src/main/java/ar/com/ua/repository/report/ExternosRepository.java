@@ -17,9 +17,9 @@ public interface ExternosRepository extends JpaRepository<EmpleadoExterno, Long>
 	@Query(value = "SELECT ext.nro_legajo, "
 			+ "ext.cod_tipo_doc, "
 			+ "ext.nro_doc, "
-			+ "ext.cod_pais as country, "
+			+ "pais.descripcion as country, "
 			+ "ext.cod_proveedor as ext_company, "
-			+ "ext.cod_puesto as position_title, "
+			+ "p.descripcion as position_title, "
 			+ "ext.cod_jefatura as department, "
 			+ "ext.cod_division as division, "
 			+ "CONCAT (ext.apellido, \" \", ext.nombre) as apellido_nombre, "
@@ -31,7 +31,7 @@ public interface ExternosRepository extends JpaRepository<EmpleadoExterno, Long>
 			+ "ext.cod_genero as gender, "
 			+ "ext.fecha_egreso, "
 			+ "ext.email_personal "
-			+ "FROM externos ext "
+			+ "FROM externos ext JOIN puesto p ON ext.cod_puesto = p.id JOIN pais pais ON ext.cod_pais = pais.id "
 			+ "WHERE ext.activo IN :activo "
 			+ "GROUP BY ext.nro_legajo", nativeQuery = true)
 	List<String> reporte(@Param("activo") List<String> activo);

@@ -14,26 +14,13 @@ import ar.com.ua.model.Empleado;
 @Transactional(readOnly = true)
 public interface LicenciasRepository extends JpaRepository<Empleado, Long> {
 
-	@Query(value = "SELECT "
-			+ "emp.nro_legajo, "
-			+ "emp.apellido, "
-			+ "emp.nombre, "
-			+ "hdl.cod_tipo_licencia, "
-			+ "hdl.fecha_inicio, "
-			+ "hdl.fecha_fin, "
-			+ "hdl.activo, "
-			+ "emp.cod_pais, "
-			+ "puesto.cod_direccion, "
-			+ "puesto.cod_gerencia, "
-			+ "puesto.cod_jefatura, "
-			+ "puesto.descripcion "
-			+ "FROM empleados as emp, historial_de_licencias as hdl, puesto as puesto "
-			+ "WHERE "
-			+ "emp.cod_puesto = hdl.id AND emp.cod_puesto = puesto.id "
-			+ "AND emp.cod_estado_empleado IN :estadoEmpleado "
-			+ "AND emp.cod_pais = :idPais "
-			+ "AND puesto.cod_direccion = :idDireccion "
-			+ "AND hdl.activo = :idEstadoLicencia", nativeQuery = true)
+	@Query(value = "SELECT emp.nro_legajo,emp.apellido, emp.nombre, hdl.cod_tipo_licencia, hdl.fecha_inicio, hdl.fecha_fin, hdl.activo, "
+			+ "pais.descripcion, p.cod_direccion, p.cod_gerencia, p.cod_jefatura, p.descripcion "
+			+ "FROM empleados emp JOIN historial_de_licencias hdl ON emp.id = hdl.id_empleado JOIN puesto p ON emp.cod_puesto = p.id JOIN pais pais ON emp.cod_pais = pais.id "
+			+ "WHERE (emp.cod_estado_empleado IN :estadoEmpleado) "
+			+ "AND (emp.cod_pais = :idPais OR :idPais IS NULL) "
+			+ "AND (p.cod_direccion = :idDireccion OR :idDireccion IS NULL) "
+			+ "AND (hdl.activo = :idEstadoLicencia) ", nativeQuery = true)
 	List<String> reporte(@Param("estadoEmpleado") List<String> estadoEmpleado, @Param("idPais") String pais,
 			@Param("idDireccion") String direccion, @Param("idEstadoLicencia") String estadoLicencia);
 }
