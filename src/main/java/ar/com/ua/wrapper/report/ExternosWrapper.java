@@ -17,7 +17,7 @@ public class ExternosWrapper {
 	public ExternosResponseDTO result(List<String> data) {
 		ExternosResponseDTO dto = new ExternosResponseDTO();
 		dto.setNumeroLegajo(data.get(0));
-		dto.setCodigoTipoDocumento(data.get(1));
+		dto.setCodigoTipoDocumento(repository.descripcion(data.get(1)));
 		dto.setNumeroDocumento(data.get(2));
 		dto.setCodigoPais(data.get(3));
 		dto.setCodigoProveedor(repository.descripcion(data.get(4)));

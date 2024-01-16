@@ -16,9 +16,10 @@ public interface DirectoresRepository extends JpaRepository<Empleado, Long> {
 
 	@Query(value = "SELECT emp.nro_legajo, CONCAT(emp.apellido, \" \", emp.nombre) AS apellido_nombre, emp.fecha_ingreso AS fecha_ingreso, "
 			+ "emp.fecha_ingreso_reconocida AS fecha_ingreso_reconocida, pais.descripcion AS pais, emp.email_laboral AS email_laboral, "
-			+ "emp.cod_oficina, p.descripcion AS puesto, p.cod_categoria, p.cod_direccion, p.cod_gerencia, p.cod_jefatura, pr.descripcion AS puesto_manager, "
-			+ "emp.cod_division,emp.cod_centro_de_costo,emp.cod_convenio "
-			+ "FROM empleados emp JOIN pais pais ON emp.cod_pais = pais.id JOIN puesto p ON emp.cod_puesto = p.id JOIN puesto pr ON p.cod_puesto_al_que_reporta = pr.id "
+			+ "emp.cod_oficina, p.descripcion AS puesto, p.cod_categoria, p.cod_direccion, p.cod_gerencia, p.cod_jefatura, puesto_manager.descripcion AS puesto_manager, "
+			+ "emp.cod_division,emp.cod_centro_de_costo,emp.cod_convenio, CONCAT(manager.apellido, \" \", manager.nombre) AS apellido_nombre_manager "
+			+ "FROM empleados emp JOIN pais pais ON emp.cod_pais = pais.id JOIN puesto p ON emp.cod_puesto = p.id JOIN puesto puesto_manager ON p.cod_puesto_al_que_reporta = puesto_manager.id "
+			+ "JOIN empleados manager ON manager.cod_puesto = puesto_manager.id "
 			+ "WHERE emp.cod_estado_empleado IN :estado "
 			+ "AND (emp.cod_direccion = :idDireccion OR :idDireccion IS NULL) "
 			+ "AND (p.cod_gerencia = :idGerencia OR :idGerencia IS NULL) ", nativeQuery = true)

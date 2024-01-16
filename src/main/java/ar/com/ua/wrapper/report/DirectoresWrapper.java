@@ -28,10 +28,11 @@ public class DirectoresWrapper {
 		dto.setDescripcionDireccion(repository.descripcion(data.get(9)));
 		dto.setDescripcionGerencia(repository.descripcion(data.get(10)));
 		dto.setDescripcionJefatura(repository.descripcion(data.get(11)));
-		dto.setDescripcionManagerJefe(data.get(12));
+		dto.setDescripcionCargoManagerJefe(data.get(12));
 		dto.setDescripcionDivision(repository.descripcion(data.get(13)));
 		dto.setDescripcionCentroDeCostos(repository.descripcion(data.get(14)));
 		dto.setDescripcionConvenio(repository.descripcion(data.get(15)));
+		dto.setDescripcionManagerJefe(data.get(16));
 		return dto;
 	}
 }
