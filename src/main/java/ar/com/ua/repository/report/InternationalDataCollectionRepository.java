@@ -16,7 +16,7 @@ public interface InternationalDataCollectionRepository extends JpaRepository<Emp
 	
 	@Query(value = "select emp.nro_legajo, "
 			+ "puesto.descripcion, "
-			+ "CONCAT(puesto.cod_puesto_al_que_reporta, \" \",  puesto.cod_puesto_al_que_reporta) as manager, "
+			+ "puesto.cod_puesto_al_que_reporta, "
 			+ "emp.apellido as surname, "
 			+ "emp.nombre as name_, "
 			+ "emp.segundo_nombre as middle_name, "
@@ -38,9 +38,9 @@ public interface InternationalDataCollectionRepository extends JpaRepository<Emp
 			+ "emp.cod_division "
 			+ "from empleados emp, puesto puesto "
 			+ "where emp.cod_puesto = puesto.id "
-			+ "and emp.activo IN :estado "
-			+ "and emp.fecha_egreso is :tieneFechaEgreso"
-			+ "and (emp.fecha_egreso is null OR emp.fecha_egreso <= :fechaEgreso)"
+			+ "and emp.cod_estado_empleado IN :estado "
+			+ "and emp.fecha_egreso is :tieneFechaEgreso "
+			+ "and (emp.fecha_egreso is null OR emp.fecha_egreso <= :fechaEgreso) "
 			+ "and emp.fecha_ingreso >= :fechaIngreso " , nativeQuery = true)
 	List<String> reporte(@Param("estado") List<String> estado, @Param("tieneFechaEgreso") String tieneFechaEgreso, @Param("fechaIngreso") String fechaIngreso,  @Param("fechaEgreso") String fechaEgreso);
 

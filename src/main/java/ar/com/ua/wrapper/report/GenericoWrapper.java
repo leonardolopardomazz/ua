@@ -60,7 +60,8 @@ public class GenericoWrapper {
 		dto.setTipoEgreso(repository.descripcion(data.get(41)));
 		dto.setEstadoCivil(repository.descripcion(data.get(42)));
 		dto.setGrado(repository.descripcion(data.get(43)));
-
+		dto.setPuestoAlQueReporta(repository.descripcion(data.get(44)));
+		dto.setPuestoPais(repository.descripcion(data.get(45)));
 		return dto;
 	}
 

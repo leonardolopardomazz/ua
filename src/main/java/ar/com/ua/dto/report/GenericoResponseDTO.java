@@ -46,7 +46,9 @@ public class GenericoResponseDTO {
 	private String tipoEgreso;
 	private String estadoCivil;
 	private String grado;
-
+	private String puestoAlQueReporta;
+	private String puestoPais;
+	
 	public String getNumeroLegajo() {
 		return numeroLegajo;
 	}
@@ -397,6 +399,22 @@ public class GenericoResponseDTO {
 
 	public void setGrado(String grado) {
 		this.grado = grado;
+	}
+
+	public String getPuestoAlQueReporta() {
+		return puestoAlQueReporta;
+	}
+
+	public void setPuestoAlQueReporta(String puestoAlQueReporta) {
+		this.puestoAlQueReporta = puestoAlQueReporta;
+	}
+
+	public String getPuestoPais() {
+		return puestoPais;
+	}
+
+	public void setPuestoPais(String puestoPais) {
+		this.puestoPais = puestoPais;
 	}
 
 }

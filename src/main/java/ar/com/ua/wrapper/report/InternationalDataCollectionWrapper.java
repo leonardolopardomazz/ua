@@ -40,11 +40,11 @@ public class InternationalDataCollectionWrapper {
 		dto.setPersonnelType(data.get(19));
 		dto.setDepartment(data.get(20));
 		dto.setTermDate(data.get(21)); // feche egreso
-		dto.setTermReason(data.get(22));
-		dto.setAntiguedad(data.get(23));
-		dto.setAge(data.get(0)); //calcular
-		dto.setGender(data.get(24));
-		dto.setDivision(data.get(25));
+		//dto.setTermReason(data.get(22));
+		//dto.setAntiguedad(data.get(23));
+		//dto.setAge(data.get(0)); //calcular
+		//dto.setGender(data.get(24));
+		//dto.setDivision(data.get(25));
 		return dto;
 	}
 	
