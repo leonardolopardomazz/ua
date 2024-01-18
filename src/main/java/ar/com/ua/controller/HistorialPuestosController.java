@@ -17,16 +17,19 @@ import ar.com.ua.constant.EndPointPathConstant;
 import ar.com.ua.constant.MensajeError;
 import ar.com.ua.constant.TipoMetodoConstant;
 import ar.com.ua.dto.HistorialPuestosDTO;
+import ar.com.ua.dto.TipoParametroDTO;
 import ar.com.ua.dto.response.ResponseDto;
 import ar.com.ua.dto.response.ResponseErrorDto;
 import ar.com.ua.dto.response.ResponseOKDto;
 import ar.com.ua.dto.response.ResponseOKListDto;
 import ar.com.ua.model.HistorialPuestos;
+import ar.com.ua.model.TipoParametro;
 import ar.com.ua.service.HistorialPuestosService;
 
 @RequestMapping("/historialpuestos")
 @RestController
-public class HistorialPuestosController implements IABMController<HistorialPuestosDTO>, IListController<HistorialPuestosDTO> {
+public class HistorialPuestosController
+		implements IABMController<HistorialPuestosDTO>, IListController<HistorialPuestosDTO> {
 
 	@Autowired
 	private HistorialPuestosService hpService;
@@ -115,8 +118,31 @@ public class HistorialPuestosController implements IABMController<HistorialPuest
 
 	@Override
 	public ResponseDto findAny(Map<String, String> params) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			String numeroLegajo = params.get("numeroLegajo");
+
+			List<HistorialPuestos> listModel = hpService.findByNumeroLegajo(numeroLegajo);
+
+			if (!listModel.isEmpty()) {
+				List<HistorialPuestosDTO> listDto = hpBuilder.modelListToDto(listModel);
+
+				return new ResponseOKListDto<HistorialPuestosDTO>(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
+						CodigoRespuestaConstant.OK, listDto);
+			} else {
+				List<String> mensajesError = new ArrayList<String>();
+				mensajesError.add(MensajeError.ELEMENT_NOTFOUND_MESSAGE);
+
+				return new ResponseErrorDto(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
+						CodigoRespuestaConstant.ERROR, mensajesError);
+			}
+
+		} catch (Exception e) {
+			List<String> mensajesError = new ArrayList<String>();
+			String messageException = e.getMessage();
+			mensajesError.add(messageException);
+			return new ResponseErrorDto(EndPointConstant.FIND_ANY, TipoMetodoConstant.DELETE,
+					CodigoRespuestaConstant.ERROR, mensajesError);
+		}
 	}
 
 	@Override

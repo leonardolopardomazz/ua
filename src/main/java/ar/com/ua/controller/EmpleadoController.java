@@ -18,11 +18,13 @@ import ar.com.ua.constant.EndPointPathConstant;
 import ar.com.ua.constant.MensajeError;
 import ar.com.ua.constant.TipoMetodoConstant;
 import ar.com.ua.dto.EmpleadoDTO;
+import ar.com.ua.dto.HistorialPuestosDTO;
 import ar.com.ua.dto.response.ResponseDto;
 import ar.com.ua.dto.response.ResponseErrorDto;
 import ar.com.ua.dto.response.ResponseOKDto;
 import ar.com.ua.dto.response.ResponseOKListDto;
 import ar.com.ua.model.Empleado;
+import ar.com.ua.model.HistorialPuestos;
 import ar.com.ua.service.EmpleadoService;
 
 @RequestMapping("/empleado")
@@ -127,7 +129,31 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 
 	@Override
 	public ResponseDto findAny(Map<String, String> params) {
-		return null;
+		try {
+			String numeroLegajo = params.get("numeroLegajo");
+
+			List<Empleado> listModel = empleadoService.findByNumeroLegajo(Long.parseLong(numeroLegajo));
+
+			if (!listModel.isEmpty()) {
+				List<EmpleadoDTO> listDto = empleadoBuilder.modelListToDto(listModel);
+
+				return new ResponseOKListDto<EmpleadoDTO>(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
+						CodigoRespuestaConstant.OK, listDto);
+			} else {
+				List<String> mensajesError = new ArrayList<String>();
+				mensajesError.add(MensajeError.ELEMENT_NOTFOUND_MESSAGE);
+
+				return new ResponseErrorDto(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
+						CodigoRespuestaConstant.ERROR, mensajesError);
+			}
+
+		} catch (Exception e) {
+			List<String> mensajesError = new ArrayList<String>();
+			String messageException = e.getMessage();
+			mensajesError.add(messageException);
+			return new ResponseErrorDto(EndPointConstant.FIND_ANY, TipoMetodoConstant.DELETE,
+					CodigoRespuestaConstant.ERROR, mensajesError);
+		}
 	}
 
 	@Override
@@ -152,11 +178,12 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 		}
 	}
 
-//	@PutMapping(value = "/{id}")
-//	public ResponseDto changeState(@PathVariable Long id, @RequestBody EmpleadoDTO dto) {
-//		
-//		
-//		return this.save(id, dto, TipoMetodoConstant.PUT);
-//	}
+	// @PutMapping(value = "/{id}")
+	// public ResponseDto changeState(@PathVariable Long id, @RequestBody
+	// EmpleadoDTO dto) {
+	//
+	//
+	// return this.save(id, dto, TipoMetodoConstant.PUT);
+	// }
 
 }
