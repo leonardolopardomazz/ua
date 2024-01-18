@@ -12,16 +12,17 @@ import ar.com.ua.repository.report.InternationalDataCollectionRepository;
 
 @Component
 public class InternationalDataCollectionService {
-	
+
 	@Autowired
 	private InternationalDataCollectionBuilder builder;
 
 	@Autowired
 	private InternationalDataCollectionRepository repository;
-	
+
 	public List<InternationalDataCollectionResponseDTO> generar(InternationalDataCollectionDTO dto) {
 
-		List<String> resultado = this.repository.reporte(dto.getEstado(), dto.getTieneFechaEgreso(), dto.getFechaIngreso(),dto.getFechaEgreso());
+		List<String> resultado = this.repository.reporte(dto.getEstadoActivo(), dto.getEstadoInactivo(),
+				dto.getEstadoBaja(), dto.getFechaDesde(), dto.getFechaHasta());
 
 		return this.builder.listToDto(resultado);
 	}

@@ -4,8 +4,8 @@ public class InternationalDataCollectionResponseDTO {
 
 	private String globalId;
 	private String positionTitle;
-	private String reportsToManagerNameEmail;
-	private String reportsPositionTitle;
+	private String managerToReport;
+	private String cargoManagerToReport;
 	private String title;
 	private String surname;
 	private String firstName;
@@ -31,6 +31,7 @@ public class InternationalDataCollectionResponseDTO {
 	private String age;
 	private String generation;
 	private String division;
+	private String jefatura;
 
 	public String getGlobalId() {
 		return globalId;
@@ -48,20 +49,20 @@ public class InternationalDataCollectionResponseDTO {
 		this.positionTitle = positionTitle;
 	}
 
-	public String getReportsToManagerNameEmail() {
-		return reportsToManagerNameEmail;
+	public String getManagerToReport() {
+		return managerToReport;
 	}
 
-	public void setReportsToManagerNameEmail(String reportsToManagerNameEmail) {
-		this.reportsToManagerNameEmail = reportsToManagerNameEmail;
+	public void setManagerToReport(String managerToReport) {
+		this.managerToReport = managerToReport;
 	}
 
-	public String getReportsPositionTitle() {
-		return reportsPositionTitle;
+	public String getCargoManagerToReport() {
+		return cargoManagerToReport;
 	}
 
-	public void setReportsPositionTitle(String reportsPositionTitle) {
-		this.reportsPositionTitle = reportsPositionTitle;
+	public void setCargoManagerToReport(String cargoManagerToReport) {
+		this.cargoManagerToReport = cargoManagerToReport;
 	}
 
 	public String getTitle() {
@@ -262,6 +263,14 @@ public class InternationalDataCollectionResponseDTO {
 
 	public void setDivision(String division) {
 		this.division = division;
+	}
+
+	public String getJefatura() {
+		return jefatura;
+	}
+
+	public void setJefatura(String jefatura) {
+		this.jefatura = jefatura;
 	}
 
 }

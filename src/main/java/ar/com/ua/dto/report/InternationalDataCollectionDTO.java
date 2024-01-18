@@ -4,41 +4,50 @@ import java.util.List;
 
 public class InternationalDataCollectionDTO {
 
-	private List<String> estado;
-	private String tieneFechaEgreso;
-	private String fechaIngreso;
-	private String fechaEgreso;
+	private String estadoActivo;
+	private String estadoInactivo;
+	private String estadoBaja;
+	private String fechaDesde;
+	private String fechaHasta;
 
-	public List<String> getEstado() {
-		return estado;
+	public String getEstadoActivo() {
+		return estadoActivo;
 	}
 
-	public void setEstado(List<String> estado) {
-		this.estado = estado;
+	public void setEstadoActivo(String estadoActivo) {
+		this.estadoActivo = estadoActivo;
 	}
 
-	public String getTieneFechaEgreso() {
-		return tieneFechaEgreso;
+	public String getEstadoInactivo() {
+		return estadoInactivo;
 	}
 
-	public void setTieneFechaEgreso(String tieneFechaEgreso) {
-		this.tieneFechaEgreso = tieneFechaEgreso;
+	public void setEstadoInactivo(String estadoInactivo) {
+		this.estadoInactivo = estadoInactivo;
 	}
 
-	public String getFechaIngreso() {
-		return fechaIngreso;
+	public String getEstadoBaja() {
+		return estadoBaja;
 	}
 
-	public void setFechaIngreso(String fechaIngreso) {
-		this.fechaIngreso = fechaIngreso;
+	public void setEstadoBaja(String estadoBaja) {
+		this.estadoBaja = estadoBaja;
 	}
 
-	public String getFechaEgreso() {
-		return fechaEgreso;
+	public String getFechaDesde() {
+		return fechaDesde;
 	}
 
-	public void setFechaEgreso(String fechaEgreso) {
-		this.fechaEgreso = fechaEgreso;
+	public void setFechaDesde(String fechaDesde) {
+		this.fechaDesde = fechaDesde;
+	}
+
+	public String getFechaHasta() {
+		return fechaHasta;
+	}
+
+	public void setFechaHasta(String fechaHasta) {
+		this.fechaHasta = fechaHasta;
 	}
 
 }

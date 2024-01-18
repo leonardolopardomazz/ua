@@ -26,6 +26,7 @@ public class GenericoResponseDTO {
 	private String tipoEmpleo;
 	private String tipoJornada;
 	private String pais;
+	private String lugarDeTrabajo;
 	private String emailLaboral;
 	private String puesto;
 	private String categoria;
@@ -46,9 +47,11 @@ public class GenericoResponseDTO {
 	private String tipoEgreso;
 	private String estadoCivil;
 	private String grado;
-	private String puestoAlQueReporta;
-	private String puestoPais;
-	
+	private String manager;
+	private String cargoManager;
+	private String cargasDeFamilia;
+	private String title;
+
 	public String getNumeroLegajo() {
 		return numeroLegajo;
 	}
@@ -241,6 +244,14 @@ public class GenericoResponseDTO {
 		this.pais = pais;
 	}
 
+	public String getLugarDeTrabajo() {
+		return lugarDeTrabajo;
+	}
+
+	public void setLugarDeTrabajo(String lugarDeTrabajo) {
+		this.lugarDeTrabajo = lugarDeTrabajo;
+	}
+
 	public String getEmailLaboral() {
 		return emailLaboral;
 	}
@@ -401,20 +412,36 @@ public class GenericoResponseDTO {
 		this.grado = grado;
 	}
 
-	public String getPuestoAlQueReporta() {
-		return puestoAlQueReporta;
+	public String getManager() {
+		return manager;
 	}
 
-	public void setPuestoAlQueReporta(String puestoAlQueReporta) {
-		this.puestoAlQueReporta = puestoAlQueReporta;
+	public void setManager(String manager) {
+		this.manager = manager;
 	}
 
-	public String getPuestoPais() {
-		return puestoPais;
+	public String getCargoManager() {
+		return cargoManager;
 	}
 
-	public void setPuestoPais(String puestoPais) {
-		this.puestoPais = puestoPais;
+	public void setCargoManager(String cargoManager) {
+		this.cargoManager = cargoManager;
+	}
+
+	public String getCargasDeFamilia() {
+		return cargasDeFamilia;
+	}
+
+	public void setCargasDeFamilia(String cargasDeFamilia) {
+		this.cargasDeFamilia = cargasDeFamilia;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 }
