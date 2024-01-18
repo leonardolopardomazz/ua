@@ -81,7 +81,7 @@ public interface GenericoRepository extends JpaRepository<Empleado, Long> {
 			+ "			WHERE "
 			+ "                emp.cod_estado_empleado IN :estadoEmpleado "
 			+ "            AND (p.cod_direccion = :idDireccion OR :idDireccion IS NULL) "
-			+ "            AND (p.cod_jefatura = :idGerencia OR :idDireccion IS NULL) "
+			+ "            AND (p.cod_gerencia = :idGerencia OR :idGerencia IS NULL) "
 			+ "            GROUP BY emp.nro_legajo", nativeQuery = true)
 	List<String> reporte(@Param("estadoEmpleado") List<String> estado, @Param("idDireccion") String idDireccion,
 			@Param("idGerencia") String idGerencia);
