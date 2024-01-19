@@ -21,8 +21,7 @@ public class InternationalDataCollectionService {
 
 	public List<InternationalDataCollectionResponseDTO> generar(InternationalDataCollectionDTO dto) {
 
-		List<String> resultado = this.repository.reporte(dto.getEstadoActivo(), dto.getEstadoInactivo(),
-				dto.getEstadoBaja(), dto.getFechaDesde(), dto.getFechaHasta());
+		List<String> resultado = this.repository.reporte(dto.getFechaDesde(), dto.getFechaHasta());
 
 		return this.builder.listToDto(resultado);
 	}
