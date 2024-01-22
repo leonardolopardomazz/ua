@@ -20,7 +20,7 @@ public class HistorialLaboralWrapper {
 		dto.setApellido(data.get(1));
 		dto.setNombre(data.get(2));
 		dto.setPuesto(data.get(3));
-		dto.setFechaIngresoReconocida(data.get(4));
+		dto.setFechaIngreso(data.get(4));
 		dto.setFechaEgreso(data.get(5));
 		dto.setDireccion(repository.descripcion(data.get(6)));
 		return dto;

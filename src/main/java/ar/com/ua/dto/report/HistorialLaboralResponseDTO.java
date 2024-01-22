@@ -6,7 +6,7 @@ public class HistorialLaboralResponseDTO {
 	private String apellido;
 	private String nombre;
 	private String puesto;
-	private String fechaIngresoReconocida;
+	private String fechaIngreso;
 	private String fechaEgreso;
 	private String direccion;
 
@@ -42,12 +42,12 @@ public class HistorialLaboralResponseDTO {
 		this.puesto = puesto;
 	}
 
-	public String getFechaIngresoReconocida() {
-		return fechaIngresoReconocida;
+	public String getFechaIngreso() {
+		return fechaIngreso;
 	}
 
-	public void setFechaIngresoReconocida(String fechaIngresoReconocida) {
-		this.fechaIngresoReconocida = fechaIngresoReconocida;
+	public void setFechaIngreso(String fechaIngreso) {
+		this.fechaIngreso = fechaIngreso;
 	}
 
 	public String getFechaEgreso() {
