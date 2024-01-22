@@ -22,7 +22,7 @@ public class ExternosWrapper {
 		dto.setCodigoPais(data.get(3));
 		dto.setCodigoProveedor(repository.descripcion(data.get(4)));
 		dto.setCodigoPuesto(data.get(5));
-		dto.setCodigoJefatura(repository.descripcion(data.get(6)));
+		dto.setDepartamento(repository.descripcion(data.get(6)));
 		dto.setCodigoDivision(repository.descripcion(data.get(7)));
 		dto.setApellidoNombre(data.get(8));
 		dto.setManager(repository.descripcion(data.get(9)) + ", " + repository.descripcion(data.get(10)) + ", "

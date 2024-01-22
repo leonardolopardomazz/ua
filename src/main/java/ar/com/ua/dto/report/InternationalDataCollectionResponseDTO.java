@@ -31,7 +31,11 @@ public class InternationalDataCollectionResponseDTO {
 	private String age;
 	private String generation;
 	private String division;
+	private String direccion;
+	private String gerencia;
+	private String subgerencia;
 	private String jefatura;
+	private String oficina;
 
 	public String getGlobalId() {
 		return globalId;
@@ -265,12 +269,44 @@ public class InternationalDataCollectionResponseDTO {
 		this.division = division;
 	}
 
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public String getGerencia() {
+		return gerencia;
+	}
+
+	public void setGerencia(String gerencia) {
+		this.gerencia = gerencia;
+	}
+
+	public String getSubgerencia() {
+		return subgerencia;
+	}
+
+	public void setSubgerencia(String subgerencia) {
+		this.subgerencia = subgerencia;
+	}
+
 	public String getJefatura() {
 		return jefatura;
 	}
 
 	public void setJefatura(String jefatura) {
 		this.jefatura = jefatura;
+	}
+
+	public String getOficina() {
+		return oficina;
+	}
+
+	public void setOficina(String oficina) {
+		this.oficina = oficina;
 	}
 
 }

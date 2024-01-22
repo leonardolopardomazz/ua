@@ -20,6 +20,7 @@ public class InternationalDataCollectionWrapper {
 	private int calcularEdad(String fecha) {
 		if (fecha == null)
 			return 0;
+		System.out.println("Fecha=" + fecha);
 		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
 
 		LocalDate fechaNac = LocalDate.parse(fecha, fmt);
@@ -51,18 +52,22 @@ public class InternationalDataCollectionWrapper {
 		dto.setHorasDeTrabajo(data.get(13));
 		dto.setFte(repository.texto2(data.get(14)));
 		dto.setRateFrecuency(repository.descripcion(data.get(15)));
-		// dto.setSalaryBasePayRate(null);
-		// dto.setReasonForSalaryChange(null);
+		dto.setSalaryBasePayRate(null);
+		dto.setReasonForSalaryChange(null);
 		dto.setEmploymentType(repository.descripcion(data.get(16)));
 		dto.setPersonnelType(repository.descripcion(data.get(17)));
 		dto.setJefatura(repository.descripcion(data.get(18)));
 		dto.setTermDate(data.get(19)); // feche egreso
 		dto.setTermReason(repository.descripcion(data.get(20)));
-		dto.setAntiguedad(String.valueOf(calcularEdad(data.get(24))));
+		dto.setAntiguedad(String.valueOf(calcularEdad(data.get(12))));
 		dto.setAge(String.valueOf(calcularEdad(data.get(8))));
 		dto.setGeneration(repository.descripcion(data.get(21)));
 		dto.setDivision(repository.descripcion(data.get(22)));
+		dto.setDireccion(repository.descripcion(data.get(23)));
+		dto.setGerencia(repository.descripcion(data.get(24)));
+		dto.setSubgerencia(null);
 		dto.setDepartment(repository.descripcion(data.get(23)));
+		dto.setOficina(repository.descripcion(data.get(25)));
 		return dto;
 	}
 

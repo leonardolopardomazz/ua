@@ -20,7 +20,7 @@ public interface ExternosRepository extends JpaRepository<EmpleadoExterno, Long>
 			+ "pais.descripcion as country, "
 			+ "ext.cod_proveedor as ext_company, "
 			+ "p.descripcion as position_title, "
-			+ "ext.cod_jefatura as department, "
+			+ "ext.cod_direccion as department, "
 			+ "ext.cod_division as division, "
 			+ "CONCAT (ext.apellido, \" \", ext.nombre) as apellido_nombre, "
 			+ "ext.cod_direccion, "
