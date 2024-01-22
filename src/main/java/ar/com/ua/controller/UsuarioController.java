@@ -1,30 +1,44 @@
 package ar.com.ua.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ar.com.ua.builder.LoginResponseBuilder;
 import ar.com.ua.builder.UsuarioBuilder;
 import ar.com.ua.constant.CodigoRespuestaConstant;
 import ar.com.ua.constant.EndPointConstant;
 import ar.com.ua.constant.EndPointPathConstant;
 import ar.com.ua.constant.MensajeError;
 import ar.com.ua.constant.TipoMetodoConstant;
+import ar.com.ua.dto.LoginResponseDTO;
 import ar.com.ua.dto.UsuarioDTO;
 import ar.com.ua.dto.response.ResponseDto;
 import ar.com.ua.dto.response.ResponseErrorDto;
 import ar.com.ua.dto.response.ResponseOKDto;
 import ar.com.ua.dto.response.ResponseOKListDto;
+import ar.com.ua.model.HistoricoContrasena;
+import ar.com.ua.model.Login;
+import ar.com.ua.model.SeguridadContrasena;
 import ar.com.ua.model.Usuario;
 import ar.com.ua.service.EmpleadoService;
+import ar.com.ua.service.HistoricoContrasenaService;
+import ar.com.ua.service.LoginService;
+import ar.com.ua.service.SeguridadContrasenaService;
 import ar.com.ua.service.UsuarioService;
 
 @RequestMapping("/usuario")
@@ -33,23 +47,119 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 
 	@Autowired
 	private UsuarioService usuarioService;
-	
+
 	@Autowired
 	private EmpleadoService empleadoService;
 
 	@Autowired
+	private HistoricoContrasenaService hcService;
+
+	@Autowired
+	private LoginService loginService;
+
+	@Autowired
+	private SeguridadContrasenaService scService;
+
+	@Autowired
 	private UsuarioBuilder usuarioBuilder;
+
+	@Autowired
+	private LoginResponseBuilder loginBuilder;
 
 	static Logger logger = Logger.getLogger(UsuarioController.class.getName());
 	
+	private HistoricoContrasena populateHistoricoContrasena (Usuario usuario) {
+		HistoricoContrasena hc = new HistoricoContrasena();
+		hc.setUsuario(usuario);
+		hc.setFechaCambioContrasena(new Date());
+		hc.setContrasena(usuario.getContrasena());
+		
+		return hc;
+	}
+
+	private Login populateLogin(Usuario usuario) {
+		Login login = new Login();
+		login.setCantidadReintentos(0);
+		login.setUsuario(usuario);
+		login.setPrimerAcceso(true);
+		login.setFechaReseteoContrasena(new Date());
+
+		return login;
+	}
+
+	/**
+	 * Valida si la contrasena cumple la dureza proporcionada por seguridad
+	 * informatica
+	 * 
+	 * @param contrasena
+	 * @return
+	 */
+	private boolean validarContrasenaConRegex(String contrasena) {
+		SeguridadContrasena sc = this.scService.findFirstByActivoTrueOrderByIdAsc();
+		String patron = sc.getPatron();
+		Pattern pattern = Pattern.compile(patron);
+		Matcher matcher = pattern.matcher(contrasena);
+
+		return matcher.matches();
+	}
+
+	/**
+	 * Verifico si la contrasena ingresada no existe en las ultimas 5 ingresadas
+	 * 
+	 * @param contrasena
+	 * @return
+	 */
+	private boolean noExisteEnHistoricoContrasena(Usuario usuario, String contrasena) {
+		List<HistoricoContrasena> hcList = this.hcService.findTop5ByUsuarioOrderByFechaCambioContrasenaAsc(usuario);
+
+		for (HistoricoContrasena historicoContrasena : hcList) {
+			if (historicoContrasena.getContrasena().equals(contrasena)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * 
+	 * @param messageError
+	 * @return
+	 */
+	private ResponseErrorDto manejoErrorCambiarContrasena(String messageError) {
+		List<String> mensajesError = new ArrayList<String>();
+		mensajesError.add(messageError);
+
+		return new ResponseErrorDto(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET, CodigoRespuestaConstant.ERROR,
+				mensajesError);
+	}
+
+	/**
+	 * 
+	 * @param messageError
+	 * @param tipoMetodoConstant
+	 * @return
+	 */
+	private ResponseErrorDto manejoErrorGuardar(String messageError, String tipoMetodoConstant) {
+		List<String> mensajesError = new ArrayList<String>();
+		String messageException = messageError;
+		mensajesError.add(messageException);
+
+		return new ResponseErrorDto(EndPointPathConstant.USUARIO, tipoMetodoConstant, CodigoRespuestaConstant.ERROR,
+				mensajesError);
+	}
+
 	/**
 	 * Validacion existe Numero legajo en la tabla Empleado
+	 * 
 	 * @param dto
 	 * @throws Exception
 	 */
 	private void existeNumeroLegajo(UsuarioDTO dto) throws Exception {
 		boolean existeNumeroLegajo = this.empleadoService.existsByNumeroLegajo(dto.getNumeroLegajo());
-		if(!existeNumeroLegajo) {throw new Exception("El numero de legajo no existe en la tabla usuario");}
+		if (!existeNumeroLegajo) {
+			throw new Exception("El numero de legajo no existe en la tabla usuario");
+		}
 	}
 
 	private ResponseDto save(Long id, UsuarioDTO dto, String tipoMetodoConstant) {
@@ -60,22 +170,65 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 
 	private ResponseDto save(UsuarioDTO dto, String tipoMetodoConstant) {
 		try {
-			Usuario usuario = usuarioBuilder.dtoToModel(dto);
+			Usuario usuarioAGuardar = usuarioBuilder.dtoToModel(dto);
 
-			//Validacion existe Numero legajo en la tabla Empleado
+			// Validacion existe Numero legajo en la tabla Empleado
 			this.existeNumeroLegajo(dto);
+
+			final String contrasena = dto.getContrasena();
+
+			// Valida la contrasena ingresada con la regex proporcionada por seguridad
+			// informatica
+			if (!this.validarContrasenaConRegex(contrasena)) {
+				return this.manejoErrorGuardar(MensajeError.PATTERN_NO_VALID, tipoMetodoConstant);
+			}
 			
-			Usuario usuarioGuardado = usuarioService.save(usuario);
+			final Long numeroLegajo = dto.getNumeroLegajo();
+			Usuario usuarioByNumeroLegajo = this.usuarioService.findByNumeroLegajo(numeroLegajo);
+
+			if(usuarioByNumeroLegajo != null) {
+				// ERROR contrasena ya utilizadas
+				if (!noExisteEnHistoricoContrasena(usuarioAGuardar, contrasena)) {
+					return this.manejoErrorGuardar(MensajeError.REPEATED_PASSWORD, tipoMetodoConstant);
+				}
+			}
+			
+			Usuario usuarioGuardado = usuarioService.save(usuarioAGuardar);
 			UsuarioDTO usuarioDto = usuarioBuilder.modelToDto(usuarioGuardado);
+
+			if (tipoMetodoConstant.equals(TipoMetodoConstant.POST)) {
+				this.marcarUsuarioPrimerIngreso(usuarioDto);
+			}
+
 			return new ResponseOKDto<UsuarioDTO>(EndPointPathConstant.USUARIO, tipoMetodoConstant,
 					CodigoRespuestaConstant.OK, usuarioDto);
-		} catch (Exception e) {
-			List<String> mensajesError = new ArrayList<String>();
-			String messageException = e.getMessage();
-			mensajesError.add(messageException);
 
-			return new ResponseErrorDto(EndPointPathConstant.USUARIO, tipoMetodoConstant, CodigoRespuestaConstant.ERROR,
-					mensajesError);
+		} catch (Exception e) {
+			return this.manejoErrorGuardar(e.getMessage(), tipoMetodoConstant);
+		}
+	}
+
+	private String generateRandomPassword() {
+		String contrasena = "";
+
+		SeguridadContrasena sc = this.scService.findFirstByActivoTrueOrderByIdAsc();
+		String regla = sc.getRegla();
+		return contrasena;
+	}
+
+	/**
+	 * Inserta un registro en la tabla de Login para marcar como primer ingreso a un
+	 * usuario
+	 * 
+	 * @param dto
+	 */
+	private void marcarUsuarioPrimerIngreso(UsuarioDTO dto) {
+		try {
+			Usuario usuario = this.usuarioBuilder.dtoToModel(dto);
+			Login loginAGuardar = populateLogin(usuario);
+			this.loginService.save(loginAGuardar);
+		} catch (Exception e) {
+			throw e;
 		}
 	}
 
@@ -86,7 +239,17 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 	 */
 	@Override
 	public ResponseDto add(UsuarioDTO dto) {
-		return this.save(dto, TipoMetodoConstant.POST);
+
+		try {
+			return this.save(dto, TipoMetodoConstant.POST);
+		} catch (Exception e) {
+			List<String> mensajesError = new ArrayList<String>();
+			String messageException = MensajeError.CANT_SAVE_USER;
+			mensajesError.add(messageException);
+			return new ResponseErrorDto(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
+					CodigoRespuestaConstant.ERROR, mensajesError);
+		}
+
 	}
 
 	/**
@@ -150,7 +313,7 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 		try {
 			String nombreUsuario = params.get("nombreUsuario");
 
-			List<Usuario> listUsuarios = usuarioService.findByNombreUsuario(nombreUsuario);
+			List<Usuario> listUsuarios = usuarioService.findByNombreUsuarioLike(nombreUsuario);
 
 			if (!listUsuarios.isEmpty()) {
 				List<UsuarioDTO> listUsuariosDto = usuarioBuilder.modelListToDto(listUsuarios);
@@ -193,6 +356,69 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 			mensajes.add(messageException);
 			return new ResponseErrorDto(EndPointConstant.FIND_ALL, TipoMetodoConstant.GET,
 					CodigoRespuestaConstant.ERROR, mensajes);
+		}
+	}
+
+	// Metodos para el caso de uso de Login
+
+	@PutMapping(value = "/cambiarContrasena/{id}")
+	public ResponseDto cambiarContrasena(@PathVariable Long id, @RequestBody UsuarioDTO dto) {
+		try {
+			final String contrasena = dto.getContrasena();
+
+			Optional<Usuario> value = this.usuarioService.findById(id);
+
+			if (value.isPresent()) {
+				Usuario usuario = value.get();
+				usuario.setContrasena(dto.getContrasena());
+
+				// Verifico si la contrasena ingresada no existe en las ultimas 5 ingresadas
+				if (noExisteEnHistoricoContrasena(usuario, contrasena)) {
+					this.usuarioService.save(usuario);
+					
+					HistoricoContrasena hc = populateHistoricoContrasena(usuario);
+					this.hcService.save(hc);
+
+					return new ResponseOKDto<LoginResponseDTO>(EndPointPathConstant.CAMBIAR_CONTRASENA,
+							TipoMetodoConstant.PUT, CodigoRespuestaConstant.OK, null);
+				} else {
+					return this.manejoErrorCambiarContrasena(MensajeError.REPEATED_PASSWORD);
+				}
+
+			} else {
+				return this.manejoErrorCambiarContrasena(MensajeError.USER_NOT_FOUND);
+			}
+		} catch (Exception e) {
+			return this.manejoErrorCambiarContrasena(e.getMessage());
+		}
+	}
+
+	@GetMapping(value = "/desbloquear/{id}")
+	public ResponseDto desbloquearUsuario(@PathVariable Long id) {
+		try {
+			Optional<Usuario> value = this.usuarioService.findById(id);
+			if (value.isPresent()) {
+				Usuario usuario = value.get();
+				usuario.setBloqueado(false);
+
+				this.usuarioService.save(usuario);
+
+				return new ResponseOKDto<LoginResponseDTO>(EndPointPathConstant.DESBLOQUEAR_USUARIO,
+						TipoMetodoConstant.GET, CodigoRespuestaConstant.OK, null);
+			} else {
+				List<String> mensajesError = new ArrayList<String>();
+				mensajesError.add(MensajeError.ELEMENT_NOTFOUND_MESSAGE);
+
+				return new ResponseErrorDto(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
+						CodigoRespuestaConstant.ERROR, mensajesError);
+			}
+
+		} catch (Exception e) {
+			List<String> mensajesError = new ArrayList<String>();
+			mensajesError.add(MensajeError.ELEMENT_NOTFOUND_MESSAGE);
+
+			return new ResponseErrorDto(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
+					CodigoRespuestaConstant.ERROR, mensajesError);
 		}
 	}
 

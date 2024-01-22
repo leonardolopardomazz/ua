@@ -1,7 +1,5 @@
 package ar.com.ua.dto.report;
 
-import java.util.List;
-
 public class InternationalDataCollectionDTO {
 
 	private String estadoActivo;

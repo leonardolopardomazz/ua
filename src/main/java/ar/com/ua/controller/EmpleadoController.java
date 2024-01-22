@@ -18,13 +18,11 @@ import ar.com.ua.constant.EndPointPathConstant;
 import ar.com.ua.constant.MensajeError;
 import ar.com.ua.constant.TipoMetodoConstant;
 import ar.com.ua.dto.EmpleadoDTO;
-import ar.com.ua.dto.HistorialPuestosDTO;
 import ar.com.ua.dto.response.ResponseDto;
 import ar.com.ua.dto.response.ResponseErrorDto;
 import ar.com.ua.dto.response.ResponseOKDto;
 import ar.com.ua.dto.response.ResponseOKListDto;
 import ar.com.ua.model.Empleado;
-import ar.com.ua.model.HistorialPuestos;
 import ar.com.ua.service.EmpleadoService;
 
 @RequestMapping("/empleado")

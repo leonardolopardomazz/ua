@@ -16,6 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,8 +32,17 @@ public class Usuario {
 	@Column(name = "nro_legajo")
 	private Long numeroLegajo;
 
-	@Column(name = "nombre_usuario")
+	@Column(name = "nombre_usuario", unique = true, nullable = false)
 	private String nombreUsuario;
+
+	@Column(name = "contrasena", nullable = false)
+	private String contrasena;
+
+	@OneToMany(mappedBy = "usuario")
+	private List<HistoricoContrasena> historicoContrasena;
+
+	@OneToMany(mappedBy = "usuario")
+	private List<Login> login;
 
 	@Column(name = "fecha_alta")
 	private Date fechaAlta;
@@ -42,6 +52,9 @@ public class Usuario {
 
 	@Column(name = "activo")
 	private boolean activo;
+
+	@Column(name = "bloqueado")
+	private boolean bloqueado;
 
 	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.ALL)
@@ -64,6 +77,30 @@ public class Usuario {
 
 	public void setNombreUsuario(String nombreUsuario) {
 		this.nombreUsuario = nombreUsuario;
+	}
+
+	public String getContrasena() {
+		return contrasena;
+	}
+
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
+	}
+
+	public List<HistoricoContrasena> getHistoricoContrasena() {
+		return historicoContrasena;
+	}
+
+	public void setHistoricoContrasena(List<HistoricoContrasena> historicoContrasena) {
+		this.historicoContrasena = historicoContrasena;
+	}
+
+	public List<Login> getLogin() {
+		return login;
+	}
+
+	public void setLogin(List<Login> login) {
+		this.login = login;
 	}
 
 	public Long getNumeroLegajo() {
@@ -104,6 +141,14 @@ public class Usuario {
 
 	public void setRoles(List<Rol> roles) {
 		this.roles = roles;
+	}
+
+	public boolean isBloqueado() {
+		return bloqueado;
+	}
+
+	public void setBloqueado(boolean bloqueado) {
+		this.bloqueado = bloqueado;
 	}
 
 }

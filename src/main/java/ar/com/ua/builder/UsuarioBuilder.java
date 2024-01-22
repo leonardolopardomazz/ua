@@ -21,6 +21,8 @@ public class UsuarioBuilder implements IBuilder<Usuario, UsuarioDTO> {
 		usuario.setFechaAlta(new Date());
 		usuario.setFechaBaja(dto.getFechaBaja());
 		usuario.setActivo(dto.isActivo());
+		usuario.setBloqueado(dto.isBloqueado());
+		usuario.setContrasena(dto.getContrasena());
 		
 		return usuario;
 	}
@@ -29,6 +31,7 @@ public class UsuarioBuilder implements IBuilder<Usuario, UsuarioDTO> {
 	public UsuarioDTO modelToDto(Usuario model) {
 		UsuarioDTO dto = new UsuarioDTO();
 		dto.setActivo(model.isActivo());
+		dto.setBloqueado(model.isBloqueado());
 		dto.setFechaAlta(model.getFechaAlta());
 		dto.setFechaBaja(model.getFechaBaja());
 		dto.setId(model.getId());
@@ -46,6 +49,7 @@ public class UsuarioBuilder implements IBuilder<Usuario, UsuarioDTO> {
 		for (Usuario usuario : list) {
 			UsuarioDTO dto = new UsuarioDTO();
 			dto.setActivo(usuario.isActivo());
+			dto.setBloqueado(dto.isBloqueado());
 			dto.setFechaAlta(usuario.getFechaAlta());
 			dto.setFechaBaja(usuario.getFechaBaja());
 			dto.setId(usuario.getId());

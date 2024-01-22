@@ -29,5 +29,13 @@ public class EndPointPathConstant {
 	public static final String GENERICO = "/generico";
 	public static final String INTERNATION_DATA_COLLECTION = "/internationalDataCollection";
 	
+	//LOGIN
+	public static final String LOGIN = "/login";
+	public static final String DESBLOQUEAR_USUARIO = "/desbloquear";
+	public static final String PARAMETROS_SEGURIDAD_CONTRASENA = "/parametrosseguridadcontrasena";
+	public static final String HISTORICO_CONTRASENA =  "/historicocontrasena";
+	public static final String CAMBIAR_CONTRASENA =  "/cambiarcontrasena";
+	public static final String SEGURIDAD_CONTRASENA =  "/seguridadcontrasena";
+	
 	
 }

@@ -2,37 +2,29 @@ package ar.com.ua.dto;
 
 import java.util.Date;
 
-public class LoginDTO {
+public class LoginResponseDTO {
 
-	private UsuarioDTO usuario;
-	private Date ultimoIntento;
-	private Date ultimoCambioContrasena;
-	private Date fechaReseteoContrasena;
+	private String nombreUsuario;
+	private boolean bloqueado;
 	private int cantidadReintentos;
+	private Date fechaUltimoIntento;
 	private boolean primerAcceso;
+	private Date fechaReseteoContrasena;
 
-	public UsuarioDTO getUsuario() {
-		return usuario;
+	public String getNombreUsuario() {
+		return nombreUsuario;
 	}
 
-	public void setUsuario(UsuarioDTO usuario) {
-		this.usuario = usuario;
+	public void setNombreUsuario(String nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
 	}
 
-	public Date getUltimoIntento() {
-		return ultimoIntento;
+	public boolean isBloqueado() {
+		return bloqueado;
 	}
 
-	public void setUltimoIntento(Date ultimoIntento) {
-		this.ultimoIntento = ultimoIntento;
-	}
-
-	public Date getUltimoCambioContrasena() {
-		return ultimoCambioContrasena;
-	}
-
-	public void setUltimoCambioContrasena(Date ultimoCambioContrasena) {
-		this.ultimoCambioContrasena = ultimoCambioContrasena;
+	public void setBloqueado(boolean bloqueado) {
+		this.bloqueado = bloqueado;
 	}
 
 	public int getCantidadReintentos() {
@@ -41,6 +33,14 @@ public class LoginDTO {
 
 	public void setCantidadReintentos(int cantidadReintentos) {
 		this.cantidadReintentos = cantidadReintentos;
+	}
+
+	public Date getFechaUltimoIntento() {
+		return fechaUltimoIntento;
+	}
+
+	public void setFechaUltimoIntento(Date fechaUltimoIntento) {
+		this.fechaUltimoIntento = fechaUltimoIntento;
 	}
 
 	public boolean isPrimerAcceso() {

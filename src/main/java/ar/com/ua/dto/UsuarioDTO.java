@@ -10,9 +10,11 @@ public class UsuarioDTO {
 	private Long id;
 	private Long numeroLegajo;
 	private String nombreUsuario;
+	private String contrasena;
 	private Date fechaAlta;
 	private Date fechaBaja;
 	private boolean activo;
+	private boolean bloqueado;
 	private List<Rol> roles;
 
 	public Long getId() {
@@ -38,6 +40,14 @@ public class UsuarioDTO {
 	public void setNombreUsuario(String nombreUsuario) {
 		this.nombreUsuario = nombreUsuario;
 	}
+	
+	public String getContrasena() {
+		return contrasena;
+	}
+
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
+	}
 
 	public Date getFechaAlta() {
 		return fechaAlta;
@@ -58,9 +68,17 @@ public class UsuarioDTO {
 	public boolean isActivo() {
 		return activo;
 	}
-
+	
 	public void setActivo(boolean activo) {
 		this.activo = activo;
+	}
+	
+	public boolean isBloqueado() {
+		return bloqueado;
+	}
+
+	public void setBloqueado(boolean bloqueado) {
+		this.bloqueado = bloqueado;
 	}
 
 	public List<Rol> getRoles() {
