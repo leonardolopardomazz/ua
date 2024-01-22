@@ -42,11 +42,8 @@ public interface InternationalDataCollectionRepository extends JpaRepository<Emp
 			+ "FROM empleados emp JOIN pais ON emp.cod_pais = pais.id JOIN puesto p ON p.id = emp.cod_puesto "
 			+ "LEFT JOIN puesto puesto_manager ON p.cod_puesto_al_que_reporta = puesto_manager.id "
 			+ "LEFT JOIN empleados manager ON manager.cod_puesto = puesto_manager.id "
-			+ "WHERE (emp.cod_estado_empleado = :estadoActivo AND emp.fecha_ingreso_reconocida BETWEEN IFNULL(:fechaDesde,\"1900-01-01\") AND IFNULL(:fechaHasta,now())) "
-			+ "   OR (emp.cod_estado_empleado = :estadoInactivo AND emp.fecha_ingreso_reconocida BETWEEN IFNULL(:fechaDesde,\"1900-01-01\") AND IFNULL(:fechaHasta,now())) "
-			+ "   OR (emp.cod_estado_empleado = :estadoBaja AND emp.fecha_egreso BETWEEN IFNULL(:fechaDesde,\"1900-01-01\") AND IFNULL(:fechaHasta,now())) ", nativeQuery = true)
-	List<String> reporte(@Param("estadoActivo") String estadoActivo, @Param("estadoInactivo") String estadoInactivo,
-			@Param("estadoBaja") String estadoBaja, @Param("fechaDesde") String fechaDesde,
-			@Param("fechaHasta") String fechaHasta);
+			+ "WHERE (:fechaDesde IS NULL OR emp.fecha_egreso IS NULL OR emp.fecha_egreso >= :fechaDesde) "
+			+ "   AND (:fechaHasta IS NULL OR emp.fecha_ingreso_reconocida <= :fechaHasta) ", nativeQuery = true)
+	List<String> reporte(@Param("fechaDesde") String fechaDesde, @Param("fechaHasta") String fechaHasta);
 
 }

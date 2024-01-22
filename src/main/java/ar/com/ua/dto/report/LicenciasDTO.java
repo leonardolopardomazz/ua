@@ -7,7 +7,7 @@ public class LicenciasDTO {
 	private List<String> estadoEmpleado;
 	private String pais;
 	private String direccion;
-	private String estadoLicencia;
+	private List<String> estadoLicencia;
 
 	public List<String> getEstadoEmpleado() {
 		return estadoEmpleado;
@@ -33,11 +33,11 @@ public class LicenciasDTO {
 		this.direccion = direccion;
 	}
 
-	public String getEstadoLicencia() {
+	public List<String> getEstadoLicencia() {
 		return estadoLicencia;
 	}
 
-	public void setEstadoLicencia(String estadoLicencia) {
+	public void setEstadoLicencia(List<String> estadoLicencia) {
 		this.estadoLicencia = estadoLicencia;
 	}
 
