@@ -16,7 +16,7 @@ public interface DirectoresRepository extends JpaRepository<Empleado, Long> {
 
 	@Query(value = "SELECT emp.nro_legajo, CONCAT(emp.apellido, \" \", emp.nombre) AS apellido_nombre, emp.fecha_ingreso AS fecha_ingreso, "
 			+ "emp.fecha_ingreso_reconocida AS fecha_ingreso_reconocida, pais.descripcion AS pais, emp.email_laboral AS email_laboral, "
-			+ "emp.cod_oficina, p.descripcion AS puesto, p.cod_categoria, p.cod_direccion, p.cod_gerencia, p.cod_jefatura, puesto_manager.descripcion AS puesto_manager, "
+			+ "emp.cod_oficina, p.descripcion AS puesto, p.cod_categoria, emp.cod_direccion, p.cod_gerencia, p.cod_jefatura, puesto_manager.descripcion AS puesto_manager, "
 			+ "emp.cod_division,emp.cod_centro_de_costo,emp.cod_convenio, CONCAT(manager.apellido, \" \", manager.nombre) AS apellido_nombre_manager "
 			+ "FROM empleados emp JOIN pais pais ON emp.cod_pais = pais.id JOIN puesto p ON emp.cod_puesto = p.id LEFT JOIN puesto puesto_manager ON p.cod_puesto_al_que_reporta = puesto_manager.id "
 			+ "LEFT JOIN empleados manager ON manager.cod_puesto = puesto_manager.id "
