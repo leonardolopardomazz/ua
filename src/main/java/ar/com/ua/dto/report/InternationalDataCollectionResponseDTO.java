@@ -36,6 +36,7 @@ public class InternationalDataCollectionResponseDTO {
 	private String subgerencia;
 	private String jefatura;
 	private String oficina;
+	private String activo;
 
 	public String getGlobalId() {
 		return globalId;
@@ -307,6 +308,14 @@ public class InternationalDataCollectionResponseDTO {
 
 	public void setOficina(String oficina) {
 		this.oficina = oficina;
+	}
+
+	public String getActivo() {
+		return activo;
+	}
+
+	public void setActivo(String activo) {
+		this.activo = activo;
 	}
 
 }

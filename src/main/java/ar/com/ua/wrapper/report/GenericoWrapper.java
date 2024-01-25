@@ -36,7 +36,7 @@ public class GenericoWrapper {
 		dto.setFechaIngresoReconocida(data.get(16));
 		dto.setTipoContratacion(repository.descripcion(data.get(17)));
 		dto.setHorasSemanales(data.get(18));
-		dto.setFte(data.get(19));
+		dto.setFte(repository.texto2(data.get(19)));
 		dto.setFrecuenciaLiquidacion(repository.descripcion(data.get(20)));
 		dto.setTipoEmpleo(repository.descripcion(data.get(21)));
 		dto.setTipoJornada(repository.descripcion(data.get(22)));
