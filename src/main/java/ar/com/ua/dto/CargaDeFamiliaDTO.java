@@ -2,6 +2,7 @@ package ar.com.ua.dto;
 
 import java.util.Date;
 
+import ar.com.ua.model.Empleado;
 import ar.com.ua.model.Parametro;
 
 public class CargaDeFamiliaDTO {
@@ -14,8 +15,9 @@ public class CargaDeFamiliaDTO {
 	private Parametro codigoTipoDocumento;
 	private String numeroDocumento;
 	private Date fechaNacimiento;
+	private Empleado empleado;
 	private boolean activo;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -88,4 +90,11 @@ public class CargaDeFamiliaDTO {
 		this.activo = activo;
 	}
 
+	public Empleado getEmpleado() {
+		return empleado;
+	}
+
+	public void setEmpleado(Empleado empleado) {
+		this.empleado = empleado;
+	}
 }

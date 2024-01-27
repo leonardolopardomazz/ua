@@ -26,6 +26,7 @@ public class CargaDeFamiliaBuilder implements IBuilder<CargaDeFamilia, CargaDeFa
 		cdf.setNumeroDocumento(dto.getNumeroDocumento());
 		cdf.setNumeroLegajo(dto.getNumeroLegajo());
 		cdf.setActivo(dto.isActivo());
+		cdf.setEmpleado(dto.getEmpleado());
 		return cdf;
 	}
 
@@ -44,6 +45,7 @@ public class CargaDeFamiliaBuilder implements IBuilder<CargaDeFamilia, CargaDeFa
 		dto.setNumeroDocumento(model.getNumeroDocumento());
 		dto.setNumeroLegajo(model.getNumeroLegajo());
 		dto.setActivo(model.isActivo());
+		dto.setEmpleado(model.getEmpleado());
 		return dto;
 	}
 
@@ -65,6 +67,7 @@ public class CargaDeFamiliaBuilder implements IBuilder<CargaDeFamilia, CargaDeFa
 			dto.setNumeroDocumento(cdf.getNumeroDocumento());
 			dto.setNumeroLegajo(cdf.getNumeroLegajo());
 			dto.setActivo(cdf.isActivo());
+			dto.setEmpleado(cdf.getEmpleado());
 
 			listCdfDto.add(dto);
 		}
