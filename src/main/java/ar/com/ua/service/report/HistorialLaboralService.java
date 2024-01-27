@@ -22,7 +22,7 @@ public class HistorialLaboralService {
 	public List<HistorialLaboralResponseDTO> generar(HistorialLaboralDTO hlDto) {
 
 		List<String> resultado = this.hlRepository.reporte(hlDto.getPais(), hlDto.getIdDireccion(), hlDto.getEstado(),
-				hlDto.getFechaIngresoDesde(), hlDto.getFechaIngresoHasta());
+				hlDto.getFechaDesde(), hlDto.getFechaHasta());
 
 		return this.hlBuilder.listToDto(resultado);
 	}

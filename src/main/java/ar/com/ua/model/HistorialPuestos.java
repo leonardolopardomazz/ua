@@ -47,11 +47,11 @@ public class HistorialPuestos {
 	@JoinColumn(name = "cod_puesto", referencedColumnName = "id")
 	private Puesto codigoPuesto;
 
-	@Column(name = "fecha_ingreso_reconocida")
-	private Date fechaIngresoReconocida;
+	@Column(name = "fecha_inicio_puesto")
+	private Date fechaInicioPuesto;
 
-	@Column(name = "fecha_egreso")
-	private Date fechaEgreso;
+	@Column(name = "fecha_fin_puesto")
+	private Date fechaFinPuesto;
 
 	@Column(name = "activo")
 	private boolean activo;
@@ -120,20 +120,20 @@ public class HistorialPuestos {
 		this.codigoPuesto = codigoPuesto;
 	}
 
-	public Date getFechaIngresoReconocida() {
-		return fechaIngresoReconocida;
+	public Date getFechaInicioPuesto() {
+		return fechaInicioPuesto;
 	}
 
-	public void setFechaIngresoReconocida(Date fechaIngresoReconocida) {
-		this.fechaIngresoReconocida = fechaIngresoReconocida;
+	public void setFechaInicioPuesto(Date fechaInicioPuesto) {
+		this.fechaInicioPuesto = fechaInicioPuesto;
 	}
 
-	public Date getFechaEgreso() {
-		return fechaEgreso;
+	public Date getFechaFinPuesto() {
+		return fechaFinPuesto;
 	}
 
-	public void setFechaEgreso(Date fechaEgreso) {
-		this.fechaEgreso = fechaEgreso;
+	public void setFechaFinPuesto(Date fechaFinPuesto) {
+		this.fechaFinPuesto = fechaFinPuesto;
 	}
 
 	public boolean isActivo() {

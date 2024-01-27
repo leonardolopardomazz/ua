@@ -23,7 +23,7 @@ public class GenericoWrapper {
 		dto.setGeneracion(repository.descripcion(data.get(4)));
 		dto.setNacionalidad(repository.descripcion(data.get(5)));
 		dto.setGenero(repository.descripcion(data.get(6)));
-		dto.setTitle(repository.texto1(data.get(6)));
+		dto.setDenominacion(repository.texto1(data.get(6)));
 		dto.setCuil(data.get(7));
 		dto.setDni(data.get(8));
 		dto.setDomicilio(data.get(9));

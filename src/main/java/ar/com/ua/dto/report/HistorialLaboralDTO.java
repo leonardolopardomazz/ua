@@ -3,12 +3,12 @@ package ar.com.ua.dto.report;
 import java.util.List;
 
 public class HistorialLaboralDTO {
-	
+
 	private List<String> pais;
 	private String idDireccion;
 	private List<String> estado;
-	private String fechaIngresoDesde;
-	private String fechaIngresoHasta;
+	private String fechaDesde;
+	private String fechaHasta;
 
 	public List<String> getPais() {
 		return pais;
@@ -34,20 +34,20 @@ public class HistorialLaboralDTO {
 		this.estado = estado;
 	}
 
-	public String getFechaIngresoDesde() {
-		return fechaIngresoDesde;
+	public String getFechaDesde() {
+		return fechaDesde;
 	}
 
-	public void setFechaIngresoDesde(String fechaIngresoDesde) {
-		this.fechaIngresoDesde = fechaIngresoDesde;
+	public void setFechaDesde(String fechaDesde) {
+		this.fechaDesde = fechaDesde;
 	}
 
-	public String getFechaIngresoHasta() {
-		return fechaIngresoHasta;
+	public String getFechaHasta() {
+		return fechaHasta;
 	}
 
-	public void setFechaIngresoHasta(String fechaIngresoHasta) {
-		this.fechaIngresoHasta = fechaIngresoHasta;
+	public void setFechaHasta(String fechaHasta) {
+		this.fechaHasta = fechaHasta;
 	}
 
 }

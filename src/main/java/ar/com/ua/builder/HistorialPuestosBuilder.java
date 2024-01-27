@@ -21,8 +21,8 @@ public class HistorialPuestosBuilder implements IBuilder<HistorialPuestos, Histo
 		hp.setCodigoOficina(dto.getCodigoOficina());
 		hp.setCodigoPais(dto.getCodigoPais());
 		hp.setCodigoPuesto(dto.getCodigoPuesto());
-		hp.setFechaEgreso(dto.getFechaEgreso());
-		hp.setFechaIngresoReconocida(dto.getFechaIngresoReconocida());
+		hp.setFechaFinPuesto(dto.getFechaFinPuesto());
+		hp.setFechaInicioPuesto(dto.getFechaInicioPuesto());
 		hp.setNumeroLegajo(dto.getNumeroLegajo());
 		hp.setActivo(dto.isActivo());
 
@@ -39,18 +39,18 @@ public class HistorialPuestosBuilder implements IBuilder<HistorialPuestos, Histo
 		hpDto.setCodigoOficina(model.getCodigoOficina());
 		hpDto.setCodigoPais(model.getCodigoPais());
 		hpDto.setCodigoPuesto(model.getCodigoPuesto());
-		hpDto.setFechaEgreso(model.getFechaEgreso());
-		hpDto.setFechaIngresoReconocida(model.getFechaIngresoReconocida());
+		hpDto.setFechaFinPuesto(model.getFechaFinPuesto());
+		hpDto.setFechaInicioPuesto(model.getFechaInicioPuesto());
 		hpDto.setNumeroLegajo(model.getNumeroLegajo());
 		hpDto.setActivo(model.isActivo());
-		
+
 		return hpDto;
 	}
 
 	@Override
 	public List<HistorialPuestosDTO> modelListToDto(List<HistorialPuestos> list) {
 		List<HistorialPuestosDTO> listDto = new ArrayList<>();
-		
+
 		for (HistorialPuestos hp : list) {
 			HistorialPuestosDTO hpDto = new HistorialPuestosDTO();
 			hpDto.setId(hp.getId());
@@ -60,14 +60,14 @@ public class HistorialPuestosBuilder implements IBuilder<HistorialPuestos, Histo
 			hpDto.setCodigoOficina(hp.getCodigoOficina());
 			hpDto.setCodigoPais(hp.getCodigoPais());
 			hpDto.setCodigoPuesto(hp.getCodigoPuesto());
-			hpDto.setFechaEgreso(hp.getFechaEgreso());
-			hpDto.setFechaIngresoReconocida(hp.getFechaIngresoReconocida());
+			hpDto.setFechaFinPuesto(hp.getFechaFinPuesto());
+			hpDto.setFechaInicioPuesto(hp.getFechaInicioPuesto());
 			hpDto.setNumeroLegajo(hp.getNumeroLegajo());
 			hpDto.setActivo(hp.isActivo());
-			
+
 			listDto.add(hpDto);
 		}
-		
+
 		return listDto;
 	}
 

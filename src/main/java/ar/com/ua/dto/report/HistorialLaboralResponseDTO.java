@@ -6,8 +6,8 @@ public class HistorialLaboralResponseDTO {
 	private String apellido;
 	private String nombre;
 	private String puesto;
-	private String fechaIngreso;
-	private String fechaEgreso;
+	private String fechaInicioPuesto;
+	private String fechaFinPuesto;
 	private String direccion;
 
 	public String getNumeroLegajo() {
@@ -42,20 +42,20 @@ public class HistorialLaboralResponseDTO {
 		this.puesto = puesto;
 	}
 
-	public String getFechaIngreso() {
-		return fechaIngreso;
+	public String getFechaInicioPuesto() {
+		return fechaInicioPuesto;
 	}
 
-	public void setFechaIngreso(String fechaIngreso) {
-		this.fechaIngreso = fechaIngreso;
+	public void setFechaInicioPuesto(String fechaInicioPuesto) {
+		this.fechaInicioPuesto = fechaInicioPuesto;
 	}
 
-	public String getFechaEgreso() {
-		return fechaEgreso;
+	public String getFechaFinPuesto() {
+		return fechaFinPuesto;
 	}
 
-	public void setFechaEgreso(String fechaEgreso) {
-		this.fechaEgreso = fechaEgreso;
+	public void setFechaFinPuesto(String fechaFinPuesto) {
+		this.fechaFinPuesto = fechaFinPuesto;
 	}
 
 	public String getDireccion() {
