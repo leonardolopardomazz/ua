@@ -10,9 +10,7 @@ public class RolDTO {
 	private Long codigo;
 	private String descripcion;
 	private boolean activo;
-	
 	private List<Permiso> permisos;
-	
 	private List<Usuario> usuarios;
 
 	public Long getCodigo() {

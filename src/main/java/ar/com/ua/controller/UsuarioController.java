@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import ar.com.ua.builder.LoginResponseBuilder;
 import ar.com.ua.builder.UsuarioBuilder;
 import ar.com.ua.constant.CodigoRespuestaConstant;
 import ar.com.ua.constant.EndPointConstant;
@@ -63,17 +63,14 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 	@Autowired
 	private UsuarioBuilder usuarioBuilder;
 
-	@Autowired
-	private LoginResponseBuilder loginBuilder;
-
 	static Logger logger = Logger.getLogger(UsuarioController.class.getName());
-	
-	private HistoricoContrasena populateHistoricoContrasena (Usuario usuario) {
+
+	private HistoricoContrasena populateHistoricoContrasena(Usuario usuario) {
 		HistoricoContrasena hc = new HistoricoContrasena();
 		hc.setUsuario(usuario);
 		hc.setFechaCambioContrasena(new Date());
 		hc.setContrasena(usuario.getContrasena());
-		
+
 		return hc;
 	}
 
@@ -176,23 +173,22 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 			this.existeNumeroLegajo(dto);
 
 			final String contrasena = dto.getContrasena();
-
 			// Valida la contrasena ingresada con la regex proporcionada por seguridad
 			// informatica
 			if (!this.validarContrasenaConRegex(contrasena)) {
 				return this.manejoErrorGuardar(MensajeError.PATTERN_NO_VALID, tipoMetodoConstant);
 			}
-			
+
 			final Long numeroLegajo = dto.getNumeroLegajo();
 			Usuario usuarioByNumeroLegajo = this.usuarioService.findByNumeroLegajo(numeroLegajo);
 
-			if(usuarioByNumeroLegajo != null) {
+			if (usuarioByNumeroLegajo != null) {
 				// ERROR contrasena ya utilizadas
 				if (!noExisteEnHistoricoContrasena(usuarioAGuardar, contrasena)) {
 					return this.manejoErrorGuardar(MensajeError.REPEATED_PASSWORD, tipoMetodoConstant);
 				}
 			}
-			
+
 			Usuario usuarioGuardado = usuarioService.save(usuarioAGuardar);
 			UsuarioDTO usuarioDto = usuarioBuilder.modelToDto(usuarioGuardado);
 
@@ -208,11 +204,14 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 		}
 	}
 
+	/**
+	 * Genera una contrasena aleatoria
+	 * 
+	 * @return
+	 */
 	private String generateRandomPassword() {
-		String contrasena = "";
-
-		SeguridadContrasena sc = this.scService.findFirstByActivoTrueOrderByIdAsc();
-		String regla = sc.getRegla();
+		String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~`!@#$%^&*()-_=+[{]}\\|;:\'\",<.>/?";
+		String contrasena = RandomStringUtils.random(15, caracteres);
 		return contrasena;
 	}
 
@@ -375,7 +374,7 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 				// Verifico si la contrasena ingresada no existe en las ultimas 5 ingresadas
 				if (noExisteEnHistoricoContrasena(usuario, contrasena)) {
 					this.usuarioService.save(usuario);
-					
+
 					HistoricoContrasena hc = populateHistoricoContrasena(usuario);
 					this.hcService.save(hc);
 
@@ -391,6 +390,28 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 		} catch (Exception e) {
 			return this.manejoErrorCambiarContrasena(e.getMessage());
 		}
+	}
+
+	@GetMapping(value = "/resetear/{id}")
+	public ResponseDto resetearContrasena(@PathVariable Long id) {
+		try {
+			Optional<Usuario> value = this.usuarioService.findById(id);
+			if (value.isPresent()) {
+				Usuario usuario = value.get();
+				usuario.setContrasena(this.generateRandomPassword());
+
+				this.usuarioService.save(usuario);
+			}
+		} catch (Exception e) {
+			List<String> mensajesError = new ArrayList<String>();
+			mensajesError.add(e.getMessage());
+
+			return new ResponseErrorDto(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
+					CodigoRespuestaConstant.ERROR, mensajesError);
+		}
+
+		return new ResponseOKDto<LoginResponseDTO>(EndPointPathConstant.DESBLOQUEAR_USUARIO, TipoMetodoConstant.GET,
+				CodigoRespuestaConstant.OK, null);
 	}
 
 	@GetMapping(value = "/desbloquear/{id}")
@@ -415,7 +436,7 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 
 		} catch (Exception e) {
 			List<String> mensajesError = new ArrayList<String>();
-			mensajesError.add(MensajeError.ELEMENT_NOTFOUND_MESSAGE);
+			mensajesError.add(e.getMessage());
 
 			return new ResponseErrorDto(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
 					CodigoRespuestaConstant.ERROR, mensajesError);

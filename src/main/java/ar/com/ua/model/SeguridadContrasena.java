@@ -1,5 +1,6 @@
 package ar.com.ua.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import jakarta.persistence.Column;
@@ -11,7 +12,9 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "seguridad_contrasena")
-public class SeguridadContrasena {
+public class SeguridadContrasena extends Auditable implements Serializable {
+
+	private static final long serialVersionUID = -1000355770751538785L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

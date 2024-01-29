@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.com.ua.builder.CargaDeFamiliaBuilder;
+import ar.com.ua.commons.ManejoErrores;
 import ar.com.ua.constant.CodigoRespuestaConstant;
 import ar.com.ua.constant.EndPointConstant;
 import ar.com.ua.constant.EndPointPathConstant;
@@ -19,7 +20,6 @@ import ar.com.ua.constant.MensajeError;
 import ar.com.ua.constant.TipoMetodoConstant;
 import ar.com.ua.dto.CargaDeFamiliaDTO;
 import ar.com.ua.dto.response.ResponseDto;
-import ar.com.ua.dto.response.ResponseErrorDto;
 import ar.com.ua.dto.response.ResponseOKDto;
 import ar.com.ua.dto.response.ResponseOKListDto;
 import ar.com.ua.model.CargaDeFamilia;
@@ -36,7 +36,7 @@ public class CargaDeFamiliaController implements IABMController<CargaDeFamiliaDT
 	private CargaDeFamiliaBuilder cdfBuilder;
 
 	static Logger logger = Logger.getLogger(CargaDeFamiliaController.class.getName());
-	
+
 	private ResponseDto save(Long id, CargaDeFamiliaDTO dto, String tipoMetodoConstant) {
 		// Setteo el id para la actualizacion
 		dto.setId(id);
@@ -44,8 +44,6 @@ public class CargaDeFamiliaController implements IABMController<CargaDeFamiliaDT
 	}
 
 	private ResponseDto save(CargaDeFamiliaDTO dto, String tipoMetodoConstant) {
-		List<String> mensajesError = new ArrayList<String>();
-
 		try {
 			CargaDeFamilia cdf = cdfBuilder.dtoToModel(dto);
 			CargaDeFamilia cdfGuardada = cdfService.save(cdf);
@@ -53,11 +51,7 @@ public class CargaDeFamiliaController implements IABMController<CargaDeFamiliaDT
 			return new ResponseOKDto<CargaDeFamiliaDTO>(EndPointPathConstant.CARGA_DE_FAMILIA, tipoMetodoConstant,
 					CodigoRespuestaConstant.OK, cdfDto);
 		} catch (Exception e) {
-			String messageException = e.getMessage();
-			mensajesError.add(messageException);
-
-			return new ResponseErrorDto(EndPointPathConstant.CARGA_DE_FAMILIA, tipoMetodoConstant,
-					CodigoRespuestaConstant.ERROR, mensajesError);
+			return ManejoErrores.errorGenerico(EndPointPathConstant.CARGA_DE_FAMILIA, TipoMetodoConstant.GET, e.getMessage());
 		}
 	}
 
@@ -84,18 +78,13 @@ public class CargaDeFamiliaController implements IABMController<CargaDeFamiliaDT
 	 */
 	@Override
 	public ResponseDto deleteById(@PathVariable Long id) {
-		List<String> mensajesError = new ArrayList<String>();
-
 		try {
 			cdfService.deleteById(id);
 
 			return new ResponseOKDto<CargaDeFamiliaDTO>(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
 					CodigoRespuestaConstant.OK, null);
 		} catch (Exception e) {
-			String messageException = e.getMessage();
-			mensajesError.add(messageException);
-			return new ResponseErrorDto(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
-					CodigoRespuestaConstant.ERROR, mensajesError);
+			return ManejoErrores.errorGenerico(EndPointConstant.DELETE, TipoMetodoConstant.DELETE, e.getMessage());
 		}
 	}
 
@@ -111,22 +100,14 @@ public class CargaDeFamiliaController implements IABMController<CargaDeFamiliaDT
 				return new ResponseOKDto<CargaDeFamiliaDTO>(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
 						CodigoRespuestaConstant.OK, cdfDto);
 			} else {
-				List<String> mensajesError = new ArrayList<String>();
-				mensajesError.add(MensajeError.ELEMENT_NOTFOUND_MESSAGE);
-
-				return new ResponseErrorDto(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
-						CodigoRespuestaConstant.ERROR, mensajesError);
+				return ManejoErrores.errorGenerico(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET, MensajeError.ELEMENT_NOTFOUND_MESSAGE);
 			}
 		} catch (Exception e) {
-			List<String> mensajesError = new ArrayList<String>();
-			String messageException = e.getMessage();
-			mensajesError.add(messageException);
-			return new ResponseErrorDto(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
-					CodigoRespuestaConstant.ERROR, mensajesError);
+			return ManejoErrores.errorGenerico(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET, e.getMessage());
 		}
 	}
 
-	//FIXME ver filtros
+	// FIXME ver filtros
 	@Override
 	public ResponseDto findAny(Map<String, String> params) {
 		// TODO Auto-generated method stub
@@ -147,11 +128,7 @@ public class CargaDeFamiliaController implements IABMController<CargaDeFamiliaDT
 					CodigoRespuestaConstant.OK, cdfDto);
 
 		} catch (Exception e) {
-			String messageException = e.getMessage();
-			List<String> mensajes = new ArrayList<>();
-			mensajes.add(messageException);
-			return new ResponseErrorDto(EndPointConstant.FIND_ALL, TipoMetodoConstant.GET,
-					CodigoRespuestaConstant.ERROR, mensajes);
+			return ManejoErrores.errorGenerico(EndPointConstant.FIND_ALL, TipoMetodoConstant.GET, e.getMessage());
 		}
 	}
 

@@ -7,13 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ar.com.ua.commons.ManejoErrores;
 import ar.com.ua.constant.CodigoRespuestaConstant;
 import ar.com.ua.constant.EndPointPathConstant;
+import ar.com.ua.constant.MensajeError;
+import ar.com.ua.constant.RolesConstant;
 import ar.com.ua.constant.TipoMetodoConstant;
 import ar.com.ua.dto.report.HistorialLaboralDTO;
 import ar.com.ua.dto.report.HistorialLaboralResponseDTO;
 import ar.com.ua.dto.response.ResponseDto;
-import ar.com.ua.dto.response.ResponseErrorDto;
 import ar.com.ua.dto.response.ResponseOKListDto;
 import ar.com.ua.service.report.HistorialLaboralService;
 
@@ -24,21 +26,30 @@ public class HistorialLaboralController implements IReport<HistorialLaboralDTO> 
 	@Autowired
 	private HistorialLaboralService hlService;
 
+	@Autowired
+	private AccesoReporte accesoReporte;
+
 	@Override
 	public ResponseDto generar(HistorialLaboralDTO dto) {
-		try {
-			List<HistorialLaboralResponseDTO> hlDto = this.hlService.generar(dto);
 
-			return new ResponseOKListDto<HistorialLaboralResponseDTO>(EndPointPathConstant.HISTORIAL_LABORAL,
-					TipoMetodoConstant.GET, CodigoRespuestaConstant.OK, hlDto);
+		List<HistorialLaboralResponseDTO> hlDto = new ArrayList<>();
+
+		try {
+			// Chequeo de acceso al reporte
+			boolean tieneAcceso = this.accesoReporte.deteminarAccesoAlRecurso(
+					EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO, TipoMetodoConstant.POST, RolesConstant.ROL_REPORTES_RRHH);
+
+			if (!tieneAcceso) {
+				return ManejoErrores.errorGenerico(EndPointPathConstant.HISTORIAL_LABORAL,
+						TipoMetodoConstant.POST, MensajeError.ACCESS_DENIED);
+			}
+
+			hlDto = this.hlService.generar(dto);
 
 		} catch (Exception e) {
-			List<String> mensajesError = new ArrayList<String>();
-			String messageException = e.getMessage();
-			mensajesError.add(messageException);
-
-			return new ResponseErrorDto(EndPointPathConstant.HISTORIAL_LABORAL, TipoMetodoConstant.GET,
-					CodigoRespuestaConstant.ERROR, mensajesError);
+			ManejoErrores.errorGenerico(EndPointPathConstant.HISTORIAL_LABORAL, TipoMetodoConstant.POST, e.getMessage());
 		}
+		return new ResponseOKListDto<HistorialLaboralResponseDTO>(EndPointPathConstant.HISTORIAL_LABORAL,
+				TipoMetodoConstant.GET, CodigoRespuestaConstant.OK, hlDto);
 	}
 }

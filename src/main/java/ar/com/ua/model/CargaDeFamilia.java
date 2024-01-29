@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "cargas_de_familia")
-public class CargaDeFamilia {
+public class CargaDeFamilia extends Auditable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,7 +45,7 @@ public class CargaDeFamilia {
 
 	@Column(name = "activo")
 	private boolean activo;
-
+	
 	public Long getId() {
 		return id;
 	}

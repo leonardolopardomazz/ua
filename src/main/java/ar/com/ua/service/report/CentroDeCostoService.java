@@ -19,12 +19,16 @@ public class CentroDeCostoService {
 	@Autowired
 	private CentroDeCostoRepository cdcRepository;
 
-	public List<CentroDeCostoResponseDTO>generar(CentroDeCostoDTO dto) {
+	public List<CentroDeCostoResponseDTO> generar(CentroDeCostoDTO dto) {
 
-		List<String> resultado = this.cdcRepository.reporte(dto.getIdCentroDeCosto(),
-				dto.getEstado(), dto.getIdDireccion());
-		
-		return this.cdcBuilder.listToDto(resultado);
+		try {
+			List<String> resultado = this.cdcRepository.reporte(dto.getIdCentroDeCosto(), dto.getEstado(),
+					dto.getIdDireccion());
+
+			return this.cdcBuilder.listToDto(resultado);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 }

@@ -18,12 +18,17 @@ public class LicenciasService {
 
 	@Autowired
 	private LicenciasRepository repository;
-
+	
 	public List<LicenciasResponseDTO>generar(LicenciasDTO dto) {
-
-		List<String> resultado = this.repository.reporte(dto.getEstadoEmpleado(),dto.getPais(),dto.getDireccion(),dto.getEstadoLicencia());
 		
-		return this.builder.listToDto(resultado);
+		try {
+			List<String> resultado = this.repository.reporte(dto.getEstadoEmpleado(),dto.getPais(),dto.getDireccion(),dto.getEstadoLicencia());
+			
+			return this.builder.listToDto(resultado);
+			
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 }

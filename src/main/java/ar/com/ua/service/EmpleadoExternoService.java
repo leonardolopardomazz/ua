@@ -9,5 +9,4 @@ public interface EmpleadoExternoService extends JpaRepository<EmpleadoExterno, L
 	
 	@Query(value = "SELECT MAX(eext.numeroLegajo) FROM EmpleadoExterno eext")
 	public String findMaxNumeroLegajo();
-
 }

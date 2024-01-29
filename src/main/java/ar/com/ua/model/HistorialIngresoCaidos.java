@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "historial_de_ingresos_caidos")
-public class HistorialIngresoCaidos {
+public class HistorialIngresoCaidos extends Auditable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

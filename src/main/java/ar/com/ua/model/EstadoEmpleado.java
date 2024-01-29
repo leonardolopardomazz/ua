@@ -1,6 +1,6 @@
 package ar.com.ua.model;
 
-public class EstadoEmpleado {
+public class EstadoEmpleado extends Auditable {
 	
 	private Integer codigo;
 	private String descripcion;

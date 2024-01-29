@@ -8,13 +8,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ar.com.ua.commons.ManejoErrores;
 import ar.com.ua.constant.CodigoRespuestaConstant;
 import ar.com.ua.constant.EndPointPathConstant;
+import ar.com.ua.constant.MensajeError;
+import ar.com.ua.constant.RolesConstant;
 import ar.com.ua.constant.TipoMetodoConstant;
 import ar.com.ua.dto.report.VueltaAlColegioDTO;
 import ar.com.ua.dto.report.VueltaAlColegioResponseDTO;
 import ar.com.ua.dto.response.ResponseDto;
-import ar.com.ua.dto.response.ResponseErrorDto;
 import ar.com.ua.dto.response.ResponseOKListDto;
 import ar.com.ua.service.report.VueltaAlColegioService;
 
@@ -25,23 +27,32 @@ public class VueltaAlColegioController implements IReport<VueltaAlColegioDTO> {
 	@Autowired
 	private VueltaAlColegioService reporteService;
 
+	@Autowired
+	private AccesoReporte accesoReporte;
+
 	@Override
 	public ResponseDto generar(@RequestBody VueltaAlColegioDTO dto) {
+		List<VueltaAlColegioResponseDTO> vacDto = new ArrayList<>();
 
 		try {
-			List<VueltaAlColegioResponseDTO> vacDto = this.reporteService.generar(dto);
+			// Chequeo de acceso al reporte
+			boolean tieneAcceso = this.accesoReporte.deteminarAccesoAlRecurso(
+					EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO, TipoMetodoConstant.POST, RolesConstant.ROL_REPORTES_RRHH);
 
-			return new ResponseOKListDto<VueltaAlColegioResponseDTO>(EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO,
-					TipoMetodoConstant.POST, CodigoRespuestaConstant.OK, vacDto);
+			if (!tieneAcceso) {
+				return ManejoErrores.errorGenerico(EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO,
+						TipoMetodoConstant.POST, MensajeError.ACCESS_DENIED);
+			}
+
+			vacDto = this.reporteService.generar(dto);
 
 		} catch (Exception e) {
-			List<String> mensajesError = new ArrayList<String>();
-			String messageException = e.getMessage();
-			mensajesError.add(messageException);
-
-			return new ResponseErrorDto(EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO, TipoMetodoConstant.POST,
-					CodigoRespuestaConstant.ERROR, mensajesError);
+			return ManejoErrores.errorGenerico(EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO, TipoMetodoConstant.POST,
+					e.getMessage());
 		}
+
+		return new ResponseOKListDto<VueltaAlColegioResponseDTO>(EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO,
+				TipoMetodoConstant.POST, CodigoRespuestaConstant.OK, vacDto);
 	}
 
 }

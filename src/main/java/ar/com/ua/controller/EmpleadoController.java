@@ -12,11 +12,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.com.ua.builder.EmpleadoBuilder;
+import ar.com.ua.commons.ManejoErrores;
+import ar.com.ua.commons.ManejoSesion;
 import ar.com.ua.constant.CodigoRespuestaConstant;
 import ar.com.ua.constant.EndPointConstant;
 import ar.com.ua.constant.EndPointPathConstant;
 import ar.com.ua.constant.MensajeError;
+import ar.com.ua.constant.RolesConstant;
 import ar.com.ua.constant.TipoMetodoConstant;
+import ar.com.ua.controller.report.AccesoReporte;
 import ar.com.ua.dto.EmpleadoDTO;
 import ar.com.ua.dto.response.ResponseDto;
 import ar.com.ua.dto.response.ResponseErrorDto;
@@ -24,6 +28,7 @@ import ar.com.ua.dto.response.ResponseOKDto;
 import ar.com.ua.dto.response.ResponseOKListDto;
 import ar.com.ua.model.Empleado;
 import ar.com.ua.service.EmpleadoService;
+import jakarta.servlet.http.HttpSession;
 
 @RequestMapping("/empleado")
 @RestController
@@ -35,6 +40,12 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 	@Autowired
 	private EmpleadoBuilder empleadoBuilder;
 
+	@Autowired
+	private ManejoSesion manejoSesion;
+	
+	@Autowired
+	private AccesoReporte accesoReporte;
+
 	static Logger logger = Logger.getLogger(EmpleadoController.class.getName());
 
 	private ResponseDto save(Long id, EmpleadoDTO dto, String tipoMetodoConstant) {
@@ -43,20 +54,20 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 	}
 
 	private ResponseDto save(EmpleadoDTO dto, String tipoMetodoConstant) {
-		List<String> mensajesError = new ArrayList<String>();
-
 		try {
+			Boolean existsNumeroLegajo = this.empleadoService.existsByNumeroLegajo(dto.getNumeroLegajo());
+			if (existsNumeroLegajo) {
+				return ManejoErrores.errorGenerico(EndPointPathConstant.EMPLEADO, tipoMetodoConstant,
+						MensajeError.REPITED_NUMERO_LEGAJO);
+			}
+
 			Empleado empleado = empleadoBuilder.dtoToModel(dto);
 			Empleado empleadoGuardado = empleadoService.save(empleado);
 			EmpleadoDTO eexternoDto = empleadoBuilder.modelToDto(empleadoGuardado);
 			return new ResponseOKDto<EmpleadoDTO>(EndPointPathConstant.EMPLEADO, tipoMetodoConstant,
 					CodigoRespuestaConstant.OK, eexternoDto);
 		} catch (Exception e) {
-			String messageException = e.getMessage();
-			mensajesError.add(messageException);
-
-			return new ResponseErrorDto(EndPointPathConstant.EMPLEADO, tipoMetodoConstant,
-					CodigoRespuestaConstant.ERROR, mensajesError);
+			return ManejoErrores.errorGenerico(EndPointPathConstant.EMPLEADO, tipoMetodoConstant, e.getMessage());
 		}
 	}
 
@@ -67,6 +78,15 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 	 */
 	@Override
 	public ResponseDto add(EmpleadoDTO dto) {
+		// Chequeo de acceso al reporte
+		boolean tieneAcceso = this.accesoReporte.deteminarAccesoAlRecurso(
+				EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO, TipoMetodoConstant.POST, RolesConstant.ROL_ADMINISTRADOR_EMPLEADOS);
+
+		if (!tieneAcceso) {
+			return ManejoErrores.errorGenerico(EndPointPathConstant.CENTRO_DE_COSTOS,
+					TipoMetodoConstant.POST, MensajeError.ACCESS_DENIED);
+		}
+		
 		return this.save(dto, TipoMetodoConstant.POST);
 	}
 
@@ -75,6 +95,16 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 	 */
 	@Override
 	public ResponseDto modify(@PathVariable Long id, EmpleadoDTO dto) {
+		// Chequeo de acceso al reporte
+		boolean tieneAcceso = this.accesoReporte.deteminarAccesoAlRecurso(
+				EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO, TipoMetodoConstant.POST, RolesConstant.ROL_ADMINISTRADOR_EMPLEADOS);
+
+		if (!tieneAcceso) {
+			return ManejoErrores.errorGenerico(EndPointPathConstant.CENTRO_DE_COSTOS,
+					TipoMetodoConstant.POST, MensajeError.ACCESS_DENIED);
+		}
+
+		
 		return this.save(id, dto, TipoMetodoConstant.PUT);
 	}
 
@@ -157,6 +187,10 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 	@Override
 	public ResponseDto findAll() {
 		try {
+
+			HttpSession httpSession = this.manejoSesion.getHttpSession();
+			httpSession.getAttribute("rolesUsuario");
+
 			// List
 			List<Empleado> empleado = (ArrayList<Empleado>) empleadoService.findAll();
 

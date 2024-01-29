@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "roles_usuarios")
-public class RolUsuario {
+public class RolUsuario extends Auditable {
 
 	@Id
 	@Column(name = "cod_rol", unique = true, nullable = false)

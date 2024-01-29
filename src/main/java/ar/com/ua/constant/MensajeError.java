@@ -10,4 +10,7 @@ public class MensajeError {
 	public static final String PATTERN_NO_VALID = "La contrasena no cumple las normas de seguridad";
 	public static final String CANT_SAVE_USER = "El usuario no pudo ser guardado";
 	public static final String IS_FIRST_ACCESS = "Primer acceso del usuario";
+	public static final String ACCESS_DENIED = "Acceso denegado. El usuario no tiene permisos para acceder al reporte";
+	public static final String EXPIRE_PASSWORD = "Acceso denegado. El usuario no tiene permisos para acceder al reporte";
+	public static final String REPITED_NUMERO_LEGAJO = "El numero de legajo fue asignado a otro empleado";
 }

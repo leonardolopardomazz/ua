@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.com.ua.builder.LoginResponseBuilder;
+import ar.com.ua.commons.ManejoErrores;
+import ar.com.ua.commons.ManejoFechas;
+import ar.com.ua.commons.ManejoSesion;
 import ar.com.ua.constant.CodigoRespuestaConstant;
 import ar.com.ua.constant.EndPointConstant;
 import ar.com.ua.constant.EndPointPathConstant;
@@ -22,13 +25,14 @@ import ar.com.ua.constant.TipoMetodoConstant;
 import ar.com.ua.dto.LoginResponseDTO;
 import ar.com.ua.dto.UsuarioDTO;
 import ar.com.ua.dto.response.ResponseDto;
-import ar.com.ua.dto.response.ResponseErrorDto;
 import ar.com.ua.dto.response.ResponseOKDto;
 import ar.com.ua.model.Login;
+import ar.com.ua.model.Rol;
 import ar.com.ua.model.Usuario;
 import ar.com.ua.service.LoginService;
 import ar.com.ua.service.ParametrosSeguridadContrasenaService;
 import ar.com.ua.service.UsuarioService;
+import jakarta.servlet.http.HttpSession;
 
 @RequestMapping("/login")
 @RestController
@@ -42,6 +46,9 @@ public class LoginController {
 
 	@Autowired
 	private ParametrosSeguridadContrasenaService pscService;
+
+	@Autowired
+	private ManejoSesion manejoSesion;
 
 	@Autowired
 	private LoginResponseBuilder loginBuilder;
@@ -83,6 +90,16 @@ public class LoginController {
 		}
 	}
 
+	private boolean determinarVencioElPlazoContrasena(String fechaUltimoCambioContrasena) {
+		int diasPasados = ManejoFechas.calcularDiferenciaEnDiasHastaHoy(fechaUltimoCambioContrasena);
+		int diasValidezContrasena = this.pscService.findAll().get(0).getDiasValidezContrasena();
+
+		if (diasPasados > diasValidezContrasena) {
+			return true;
+		}
+		return false;
+	}
+
 	/**
 	 * Determina que objeto Login sera guardado en la tabla Login, basandose en la
 	 * existencia del nombreUsuario y contrasena
@@ -113,42 +130,66 @@ public class LoginController {
 		return loginAGuardar;
 	}
 
-	private ResponseErrorDto manejoErrorLogin(String message) {
-		List<String> mensajesError = new ArrayList<String>();
-		String messageException = message;
-		mensajesError.add(messageException);
-		return new ResponseErrorDto(EndPointPathConstant.LOGIN, TipoMetodoConstant.POST, CodigoRespuestaConstant.ERROR,
-				mensajesError);
+	/**
+	 * Guarda los roles dado un usuario en la session
+	 * 
+	 * @param usuario
+	 * @return
+	 */
+	private void setFieldsInSession(Usuario usuario) {
+		List<String> listRoles = new ArrayList<>();
+		for (Rol rol : usuario.getRoles()) {
+			listRoles.add(rol.getDescripcion());
+		}
+
+		HttpSession httpSession = this.manejoSesion.getHttpSession();
+		this.manejoSesion.setAttributte(httpSession, "nombreUsuario", usuario.getNombreUsuario());
+		this.manejoSesion.setAttributte(httpSession, "rolesUsuario", listRoles);
 	}
 
+	// @PreAuthorize
 	@PostMapping(value = "")
 	public ResponseDto login(@RequestBody UsuarioDTO dto) {
 		try {
-
 			final String nombreUsuario = dto.getNombreUsuario();
 			final String contrasena = dto.getContrasena();
 
 			// No existe un usuario con el nombreUsuario
 			if (!this.usuarioService.existsByNombreUsuario(nombreUsuario)) {
-				return this.manejoErrorLogin(MensajeError.USER_NOT_FOUND);
+				return ManejoErrores.errorGenerico(EndPointPathConstant.LOGIN, TipoMetodoConstant.POST,
+						MensajeError.USER_NOT_FOUND);
 			}
 
 			Usuario usuario = this.usuarioService.findByNombreUsuario(nombreUsuario);
 
 			if (usuario != null) {
+
+				// Guarda los roles del usuario en la session
+				this.setFieldsInSession(usuario);
+
 				Login loginPrimerAcceso = this.loginService
 						.findFirstByUsuarioAndPrimerAccesoTrueOrderByFechaReseteoContrasenaDesc(usuario);
 
 				// Verifico si es el primer acceso del usuario sea por usuario nuevo o reinicio
 				// de contrasena.
-				if (loginPrimerAcceso != null) {
-					return this.manejoErrorLogin(MensajeError.IS_FIRST_ACCESS);
+				if (loginPrimerAcceso == null) {
+					return ManejoErrores.errorGenerico(EndPointPathConstant.LOGIN, TipoMetodoConstant.POST,
+							MensajeError.IS_FIRST_ACCESS);
+				}
+
+				if (loginPrimerAcceso.getFechaUltimoCambioContrasena() != null) {
+					String fechaUltimoCambioContrasena = loginPrimerAcceso.getFechaUltimoCambioContrasena().toString();
+					if (this.determinarVencioElPlazoContrasena(fechaUltimoCambioContrasena)) {
+						return ManejoErrores.errorGenerico(EndPointPathConstant.LOGIN, TipoMetodoConstant.POST,
+								MensajeError.EXPIRE_PASSWORD);
+					}
 				}
 			}
 
 			// Verifica si el usuario esta bloqueado
 			if (this.usuarioService.existsByNombreUsuarioAndBloqueadoTrue(nombreUsuario)) {
-				return this.manejoErrorLogin(MensajeError.USER_BLOCKED);
+				return ManejoErrores.errorGenerico(EndPointPathConstant.LOGIN, TipoMetodoConstant.POST,
+						MensajeError.USER_BLOCKED);
 			}
 
 			Login loginAGuardar = this.loginAGuardar(nombreUsuario, contrasena);
@@ -165,13 +206,8 @@ public class LoginController {
 					CodigoRespuestaConstant.OK, loginResponseDto);
 
 		} catch (Exception e) {
-			List<String> mensajesError = new ArrayList<String>();
-			String messageException = e.getMessage();
-			mensajesError.add(messageException);
-			return new ResponseErrorDto(EndPointConstant.ADD, TipoMetodoConstant.POST, CodigoRespuestaConstant.ERROR,
-					mensajesError);
+			return ManejoErrores.errorGenerico(EndPointConstant.ADD, TipoMetodoConstant.POST, e.getMessage());
 		}
-
 	}
 
 	@GetMapping(value = "primerlogin/{id}")

@@ -22,7 +22,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "usuarios")
 @SQLDelete(sql = "UPDATE usuarios SET fecha_baja = CURRENT_TIMESTAMP, activo = 0 WHERE id = ?")
-public class Usuario {
+public class Usuario extends Auditable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -9,8 +9,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "parametros_seguridad_contrasena")
-public class ParametrosSeguridadContrasena {
-
+public class ParametrosSeguridadContrasena extends Auditable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)

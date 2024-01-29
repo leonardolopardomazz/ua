@@ -12,11 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.com.ua.builder.ParametroBuilder;
+import ar.com.ua.commons.ManejoErrores;
 import ar.com.ua.constant.CodigoRespuestaConstant;
 import ar.com.ua.constant.EndPointConstant;
 import ar.com.ua.constant.EndPointPathConstant;
 import ar.com.ua.constant.MensajeError;
+import ar.com.ua.constant.RolesConstant;
 import ar.com.ua.constant.TipoMetodoConstant;
+import ar.com.ua.controller.report.AccesoReporte;
 import ar.com.ua.dto.ParametroDTO;
 import ar.com.ua.dto.response.ResponseDto;
 import ar.com.ua.dto.response.ResponseErrorDto;
@@ -34,6 +37,9 @@ public class ParametroController implements IABMController<ParametroDTO>, IListC
 
 	@Autowired
 	private ParametroBuilder parametroBuilder;
+	
+	@Autowired
+	private AccesoReporte accesoReporte;
 
 	static Logger logger = Logger.getLogger(ParametroController.class.getName());
 	
@@ -44,20 +50,25 @@ public class ParametroController implements IABMController<ParametroDTO>, IListC
 	}
 
 	private ResponseDto save(ParametroDTO dto, String tipoMetodoConstant) {
-		List<String> mensajesError = new ArrayList<String>();
 
 		try {
+			// Chequeo de acceso al reporte
+			boolean tieneAcceso = this.accesoReporte.deteminarAccesoAlRecurso(
+					EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO, TipoMetodoConstant.POST, RolesConstant.ROL_ADMINISTRADOR_EMPLEADOS);
+
+			if (!tieneAcceso) {
+				return ManejoErrores.errorGenerico(EndPointPathConstant.CENTRO_DE_COSTOS,
+						TipoMetodoConstant.POST, MensajeError.ACCESS_DENIED);
+			}
+			
 			Parametro parametro = parametroBuilder.dtoToModel(dto);
 			Parametro parametroGuardado = parametroService.save(parametro);
 			ParametroDTO parametroDto = parametroBuilder.modelToDto(parametroGuardado);
 			return new ResponseOKDto<ParametroDTO>(EndPointPathConstant.PARAMETRO, tipoMetodoConstant,
 					CodigoRespuestaConstant.OK, parametroDto);
 		} catch (Exception e) {
-			String messageException = e.getMessage();
-			mensajesError.add(messageException);
-
-			return new ResponseErrorDto(EndPointPathConstant.PARAMETRO, tipoMetodoConstant,
-					CodigoRespuestaConstant.ERROR, mensajesError);
+			return ManejoErrores.errorGenerico(EndPointPathConstant.PARAMETRO,
+					TipoMetodoConstant.POST, e.getMessage());
 		}
 	}
 

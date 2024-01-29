@@ -30,7 +30,7 @@ public class RolBuilder implements IBuilder<Rol, RolDTO> {
 		dto.setCodigo(model.getCodigo());
 		dto.setDescripcion(model.getDescripcion());
 		dto.setPermisos(model.getPermisos());
-		dto.setUsuarios(model.getUsuarios());
+		//dto.setUsuarios(model.getUsuarios());
 		
 		return dto;
 	}
