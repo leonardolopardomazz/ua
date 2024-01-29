@@ -45,7 +45,11 @@ public class CargaDeFamilia extends Auditable {
 
 	@Column(name = "activo")
 	private boolean activo;
-	
+
+	@OneToOne()
+	@JoinColumn(name = "id_empleado", referencedColumnName = "id")
+	private Empleado empleado;
+
 	public Long getId() {
 		return id;
 	}
@@ -116,6 +120,14 @@ public class CargaDeFamilia extends Auditable {
 
 	public void setActivo(boolean activo) {
 		this.activo = activo;
+	}
+
+	public Empleado getEmpleado() {
+		return empleado;
+	}
+
+	public void setEmpleado(Empleado empleado) {
+		this.empleado = empleado;
 	}
 
 }

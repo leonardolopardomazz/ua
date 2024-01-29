@@ -23,7 +23,7 @@ public class GenericoWrapper {
 		dto.setGeneracion(repository.descripcion(data.get(4)));
 		dto.setNacionalidad(repository.descripcion(data.get(5)));
 		dto.setGenero(repository.descripcion(data.get(6)));
-		dto.setTitle(repository.texto1(data.get(6)));
+		dto.setDenominacion(repository.texto1(data.get(6)));
 		dto.setCuil(data.get(7));
 		dto.setDni(data.get(8));
 		dto.setDomicilio(data.get(9));
@@ -36,7 +36,7 @@ public class GenericoWrapper {
 		dto.setFechaIngresoReconocida(data.get(16));
 		dto.setTipoContratacion(repository.descripcion(data.get(17)));
 		dto.setHorasSemanales(data.get(18));
-		dto.setFte(data.get(19));
+		dto.setFte(repository.texto2(data.get(19)));
 		dto.setFrecuenciaLiquidacion(repository.descripcion(data.get(20)));
 		dto.setTipoEmpleo(repository.descripcion(data.get(21)));
 		dto.setTipoJornada(repository.descripcion(data.get(22)));

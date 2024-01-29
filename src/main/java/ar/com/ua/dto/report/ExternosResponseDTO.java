@@ -8,7 +8,7 @@ public class ExternosResponseDTO {
 	private String codigoPais;
 	private String codigoProveedor;
 	private String codigoPuesto;
-	private String codigoJefatura;
+	private String departamento;
 	private String codigoDivision;
 	private String apellidoNombre;
 	private String manager;
@@ -67,12 +67,12 @@ public class ExternosResponseDTO {
 		this.codigoPuesto = codigoPuesto;
 	}
 
-	public String getCodigoJefatura() {
-		return codigoJefatura;
+	public String getDepartamento() {
+		return departamento;
 	}
 
-	public void setCodigoJefatura(String codigoJefatura) {
-		this.codigoJefatura = codigoJefatura;
+	public void setDepartamento(String departamento) {
+		this.departamento = departamento;
 	}
 
 	public String getCodigoDivision() {
@@ -122,7 +122,7 @@ public class ExternosResponseDTO {
 	public void setActivo(String activo) {
 		this.activo = activo;
 	}
-	
+
 	public String getFechaIngreso() {
 		return fechaIngreso;
 	}

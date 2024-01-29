@@ -26,7 +26,7 @@ public interface InternationalDataCollectionRepository extends JpaRepository<Emp
 			+ "emp.cod_genero, "
 			+ "pais.descripcion, "
 			+ "emp.email_laboral, "
-			+ "emp.fecha_ingreso, "
+			+ "emp.fecha_ingreso_reconocida, "
 			+ "emp.horas_semanales, "
 			+ "emp.fte, "
 			+ "emp.cod_frec_liquidacion, "
@@ -38,12 +38,17 @@ public interface InternationalDataCollectionRepository extends JpaRepository<Emp
 			+ "emp.cod_generacion, "
 			+ "emp.cod_division, "
 			+ "emp.cod_direccion, "
-			+ "emp.fecha_ingreso_reconocida "
+			+ "p.cod_gerencia, "
+			+ "emp.cod_oficina, "
+			+ "l.id AS id_licencia "
 			+ "FROM empleados emp JOIN pais ON emp.cod_pais = pais.id JOIN puesto p ON p.id = emp.cod_puesto "
+			+ "LEFT JOIN historial_de_licencias l ON emp.id = l.id_empleado AND l.fecha_inicio <= :fechaHasta AND l.fecha_fin >= :fechaHasta "
 			+ "LEFT JOIN puesto puesto_manager ON p.cod_puesto_al_que_reporta = puesto_manager.id "
 			+ "LEFT JOIN empleados manager ON manager.cod_puesto = puesto_manager.id "
-			+ "WHERE (:fechaDesde IS NULL OR emp.fecha_egreso IS NULL OR emp.fecha_egreso >= :fechaDesde) "
-			+ "   AND (:fechaHasta IS NULL OR emp.fecha_ingreso_reconocida <= :fechaHasta) ", nativeQuery = true)
-	List<String> reporte(@Param("fechaDesde") String fechaDesde, @Param("fechaHasta") String fechaHasta);
+			+ "WHERE "
+			+ " :fechaHasta IS NOT NULL "
+			+ " AND emp.fecha_ingreso_reconocida <= :fechaHasta "
+			+ " AND (emp.fecha_egreso >= :fechaHasta OR emp.fecha_egreso IS NULL) ", nativeQuery = true)
+	List<String> reporte(@Param("fechaHasta") String fechaHasta);
 
 }

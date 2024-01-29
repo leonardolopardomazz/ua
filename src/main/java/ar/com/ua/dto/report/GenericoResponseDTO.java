@@ -50,7 +50,7 @@ public class GenericoResponseDTO {
 	private String manager;
 	private String cargoManager;
 	private String cargasDeFamilia;
-	private String title;
+	private String denominacion;
 
 	public String getNumeroLegajo() {
 		return numeroLegajo;
@@ -436,12 +436,12 @@ public class GenericoResponseDTO {
 		this.cargasDeFamilia = cargasDeFamilia;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getDenominacion() {
+		return denominacion;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setDenominacion(String denominacion) {
+		this.denominacion = denominacion;
 	}
 
 }

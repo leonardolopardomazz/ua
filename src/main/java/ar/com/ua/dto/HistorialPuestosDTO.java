@@ -16,8 +16,8 @@ public class HistorialPuestosDTO {
 	private Parametro codigoGerencia;
 	private Parametro codigoJefatura;
 	private Puesto codigoPuesto;
-	private Date fechaIngresoReconocida;
-	private Date fechaEgreso;
+	private Date fechaInicioPuesto;
+	private Date fechaFinPuesto;
 	private boolean activo;
 
 	public Long getId() {
@@ -84,20 +84,20 @@ public class HistorialPuestosDTO {
 		this.codigoPuesto = codigoPuesto;
 	}
 
-	public Date getFechaIngresoReconocida() {
-		return fechaIngresoReconocida;
+	public Date getFechaInicioPuesto() {
+		return fechaInicioPuesto;
 	}
 
-	public void setFechaIngresoReconocida(Date fechaIngresoReconocida) {
-		this.fechaIngresoReconocida = fechaIngresoReconocida;
+	public void setFechaInicioPuesto(Date fechaInicioPuesto) {
+		this.fechaInicioPuesto = fechaInicioPuesto;
 	}
 
-	public Date getFechaEgreso() {
-		return fechaEgreso;
+	public Date getFechaFinPuesto() {
+		return fechaFinPuesto;
 	}
 
-	public void setFechaEgreso(Date fechaEgreso) {
-		this.fechaEgreso = fechaEgreso;
+	public void setFechaFinPuesto(Date fechaFinPuesto) {
+		this.fechaFinPuesto = fechaFinPuesto;
 	}
 
 	public boolean isActivo() {

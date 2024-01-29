@@ -31,7 +31,6 @@ public class RolBuilder implements IBuilder<Rol, RolDTO> {
 		dto.setDescripcion(model.getDescripcion());
 		dto.setPermisos(model.getPermisos());
 		//dto.setUsuarios(model.getUsuarios());
-		
 		return dto;
 	}
 
@@ -44,15 +43,15 @@ public class RolBuilder implements IBuilder<Rol, RolDTO> {
 			dto.setActivo(rol.isActivo());
 			dto.setCodigo(rol.getCodigo());
 			dto.setDescripcion(rol.getDescripcion());
-			
-			if(!rol.getPermisos().isEmpty()) {
+
+			if (!rol.getPermisos().isEmpty()) {
 				dto.setPermisos(rol.getPermisos());
 			}
-			
-			if(!rol.getUsuarios().isEmpty()) {
+
+			if (!rol.getUsuarios().isEmpty()) {
 				dto.setUsuarios(rol.getUsuarios());
 			}
-			
+
 			dtoList.add(dto);
 		}
 
