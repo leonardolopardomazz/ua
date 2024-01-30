@@ -1,5 +1,8 @@
 package ar.com.ua.wrapper.report;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +17,26 @@ public class GenericoWrapper {
 	@Autowired
 	private ParametrosRepository repository;
 
+	private int calcularEdad(String fecha) {
+		if (fecha == null)
+			return 0;
+		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+
+		LocalDate fechaNac = LocalDate.parse(fecha, fmt);
+		LocalDate ahora = LocalDate.now();
+
+		Period periodo = Period.between(fechaNac, ahora);
+
+		return periodo.getYears();
+	}
+
 	public GenericoResponseDTO result(List<String> data) {
 		GenericoResponseDTO dto = new GenericoResponseDTO();
 		dto.setNumeroLegajo(data.get(0));
 		dto.setNombres(data.get(1));
 		dto.setNombrePreferido(data.get(2));
 		dto.setFechaNacimiento(data.get(3));
+		dto.setEdad(String.valueOf(calcularEdad(data.get(3))));
 		dto.setGeneracion(repository.descripcion(data.get(4)));
 		dto.setNacionalidad(repository.descripcion(data.get(5)));
 		dto.setGenero(repository.descripcion(data.get(6)));
