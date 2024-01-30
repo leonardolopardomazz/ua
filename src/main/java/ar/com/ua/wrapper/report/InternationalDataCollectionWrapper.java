@@ -20,7 +20,6 @@ public class InternationalDataCollectionWrapper {
 	private int calcularEdad(String fecha) {
 		if (fecha == null)
 			return 0;
-		System.out.println("Fecha=" + fecha);
 		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
 
 		LocalDate fechaNac = LocalDate.parse(fecha, fmt);
@@ -69,6 +68,7 @@ public class InternationalDataCollectionWrapper {
 		dto.setDepartment(repository.descripcion(data.get(23)));
 		dto.setOficina(repository.descripcion(data.get(25)));
 		dto.setActive(String.valueOf("null".equals(data.get(26))));
+		dto.setCategoria(repository.descripcion(data.get(27)));
 		return dto;
 	}
 
