@@ -36,6 +36,7 @@ public class UsuarioBuilder implements IBuilder<Usuario, UsuarioDTO> {
 		dto.setFechaBaja(model.getFechaBaja());
 		dto.setId(model.getId());
 		dto.setNombreUsuario(model.getNombreUsuario());
+		dto.setContrasena(model.getContrasena());
 		dto.setNumeroLegajo(model.getNumeroLegajo());
 		dto.setRoles(model.getRoles());
 		

@@ -162,28 +162,19 @@ public class LoginController {
 
 			Usuario usuario = this.usuarioService.findByNombreUsuario(nombreUsuario);
 
-			if (usuario != null) {
+			// Guarda los roles del usuario en la session
+			this.setFieldsInSession(usuario);
 
-				// Guarda los roles del usuario en la session
-				this.setFieldsInSession(usuario);
+			Login loginPrimerAcceso = this.loginService
+					.findFirstByUsuarioAndPrimerAccesoTrueOrderByFechaReseteoContrasenaDesc(usuario);
 
-				Login loginPrimerAcceso = this.loginService
-						.findFirstByUsuarioAndPrimerAccesoTrueOrderByFechaReseteoContrasenaDesc(usuario);
+			// Verifico si es el primer acceso del usuario sea por usuario nuevo o reinicio
+			// de contrasena.
+			if (loginPrimerAcceso != null) {
+				LoginResponseDTO loginResponseDto = loginBuilder.loginToLoginResponse(loginPrimerAcceso);
 
-				// Verifico si es el primer acceso del usuario sea por usuario nuevo o reinicio
-				// de contrasena.
-				if (loginPrimerAcceso == null) {
-					return ManejoErrores.errorGenerico(EndPointPathConstant.LOGIN, TipoMetodoConstant.POST,
-							MensajeError.IS_FIRST_ACCESS);
-				}
-
-				if (loginPrimerAcceso.getFechaUltimoCambioContrasena() != null) {
-					String fechaUltimoCambioContrasena = loginPrimerAcceso.getFechaUltimoCambioContrasena().toString();
-					if (this.determinarVencioElPlazoContrasena(fechaUltimoCambioContrasena)) {
-						return ManejoErrores.errorGenerico(EndPointPathConstant.LOGIN, TipoMetodoConstant.POST,
-								MensajeError.EXPIRE_PASSWORD);
-					}
-				}
+				return new ResponseOKDto<LoginResponseDTO>(EndPointPathConstant.LOGIN, TipoMetodoConstant.POST,
+						CodigoRespuestaConstant.OK, loginResponseDto);
 			}
 
 			// Verifica si el usuario esta bloqueado
@@ -193,6 +184,15 @@ public class LoginController {
 			}
 
 			Login loginAGuardar = this.loginAGuardar(nombreUsuario, contrasena);
+			
+			//Valida la fecha de expiracion de la contrasena
+			if (loginAGuardar.getFechaUltimoCambioContrasena() != null) {
+				String fechaUltimoCambioContrasena = loginAGuardar.getFechaUltimoCambioContrasena().toString();
+				if (this.determinarVencioElPlazoContrasena(fechaUltimoCambioContrasena)) {
+					return ManejoErrores.errorGenerico(EndPointPathConstant.LOGIN, TipoMetodoConstant.POST,
+							MensajeError.EXPIRE_PASSWORD);
+				}
+			}
 
 			// Guardo en la tabla Login
 			Login loginGuardado = this.loginService.save(loginAGuardar);

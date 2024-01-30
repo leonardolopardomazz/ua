@@ -20,12 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.com.ua.builder.UsuarioBuilder;
+import ar.com.ua.commons.ManejoErrores;
 import ar.com.ua.constant.CodigoRespuestaConstant;
 import ar.com.ua.constant.EndPointConstant;
 import ar.com.ua.constant.EndPointPathConstant;
 import ar.com.ua.constant.MensajeError;
 import ar.com.ua.constant.TipoMetodoConstant;
-import ar.com.ua.dto.LoginResponseDTO;
 import ar.com.ua.dto.UsuarioDTO;
 import ar.com.ua.dto.response.ResponseDto;
 import ar.com.ua.dto.response.ResponseErrorDto;
@@ -155,7 +155,7 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 	private void existeNumeroLegajo(UsuarioDTO dto) throws Exception {
 		boolean existeNumeroLegajo = this.empleadoService.existsByNumeroLegajo(dto.getNumeroLegajo());
 		if (!existeNumeroLegajo) {
-			throw new Exception("El numero de legajo no existe en la tabla usuario");
+			throw new Exception("El numero de legajo no existe en la tabla empleado");
 		}
 	}
 
@@ -193,7 +193,7 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 			UsuarioDTO usuarioDto = usuarioBuilder.modelToDto(usuarioGuardado);
 
 			if (tipoMetodoConstant.equals(TipoMetodoConstant.POST)) {
-				this.marcarUsuarioPrimerIngreso(usuarioDto);
+				this.marcarUsuarioPrimerIngreso(usuarioGuardado);
 			}
 
 			return new ResponseOKDto<UsuarioDTO>(EndPointPathConstant.USUARIO, tipoMetodoConstant,
@@ -221,9 +221,8 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 	 * 
 	 * @param dto
 	 */
-	private void marcarUsuarioPrimerIngreso(UsuarioDTO dto) {
+	private void marcarUsuarioPrimerIngreso(Usuario usuario) {
 		try {
-			Usuario usuario = this.usuarioBuilder.dtoToModel(dto);
 			Login loginAGuardar = populateLogin(usuario);
 			this.loginService.save(loginAGuardar);
 		} catch (Exception e) {
@@ -238,7 +237,6 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 	 */
 	@Override
 	public ResponseDto add(UsuarioDTO dto) {
-
 		try {
 			return this.save(dto, TipoMetodoConstant.POST);
 		} catch (Exception e) {
@@ -271,11 +269,7 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 			return new ResponseOKDto<UsuarioDTO>(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
 					CodigoRespuestaConstant.OK, null);
 		} catch (Exception e) {
-			List<String> mensajesError = new ArrayList<String>();
-			String messageException = e.getMessage();
-			mensajesError.add(messageException);
-			return new ResponseErrorDto(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
-					CodigoRespuestaConstant.ERROR, mensajesError);
+			return ManejoErrores.errorGenerico(EndPointConstant.DELETE, TipoMetodoConstant.DELETE, e.getMessage());
 		}
 	}
 
@@ -291,18 +285,11 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 				return new ResponseOKDto<UsuarioDTO>(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
 						CodigoRespuestaConstant.OK, usuarioDto);
 			} else {
-				List<String> mensajesError = new ArrayList<String>();
-				mensajesError.add(MensajeError.ELEMENT_NOTFOUND_MESSAGE);
-
-				return new ResponseErrorDto(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
-						CodigoRespuestaConstant.ERROR, mensajesError);
+				return ManejoErrores.errorGenerico(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
+						MensajeError.ELEMENT_NOTFOUND_MESSAGE);
 			}
 		} catch (Exception e) {
-			List<String> mensajesError = new ArrayList<String>();
-			String messageException = e.getMessage();
-			mensajesError.add(messageException);
-			return new ResponseErrorDto(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
-					CodigoRespuestaConstant.ERROR, mensajesError);
+			return ManejoErrores.errorGenerico(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET, e.getMessage());
 		}
 	}
 
@@ -320,19 +307,12 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 				return new ResponseOKListDto<UsuarioDTO>(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
 						CodigoRespuestaConstant.OK, listUsuariosDto);
 			} else {
-				List<String> mensajesError = new ArrayList<String>();
-				mensajesError.add(MensajeError.ELEMENT_NOTFOUND_MESSAGE);
-
-				return new ResponseErrorDto(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
-						CodigoRespuestaConstant.ERROR, mensajesError);
+				return ManejoErrores.errorGenerico(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
+						MensajeError.ELEMENT_NOTFOUND_MESSAGE);
 			}
 
 		} catch (Exception e) {
-			List<String> mensajesError = new ArrayList<String>();
-			String messageException = e.getMessage();
-			mensajesError.add(messageException);
-			return new ResponseErrorDto(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET,
-					CodigoRespuestaConstant.ERROR, mensajesError);
+			return ManejoErrores.errorGenerico(EndPointConstant.FIND_ANY, TipoMetodoConstant.GET, e.getMessage());
 		}
 	}
 
@@ -350,11 +330,7 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 					CodigoRespuestaConstant.OK, usuariosDto);
 
 		} catch (Exception e) {
-			String messageException = e.getMessage();
-			List<String> mensajes = new ArrayList<>();
-			mensajes.add(messageException);
-			return new ResponseErrorDto(EndPointConstant.FIND_ALL, TipoMetodoConstant.GET,
-					CodigoRespuestaConstant.ERROR, mensajes);
+			return ManejoErrores.errorGenerico(EndPointConstant.FIND_ALL, TipoMetodoConstant.GET, e.getMessage());
 		}
 	}
 
@@ -377,13 +353,14 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 
 					HistoricoContrasena hc = populateHistoricoContrasena(usuario);
 					this.hcService.save(hc);
+					
+					UsuarioDTO usuarioDTO = this.usuarioBuilder.modelToDto(usuario);
 
-					return new ResponseOKDto<LoginResponseDTO>(EndPointPathConstant.CAMBIAR_CONTRASENA,
-							TipoMetodoConstant.PUT, CodigoRespuestaConstant.OK, null);
+					return new ResponseOKDto<UsuarioDTO>(EndPointPathConstant.CAMBIAR_CONTRASENA,
+							TipoMetodoConstant.PUT, CodigoRespuestaConstant.OK, usuarioDTO);
 				} else {
 					return this.manejoErrorCambiarContrasena(MensajeError.REPEATED_PASSWORD);
 				}
-
 			} else {
 				return this.manejoErrorCambiarContrasena(MensajeError.USER_NOT_FOUND);
 			}
@@ -394,24 +371,29 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 
 	@GetMapping(value = "/resetear/{id}")
 	public ResponseDto resetearContrasena(@PathVariable Long id) {
+
+		UsuarioDTO usuarioDTO = new UsuarioDTO();
+
 		try {
 			Optional<Usuario> value = this.usuarioService.findById(id);
 			if (value.isPresent()) {
 				Usuario usuario = value.get();
 				usuario.setContrasena(this.generateRandomPassword());
 
+				// Marco el usuario como primer acceso para que cambie la contrasena
+				this.marcarUsuarioPrimerIngreso(usuario);
+
+				// Convierto el usuario a dto
+				usuarioDTO = this.usuarioBuilder.modelToDto(usuario);
+
 				this.usuarioService.save(usuario);
 			}
 		} catch (Exception e) {
-			List<String> mensajesError = new ArrayList<String>();
-			mensajesError.add(e.getMessage());
-
-			return new ResponseErrorDto(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
-					CodigoRespuestaConstant.ERROR, mensajesError);
+			return ManejoErrores.errorGenerico(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET, e.getMessage());
 		}
 
-		return new ResponseOKDto<LoginResponseDTO>(EndPointPathConstant.DESBLOQUEAR_USUARIO, TipoMetodoConstant.GET,
-				CodigoRespuestaConstant.OK, null);
+		return new ResponseOKDto<UsuarioDTO>(EndPointPathConstant.DESBLOQUEAR_USUARIO, TipoMetodoConstant.GET,
+				CodigoRespuestaConstant.OK, usuarioDTO);
 	}
 
 	@GetMapping(value = "/desbloquear/{id}")
@@ -422,10 +404,17 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 				Usuario usuario = value.get();
 				usuario.setBloqueado(false);
 
+				// Marco el usuario como primer acceso para que cambie la contrasena
+				this.marcarUsuarioPrimerIngreso(usuario);
+
+				// Convierto el usuario a dto
+				UsuarioDTO usuarioDTO = this.usuarioBuilder.modelToDto(usuario);
+
+				// Guardo el usuario
 				this.usuarioService.save(usuario);
 
-				return new ResponseOKDto<LoginResponseDTO>(EndPointPathConstant.DESBLOQUEAR_USUARIO,
-						TipoMetodoConstant.GET, CodigoRespuestaConstant.OK, null);
+				return new ResponseOKDto<UsuarioDTO>(EndPointPathConstant.DESBLOQUEAR_USUARIO, TipoMetodoConstant.GET,
+						CodigoRespuestaConstant.OK, usuarioDTO);
 			} else {
 				List<String> mensajesError = new ArrayList<String>();
 				mensajesError.add(MensajeError.ELEMENT_NOTFOUND_MESSAGE);
@@ -433,13 +422,8 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 				return new ResponseErrorDto(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
 						CodigoRespuestaConstant.ERROR, mensajesError);
 			}
-
 		} catch (Exception e) {
-			List<String> mensajesError = new ArrayList<String>();
-			mensajesError.add(e.getMessage());
-
-			return new ResponseErrorDto(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
-					CodigoRespuestaConstant.ERROR, mensajesError);
+			return ManejoErrores.errorGenerico(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET, e.getMessage());
 		}
 	}
 
