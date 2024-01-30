@@ -14,6 +14,12 @@ public class ExternosWrapper {
 	@Autowired
 	private ParametrosRepository repository;
 
+	private String defaultString(String s, String def) {
+		if (s != null)
+			return s;
+		return def;
+	}
+
 	public ExternosResponseDTO result(List<String> data) {
 		ExternosResponseDTO dto = new ExternosResponseDTO();
 		dto.setNumeroLegajo(data.get(0));
@@ -25,8 +31,9 @@ public class ExternosWrapper {
 		dto.setDepartamento(repository.descripcion(data.get(6)));
 		dto.setCodigoDivision(repository.descripcion(data.get(7)));
 		dto.setApellidoNombre(data.get(8));
-		dto.setManager(repository.descripcion(data.get(9)) + ", " + repository.descripcion(data.get(10)) + ", "
-				+ repository.descripcion(data.get(11)));
+		dto.setManager(defaultString(repository.descripcion(data.get(9)), "")
+				+ ", " + defaultString(repository.descripcion(data.get(10)), "")
+				+ ", " + defaultString(repository.descripcion(data.get(11)), ""));
 		dto.setActivo(data.get(12));
 		dto.setFechaIngreso(data.get(13));
 		dto.setCodigoGenero(repository.descripcion(data.get(14)));
