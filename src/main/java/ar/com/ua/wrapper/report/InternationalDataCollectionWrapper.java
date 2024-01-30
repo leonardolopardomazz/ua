@@ -68,6 +68,7 @@ public class InternationalDataCollectionWrapper {
 		dto.setDepartment(repository.descripcion(data.get(23)));
 		dto.setOficina(repository.descripcion(data.get(25)));
 		dto.setActive(String.valueOf("null".equals(data.get(26))));
+		dto.setCategoria(repository.descripcion(data.get(27)));
 		return dto;
 	}
 
