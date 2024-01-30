@@ -61,7 +61,7 @@ public class InternationalDataCollectionWrapper {
 		dto.setAntiguedad(String.valueOf(calcularEdad(data.get(12))));
 		dto.setAge(String.valueOf(calcularEdad(data.get(8))));
 		dto.setGeneration(repository.descripcion(data.get(21)));
-		dto.setDivision(repository.descripcion(data.get(22)));
+		dto.setDivission(repository.descripcion(data.get(22)));
 		dto.setDireccion(repository.descripcion(data.get(23)));
 		dto.setGerencia(repository.descripcion(data.get(24)));
 		dto.setSubgerencia(null);

@@ -41,7 +41,7 @@ public interface GenericoRepository extends JpaRepository<Empleado, Long> {
 			+ "			emp.cod_oficina, "
 			+ "			emp.email_laboral, "
 			+ "			p.descripcion AS puesto, "
-			+ "			emp.cod_categoria_empleado, "
+			+ "			p.cod_categoria, "
 			+ "			emp.cod_direccion, "
 			+ "			p.cod_gerencia, "
 			+ "			p.cod_jefatura, "

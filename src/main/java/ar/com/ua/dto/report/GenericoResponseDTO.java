@@ -6,6 +6,7 @@ public class GenericoResponseDTO {
 	private String nombres;
 	private String nombrePreferido;
 	private String fechaNacimiento;
+	private String edad;
 	private String generacion;
 	private String nacionalidad;
 	private String genero;
@@ -82,6 +83,14 @@ public class GenericoResponseDTO {
 
 	public void setFechaNacimiento(String fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public String getEdad() {
+		return edad;
+	}
+
+	public void setEdad(String edad) {
+		this.edad = edad;
 	}
 
 	public String getGeneracion() {

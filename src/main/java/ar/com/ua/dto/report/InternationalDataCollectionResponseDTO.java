@@ -30,7 +30,7 @@ public class InternationalDataCollectionResponseDTO {
 	private String antiguedad;
 	private String age;
 	private String generation;
-	private String division;
+	private String divission;
 	private String direccion;
 	private String gerencia;
 	private String subgerencia;
@@ -263,12 +263,12 @@ public class InternationalDataCollectionResponseDTO {
 		this.generation = generation;
 	}
 
-	public String getDivision() {
-		return division;
+	public String getDivission() {
+		return divission;
 	}
 
-	public void setDivision(String division) {
-		this.division = division;
+	public void setDivission(String divission) {
+		this.divission = divission;
 	}
 
 	public String getDireccion() {
