@@ -1,5 +1,6 @@
 package ar.com.ua.repository.report;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -9,6 +10,7 @@ import ar.com.ua.model.Parametro;
 
 @Repository
 @Transactional(readOnly = true)
+@Cacheable
 public interface ParametrosRepository extends JpaRepository<Parametro, Long> {
 
 	@Query(value = "SELECT param.descripcion as descripcion "
