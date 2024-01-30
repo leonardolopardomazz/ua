@@ -10,7 +10,7 @@ import ar.com.ua.model.Parametro;
 
 @Repository
 @Transactional(readOnly = true)
-@Cacheable
+@Cacheable(value = "testCache")
 public interface ParametrosRepository extends JpaRepository<Parametro, Long> {
 
 	@Query(value = "SELECT param.descripcion as descripcion "
