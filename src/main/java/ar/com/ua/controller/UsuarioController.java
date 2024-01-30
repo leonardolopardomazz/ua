@@ -26,6 +26,7 @@ import ar.com.ua.constant.EndPointConstant;
 import ar.com.ua.constant.EndPointPathConstant;
 import ar.com.ua.constant.MensajeError;
 import ar.com.ua.constant.TipoMetodoConstant;
+import ar.com.ua.dto.ContrasenaDTO;
 import ar.com.ua.dto.UsuarioDTO;
 import ar.com.ua.dto.response.ResponseDto;
 import ar.com.ua.dto.response.ResponseErrorDto;
@@ -336,7 +337,7 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 
 	// Metodos para el caso de uso de Login
 
-	@PutMapping(value = "/cambiarContrasena/{id}")
+	@PutMapping(value = "/cambiarcontrasena/{id}")
 	public ResponseDto cambiarContrasena(@PathVariable Long id, @RequestBody UsuarioDTO dto) {
 		try {
 			final String contrasena = dto.getContrasena();
@@ -372,7 +373,7 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 	@GetMapping(value = "/resetear/{id}")
 	public ResponseDto resetearContrasena(@PathVariable Long id) {
 
-		UsuarioDTO usuarioDTO = new UsuarioDTO();
+		ContrasenaDTO contrasenaDTO = new ContrasenaDTO();
 
 		try {
 			Optional<Usuario> value = this.usuarioService.findById(id);
@@ -383,17 +384,17 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 				// Marco el usuario como primer acceso para que cambie la contrasena
 				this.marcarUsuarioPrimerIngreso(usuario);
 
-				// Convierto el usuario a dto
-				usuarioDTO = this.usuarioBuilder.modelToDto(usuario);
-
+				// Setteo la contrasena al DTO
+				contrasenaDTO.setContrasena(usuario.getContrasena());
+				
 				this.usuarioService.save(usuario);
 			}
 		} catch (Exception e) {
 			return ManejoErrores.errorGenerico(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET, e.getMessage());
 		}
 
-		return new ResponseOKDto<UsuarioDTO>(EndPointPathConstant.DESBLOQUEAR_USUARIO, TipoMetodoConstant.GET,
-				CodigoRespuestaConstant.OK, usuarioDTO);
+		return new ResponseOKDto<ContrasenaDTO>(EndPointPathConstant.DESBLOQUEAR_USUARIO, TipoMetodoConstant.GET,
+				CodigoRespuestaConstant.OK, contrasenaDTO);
 	}
 
 	@GetMapping(value = "/desbloquear/{id}")

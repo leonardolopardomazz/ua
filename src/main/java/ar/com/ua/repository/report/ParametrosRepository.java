@@ -6,9 +6,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.com.ua.model.Parametro;
+import jakarta.persistence.Cacheable;
 
 @Repository
 @Transactional(readOnly = true)
+@Cacheable
 public interface ParametrosRepository extends JpaRepository<Parametro, Long> {
 
 	@Query(value = "SELECT param.descripcion as descripcion "

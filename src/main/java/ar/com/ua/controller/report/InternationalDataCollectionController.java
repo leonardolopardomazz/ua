@@ -34,7 +34,7 @@ public class InternationalDataCollectionController implements IReport<Internatio
 		List<InternationalDataCollectionResponseDTO> idcDto = new ArrayList<>();
 
 		try {
-			// Chequeo de acceso al reporte
+			//Chequeo de acceso al reporte
 			boolean tieneAcceso = this.accesoReporte.deteminarAccesoAlRecurso(
 					EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO, TipoMetodoConstant.POST, RolesConstant.ROL_REPORTES_RRHH);
 

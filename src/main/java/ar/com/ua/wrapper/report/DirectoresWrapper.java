@@ -1,5 +1,6 @@
 package ar.com.ua.wrapper.report;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ public class DirectoresWrapper {
 		dto.setDescripcionCentroDeCostos(repository.descripcion(data.get(14)));
 		dto.setDescripcionConvenio(repository.descripcion(data.get(15)));
 		dto.setDescripcionManagerJefe(data.get(16));
+
 		return dto;
 	}
 }

@@ -1,15 +1,19 @@
 package ar.com.ua.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class LoginResponseDTO {
 
 	private String nombreUsuario;
+	private Long idUsuario;
 	private boolean bloqueado;
 	private int cantidadReintentos;
 	private Date fechaUltimoIntento;
 	private boolean primerAcceso;
 	private Date fechaReseteoContrasena;
+	private boolean pudoAcceder;
+	private List<String> roles;
 
 	public String getNombreUsuario() {
 		return nombreUsuario;
@@ -17,6 +21,14 @@ public class LoginResponseDTO {
 
 	public void setNombreUsuario(String nombreUsuario) {
 		this.nombreUsuario = nombreUsuario;
+	}
+
+	public Long getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 	public boolean isBloqueado() {
@@ -57,6 +69,22 @@ public class LoginResponseDTO {
 
 	public void setFechaReseteoContrasena(Date fechaReseteoContrasena) {
 		this.fechaReseteoContrasena = fechaReseteoContrasena;
+	}
+
+	public boolean isPudoAcceder() {
+		return pudoAcceder;
+	}
+
+	public void setPudoAcceder(boolean pudoAcceder) {
+		this.pudoAcceder = pudoAcceder;
+	}
+
+	public List<String> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
 	}
 
 }

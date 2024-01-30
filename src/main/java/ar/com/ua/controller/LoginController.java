@@ -59,7 +59,7 @@ public class LoginController {
 		login.setPrimerAcceso(false);
 		login.setUsuario(usuario);
 		login.setFechaUltimoIntento(new Date());
-
+		
 		return login;
 	}
 
@@ -117,7 +117,7 @@ public class LoginController {
 			loginAGuardar = this.populateLogin(usuario, 0);
 
 			// Existe un usuario con el nombreUsuario pero NO contrasena consultada
-		} else if ((this.usuarioService.existsByNombreUsuario(nombreUsuario))) {
+		} else if (this.usuarioService.existsByNombreUsuario(nombreUsuario)) {
 			Usuario usuario = this.usuarioService.findByNombreUsuario(nombreUsuario);
 			Login login = this.getLastLogin(usuario);
 
@@ -160,23 +160,6 @@ public class LoginController {
 						MensajeError.USER_NOT_FOUND);
 			}
 
-			Usuario usuario = this.usuarioService.findByNombreUsuario(nombreUsuario);
-
-			// Guarda los roles del usuario en la session
-			this.setFieldsInSession(usuario);
-
-			Login loginPrimerAcceso = this.loginService
-					.findFirstByUsuarioAndPrimerAccesoTrueOrderByFechaReseteoContrasenaDesc(usuario);
-
-			// Verifico si es el primer acceso del usuario sea por usuario nuevo o reinicio
-			// de contrasena.
-			if (loginPrimerAcceso != null) {
-				LoginResponseDTO loginResponseDto = loginBuilder.loginToLoginResponse(loginPrimerAcceso);
-
-				return new ResponseOKDto<LoginResponseDTO>(EndPointPathConstant.LOGIN, TipoMetodoConstant.POST,
-						CodigoRespuestaConstant.OK, loginResponseDto);
-			}
-
 			// Verifica si el usuario esta bloqueado
 			if (this.usuarioService.existsByNombreUsuarioAndBloqueadoTrue(nombreUsuario)) {
 				return ManejoErrores.errorGenerico(EndPointPathConstant.LOGIN, TipoMetodoConstant.POST,
@@ -193,6 +176,27 @@ public class LoginController {
 							MensajeError.EXPIRE_PASSWORD);
 				}
 			}
+			
+			Usuario usuario = loginAGuardar.getUsuario();
+			Login loginPrimerAcceso = this.loginService
+					.findFirstByUsuarioAndPrimerAccesoTrueOrderByFechaReseteoContrasenaDesc(usuario);
+
+			// Verifico si es el primer acceso del usuario sea por usuario nuevo o reinicio
+			// de contrasena.
+			if (loginPrimerAcceso != null) {
+				LoginResponseDTO loginResponseDto = loginBuilder.loginToLoginResponse(loginPrimerAcceso);
+				
+				if(!this.usuarioService.existsByNombreUsuarioAndContrasena(nombreUsuario, contrasena)) {
+					return ManejoErrores.errorGenerico(EndPointPathConstant.LOGIN, TipoMetodoConstant.POST,
+							MensajeError.USER_NOT_FOUND);
+				}
+
+				return new ResponseOKDto<LoginResponseDTO>(EndPointPathConstant.LOGIN, TipoMetodoConstant.POST,
+						CodigoRespuestaConstant.OK, loginResponseDto);
+			}
+			
+			// Guarda los roles del usuario en la session
+			this.setFieldsInSession(usuario);
 
 			// Guardo en la tabla Login
 			Login loginGuardado = this.loginService.save(loginAGuardar);
