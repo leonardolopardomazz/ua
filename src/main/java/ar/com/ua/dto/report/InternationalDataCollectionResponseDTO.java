@@ -37,7 +37,7 @@ public class InternationalDataCollectionResponseDTO {
 	private String jefatura;
 	private String oficina;
 	private String active;
-	private String categoria;
+	private String category;
 
 	public String getGlobalId() {
 		return globalId;
@@ -319,12 +319,12 @@ public class InternationalDataCollectionResponseDTO {
 		this.active = active;
 	}
 
-	public String getCategoria() {
-		return categoria;
+	public String getCategory() {
+		return category;
 	}
 
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 }
