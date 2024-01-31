@@ -178,6 +178,10 @@ public class LoginController {
 			}
 			
 			Usuario usuario = loginAGuardar.getUsuario();
+			
+			// Guarda los roles del usuario en la session
+			this.setFieldsInSession(usuario);
+			
 			Login loginPrimerAcceso = this.loginService
 					.findFirstByUsuarioAndPrimerAccesoTrueOrderByFechaReseteoContrasenaDesc(usuario);
 
@@ -195,8 +199,7 @@ public class LoginController {
 						CodigoRespuestaConstant.OK, loginResponseDto);
 			}
 			
-			// Guarda los roles del usuario en la session
-			this.setFieldsInSession(usuario);
+
 
 			// Guardo en la tabla Login
 			Login loginGuardado = this.loginService.save(loginAGuardar);
