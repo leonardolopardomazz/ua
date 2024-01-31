@@ -173,15 +173,35 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 			// Validacion existe Numero legajo en la tabla Empleado
 			this.existeNumeroLegajo(dto);
 
-			final String contrasena = dto.getContrasena();
-			// Valida la contrasena ingresada con la regex proporcionada por seguridad
-			// informatica
-			if (!this.validarContrasenaConRegex(contrasena)) {
-				return this.manejoErrorGuardar(MensajeError.PATTERN_NO_VALID, tipoMetodoConstant);
+			if (tipoMetodoConstant.equals(TipoMetodoConstant.PUT) && dto.getContrasena() != null) {
+				final String contrasena = dto.getContrasena();
+				// Valida la contrasena ingresada con la regex proporcionada por seguridad
+				// informatica
+				if (!this.validarContrasenaConRegex(contrasena)) {
+					return this.manejoErrorGuardar(MensajeError.PATTERN_NO_VALID, tipoMetodoConstant);
+				}
+			} else if (tipoMetodoConstant.equals(TipoMetodoConstant.PUT) && dto.getContrasena() == null) {
+				try {
+					Optional<Usuario> value = usuarioService.findById(dto.getId());
+					if (value.isPresent()) {
+						Usuario usuario = value.get();
+
+						usuarioAGuardar.setContrasena(usuario.getContrasena());
+					} else {
+						return ManejoErrores.errorGenerico(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
+								MensajeError.ELEMENT_NOTFOUND_MESSAGE);
+					}
+				} catch (Exception e) {
+					return ManejoErrores.errorGenerico(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET, e.getMessage());
+				}
+				
 			}
 
-			final Long numeroLegajo = dto.getNumeroLegajo();
-			Usuario usuarioByNumeroLegajo = this.usuarioService.findByNumeroLegajo(numeroLegajo);
+			
+			
+			
+//			final Long numeroLegajo = dto.getNumeroLegajo();
+//			Usuario usuarioByNumeroLegajo = this.usuarioService.findByNumeroLegajo(numeroLegajo);
 
 //			if (usuarioByNumeroLegajo != null) {
 //				// ERROR contrasena ya utilizadas
@@ -354,7 +374,7 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 
 					HistoricoContrasena hc = populateHistoricoContrasena(usuario);
 					this.hcService.save(hc);
-					
+
 					UsuarioDTO usuarioDTO = this.usuarioBuilder.modelToDto(usuario);
 
 					return new ResponseOKDto<UsuarioDTO>(EndPointPathConstant.CAMBIAR_CONTRASENA,
@@ -386,7 +406,7 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 
 				// Convierto el usuario a dto
 				contrasenaDTO.setContrasena(usuario.getContrasena());
-				
+
 				this.usuarioService.save(usuario);
 			}
 		} catch (Exception e) {
