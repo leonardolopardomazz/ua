@@ -183,12 +183,12 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 			final Long numeroLegajo = dto.getNumeroLegajo();
 			Usuario usuarioByNumeroLegajo = this.usuarioService.findByNumeroLegajo(numeroLegajo);
 
-			if (usuarioByNumeroLegajo != null) {
-				// ERROR contrasena ya utilizadas
-				if (!noExisteEnHistoricoContrasena(usuarioAGuardar, contrasena)) {
-					return this.manejoErrorGuardar(MensajeError.REPEATED_PASSWORD, tipoMetodoConstant);
-				}
-			}
+//			if (usuarioByNumeroLegajo != null) {
+//				// ERROR contrasena ya utilizadas
+//				if (!noExisteEnHistoricoContrasena(usuarioAGuardar, contrasena)) {
+//					return this.manejoErrorGuardar(MensajeError.REPEATED_PASSWORD, tipoMetodoConstant);
+//				}
+//			}
 
 			Usuario usuarioGuardado = usuarioService.save(usuarioAGuardar);
 			UsuarioDTO usuarioDto = usuarioBuilder.modelToDto(usuarioGuardado);
@@ -384,7 +384,7 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 				// Marco el usuario como primer acceso para que cambie la contrasena
 				this.marcarUsuarioPrimerIngreso(usuario);
 
-				// Setteo la contrasena al DTO
+				// Convierto el usuario a dto
 				contrasenaDTO.setContrasena(usuario.getContrasena());
 				
 				this.usuarioService.save(usuario);
