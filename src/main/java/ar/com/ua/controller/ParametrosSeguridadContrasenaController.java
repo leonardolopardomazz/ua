@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import ar.com.ua.builder.ParametrosSeguridadContrasenaBuilder;
 import ar.com.ua.constant.CodigoRespuestaConstant;
@@ -21,6 +23,8 @@ import ar.com.ua.dto.response.ResponseOKListDto;
 import ar.com.ua.model.ParametrosSeguridadContrasena;
 import ar.com.ua.service.ParametrosSeguridadContrasenaService;
 
+@RequestMapping("/parametrosseguridadcontrasena")
+@RestController
 public class ParametrosSeguridadContrasenaController
 		implements IABMController<ParametrosSeguridadContrasenaDTO>, IListController<ParametrosSeguridadContrasenaDTO> {
 
@@ -90,7 +94,8 @@ public class ParametrosSeguridadContrasenaController
 
 				ParametrosSeguridadContrasenaDTO pscDto = pscBuilder.modelToDto(psc);
 
-				return new ResponseOKDto<ParametrosSeguridadContrasenaDTO>(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
+				return new ResponseOKDto<ParametrosSeguridadContrasenaDTO>(EndPointConstant.FIND_ONE,
+						TipoMetodoConstant.GET,
 						CodigoRespuestaConstant.OK, pscDto);
 			} else {
 				List<String> mensajesError = new ArrayList<String>();
