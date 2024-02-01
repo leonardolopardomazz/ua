@@ -465,6 +465,8 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 				Usuario usuario = value.get();
 				usuario.setBloqueado(false);
 
+				usuario.setContrasena(this.generateRandomPassword());
+				
 				// Marco el usuario como primer acceso para que cambie la contrasena
 				this.marcarUsuarioPrimerIngreso(usuario);
 
