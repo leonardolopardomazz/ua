@@ -183,7 +183,7 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 				// Valida la contrasena ingresada con la regex proporcionada por seguridad
 				// informatica
 				if (!this.validarContrasenaConRegex(contrasena)) {
-					return this.manejoErrorGuardar(MensajeError.PATTERN_NO_VALID, tipoMetodoConstant);
+					return this.manejoErrorGuardar(MensajeError.PATTERN_NO_VALID, MensajeError.PATTERN_NO_VALID);
 				}
 			} else if (tipoMetodoConstant.equals(TipoMetodoConstant.PUT) && dto.getContrasena() == null) {
 				try {
@@ -396,6 +396,12 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 			if (value.isPresent()) {
 				Usuario usuario = value.get();
 				usuario.setContrasena(dto.getContrasena());
+				
+				// Valida la contrasena ingresada con la regex proporcionada por seguridad
+				// informatica
+				if (!this.validarContrasenaConRegex(contrasena)) {
+					return this.manejoErrorGuardar(MensajeError.PATTERN_NO_VALID, MensajeError.PATTERN_NO_VALID);
+				}
 
 				// Verifico si la contrasena ingresada no existe en las ultimas 5 ingresadas
 				if (noExisteEnHistoricoContrasena(usuario, contrasena)) {
