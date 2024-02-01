@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import ar.com.ua.model.Permiso;
 import ar.com.ua.model.Rol;
 import jakarta.servlet.http.HttpSession;
 
@@ -23,7 +24,11 @@ public class ManejoSesion {
 		httpSession.setAttribute(key, value);
 	}
 	
-	public void setAttributte (HttpSession httpSession, String key, List<Rol> roles) {
+	public void setAttributteRol (HttpSession httpSession, String key, List<Rol> roles) {
 		httpSession.setAttribute(key, roles);
+	}
+	
+	public void setAttributtePermisos (HttpSession httpSession, String key, List<Permiso> permisos) {
+		httpSession.setAttribute(key, permisos);
 	}
 }

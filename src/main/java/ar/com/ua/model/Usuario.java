@@ -39,10 +39,13 @@ public class Usuario extends Auditable {
 	@Column(name = "contrasena", nullable = false)
 	private String contrasena;
 
+	@Lazy
+	@JsonIgnore
 	@OneToMany(mappedBy = "usuario")
 	private List<HistoricoContrasena> historicoContrasena;
 
 	@Lazy
+	@JsonIgnore
 	@OneToMany(mappedBy = "usuario")
 	private List<Login> login;
 

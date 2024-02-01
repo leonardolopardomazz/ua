@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import ar.com.ua.dto.LoginResponseDTO;
 import ar.com.ua.model.Login;
+import ar.com.ua.model.Permiso;
 import ar.com.ua.model.Rol;
 import ar.com.ua.model.Usuario;
 
@@ -31,11 +32,21 @@ public class LoginResponseBuilder {
 			dto.setPudoAcceder(true);
 		}
 		
+		List<Rol> listRoles = usuario.getRoles();
+		
 		List<String> rolesDescripcion = new ArrayList<>();
-		for (Rol rol : usuario.getRoles()) {
+		for (Rol rol : listRoles) {
 			rolesDescripcion.add(rol.getDescripcion());
 		}
 		dto.setRoles(rolesDescripcion);
+		
+		List<String> permisosDescripcion = new ArrayList<>();
+		for (Rol rol : listRoles) {
+			for (Permiso permiso : rol.getPermisos()) {
+				permisosDescripcion.add(permiso.getDescripcion());
+			}
+		}
+		dto.setPermisos(permisosDescripcion);
 
 		return dto;
 	}

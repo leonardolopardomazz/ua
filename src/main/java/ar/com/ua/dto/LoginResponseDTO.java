@@ -14,6 +14,7 @@ public class LoginResponseDTO {
 	private Date fechaReseteoContrasena;
 	private boolean pudoAcceder;
 	private List<String> roles;
+	private List<String> permisos;
 
 	public String getNombreUsuario() {
 		return nombreUsuario;
@@ -85,6 +86,14 @@ public class LoginResponseDTO {
 
 	public void setRoles(List<String> roles) {
 		this.roles = roles;
+	}
+
+	public List<String> getPermisos() {
+		return permisos;
+	}
+
+	public void setPermisos(List<String> permisos) {
+		this.permisos = permisos;
 	}
 
 }

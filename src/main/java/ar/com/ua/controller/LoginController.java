@@ -1,6 +1,8 @@
 package ar.com.ua.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,8 @@ import ar.com.ua.dto.UsuarioDTO;
 import ar.com.ua.dto.response.ResponseDto;
 import ar.com.ua.dto.response.ResponseOKDto;
 import ar.com.ua.model.Login;
+import ar.com.ua.model.Permiso;
+import ar.com.ua.model.Rol;
 import ar.com.ua.model.Usuario;
 import ar.com.ua.service.LoginService;
 import ar.com.ua.service.ParametrosSeguridadContrasenaService;
@@ -56,7 +60,7 @@ public class LoginController {
 		login.setPrimerAcceso(false);
 		login.setUsuario(usuario);
 		login.setFechaUltimoIntento(new Date());
-		
+
 		return login;
 	}
 
@@ -136,7 +140,14 @@ public class LoginController {
 	private void setFieldsInSession(Usuario usuario) {
 		HttpSession httpSession = this.manejoSesion.getHttpSession();
 		this.manejoSesion.setAttributte(httpSession, "nombreUsuario", usuario.getNombreUsuario());
-		this.manejoSesion.setAttributte(httpSession, "rolesUsuario", usuario.getRoles());
+		this.manejoSesion.setAttributteRol(httpSession, "rolesUsuario", usuario.getRoles());
+
+		List<Permiso> permisos = new ArrayList<>();
+		for (Rol rol : usuario.getRoles()) {
+			permisos = rol.getPermisos();
+		}
+
+		this.manejoSesion.setAttributtePermisos(httpSession, "permisosUsuario", permisos);
 	}
 
 	// @PreAuthorize
@@ -159,8 +170,8 @@ public class LoginController {
 			}
 
 			Login loginAGuardar = this.loginAGuardar(nombreUsuario, contrasena);
-			
-			//Valida la fecha de expiracion de la contrasena
+
+			// Valida la fecha de expiracion de la contrasena
 			if (loginAGuardar.getFechaUltimoCambioContrasena() != null) {
 				String fechaUltimoCambioContrasena = loginAGuardar.getFechaUltimoCambioContrasena().toString();
 				if (this.determinarVencioElPlazoContrasena(fechaUltimoCambioContrasena)) {
@@ -168,12 +179,12 @@ public class LoginController {
 							MensajeError.EXPIRE_PASSWORD);
 				}
 			}
-			
+
 			Usuario usuario = loginAGuardar.getUsuario();
-			
+
 			// Guarda los roles del usuario en la session
 			this.setFieldsInSession(usuario);
-			
+
 			Login loginPrimerAcceso = this.loginService
 					.findFirstByUsuarioAndPrimerAccesoTrueOrderByFechaReseteoContrasenaDesc(usuario);
 
@@ -181,8 +192,8 @@ public class LoginController {
 			// de contrasena.
 			if (loginPrimerAcceso != null) {
 				LoginResponseDTO loginResponseDto = loginBuilder.loginToLoginResponse(loginPrimerAcceso);
-				
-				if(!this.usuarioService.existsByNombreUsuarioAndContrasena(nombreUsuario, contrasena)) {
+
+				if (!this.usuarioService.existsByNombreUsuarioAndContrasena(nombreUsuario, contrasena)) {
 					return ManejoErrores.errorGenerico(EndPointPathConstant.LOGIN, TipoMetodoConstant.POST,
 							MensajeError.USER_NOT_FOUND);
 				}
@@ -190,8 +201,6 @@ public class LoginController {
 				return new ResponseOKDto<LoginResponseDTO>(EndPointPathConstant.LOGIN, TipoMetodoConstant.POST,
 						CodigoRespuestaConstant.OK, loginResponseDto);
 			}
-			
-
 
 			// Guardo en la tabla Login
 			Login loginGuardado = this.loginService.save(loginAGuardar);
