@@ -8,4 +8,5 @@ import ar.com.ua.model.Usuario;
 public interface LoginService extends JpaRepository<Login, Long> {
 	Login findFirstByUsuarioOrderByFechaUltimoIntentoDesc(Usuario usuario);
 	Login findFirstByUsuarioAndPrimerAccesoTrueOrderByFechaReseteoContrasenaDesc(Usuario usuario);
+	Login findFirstByUsuarioAndPrimerAccesoFalseOrderByFechaReseteoContrasenaDesc(Usuario usuario);
 }

@@ -188,20 +188,25 @@ public class LoginController {
 			Login loginPrimerAcceso = this.loginService
 					.findFirstByUsuarioAndPrimerAccesoTrueOrderByFechaReseteoContrasenaDesc(usuario);
 
-			// Verifico si es el primer acceso del usuario sea por usuario nuevo o reinicio
-			// de contrasena.
-			if (loginPrimerAcceso != null) {
-				LoginResponseDTO loginResponseDto = loginBuilder.loginToLoginResponse(loginPrimerAcceso);
+			Login loginPosterior = this.loginService
+					.findFirstByUsuarioAndPrimerAccesoFalseOrderByFechaReseteoContrasenaDesc(usuario);
 
-				if (!this.usuarioService.existsByNombreUsuarioAndContrasena(nombreUsuario, contrasena)) {
-					return ManejoErrores.errorGenerico(EndPointPathConstant.LOGIN, TipoMetodoConstant.POST,
-							MensajeError.USER_NOT_FOUND);
+			if (loginPosterior == null) {
+				// Verifico si es el primer acceso del usuario sea por usuario nuevo o reinicio
+				// de contrasena.
+				if (loginPrimerAcceso != null) {
+					LoginResponseDTO loginResponseDto = loginBuilder.loginToLoginResponse(loginPrimerAcceso);
+
+					if (!this.usuarioService.existsByNombreUsuarioAndContrasena(nombreUsuario, contrasena)) {
+						return ManejoErrores.errorGenerico(EndPointPathConstant.LOGIN, TipoMetodoConstant.POST,
+								MensajeError.USER_NOT_FOUND);
+					}
+
+					return new ResponseOKDto<LoginResponseDTO>(EndPointPathConstant.LOGIN, TipoMetodoConstant.POST,
+							CodigoRespuestaConstant.OK, loginResponseDto);
 				}
-
-				return new ResponseOKDto<LoginResponseDTO>(EndPointPathConstant.LOGIN, TipoMetodoConstant.POST,
-						CodigoRespuestaConstant.OK, loginResponseDto);
 			}
-
+			
 			// Guardo en la tabla Login
 			Login loginGuardado = this.loginService.save(loginAGuardar);
 
