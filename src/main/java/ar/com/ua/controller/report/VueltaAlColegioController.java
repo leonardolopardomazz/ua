@@ -36,8 +36,7 @@ public class VueltaAlColegioController implements IReport<VueltaAlColegioDTO> {
 
 		try {
 			// Chequeo de acceso al reporte
-			boolean tieneAcceso = this.accesoReporte.deteminarAccesoAlRecurso(
-					EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO, TipoMetodoConstant.POST, RolesConstant.ROL_REPORTES_RRHH);
+			boolean tieneAcceso = this.accesoReporte.deteminarAccesoAlRecurso(RolesConstant.ROL_REPORTES_RRHH);
 
 			if (!tieneAcceso) {
 				return ManejoErrores.errorGenerico(EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO,

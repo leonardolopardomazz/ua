@@ -1,8 +1,6 @@
 package ar.com.ua.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +25,6 @@ import ar.com.ua.dto.UsuarioDTO;
 import ar.com.ua.dto.response.ResponseDto;
 import ar.com.ua.dto.response.ResponseOKDto;
 import ar.com.ua.model.Login;
-import ar.com.ua.model.Rol;
 import ar.com.ua.model.Usuario;
 import ar.com.ua.service.LoginService;
 import ar.com.ua.service.ParametrosSeguridadContrasenaService;
@@ -137,14 +134,9 @@ public class LoginController {
 	 * @return
 	 */
 	private void setFieldsInSession(Usuario usuario) {
-		List<String> listRoles = new ArrayList<>();
-		for (Rol rol : usuario.getRoles()) {
-			listRoles.add(rol.getDescripcion());
-		}
-
 		HttpSession httpSession = this.manejoSesion.getHttpSession();
 		this.manejoSesion.setAttributte(httpSession, "nombreUsuario", usuario.getNombreUsuario());
-		this.manejoSesion.setAttributte(httpSession, "rolesUsuario", listRoles);
+		this.manejoSesion.setAttributte(httpSession, "rolesUsuario", usuario.getRoles());
 	}
 
 	// @PreAuthorize

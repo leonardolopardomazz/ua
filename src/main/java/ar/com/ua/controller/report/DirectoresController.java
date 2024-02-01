@@ -36,7 +36,7 @@ public class DirectoresController implements IReport<DirectoresDTO> {
 		try {
 			// Chequeo de acceso al reporte
 			boolean tieneAcceso = this.accesoReporte.deteminarAccesoAlRecurso(
-					EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO, TipoMetodoConstant.POST, RolesConstant.ROL_REPORTES_RRHH);
+					RolesConstant.ROL_REPORTES_RRHH);
 
 			if (!tieneAcceso) {
 				return ManejoErrores.errorGenerico(EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO,

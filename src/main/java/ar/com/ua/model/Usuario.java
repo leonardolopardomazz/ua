@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.annotations.SQLDelete;
+import org.springframework.context.annotation.Lazy;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -41,6 +42,7 @@ public class Usuario extends Auditable {
 	@OneToMany(mappedBy = "usuario")
 	private List<HistoricoContrasena> historicoContrasena;
 
+	@Lazy
 	@OneToMany(mappedBy = "usuario")
 	private List<Login> login;
 

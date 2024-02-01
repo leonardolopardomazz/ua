@@ -17,9 +17,9 @@ import ar.com.ua.constant.CodigoRespuestaConstant;
 import ar.com.ua.constant.EndPointConstant;
 import ar.com.ua.constant.EndPointPathConstant;
 import ar.com.ua.constant.MensajeError;
-import ar.com.ua.constant.RolesConstant;
+import ar.com.ua.constant.PermisosConstant;
 import ar.com.ua.constant.TipoMetodoConstant;
-import ar.com.ua.controller.report.AccesoReporte;
+import ar.com.ua.controller.report.AccesoPermiso;
 import ar.com.ua.dto.ParametroDTO;
 import ar.com.ua.dto.response.ResponseDto;
 import ar.com.ua.dto.response.ResponseErrorDto;
@@ -37,12 +37,12 @@ public class ParametroController implements IABMController<ParametroDTO>, IListC
 
 	@Autowired
 	private ParametroBuilder parametroBuilder;
-	
+
 	@Autowired
-	private AccesoReporte accesoReporte;
+	private AccesoPermiso accesoPermiso;
 
 	static Logger logger = Logger.getLogger(ParametroController.class.getName());
-	
+
 	private ResponseDto save(Long id, ParametroDTO dto, String tipoMetodoConstant) {
 		// Setteo el id para la actualizacion
 		dto.setId(id);
@@ -52,23 +52,13 @@ public class ParametroController implements IABMController<ParametroDTO>, IListC
 	private ResponseDto save(ParametroDTO dto, String tipoMetodoConstant) {
 
 		try {
-			// Chequeo de acceso al reporte
-			boolean tieneAcceso = this.accesoReporte.deteminarAccesoAlRecurso(
-					EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO, TipoMetodoConstant.POST, RolesConstant.ROL_ADMINISTRADOR_EMPLEADOS);
-
-			if (!tieneAcceso) {
-				return ManejoErrores.errorGenerico(EndPointPathConstant.CENTRO_DE_COSTOS,
-						TipoMetodoConstant.POST, MensajeError.ACCESS_DENIED);
-			}
-			
 			Parametro parametro = parametroBuilder.dtoToModel(dto);
 			Parametro parametroGuardado = parametroService.save(parametro);
 			ParametroDTO parametroDto = parametroBuilder.modelToDto(parametroGuardado);
 			return new ResponseOKDto<ParametroDTO>(EndPointPathConstant.PARAMETRO, tipoMetodoConstant,
 					CodigoRespuestaConstant.OK, parametroDto);
 		} catch (Exception e) {
-			return ManejoErrores.errorGenerico(EndPointPathConstant.PARAMETRO,
-					TipoMetodoConstant.POST, e.getMessage());
+			return ManejoErrores.errorGenerico(EndPointPathConstant.PARAMETRO, TipoMetodoConstant.POST, e.getMessage());
 		}
 	}
 
@@ -79,7 +69,19 @@ public class ParametroController implements IABMController<ParametroDTO>, IListC
 	 */
 	@Override
 	public ResponseDto add(ParametroDTO dto) {
-		return this.save(dto, TipoMetodoConstant.POST);
+		try {
+			// Chequeo de acceso al reporte
+			boolean tieneAcceso = this.accesoPermiso
+					.deteminarAccesoAlRecurso(PermisosConstant.PERMISO_TABLAS_PARAMETRICAS_ALTA);
+
+			if (!tieneAcceso) {
+				return ManejoErrores.errorGenerico(EndPointConstant.ADD, TipoMetodoConstant.POST,
+						MensajeError.ACCESS_DENIED);
+			}
+			return this.save(dto, TipoMetodoConstant.POST);
+		} catch (Exception e) {
+			return ManejoErrores.errorGenerico(EndPointConstant.ADD, TipoMetodoConstant.POST, e.getMessage());
+		}
 	}
 
 	/**
@@ -87,7 +89,21 @@ public class ParametroController implements IABMController<ParametroDTO>, IListC
 	 */
 	@Override
 	public ResponseDto modify(@PathVariable Long id, ParametroDTO dto) {
-		return this.save(id, dto, TipoMetodoConstant.PUT);
+		try {
+			// Chequeo de acceso al reporte
+			boolean tieneAcceso = this.accesoPermiso
+					.deteminarAccesoAlRecurso(PermisosConstant.PERMISO_TABLAS_PARAMETRICAS_MODIFICACION);
+
+			if (!tieneAcceso) {
+				return ManejoErrores.errorGenerico(EndPointConstant.MODIFY, TipoMetodoConstant.PUT,
+						MensajeError.ACCESS_DENIED);
+			}
+
+			return this.save(id, dto, TipoMetodoConstant.PUT);
+		} catch (Exception e) {
+			return ManejoErrores.errorGenerico(EndPointConstant.MODIFY, TipoMetodoConstant.PUT, e.getMessage());
+		}
+
 	}
 
 	/**
@@ -98,6 +114,15 @@ public class ParametroController implements IABMController<ParametroDTO>, IListC
 		List<String> mensajesError = new ArrayList<String>();
 
 		try {
+			// Chequeo de acceso al reporte
+			boolean tieneAcceso = this.accesoPermiso
+					.deteminarAccesoAlRecurso(PermisosConstant.PERMISO_TABLAS_PARAMETRICAS_BAJA);
+
+			if (!tieneAcceso) {
+				return ManejoErrores.errorGenerico(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
+						MensajeError.ACCESS_DENIED);
+			}
+
 			parametroService.deleteById(id);
 
 			return new ResponseOKDto<ParametroDTO>(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,

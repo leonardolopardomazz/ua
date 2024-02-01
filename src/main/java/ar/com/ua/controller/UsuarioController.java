@@ -25,7 +25,9 @@ import ar.com.ua.constant.CodigoRespuestaConstant;
 import ar.com.ua.constant.EndPointConstant;
 import ar.com.ua.constant.EndPointPathConstant;
 import ar.com.ua.constant.MensajeError;
+import ar.com.ua.constant.PermisosConstant;
 import ar.com.ua.constant.TipoMetodoConstant;
+import ar.com.ua.controller.report.AccesoPermiso;
 import ar.com.ua.dto.ContrasenaDTO;
 import ar.com.ua.dto.UsuarioDTO;
 import ar.com.ua.dto.response.ResponseDto;
@@ -63,6 +65,9 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 
 	@Autowired
 	private UsuarioBuilder usuarioBuilder;
+
+	@Autowired
+	private AccesoPermiso accesoPermiso;
 
 	static Logger logger = Logger.getLogger(UsuarioController.class.getName());
 
@@ -192,14 +197,12 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 								MensajeError.ELEMENT_NOTFOUND_MESSAGE);
 					}
 				} catch (Exception e) {
-					return ManejoErrores.errorGenerico(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET, e.getMessage());
+					return ManejoErrores.errorGenerico(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
+							e.getMessage());
 				}
-				
+
 			}
 
-			
-			
-			
 //			final Long numeroLegajo = dto.getNumeroLegajo();
 //			Usuario usuarioByNumeroLegajo = this.usuarioService.findByNumeroLegajo(numeroLegajo);
 
@@ -259,13 +262,17 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 	@Override
 	public ResponseDto add(UsuarioDTO dto) {
 		try {
+			// Chequeo de acceso al reporte
+			boolean tieneAcceso = this.accesoPermiso.deteminarAccesoAlRecurso(PermisosConstant.PERMISO_USUARIO_ALTA);
+
+			if (!tieneAcceso) {
+				return ManejoErrores.errorGenerico(EndPointConstant.ADD, TipoMetodoConstant.POST,
+						MensajeError.ACCESS_DENIED);
+			}
+
 			return this.save(dto, TipoMetodoConstant.POST);
 		} catch (Exception e) {
-			List<String> mensajesError = new ArrayList<String>();
-			String messageException = MensajeError.CANT_SAVE_USER;
-			mensajesError.add(messageException);
-			return new ResponseErrorDto(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
-					CodigoRespuestaConstant.ERROR, mensajesError);
+			return ManejoErrores.errorGenerico(EndPointConstant.ADD, TipoMetodoConstant.POST, e.getMessage());
 		}
 
 	}
@@ -275,7 +282,21 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 	 */
 	@Override
 	public ResponseDto modify(@PathVariable Long id, UsuarioDTO dto) {
-		return this.save(id, dto, TipoMetodoConstant.PUT);
+		try {
+			// Chequeo de acceso al reporte
+			boolean tieneAcceso = this.accesoPermiso
+					.deteminarAccesoAlRecurso(PermisosConstant.PERMISO_USUARIO_MODIFICACION);
+
+			if (!tieneAcceso) {
+				return ManejoErrores.errorGenerico(EndPointConstant.MODIFY, TipoMetodoConstant.PUT,
+						MensajeError.ACCESS_DENIED);
+			}
+
+			return this.save(id, dto, TipoMetodoConstant.PUT);
+
+		} catch (Exception e) {
+			return ManejoErrores.errorGenerico(EndPointConstant.MODIFY, TipoMetodoConstant.PUT, e.getMessage());
+		}
 	}
 
 	/**
@@ -285,6 +306,14 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 	public ResponseDto deleteById(@PathVariable Long id) {
 
 		try {
+			// Chequeo de acceso al reporte
+			boolean tieneAcceso = this.accesoPermiso.deteminarAccesoAlRecurso(PermisosConstant.PERMISO_USUARIO_BAJA);
+
+			if (!tieneAcceso) {
+				return ManejoErrores.errorGenerico(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
+						MensajeError.ACCESS_DENIED);
+			}
+
 			usuarioService.deleteById(id);
 
 			return new ResponseOKDto<UsuarioDTO>(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
@@ -374,6 +403,11 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 
 					HistoricoContrasena hc = populateHistoricoContrasena(usuario);
 					this.hcService.save(hc);
+					
+					Login login = new Login();
+					login.setUsuario(usuario);
+					login.setPrimerAcceso(false);
+					this.loginService.save(login);
 
 					UsuarioDTO usuarioDTO = this.usuarioBuilder.modelToDto(usuario);
 

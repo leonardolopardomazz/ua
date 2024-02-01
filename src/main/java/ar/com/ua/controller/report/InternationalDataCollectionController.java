@@ -34,9 +34,8 @@ public class InternationalDataCollectionController implements IReport<Internatio
 		List<InternationalDataCollectionResponseDTO> idcDto = new ArrayList<>();
 
 		try {
-			//Chequeo de acceso al reporte
-			boolean tieneAcceso = this.accesoReporte.deteminarAccesoAlRecurso(
-					EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO, TipoMetodoConstant.POST, RolesConstant.ROL_REPORTES_RRHH);
+			// Chequeo de acceso al reporte
+			boolean tieneAcceso = this.accesoReporte.deteminarAccesoAlRecurso(RolesConstant.ROL_REPORTES_RRHH);
 
 			if (!tieneAcceso) {
 				return ManejoErrores.errorGenerico(EndPointPathConstant.INTERNATIONAL_DATA_COLLECTION,
@@ -46,7 +45,8 @@ public class InternationalDataCollectionController implements IReport<Internatio
 			idcDto = this.service.generar(dto);
 
 		} catch (Exception e) {
-			ManejoErrores.errorGenerico(EndPointPathConstant.INTERNATIONAL_DATA_COLLECTION, TipoMetodoConstant.POST, e.getMessage());
+			ManejoErrores.errorGenerico(EndPointPathConstant.INTERNATIONAL_DATA_COLLECTION, TipoMetodoConstant.POST,
+					e.getMessage());
 		}
 
 		return new ResponseOKListDto<InternationalDataCollectionResponseDTO>(

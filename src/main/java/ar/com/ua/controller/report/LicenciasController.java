@@ -35,12 +35,11 @@ public class LicenciasController implements IReport<LicenciasDTO> {
 
 		try {
 			// Chequeo de acceso al reporte
-			boolean tieneAcceso = this.accesoReporte.deteminarAccesoAlRecurso(
-					EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO, TipoMetodoConstant.POST, RolesConstant.ROL_REPORTES_RRHH);
+			boolean tieneAcceso = this.accesoReporte.deteminarAccesoAlRecurso(RolesConstant.ROL_REPORTES_RRHH);
 
 			if (!tieneAcceso) {
-				return ManejoErrores.errorGenerico(EndPointPathConstant.LICENCIAS,
-						TipoMetodoConstant.POST, MensajeError.ACCESS_DENIED);
+				return ManejoErrores.errorGenerico(EndPointPathConstant.LICENCIAS, TipoMetodoConstant.POST,
+						MensajeError.ACCESS_DENIED);
 			}
 
 			licenciasDto = this.service.generar(dto);

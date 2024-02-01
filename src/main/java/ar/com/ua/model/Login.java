@@ -2,6 +2,10 @@ package ar.com.ua.model;
 
 import java.util.Date;
 
+import org.springframework.context.annotation.Lazy;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,6 +24,8 @@ public class Login extends Auditable {
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 
+	@Lazy
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;

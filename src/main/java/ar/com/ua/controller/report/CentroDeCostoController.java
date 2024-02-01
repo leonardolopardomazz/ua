@@ -21,11 +21,11 @@ import ar.com.ua.service.report.CentroDeCostoService;
 
 @RequestMapping("/reporte/centrodecosto")
 @RestController
-public class CentroDeCostoController implements IReport <CentroDeCostoDTO> {
-	
+public class CentroDeCostoController implements IReport<CentroDeCostoDTO> {
+
 	@Autowired
 	private CentroDeCostoService cdcService;
-	
+
 	@Autowired
 	private AccesoReporte accesoReporte;
 
@@ -34,20 +34,19 @@ public class CentroDeCostoController implements IReport <CentroDeCostoDTO> {
 		List<CentroDeCostoResponseDTO> cdcDto = new ArrayList<>();
 		try {
 			// Chequeo de acceso al reporte
-			boolean tieneAcceso = this.accesoReporte.deteminarAccesoAlRecurso(
-					EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO, TipoMetodoConstant.POST, RolesConstant.ROL_REPORTES_RRHH);
+			boolean tieneAcceso = this.accesoReporte.deteminarAccesoAlRecurso(RolesConstant.ROL_REPORTES_RRHH);
 
 			if (!tieneAcceso) {
-				return ManejoErrores.errorGenerico(EndPointPathConstant.CENTRO_DE_COSTOS,
-						TipoMetodoConstant.POST, MensajeError.ACCESS_DENIED);
+				return ManejoErrores.errorGenerico(EndPointPathConstant.CENTRO_DE_COSTOS, TipoMetodoConstant.POST,
+						MensajeError.ACCESS_DENIED);
 			}
-			
+
 			cdcDto = this.cdcService.generar(dto);
 
 		} catch (Exception e) {
 			ManejoErrores.errorGenerico(EndPointPathConstant.CENTRO_DE_COSTOS, TipoMetodoConstant.POST, e.getMessage());
 		}
-		
+
 		return new ResponseOKListDto<CentroDeCostoResponseDTO>(EndPointPathConstant.REPORTE_CENTRO_DE_COSTO,
 				TipoMetodoConstant.POST, CodigoRespuestaConstant.OK, cdcDto);
 	}

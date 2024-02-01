@@ -18,9 +18,9 @@ import ar.com.ua.constant.CodigoRespuestaConstant;
 import ar.com.ua.constant.EndPointConstant;
 import ar.com.ua.constant.EndPointPathConstant;
 import ar.com.ua.constant.MensajeError;
-import ar.com.ua.constant.RolesConstant;
+import ar.com.ua.constant.PermisosConstant;
 import ar.com.ua.constant.TipoMetodoConstant;
-import ar.com.ua.controller.report.AccesoReporte;
+import ar.com.ua.controller.report.AccesoPermiso;
 import ar.com.ua.dto.EmpleadoDTO;
 import ar.com.ua.dto.response.ResponseDto;
 import ar.com.ua.dto.response.ResponseErrorDto;
@@ -42,9 +42,9 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 
 	@Autowired
 	private ManejoSesion manejoSesion;
-	
+
 	@Autowired
-	private AccesoReporte accesoReporte;
+	private AccesoPermiso accesoPermiso;
 
 	static Logger logger = Logger.getLogger(EmpleadoController.class.getName());
 
@@ -79,14 +79,13 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 	@Override
 	public ResponseDto add(EmpleadoDTO dto) {
 		// Chequeo de acceso al reporte
-		boolean tieneAcceso = this.accesoReporte.deteminarAccesoAlRecurso(
-				EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO, TipoMetodoConstant.POST, RolesConstant.ROL_ADMINISTRADOR_EMPLEADOS);
+		boolean tieneAcceso = this.accesoPermiso.deteminarAccesoAlRecurso(PermisosConstant.PERMISO_EMPLEADO_ALTA);
 
 		if (!tieneAcceso) {
-			return ManejoErrores.errorGenerico(EndPointPathConstant.CENTRO_DE_COSTOS,
-					TipoMetodoConstant.POST, MensajeError.ACCESS_DENIED);
+			return ManejoErrores.errorGenerico(EndPointConstant.ADD, TipoMetodoConstant.POST,
+					MensajeError.ACCESS_DENIED);
 		}
-		
+
 		return this.save(dto, TipoMetodoConstant.POST);
 	}
 
@@ -96,15 +95,14 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 	@Override
 	public ResponseDto modify(@PathVariable Long id, EmpleadoDTO dto) {
 		// Chequeo de acceso al reporte
-		boolean tieneAcceso = this.accesoReporte.deteminarAccesoAlRecurso(
-				EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO, TipoMetodoConstant.POST, RolesConstant.ROL_ADMINISTRADOR_EMPLEADOS);
+		boolean tieneAcceso = this.accesoPermiso
+				.deteminarAccesoAlRecurso(PermisosConstant.PERMISO_EMPLEADO_MODIFICACION);
 
 		if (!tieneAcceso) {
-			return ManejoErrores.errorGenerico(EndPointPathConstant.CENTRO_DE_COSTOS,
-					TipoMetodoConstant.POST, MensajeError.ACCESS_DENIED);
+			return ManejoErrores.errorGenerico(EndPointConstant.MODIFY, TipoMetodoConstant.PUT,
+					MensajeError.ACCESS_DENIED);
 		}
 
-		
 		return this.save(id, dto, TipoMetodoConstant.PUT);
 	}
 
@@ -116,35 +114,26 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 
 		try {
 			// Chequeo de acceso al reporte
-			boolean tieneAcceso = this.accesoReporte.deteminarAccesoAlRecurso(
-					EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO, TipoMetodoConstant.POST, RolesConstant.ROL_ADMINISTRADOR_EMPLEADOS);
-
+			boolean tieneAcceso = this.accesoPermiso
+					.deteminarAccesoAlRecurso(PermisosConstant.PERMISO_EMPLEADO_BAJA);
 			if (!tieneAcceso) {
-				return ManejoErrores.errorGenerico(EndPointPathConstant.CENTRO_DE_COSTOS,
-						TipoMetodoConstant.DELETE, MensajeError.ACCESS_DENIED);
+				return ManejoErrores.errorGenerico(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
+						MensajeError.ACCESS_DENIED);
 			}
-			
+
 			empleadoService.deleteById(id);
 
 			return new ResponseOKDto<EmpleadoDTO>(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
 					CodigoRespuestaConstant.OK, null);
 		} catch (Exception e) {
-			return ManejoErrores.errorGenerico(EndPointPathConstant.EMPLEADO, TipoMetodoConstant.DELETE, e.getMessage());
+			return ManejoErrores.errorGenerico(EndPointPathConstant.EMPLEADO, TipoMetodoConstant.DELETE,
+					e.getMessage());
 		}
 	}
 
 	@Override
 	public ResponseDto findOne(Long id) {
 		try {
-			// Chequeo de acceso al reporte
-			boolean tieneAcceso = this.accesoReporte.deteminarAccesoAlRecurso(
-					EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO, TipoMetodoConstant.POST, RolesConstant.ROL_ADMINISTRADOR_EMPLEADOS);
-
-			if (!tieneAcceso) {
-				return ManejoErrores.errorGenerico(EndPointPathConstant.CENTRO_DE_COSTOS,
-						TipoMetodoConstant.GET, MensajeError.ACCESS_DENIED);
-			}
-			
 			Optional<Empleado> value = empleadoService.findById(id);
 			if (value.isPresent()) {
 				Empleado empleado = value.get();
