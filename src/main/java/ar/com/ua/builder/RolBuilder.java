@@ -48,9 +48,9 @@ public class RolBuilder implements IBuilder<Rol, RolDTO> {
 				dto.setPermisos(rol.getPermisos());
 			}
 
-			if (!rol.getUsuarios().isEmpty()) {
-				dto.setUsuarios(rol.getUsuarios());
-			}
+//			if (!rol.getUsuarios().isEmpty()) {
+//				dto.setUsuarios(rol.getUsuarios());
+//			}
 
 			dtoList.add(dto);
 		}
