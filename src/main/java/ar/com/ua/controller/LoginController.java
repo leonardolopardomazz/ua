@@ -71,7 +71,7 @@ public class LoginController {
 	 * @return
 	 */
 	private Login getLastLogin(Usuario usuario) {
-		return this.loginService.findFirstByUsuarioOrderByFechaUltimoIntentoDesc(usuario);
+		return this.loginService.findFirstByUsuarioOrderByIdDesc(usuario);
 	}
 
 	/**
@@ -120,6 +120,7 @@ public class LoginController {
 			// Existe un usuario con el nombreUsuario pero NO contrasena consultada
 		} else if (this.usuarioService.existsByNombreUsuario(nombreUsuario)) {
 			Usuario usuario = this.usuarioService.findByNombreUsuario(nombreUsuario);
+
 			Login login = this.getLastLogin(usuario);
 
 			if (login != null)
@@ -206,7 +207,7 @@ public class LoginController {
 							CodigoRespuestaConstant.OK, loginResponseDto);
 				}
 			}
-			
+
 			// Guardo en la tabla Login
 			Login loginGuardado = this.loginService.save(loginAGuardar);
 
