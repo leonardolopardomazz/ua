@@ -115,7 +115,8 @@ public class LoginController {
 		// Existe un usuario con el nombreUsuario y contrasena consultados
 		if (this.usuarioService.existsByNombreUsuarioAndContrasena(nombreUsuario, contrasena)) {
 			Usuario usuario = this.usuarioService.findByNombreUsuarioAndContrasena(nombreUsuario, contrasena);
-			loginAGuardar = this.populateLogin(usuario, 0, false);
+			Login login = this.getLastLogin(usuario);
+			loginAGuardar = this.populateLogin(usuario, 0, login.isPrimerAcceso());
 
 			// Existe un usuario con el nombreUsuario pero NO contrasena consultada
 		} else if (this.usuarioService.existsByNombreUsuario(nombreUsuario)) {
