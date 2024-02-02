@@ -54,10 +54,10 @@ public class LoginController {
 	@Autowired
 	private LoginResponseBuilder loginBuilder;
 
-	private Login populateLogin(Usuario usuario, int cantidadReintentos) {
+	private Login populateLogin(Usuario usuario, int cantidadReintentos, boolean isPrimerAcceso) {
 		Login login = new Login();
 		login.setCantidadReintentos(cantidadReintentos);
-		login.setPrimerAcceso(false);
+		login.setPrimerAcceso(isPrimerAcceso);
 		login.setUsuario(usuario);
 		login.setFechaUltimoIntento(new Date());
 
@@ -115,7 +115,7 @@ public class LoginController {
 		// Existe un usuario con el nombreUsuario y contrasena consultados
 		if (this.usuarioService.existsByNombreUsuarioAndContrasena(nombreUsuario, contrasena)) {
 			Usuario usuario = this.usuarioService.findByNombreUsuarioAndContrasena(nombreUsuario, contrasena);
-			loginAGuardar = this.populateLogin(usuario, 0);
+			loginAGuardar = this.populateLogin(usuario, 0, false);
 
 			// Existe un usuario con el nombreUsuario pero NO contrasena consultada
 		} else if (this.usuarioService.existsByNombreUsuario(nombreUsuario)) {
@@ -126,7 +126,7 @@ public class LoginController {
 			if (login != null)
 				cantidadReintentos = login.getCantidadReintentos();
 
-			loginAGuardar = this.populateLogin(usuario, cantidadReintentos + 1);
+			loginAGuardar = this.populateLogin(usuario, cantidadReintentos + 1, login.isPrimerAcceso());
 		}
 
 		return loginAGuardar;
