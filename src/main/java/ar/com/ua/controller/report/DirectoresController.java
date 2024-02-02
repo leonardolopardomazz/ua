@@ -11,7 +11,7 @@ import ar.com.ua.commons.ManejoErrores;
 import ar.com.ua.constant.CodigoRespuestaConstant;
 import ar.com.ua.constant.EndPointPathConstant;
 import ar.com.ua.constant.MensajeError;
-import ar.com.ua.constant.RolesConstant;
+import ar.com.ua.constant.PermisosConstant;
 import ar.com.ua.constant.TipoMetodoConstant;
 import ar.com.ua.dto.report.DirectoresDTO;
 import ar.com.ua.dto.report.DirectoresResponseDTO;
@@ -27,7 +27,7 @@ public class DirectoresController implements IReport<DirectoresDTO> {
 	private DirectoresService directoresService;
 
 	@Autowired
-	private AccesoReporte accesoReporte;
+	private AccesoPermiso accesoPermiso;
 
 	@Override
 	public ResponseDto generar(DirectoresDTO dto) {
@@ -35,8 +35,7 @@ public class DirectoresController implements IReport<DirectoresDTO> {
 
 		try {
 			// Chequeo de acceso al reporte
-			boolean tieneAcceso = this.accesoReporte.deteminarAccesoAlRecurso(
-					RolesConstant.ROL_REPORTES_RRHH);
+			boolean tieneAcceso = this.accesoPermiso.deteminarAccesoAlRecurso(PermisosConstant.PERMISO_REPORTE_DIRECTORES);
 
 			if (!tieneAcceso) {
 				return ManejoErrores.errorGenerico(EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO,

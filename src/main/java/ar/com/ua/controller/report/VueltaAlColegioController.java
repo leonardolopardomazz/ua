@@ -12,7 +12,7 @@ import ar.com.ua.commons.ManejoErrores;
 import ar.com.ua.constant.CodigoRespuestaConstant;
 import ar.com.ua.constant.EndPointPathConstant;
 import ar.com.ua.constant.MensajeError;
-import ar.com.ua.constant.RolesConstant;
+import ar.com.ua.constant.PermisosConstant;
 import ar.com.ua.constant.TipoMetodoConstant;
 import ar.com.ua.dto.report.VueltaAlColegioDTO;
 import ar.com.ua.dto.report.VueltaAlColegioResponseDTO;
@@ -28,7 +28,7 @@ public class VueltaAlColegioController implements IReport<VueltaAlColegioDTO> {
 	private VueltaAlColegioService reporteService;
 
 	@Autowired
-	private AccesoReporte accesoReporte;
+	private AccesoPermiso accesoPermiso;
 
 	@Override
 	public ResponseDto generar(@RequestBody VueltaAlColegioDTO dto) {
@@ -36,7 +36,7 @@ public class VueltaAlColegioController implements IReport<VueltaAlColegioDTO> {
 
 		try {
 			// Chequeo de acceso al reporte
-			boolean tieneAcceso = this.accesoReporte.deteminarAccesoAlRecurso(RolesConstant.ROL_REPORTES_RRHH);
+			boolean tieneAcceso = this.accesoPermiso.deteminarAccesoAlRecurso(PermisosConstant.PERMISO_REPORTE_RRHH);
 
 			if (!tieneAcceso) {
 				return ManejoErrores.errorGenerico(EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO,

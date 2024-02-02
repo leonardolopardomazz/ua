@@ -11,7 +11,7 @@ import ar.com.ua.commons.ManejoErrores;
 import ar.com.ua.constant.CodigoRespuestaConstant;
 import ar.com.ua.constant.EndPointPathConstant;
 import ar.com.ua.constant.MensajeError;
-import ar.com.ua.constant.RolesConstant;
+import ar.com.ua.constant.PermisosConstant;
 import ar.com.ua.constant.TipoMetodoConstant;
 import ar.com.ua.dto.report.GenericoDTO;
 import ar.com.ua.dto.report.GenericoResponseDTO;
@@ -27,7 +27,7 @@ public class GenericoController implements IReport<GenericoDTO> {
 	private GenericoService service;
 
 	@Autowired
-	private AccesoReporte accesoReporte;
+	private AccesoPermiso accesoPermiso;
 
 
 	@Override
@@ -36,8 +36,7 @@ public class GenericoController implements IReport<GenericoDTO> {
 
 		try {
 			// Chequeo de acceso al reporte
-			boolean tieneAcceso = this.accesoReporte.deteminarAccesoAlRecurso(
-					RolesConstant.ROL_REPORTES_RRHH);
+			boolean tieneAcceso = this.accesoPermiso.deteminarAccesoAlRecurso(PermisosConstant.PERMISO_REPORTE_RRHH);
 
 			if (!tieneAcceso) {
 				return ManejoErrores.errorGenerico(EndPointPathConstant.GENERICO,
