@@ -50,7 +50,7 @@ public class UsuarioBuilder implements IBuilder<Usuario, UsuarioDTO> {
 		for (Usuario usuario : list) {
 			UsuarioDTO dto = new UsuarioDTO();
 			dto.setActivo(usuario.isActivo());
-			dto.setBloqueado(dto.isBloqueado());
+			dto.setBloqueado(usuario.isBloqueado());
 			dto.setFechaAlta(usuario.getFechaAlta());
 			dto.setFechaBaja(usuario.getFechaBaja());
 			dto.setId(usuario.getId());
