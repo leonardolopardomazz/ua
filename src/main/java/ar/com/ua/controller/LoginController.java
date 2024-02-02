@@ -183,6 +183,17 @@ public class LoginController {
 
 			Usuario usuario = loginAGuardar.getUsuario();
 
+			//Para el caso donde al usuario se lo desbloquea/resetea, pero ingresa contrasena invalida
+			if (!this.usuarioService.existsByNombreUsuarioAndContrasena(nombreUsuario, contrasena)) {
+				this.loginService.save(loginAGuardar);
+				
+				// Determino si bloqueo un usuario teniendo en cuenta la cantidad de reintentos
+				this.determinarLogicaBloqueoUsuario(loginAGuardar);
+				
+				return ManejoErrores.errorGenerico(EndPointPathConstant.LOGIN, TipoMetodoConstant.POST,
+						MensajeError.USER_NOT_FOUND);
+			}
+
 			// Guarda los roles del usuario en la session
 			this.setFieldsInSession(usuario);
 
