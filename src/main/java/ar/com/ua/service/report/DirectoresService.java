@@ -22,7 +22,7 @@ public class DirectoresService {
 	public List<DirectoresResponseDTO> generar(DirectoresDTO dto) {
 
 		List<String> resultado = this.directoresRepository.reporte(dto.getEstado(), dto.getIdDireccion(),
-				dto.getIdGerencia());
+				dto.getIdGerencia(), dto.getIdPais());
 
 		return this.directoresBuilder.listToDto(resultado);
 	}

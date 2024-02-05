@@ -58,7 +58,7 @@ public class GenericoWrapper {
 		dto.setTipoEmpleo(repository.descripcion(data.get(21)));
 		dto.setTipoJornada(repository.descripcion(data.get(22)));
 		dto.setPais(data.get(23));
-		dto.setLugarDeTrabajo(data.get(24));
+		dto.setLugarDeTrabajo(repository.descripcion(data.get(24)));
 		dto.setEmailLaboral(data.get(25));
 		dto.setPuesto(data.get(26));
 		dto.setCategoria(repository.descripcion(data.get(27)));

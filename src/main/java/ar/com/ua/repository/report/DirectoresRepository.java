@@ -22,8 +22,9 @@ public interface DirectoresRepository extends JpaRepository<Empleado, Long> {
 			+ "LEFT JOIN empleados manager ON manager.cod_puesto = puesto_manager.id "
 			+ "WHERE emp.cod_estado_empleado IN :estado "
 			+ "AND (emp.cod_direccion = :idDireccion OR :idDireccion IS NULL) "
-			+ "AND (p.cod_gerencia = :idGerencia OR :idGerencia IS NULL) ", nativeQuery = true)
+			+ "AND (p.cod_gerencia = :idGerencia OR :idGerencia IS NULL) "
+			+ "AND (emp.cod_pais = :idPais OR :idPais IS NULL) ", nativeQuery = true)
 	List<String> reporte(@Param("estado") List<String> estado, @Param("idDireccion") String idDireccion,
-			@Param("idGerencia") String idGerencia);
+			@Param("idGerencia") String idGerencia, @Param("idPais") String idPais);
 
 }

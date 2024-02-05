@@ -7,6 +7,7 @@ public class DirectoresDTO {
 	private String idDireccion;
 	private String idGerencia;
 	private List<String> estado;
+	private String idPais;
 
 	public String getIdDireccion() {
 		return idDireccion;
@@ -30,6 +31,14 @@ public class DirectoresDTO {
 
 	public void setEstado(List<String> estado) {
 		this.estado = estado;
+	}
+
+	public String getIdPais() {
+		return idPais;
+	}
+
+	public void setIdPais(String idPais) {
+		this.idPais = idPais;
 	}
 
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import ar.com.ua.dto.report.InternationalDataCollectionResponseDTO;
+import ar.com.ua.model.Parametro;
 import ar.com.ua.repository.report.ParametrosRepository;
 
 @Component
@@ -43,25 +44,28 @@ public class InternationalDataCollectionWrapper {
 		// dto.setOtherName(data.get(8));
 		dto.setPreferedName(data.get(7));
 		dto.setDateOfBirth(data.get(8));
-		dto.setGender(repository.descripcion(data.get(9)));
-		dto.setTitle(repository.texto1(data.get(9)));
+		Parametro generoParam = repository.getParametro(data.get(9));
+		if (generoParam != null) {
+			dto.setGender(generoParam.getDescripcion());
+			dto.setTitle(generoParam.getTexto1());
+		}
 		dto.setCountry(data.get(10));
 		dto.setMailLaboral(data.get(11));
 		dto.setStartDate(data.get(12));
 		dto.setHorasDeTrabajo(data.get(13));
 		dto.setFte(repository.texto2(data.get(14)));
-		dto.setRateFrecuency(repository.descripcion(data.get(15)));
+		dto.setRateFrecuency(repository.texto1(data.get(15)));
 		dto.setSalaryBasePayRate(null);
 		dto.setReasonForSalaryChange(null);
-		dto.setEmploymentType(repository.descripcion(data.get(16)));
-		dto.setPersonnelType(repository.descripcion(data.get(17)));
+		dto.setEmploymentType(repository.texto1(data.get(16)));
+		dto.setPersonnelType(repository.texto1(data.get(17)));
 		dto.setJefatura(repository.descripcion(data.get(18)));
 		dto.setTermDate(data.get(19)); // feche egreso
 		dto.setTermReason(repository.descripcion(data.get(20)));
 		dto.setAntiguedad(String.valueOf(calcularEdad(data.get(12))));
 		dto.setAge(String.valueOf(calcularEdad(data.get(8))));
 		dto.setGeneration(repository.descripcion(data.get(21)));
-		dto.setDivission(repository.descripcion(data.get(22)));
+		dto.setDivission(repository.texto1(data.get(22)));
 		dto.setDireccion(repository.descripcion(data.get(23)));
 		dto.setGerencia(repository.descripcion(data.get(24)));
 		dto.setSubgerencia(null);

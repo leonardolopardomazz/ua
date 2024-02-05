@@ -13,6 +13,9 @@ import jakarta.persistence.Cacheable;
 @Cacheable
 public interface ParametrosRepository extends JpaRepository<Parametro, Long> {
 
+	@Query(value = "Select * FROM parametros param WHERE param.id = :id", nativeQuery = true)
+	Parametro getParametro(String id);
+
 	@Query(value = "SELECT param.descripcion as descripcion "
 			+ "FROM parametros param "
 			+ "WHERE param.id = :id ", nativeQuery = true)
