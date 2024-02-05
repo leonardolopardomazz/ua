@@ -48,29 +48,6 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 
 	static Logger logger = Logger.getLogger(EmpleadoController.class.getName());
 
-	private ResponseDto save(Long id, EmpleadoDTO dto, String tipoMetodoConstant) {
-		dto.setId(id);
-		return this.save(dto, tipoMetodoConstant);
-	}
-
-	private ResponseDto save(EmpleadoDTO dto, String tipoMetodoConstant) {
-		try {
-			Boolean existsNumeroLegajo = this.empleadoService.existsByNumeroLegajo(dto.getNumeroLegajo());
-			if (existsNumeroLegajo) {
-				return ManejoErrores.errorGenerico(EndPointPathConstant.EMPLEADO, tipoMetodoConstant,
-						MensajeError.REPITED_NUMERO_LEGAJO);
-			}
-
-			Empleado empleado = empleadoBuilder.dtoToModel(dto);
-			Empleado empleadoGuardado = empleadoService.save(empleado);
-			EmpleadoDTO eexternoDto = empleadoBuilder.modelToDto(empleadoGuardado);
-			return new ResponseOKDto<EmpleadoDTO>(EndPointPathConstant.EMPLEADO, tipoMetodoConstant,
-					CodigoRespuestaConstant.OK, eexternoDto);
-		} catch (Exception e) {
-			return ManejoErrores.errorGenerico(EndPointPathConstant.EMPLEADO, tipoMetodoConstant, e.getMessage());
-		}
-	}
-
 	/**
 	 * Inserta un empleado a la tabla
 	 * 
@@ -78,15 +55,32 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 	 */
 	@Override
 	public ResponseDto add(EmpleadoDTO dto) {
-		// Chequeo de acceso al reporte
-		boolean tieneAcceso = this.accesoPermiso.deteminarAccesoAlRecurso(PermisosConstant.PERMISO_EMPLEADO_ALTA);
+		try {
+			// Chequeo de acceso al reporte
+			boolean tieneAcceso = this.accesoPermiso.deteminarAccesoAlRecurso(PermisosConstant.PERMISO_EMPLEADO_ALTA);
 
-		if (!tieneAcceso) {
-			return ManejoErrores.errorGenerico(EndPointConstant.ADD, TipoMetodoConstant.POST,
-					MensajeError.ACCESS_DENIED);
+			if (!tieneAcceso) {
+				return ManejoErrores.errorGenerico(EndPointConstant.ADD, TipoMetodoConstant.POST,
+						MensajeError.ACCESS_DENIED);
+			}
+
+			final Long numeroLegajoAGuardar = dto.getNumeroLegajo();
+			Boolean existsNumeroLegajo = this.empleadoService.existsByNumeroLegajo(numeroLegajoAGuardar);
+
+			if (!existsNumeroLegajo) {
+				Empleado empleado = empleadoBuilder.dtoToModel(dto);
+				Empleado empleadoGuardado = empleadoService.save(empleado);
+				EmpleadoDTO empleadoDto = empleadoBuilder.modelToDto(empleadoGuardado);
+
+				return new ResponseOKDto<EmpleadoDTO>(EndPointPathConstant.EMPLEADO, TipoMetodoConstant.POST,
+						CodigoRespuestaConstant.OK, empleadoDto);
+			}
+
+			return ManejoErrores.errorGenerico(EndPointPathConstant.EMPLEADO, TipoMetodoConstant.POST,
+					MensajeError.REPITED_NUMERO_LEGAJO);
+		} catch (Exception e) {
+			return ManejoErrores.errorGenerico(EndPointPathConstant.EMPLEADO, TipoMetodoConstant.POST, e.getMessage());
 		}
-
-		return this.save(dto, TipoMetodoConstant.POST);
 	}
 
 	/**
@@ -94,16 +88,48 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 	 */
 	@Override
 	public ResponseDto modify(@PathVariable Long id, EmpleadoDTO dto) {
-		// Chequeo de acceso al reporte
-		boolean tieneAcceso = this.accesoPermiso
-				.deteminarAccesoAlRecurso(PermisosConstant.PERMISO_EMPLEADO_MODIFICACION);
+		try {
+			// Chequeo de acceso al reporte
+			boolean tieneAcceso = this.accesoPermiso
+					.deteminarAccesoAlRecurso(PermisosConstant.PERMISO_EMPLEADO_MODIFICACION);
 
-		if (!tieneAcceso) {
-			return ManejoErrores.errorGenerico(EndPointConstant.MODIFY, TipoMetodoConstant.PUT,
-					MensajeError.ACCESS_DENIED);
+			if (!tieneAcceso) {
+				return ManejoErrores.errorGenerico(EndPointConstant.MODIFY, TipoMetodoConstant.PUT,
+						MensajeError.ACCESS_DENIED);
+			}
+
+			final Long numeroLegajoAModificar = dto.getNumeroLegajo();
+			dto.setId(id);
+			
+			boolean mismoEmpleado = false;
+
+			Optional<Empleado> value = this.empleadoService.findById(id);
+
+			if (value.isPresent()) {
+				Empleado empleadoRecuperado = value.get();
+				Long numeroLegajoDelEmpleado = empleadoRecuperado.getNumeroLegajo();
+
+				if (numeroLegajoDelEmpleado == numeroLegajoAModificar) {
+					mismoEmpleado = true;
+				}
+			}
+
+			Boolean existsNumeroLegajo = this.empleadoService.existsByNumeroLegajo(numeroLegajoAModificar);
+
+			if ((mismoEmpleado || !existsNumeroLegajo) || (!mismoEmpleado & !existsNumeroLegajo)) {
+				Empleado empleado = empleadoBuilder.dtoToModel(dto);
+				Empleado empleadoGuardado = empleadoService.save(empleado);
+				EmpleadoDTO empleadoDto = empleadoBuilder.modelToDto(empleadoGuardado);
+
+				return new ResponseOKDto<EmpleadoDTO>(EndPointPathConstant.EMPLEADO, TipoMetodoConstant.PUT,
+						CodigoRespuestaConstant.OK, empleadoDto);
+			}
+
+			return ManejoErrores.errorGenerico(EndPointPathConstant.EMPLEADO, TipoMetodoConstant.PUT,
+					MensajeError.REPITED_NUMERO_LEGAJO);
+		} catch (Exception e) {
+			return ManejoErrores.errorGenerico(EndPointPathConstant.EMPLEADO, TipoMetodoConstant.PUT, e.getMessage());
 		}
-
-		return this.save(id, dto, TipoMetodoConstant.PUT);
 	}
 
 	/**
@@ -114,8 +140,7 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 
 		try {
 			// Chequeo de acceso al reporte
-			boolean tieneAcceso = this.accesoPermiso
-					.deteminarAccesoAlRecurso(PermisosConstant.PERMISO_EMPLEADO_BAJA);
+			boolean tieneAcceso = this.accesoPermiso.deteminarAccesoAlRecurso(PermisosConstant.PERMISO_EMPLEADO_BAJA);
 			if (!tieneAcceso) {
 				return ManejoErrores.errorGenerico(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
 						MensajeError.ACCESS_DENIED);
