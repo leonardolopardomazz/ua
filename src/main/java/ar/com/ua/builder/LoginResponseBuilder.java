@@ -21,6 +21,7 @@ public class LoginResponseBuilder {
 
 		dto.setNombreUsuario(usuario.getNombreUsuario());
 		dto.setIdUsuario(usuario.getId());
+		dto.setNumeroLegajo(usuario.getNumeroLegajo());
 		dto.setBloqueado(usuario.isBloqueado());
 		dto.setCantidadReintentos(login.getCantidadReintentos());
 		dto.setFechaUltimoIntento(login.getFechaUltimoIntento());
@@ -31,15 +32,15 @@ public class LoginResponseBuilder {
 		} else {
 			dto.setPudoAcceder(true);
 		}
-		
+
 		List<Rol> listRoles = usuario.getRoles();
-		
+
 		List<String> rolesDescripcion = new ArrayList<>();
 		for (Rol rol : listRoles) {
 			rolesDescripcion.add(rol.getDescripcion());
 		}
 		dto.setRoles(rolesDescripcion);
-		
+
 		List<String> permisosDescripcion = new ArrayList<>();
 		for (Rol rol : listRoles) {
 			for (Permiso permiso : rol.getPermisos()) {

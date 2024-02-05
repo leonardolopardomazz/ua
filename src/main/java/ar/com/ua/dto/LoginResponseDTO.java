@@ -7,6 +7,7 @@ public class LoginResponseDTO {
 
 	private String nombreUsuario;
 	private Long idUsuario;
+	private Long numeroLegajo;
 	private boolean bloqueado;
 	private int cantidadReintentos;
 	private Date fechaUltimoIntento;
@@ -94,6 +95,14 @@ public class LoginResponseDTO {
 
 	public void setPermisos(List<String> permisos) {
 		this.permisos = permisos;
+	}
+
+	public Long getNumeroLegajo() {
+		return numeroLegajo;
+	}
+
+	public void setNumeroLegajo(Long numeroLegajo) {
+		this.numeroLegajo = numeroLegajo;
 	}
 
 }
