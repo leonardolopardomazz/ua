@@ -100,7 +100,7 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 
 			final Long numeroLegajoAModificar = dto.getNumeroLegajo();
 			dto.setId(id);
-			
+
 			boolean mismoEmpleado = false;
 
 			Optional<Empleado> value = this.empleadoService.findById(id);
@@ -109,7 +109,7 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 				Empleado empleadoRecuperado = value.get();
 				Long numeroLegajoDelEmpleado = empleadoRecuperado.getNumeroLegajo();
 
-				if (numeroLegajoDelEmpleado == numeroLegajoAModificar) {
+				if (numeroLegajoDelEmpleado.equals(numeroLegajoAModificar)) {
 					mismoEmpleado = true;
 				}
 			}
