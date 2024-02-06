@@ -14,7 +14,7 @@ public class ResponseOKDto<T> extends ResponseDto {
 		super(endPoint, tipoMetodo, codigo);
 		this.setModel(dto);
 	}
-
+	
 	public T getModel() {
 		return model;
 	}

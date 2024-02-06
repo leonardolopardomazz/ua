@@ -18,6 +18,9 @@ public class ParametrosSeguridadContrasenaBuilder
 		psc.setId(dto.getId());
 		psc.setCantidadReintentosValidos(dto.getCantidadReintentos());
 		psc.setDiasValidezContrasena(dto.getDiasValidezContrasena());
+		psc.setActivo(dto.isActivo());
+		psc.setFechaValidezInicio(dto.getFechaValidezInicio());
+		psc.setFechaValidezFin(dto.getFechaValidezFin());
 		return psc;
 	}
 
@@ -27,6 +30,9 @@ public class ParametrosSeguridadContrasenaBuilder
 		dto.setId(model.getId());
 		dto.setCantidadReintentos(model.getCantidadReintentosValidos());
 		dto.setDiasValidezContrasena(model.getDiasValidezContrasena());
+		dto.setActivo(model.isActivo());
+		dto.setFechaValidezInicio(model.getFechaValidezInicio());
+		dto.setFechaValidezFin(model.getFechaValidezFin());
 		return dto;
 	}
 
@@ -39,7 +45,10 @@ public class ParametrosSeguridadContrasenaBuilder
 			dto.setId(psc.getId());
 			dto.setCantidadReintentos(psc.getCantidadReintentosValidos());
 			dto.setDiasValidezContrasena(psc.getDiasValidezContrasena());
-
+			dto.setActivo(psc.isActivo());
+			dto.setFechaValidezInicio(psc.getFechaValidezInicio());
+			dto.setFechaValidezFin(psc.getFechaValidezFin());
+			
 			listDto.add(dto);
 		}
 

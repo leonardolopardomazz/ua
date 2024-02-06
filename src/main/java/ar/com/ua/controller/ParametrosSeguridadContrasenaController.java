@@ -6,10 +6,12 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.com.ua.builder.ParametrosSeguridadContrasenaBuilder;
+import ar.com.ua.commons.ManejoErrores;
 import ar.com.ua.constant.CodigoRespuestaConstant;
 import ar.com.ua.constant.EndPointConstant;
 import ar.com.ua.constant.EndPointPathConstant;
@@ -41,8 +43,6 @@ public class ParametrosSeguridadContrasenaController
 	}
 
 	private ResponseDto save(ParametrosSeguridadContrasenaDTO dto, String tipoMetodoConstant) {
-		List<String> mensajesError = new ArrayList<String>();
-
 		try {
 			ParametrosSeguridadContrasena psc = pscBuilder.dtoToModel(dto);
 			ParametrosSeguridadContrasena pscGuardada = pscService.save(psc);
@@ -51,11 +51,7 @@ public class ParametrosSeguridadContrasenaController
 					EndPointPathConstant.PARAMETROS_SEGURIDAD_CONTRASENA, tipoMetodoConstant,
 					CodigoRespuestaConstant.OK, cdfDto);
 		} catch (Exception e) {
-			String messageException = e.getMessage();
-			mensajesError.add(messageException);
-
-			return new ResponseErrorDto(EndPointPathConstant.PARAMETROS_SEGURIDAD_CONTRASENA, tipoMetodoConstant,
-					CodigoRespuestaConstant.ERROR, mensajesError);
+			return ManejoErrores.errorGenerico(EndPointConstant.ADD, TipoMetodoConstant.POST, e.getMessage());
 		}
 	}
 
@@ -77,11 +73,7 @@ public class ParametrosSeguridadContrasenaController
 			return new ResponseOKDto<ParametrosSeguridadContrasenaDTO>(EndPointConstant.DELETE,
 					TipoMetodoConstant.DELETE, CodigoRespuestaConstant.OK, null);
 		} catch (Exception e) {
-			List<String> mensajesError = new ArrayList<String>();
-			String messageException = e.getMessage();
-			mensajesError.add(messageException);
-			return new ResponseErrorDto(EndPointConstant.DELETE, TipoMetodoConstant.DELETE,
-					CodigoRespuestaConstant.ERROR, mensajesError);
+			return ManejoErrores.errorGenerico(EndPointConstant.DELETE, TipoMetodoConstant.DELETE, e.getMessage());
 		}
 	}
 
@@ -95,8 +87,7 @@ public class ParametrosSeguridadContrasenaController
 				ParametrosSeguridadContrasenaDTO pscDto = pscBuilder.modelToDto(psc);
 
 				return new ResponseOKDto<ParametrosSeguridadContrasenaDTO>(EndPointConstant.FIND_ONE,
-						TipoMetodoConstant.GET,
-						CodigoRespuestaConstant.OK, pscDto);
+						TipoMetodoConstant.GET, CodigoRespuestaConstant.OK, pscDto);
 			} else {
 				List<String> mensajesError = new ArrayList<String>();
 				mensajesError.add(MensajeError.ELEMENT_NOTFOUND_MESSAGE);
@@ -138,6 +129,30 @@ public class ParametrosSeguridadContrasenaController
 			mensajes.add(messageException);
 			return new ResponseErrorDto(EndPointConstant.FIND_ALL, TipoMetodoConstant.GET,
 					CodigoRespuestaConstant.ERROR, mensajes);
+		}
+	}
+
+	@GetMapping(value = "/activo")
+	public ResponseDto findActive() {
+		try {
+			List<ParametrosSeguridadContrasena> listPsc = this.pscService.findByActivoTrue();
+			List<ParametrosSeguridadContrasenaDTO> listPscDto = pscBuilder.modelListToDto(listPsc);
+
+			return new ResponseOKListDto<ParametrosSeguridadContrasenaDTO>(EndPointConstant.FIND_ONE,
+					TipoMetodoConstant.GET, CodigoRespuestaConstant.OK, listPscDto);
+
+		} catch (Exception e) {
+			return ManejoErrores.errorGenerico(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET, e.getMessage());
+		}
+	}
+
+	@GetMapping(value = "/cantidadactivos")
+	public int countActive() {
+		try {
+			int cantidadActivos = this.pscService.countByActivoTrue();
+			return cantidadActivos;
+		} catch (Exception e) {
+			throw e;
 		}
 	}
 }

@@ -36,7 +36,7 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 
 	@Autowired
 	private EmpleadoService empleadoService;
-
+	
 	@Autowired
 	private EmpleadoBuilder empleadoBuilder;
 
@@ -66,7 +66,7 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 
 			final Long numeroLegajoAGuardar = dto.getNumeroLegajo();
 			Boolean existsNumeroLegajo = this.empleadoService.existsByNumeroLegajo(numeroLegajoAGuardar);
-
+			
 			if (!existsNumeroLegajo) {
 				Empleado empleado = empleadoBuilder.dtoToModel(dto);
 				Empleado empleadoGuardado = empleadoService.save(empleado);
