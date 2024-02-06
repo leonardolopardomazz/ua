@@ -31,7 +31,7 @@ public interface InternationalDataCollectionRepository extends JpaRepository<Emp
 			+ "emp.fte, "
 			+ "emp.cod_frec_liquidacion, "
 			+ "emp.cod_tipo_empleo, "
-			+ "emp.cod_tipo_contratacion, "
+			+ "emp.cod_tipo_jornada, "
 			+ "p.cod_jefatura, "
 			+ "emp.fecha_egreso, "
 			+ "emp.cod_tipo_egreso, "
