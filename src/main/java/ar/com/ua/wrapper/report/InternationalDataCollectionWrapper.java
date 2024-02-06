@@ -58,7 +58,7 @@ public class InternationalDataCollectionWrapper {
 		dto.setSalaryBasePayRate(null);
 		dto.setReasonForSalaryChange(null);
 		dto.setEmploymentType(repository.texto1(data.get(16)));
-		dto.setPersonnelType(repository.texto1(data.get(17)));
+		dto.setPersonnelType(repository.descripcion(data.get(17)));
 		dto.setJefatura(repository.descripcion(data.get(18)));
 		dto.setTermDate(data.get(19)); // feche egreso
 		dto.setTermReason(repository.descripcion(data.get(20)));
