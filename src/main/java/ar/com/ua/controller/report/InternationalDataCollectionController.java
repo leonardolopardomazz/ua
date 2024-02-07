@@ -45,7 +45,8 @@ public class InternationalDataCollectionController implements IReport<Internatio
 			idcDto = this.service.generar(dto);
 
 		} catch (Exception e) {
-			ManejoErrores.errorGenerico(EndPointPathConstant.INTERNATIONAL_DATA_COLLECTION, TipoMetodoConstant.POST,
+			return ManejoErrores.errorGenerico(EndPointPathConstant.INTERNATIONAL_DATA_COLLECTION,
+					TipoMetodoConstant.POST,
 					e.getMessage());
 		}
 

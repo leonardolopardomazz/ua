@@ -29,7 +29,6 @@ public class GenericoController implements IReport<GenericoDTO> {
 	@Autowired
 	private AccesoPermiso accesoPermiso;
 
-
 	@Override
 	public ResponseDto generar(GenericoDTO dto) {
 		List<GenericoResponseDTO> extDto = new ArrayList<>();
@@ -46,7 +45,7 @@ public class GenericoController implements IReport<GenericoDTO> {
 			extDto = this.service.generar(dto);
 
 		} catch (Exception e) {
-			ManejoErrores.errorGenerico(EndPointPathConstant.GENERICO, TipoMetodoConstant.POST, e.getMessage());
+			return ManejoErrores.errorGenerico(EndPointPathConstant.GENERICO, TipoMetodoConstant.POST, e.getMessage());
 		}
 
 		return new ResponseOKListDto<GenericoResponseDTO>(EndPointPathConstant.GENERICO, TipoMetodoConstant.POST,

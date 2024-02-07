@@ -45,7 +45,7 @@ public class LicenciasController implements IReport<LicenciasDTO> {
 			licenciasDto = this.service.generar(dto);
 
 		} catch (Exception e) {
-			ManejoErrores.errorGenerico(EndPointPathConstant.LICENCIAS, TipoMetodoConstant.POST, e.getMessage());
+			return ManejoErrores.errorGenerico(EndPointPathConstant.LICENCIAS, TipoMetodoConstant.POST, e.getMessage());
 		}
 
 		return new ResponseOKListDto<LicenciasResponseDTO>(EndPointPathConstant.LICENCIAS, TipoMetodoConstant.POST,

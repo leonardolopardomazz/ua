@@ -45,7 +45,7 @@ public class ExternosController implements IReport<ExternosDTO> {
 			extDto = this.extService.generar(dto);
 
 		} catch (Exception e) {
-			ManejoErrores.errorGenerico(EndPointPathConstant.EXTERNOS, TipoMetodoConstant.POST, e.getMessage());
+			return ManejoErrores.errorGenerico(EndPointPathConstant.EXTERNOS, TipoMetodoConstant.POST, e.getMessage());
 		}
 
 		return new ResponseOKListDto<ExternosResponseDTO>(EndPointPathConstant.EXTERNOS, TipoMetodoConstant.POST,

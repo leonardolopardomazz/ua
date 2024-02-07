@@ -35,7 +35,8 @@ public class DirectoresController implements IReport<DirectoresDTO> {
 
 		try {
 			// Chequeo de acceso al reporte
-			boolean tieneAcceso = this.accesoPermiso.deteminarAccesoAlRecurso(PermisosConstant.PERMISO_REPORTE_DIRECTORES);
+			boolean tieneAcceso = this.accesoPermiso
+					.deteminarAccesoAlRecurso(PermisosConstant.PERMISO_REPORTE_DIRECTORES);
 
 			if (!tieneAcceso) {
 				return ManejoErrores.errorGenerico(EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO,
@@ -45,7 +46,8 @@ public class DirectoresController implements IReport<DirectoresDTO> {
 			directoresDto = this.directoresService.generar(dto);
 
 		} catch (Exception e) {
-			ManejoErrores.errorGenerico(EndPointPathConstant.DIRECTORES, TipoMetodoConstant.POST, e.getMessage());
+			return ManejoErrores.errorGenerico(EndPointPathConstant.DIRECTORES, TipoMetodoConstant.POST,
+					e.getMessage());
 		}
 
 		return new ResponseOKListDto<DirectoresResponseDTO>(EndPointPathConstant.DIRECTORES, TipoMetodoConstant.POST,

@@ -44,7 +44,8 @@ public class CentroDeCostoController implements IReport<CentroDeCostoDTO> {
 			cdcDto = this.cdcService.generar(dto);
 
 		} catch (Exception e) {
-			ManejoErrores.errorGenerico(EndPointPathConstant.CENTRO_DE_COSTOS, TipoMetodoConstant.POST, e.getMessage());
+			return ManejoErrores.errorGenerico(EndPointPathConstant.CENTRO_DE_COSTOS, TipoMetodoConstant.POST,
+					e.getMessage());
 		}
 
 		return new ResponseOKListDto<CentroDeCostoResponseDTO>(EndPointPathConstant.REPORTE_CENTRO_DE_COSTO,

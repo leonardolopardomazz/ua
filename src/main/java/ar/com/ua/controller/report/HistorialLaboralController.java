@@ -46,7 +46,8 @@ public class HistorialLaboralController implements IReport<HistorialLaboralDTO> 
 			hlDto = this.hlService.generar(dto);
 
 		} catch (Exception e) {
-			ManejoErrores.errorGenerico(EndPointPathConstant.HISTORIAL_LABORAL, TipoMetodoConstant.POST, e.getMessage());
+			return ManejoErrores.errorGenerico(EndPointPathConstant.HISTORIAL_LABORAL, TipoMetodoConstant.POST,
+					e.getMessage());
 		}
 		return new ResponseOKListDto<HistorialLaboralResponseDTO>(EndPointPathConstant.HISTORIAL_LABORAL,
 				TipoMetodoConstant.GET, CodigoRespuestaConstant.OK, hlDto);
