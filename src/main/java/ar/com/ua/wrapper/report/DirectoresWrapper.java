@@ -6,13 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import ar.com.ua.dto.report.DirectoresResponseDTO;
-import ar.com.ua.repository.report.ParametrosRepository;
+import ar.com.ua.model.Parametro;
+import ar.com.ua.service.ParametroService;
 
 @Component
 public class DirectoresWrapper {
 
 	@Autowired
-	private ParametrosRepository repository;
+	private ParametroService parametroService;
+
+	private String descripcion(String id) {
+		if (id != null) {
+			Parametro param = parametroService.findById(Long.valueOf(id)).get();
+			return param.getDescripcion();
+		}
+		return "";
+	}
 
 	public DirectoresResponseDTO result(List<String> data) {
 		DirectoresResponseDTO dto = new DirectoresResponseDTO();
@@ -22,16 +31,16 @@ public class DirectoresWrapper {
 		dto.setFechaIngresoReconocida(data.get(3));
 		dto.setDescripcionPais(data.get(4));
 		dto.setEmailLaboral(data.get(5));
-		dto.setDescripcionOficina(repository.descripcion(data.get(6)));
+		dto.setDescripcionOficina(descripcion(data.get(6)));
 		dto.setDescripcionPuesto(data.get(7));
-		dto.setDescripcionCategoria(repository.descripcion(data.get(8)));
-		dto.setDescripcionDireccion(repository.descripcion(data.get(9)));
-		dto.setDescripcionGerencia(repository.descripcion(data.get(10)));
-		dto.setDescripcionJefatura(repository.descripcion(data.get(11)));
+		dto.setDescripcionCategoria(descripcion(data.get(8)));
+		dto.setDescripcionDireccion(descripcion(data.get(9)));
+		dto.setDescripcionGerencia(descripcion(data.get(10)));
+		dto.setDescripcionJefatura(descripcion(data.get(11)));
 		dto.setDescripcionCargoManagerJefe(data.get(12));
-		dto.setDescripcionDivision(repository.descripcion(data.get(13)));
-		dto.setDescripcionCentroDeCostos(repository.descripcion(data.get(14)));
-		dto.setDescripcionConvenio(repository.descripcion(data.get(15)));
+		dto.setDescripcionDivision(descripcion(data.get(13)));
+		dto.setDescripcionCentroDeCostos(descripcion(data.get(14)));
+		dto.setDescripcionConvenio(descripcion(data.get(15)));
 		dto.setDescripcionManagerJefe(data.get(16));
 
 		return dto;

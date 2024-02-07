@@ -11,12 +11,13 @@ import org.springframework.stereotype.Component;
 import ar.com.ua.dto.report.InternationalDataCollectionResponseDTO;
 import ar.com.ua.model.Parametro;
 import ar.com.ua.repository.report.ParametrosRepository;
+import ar.com.ua.service.ParametroService;
 
 @Component
 public class InternationalDataCollectionWrapper {
 
 	@Autowired
-	private ParametrosRepository repository;
+	private ParametroService parametroService;
 
 	private int calcularEdad(String fecha) {
 		if (fecha == null)
@@ -29,6 +30,30 @@ public class InternationalDataCollectionWrapper {
 		Period periodo = Period.between(fechaNac, ahora);
 
 		return periodo.getYears();
+	}
+
+	private String descripcion(String id) {
+		if (id != null) {
+			Parametro param = parametroService.findById(Long.valueOf(id)).get();
+			return param.getDescripcion();
+		}
+		return "";
+	}
+
+	private String texto1(String id) {
+		if (id != null) {
+			Parametro param = parametroService.findById(Long.valueOf(id)).get();
+			return param.getTexto1();
+		}
+		return "";
+	}
+
+	private String texto2(String id) {
+		if (id != null) {
+			Parametro param = parametroService.findById(Long.valueOf(id)).get();
+			return param.getTexto2();
+		}
+		return "";
 	}
 
 	public InternationalDataCollectionResponseDTO result(List<String> data) {
@@ -44,35 +69,32 @@ public class InternationalDataCollectionWrapper {
 		// dto.setOtherName(data.get(8));
 		dto.setPreferedName(data.get(7));
 		dto.setDateOfBirth(data.get(8));
-		Parametro generoParam = repository.getParametro(data.get(9));
-		if (generoParam != null) {
-			dto.setGender(generoParam.getDescripcion());
-			dto.setTitle(generoParam.getTexto1());
-		}
+		dto.setGender(descripcion(data.get(9)));
+		dto.setTitle(texto1(data.get(9)));
 		dto.setCountry(data.get(10));
 		dto.setMailLaboral(data.get(11));
 		dto.setStartDate(data.get(12));
 		dto.setHorasDeTrabajo(data.get(13));
-		dto.setFte(repository.texto2(data.get(14)));
-		dto.setRateFrecuency(repository.texto1(data.get(15)));
+		dto.setFte(texto2(data.get(14)));
+		dto.setRateFrecuency(texto1(data.get(15)));
 		dto.setSalaryBasePayRate(null);
 		dto.setReasonForSalaryChange(null);
-		dto.setEmploymentType(repository.texto1(data.get(16)));
-		dto.setPersonnelType(repository.descripcion(data.get(17)));
-		dto.setJefatura(repository.descripcion(data.get(18)));
+		dto.setEmploymentType(texto1(data.get(16)));
+		dto.setPersonnelType(descripcion(data.get(17)));
+		dto.setJefatura(descripcion(data.get(18)));
 		dto.setTermDate(data.get(19)); // feche egreso
-		dto.setTermReason(repository.descripcion(data.get(20)));
+		dto.setTermReason(descripcion(data.get(20)));
 		dto.setAntiguedad(String.valueOf(calcularEdad(data.get(12))));
 		dto.setAge(String.valueOf(calcularEdad(data.get(8))));
-		dto.setGeneration(repository.descripcion(data.get(21)));
-		dto.setDivission(repository.texto1(data.get(22)));
-		dto.setDireccion(repository.descripcion(data.get(23)));
-		dto.setGerencia(repository.descripcion(data.get(24)));
+		dto.setGeneration(descripcion(data.get(21)));
+		dto.setDivission(texto1(data.get(22)));
+		dto.setDireccion(descripcion(data.get(23)));
+		dto.setGerencia(descripcion(data.get(24)));
 		dto.setSubgerencia(null);
-		dto.setDepartment(repository.descripcion(data.get(23)));
-		dto.setOficina(repository.descripcion(data.get(25)));
+		dto.setDepartment(descripcion(data.get(23)));
+		dto.setOficina(descripcion(data.get(25)));
 		dto.setActive(String.valueOf("null".equals(data.get(26))));
-		dto.setCategory(repository.descripcion(data.get(27)));
+		dto.setCategory(descripcion(data.get(27)));
 		return dto;
 	}
 

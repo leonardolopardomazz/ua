@@ -6,13 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import ar.com.ua.dto.report.HistorialLaboralResponseDTO;
-import ar.com.ua.repository.report.ParametrosRepository;
+import ar.com.ua.model.Parametro;
+import ar.com.ua.service.ParametroService;
 
 @Component
 public class HistorialLaboralWrapper {
 
 	@Autowired
-	private ParametrosRepository repository;
+	private ParametroService parametroService;
+
+	private String descripcion(String id) {
+		if (id != null) {
+			Parametro param = parametroService.findById(Long.valueOf(id)).get();
+			return param.getDescripcion();
+		}
+		return "";
+	}
 
 	public HistorialLaboralResponseDTO result(List<String> data) {
 		HistorialLaboralResponseDTO dto = new HistorialLaboralResponseDTO();
@@ -22,7 +31,7 @@ public class HistorialLaboralWrapper {
 		dto.setPuesto(data.get(3));
 		dto.setFechaInicioPuesto(data.get(4));
 		dto.setFechaFinPuesto(data.get(5));
-		dto.setDireccion(repository.descripcion(data.get(6)));
+		dto.setDireccion(descripcion(data.get(6)));
 		return dto;
 	}
 }
