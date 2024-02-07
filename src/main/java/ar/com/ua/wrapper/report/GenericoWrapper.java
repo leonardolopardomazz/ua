@@ -19,27 +19,30 @@ public class GenericoWrapper {
 	private ParametroService parametroService;
 
 	private String descripcion(String id) {
-		if (id != null) {
+		try {
 			Parametro param = parametroService.findById(Long.valueOf(id)).get();
 			return param.getDescripcion();
+		} catch (NumberFormatException e) {
+			return "";
 		}
-		return "";
 	}
 
 	private String texto1(String id) {
-		if (id != null) {
+		try {
 			Parametro param = parametroService.findById(Long.valueOf(id)).get();
 			return param.getTexto1();
+		} catch (NumberFormatException e) {
+			return "";
 		}
-		return "";
 	}
 
 	private String texto2(String id) {
-		if (id != null) {
+		try {
 			Parametro param = parametroService.findById(Long.valueOf(id)).get();
 			return param.getTexto2();
+		} catch (NumberFormatException e) {
+			return "";
 		}
-		return "";
 	}
 
 	private int calcularEdad(String fecha) {

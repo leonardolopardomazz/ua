@@ -16,11 +16,12 @@ public class HistorialLaboralWrapper {
 	private ParametroService parametroService;
 
 	private String descripcion(String id) {
-		if (id != null) {
+		try {
 			Parametro param = parametroService.findById(Long.valueOf(id)).get();
 			return param.getDescripcion();
+		} catch (NumberFormatException e) {
+			return "";
 		}
-		return "";
 	}
 
 	public HistorialLaboralResponseDTO result(List<String> data) {

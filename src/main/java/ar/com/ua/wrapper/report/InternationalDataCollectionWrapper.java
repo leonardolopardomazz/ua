@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import ar.com.ua.dto.report.InternationalDataCollectionResponseDTO;
 import ar.com.ua.model.Parametro;
-import ar.com.ua.repository.report.ParametrosRepository;
 import ar.com.ua.service.ParametroService;
 
 @Component
@@ -33,27 +32,30 @@ public class InternationalDataCollectionWrapper {
 	}
 
 	private String descripcion(String id) {
-		if (id != null) {
+		try {
 			Parametro param = parametroService.findById(Long.valueOf(id)).get();
 			return param.getDescripcion();
+		} catch (NumberFormatException e) {
+			return "";
 		}
-		return "";
 	}
 
 	private String texto1(String id) {
-		if (id != null) {
+		try {
 			Parametro param = parametroService.findById(Long.valueOf(id)).get();
 			return param.getTexto1();
+		} catch (NumberFormatException e) {
+			return "";
 		}
-		return "";
 	}
 
 	private String texto2(String id) {
-		if (id != null) {
+		try {
 			Parametro param = parametroService.findById(Long.valueOf(id)).get();
 			return param.getTexto2();
+		} catch (NumberFormatException e) {
+			return "";
 		}
-		return "";
 	}
 
 	public InternationalDataCollectionResponseDTO result(List<String> data) {

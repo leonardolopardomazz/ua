@@ -16,27 +16,30 @@ public class CentroDeCostosWrapper {
 	private ParametroService parametroService;
 
 	private String descripcion(String id) {
-		if (id != null) {
+		try {
 			Parametro param = parametroService.findById(Long.valueOf(id)).get();
 			return param.getDescripcion();
+		} catch (NumberFormatException e) {
+			return "";
 		}
-		return "";
-	}
-
-	private String texto2(String id) {
-		if (id != null) {
-			Parametro param = parametroService.findById(Long.valueOf(id)).get();
-			return param.getTexto2();
-		}
-		return "";
 	}
 
 	private String codigo(String id) {
-		if (id != null) {
+		try {
 			Parametro param = parametroService.findById(Long.valueOf(id)).get();
-			return param.getCodigo();
+			return param.getTexto1();
+		} catch (NumberFormatException e) {
+			return "";
 		}
-		return "";
+	}
+
+	private String texto2(String id) {
+		try {
+			Parametro param = parametroService.findById(Long.valueOf(id)).get();
+			return param.getTexto2();
+		} catch (NumberFormatException e) {
+			return "";
+		}
 	}
 
 	public CentroDeCostoResponseDTO result(List<String> data) {
