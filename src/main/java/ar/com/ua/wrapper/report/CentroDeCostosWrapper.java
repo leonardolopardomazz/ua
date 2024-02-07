@@ -16,18 +16,18 @@ public class CentroDeCostosWrapper {
 	private ParametrosRepository parametroRepository;
 
 	private String descripcion(String id) {
-		Parametro param = parametroRepository.getParametro(id);
+		String param = parametroRepository.descripcion(id);
 		if (param != null) {
-			return param.getDescripcion();
+			return param;
 		} else {
 			return "";
 		}
 	}
 
 	private String codigo(String id) {
-		Parametro param = parametroRepository.getParametro(id);
+		String param = parametroRepository.codigo(id);
 		if (param != null) {
-			return param.getCodigo();
+			return param;
 		} else {
 			return "";
 		}
