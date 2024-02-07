@@ -1,5 +1,7 @@
 package ar.com.ua.model;
 
+import java.util.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,6 +22,15 @@ public class ParametrosSeguridadContrasena extends Auditable {
 
 	@Column(name = "cantidad_reintentos_validos")
 	private Integer cantidadReintentosValidos;
+
+	@Column(name = "fecha_validez_inicio")
+	private Date fechaValidezInicio;
+
+	@Column(name = "fecha_validez_fin")
+	private Date fechaValidezFin;
+
+	@Column(name = "activo")
+	private boolean activo;
 
 	public Long getId() {
 		return id;
@@ -43,6 +54,30 @@ public class ParametrosSeguridadContrasena extends Auditable {
 
 	public void setCantidadReintentosValidos(Integer cantidadReintentosValidos) {
 		this.cantidadReintentosValidos = cantidadReintentosValidos;
+	}
+
+	public Date getFechaValidezInicio() {
+		return fechaValidezInicio;
+	}
+
+	public void setFechaValidezInicio(Date fechaValidezInicio) {
+		this.fechaValidezInicio = fechaValidezInicio;
+	}
+
+	public Date getFechaValidezFin() {
+		return fechaValidezFin;
+	}
+
+	public void setFechaValidezFin(Date fechaValidezFin) {
+		this.fechaValidezFin = fechaValidezFin;
+	}
+
+	public boolean isActivo() {
+		return activo;
+	}
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
 	}
 
 }
