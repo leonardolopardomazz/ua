@@ -10,13 +10,40 @@ import org.springframework.stereotype.Component;
 
 import ar.com.ua.dto.report.InternationalDataCollectionResponseDTO;
 import ar.com.ua.model.Parametro;
-import ar.com.ua.service.ParametroService;
+import ar.com.ua.repository.report.ParametrosRepository;
 
 @Component
 public class InternationalDataCollectionWrapper {
 
 	@Autowired
-	private ParametroService parametroService;
+	private ParametrosRepository parametroRepository;
+
+	private String descripcion(String id) {
+		Parametro param = parametroRepository.getParametro(id);
+		if (param != null) {
+			return param.getDescripcion();
+		} else {
+			return "";
+		}
+	}
+
+	private String texto1(String id) {
+		Parametro param = parametroRepository.getParametro(id);
+		if (param != null) {
+			return param.getTexto1();
+		} else {
+			return "";
+		}
+	}
+
+	private String texto2(String id) {
+		Parametro param = parametroRepository.getParametro(id);
+		if (param != null) {
+			return param.getTexto2();
+		} else {
+			return "";
+		}
+	}
 
 	private int calcularEdad(String fecha) {
 		if (fecha == null)
@@ -29,33 +56,6 @@ public class InternationalDataCollectionWrapper {
 		Period periodo = Period.between(fechaNac, ahora);
 
 		return periodo.getYears();
-	}
-
-	private String descripcion(String id) {
-		try {
-			Parametro param = parametroService.findById(Long.valueOf(id)).get();
-			return param.getDescripcion();
-		} catch (NumberFormatException e) {
-			return "";
-		}
-	}
-
-	private String texto1(String id) {
-		try {
-			Parametro param = parametroService.findById(Long.valueOf(id)).get();
-			return param.getTexto1();
-		} catch (NumberFormatException e) {
-			return "";
-		}
-	}
-
-	private String texto2(String id) {
-		try {
-			Parametro param = parametroService.findById(Long.valueOf(id)).get();
-			return param.getTexto2();
-		} catch (NumberFormatException e) {
-			return "";
-		}
 	}
 
 	public InternationalDataCollectionResponseDTO result(List<String> data) {

@@ -7,19 +7,19 @@ import org.springframework.stereotype.Component;
 
 import ar.com.ua.dto.report.LicenciasResponseDTO;
 import ar.com.ua.model.Parametro;
-import ar.com.ua.service.ParametroService;
+import ar.com.ua.repository.report.ParametrosRepository;
 
 @Component
 public class LicenciasWrapper {
 
 	@Autowired
-	private ParametroService parametroService;
+	private ParametrosRepository parametroRepository;
 
 	private String descripcion(String id) {
-		try {
-			Parametro param = parametroService.findById(Long.valueOf(id)).get();
+		Parametro param = parametroRepository.getParametro(id);
+		if (param != null) {
 			return param.getDescripcion();
-		} catch (NumberFormatException e) {
+		} else {
 			return "";
 		}
 	}

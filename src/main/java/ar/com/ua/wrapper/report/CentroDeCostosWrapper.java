@@ -7,37 +7,37 @@ import org.springframework.stereotype.Component;
 
 import ar.com.ua.dto.report.CentroDeCostoResponseDTO;
 import ar.com.ua.model.Parametro;
-import ar.com.ua.service.ParametroService;
+import ar.com.ua.repository.report.ParametrosRepository;
 
 @Component
 public class CentroDeCostosWrapper {
 
 	@Autowired
-	private ParametroService parametroService;
+	private ParametrosRepository parametroRepository;
 
 	private String descripcion(String id) {
-		try {
-			Parametro param = parametroService.findById(Long.valueOf(id)).get();
+		Parametro param = parametroRepository.getParametro(id);
+		if (param != null) {
 			return param.getDescripcion();
-		} catch (NumberFormatException e) {
+		} else {
 			return "";
 		}
 	}
 
 	private String codigo(String id) {
-		try {
-			Parametro param = parametroService.findById(Long.valueOf(id)).get();
-			return param.getTexto1();
-		} catch (NumberFormatException e) {
+		Parametro param = parametroRepository.getParametro(id);
+		if (param != null) {
+			return param.getCodigo();
+		} else {
 			return "";
 		}
 	}
 
 	private String texto2(String id) {
-		try {
-			Parametro param = parametroService.findById(Long.valueOf(id)).get();
+		Parametro param = parametroRepository.getParametro(id);
+		if (param != null) {
 			return param.getTexto2();
-		} catch (NumberFormatException e) {
+		} else {
 			return "";
 		}
 	}
