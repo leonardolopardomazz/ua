@@ -76,7 +76,7 @@ public class InternationalDataCollectionWrapper {
 		dto.setCountry(data.get(10));
 		dto.setMailLaboral(data.get(11));
 		dto.setStartDate(data.get(12));
-		dto.setHorasDeTrabajo(data.get(13));
+		dto.setHorasDeTrabajo(descripcion(data.get(13)));
 		dto.setFte(texto2(data.get(14)));
 		dto.setRateFrecuency(texto1(data.get(15)));
 		dto.setSalaryBasePayRate(null);
