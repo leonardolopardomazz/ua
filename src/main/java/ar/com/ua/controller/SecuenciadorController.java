@@ -113,12 +113,13 @@ public class SecuenciadorController implements IABMController<SecuenciadorDTO>, 
 			if (this.hicService.count() != 0) {
 				List<HistorialIngresoCaidos> hics = this.hicService.findAllByEmpleadoIsNotNull();
 
-				
 				for (HistorialIngresoCaidos hic : hics) {
-					if (hic.getEmpleado().getCodigoPais().getSecuenciador().getCodigo().equals(codigo) && hic.isActivo() == true) {
+					if (hic.getEmpleado().getCodigoPais().getSecuenciador().getCodigo().equals(codigo)
+							&& hic.isActivo() == true) {
 						hic.setActivo(false);
 						this.hicService.save(hic);
 						numeroLegajo = hic.getEmpleado().getNumeroLegajo();
+						break;
 					}
 				}
 			}
