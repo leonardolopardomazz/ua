@@ -93,7 +93,7 @@ public class LoginController {
 
 	private boolean determinarVencioElPlazoContrasena(String fechaUltimoCambioContrasena) {
 		int diasPasados = ManejoFechas.calcularDiferenciaEnDiasHastaHoy(fechaUltimoCambioContrasena);
-		int diasValidezContrasena = this.pscService.findAll().get(0).getDiasValidezContrasena();
+		int diasValidezContrasena = this.pscService.findFirstByActivoTrue().getDiasValidezContrasena();
 
 		if (diasPasados > diasValidezContrasena) {
 			return true;
