@@ -36,7 +36,7 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 
 	@Autowired
 	private EmpleadoService empleadoService;
-	
+
 	@Autowired
 	private EmpleadoBuilder empleadoBuilder;
 
@@ -47,17 +47,16 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 	private AccesoPermiso accesoPermiso;
 
 	static Logger logger = Logger.getLogger(EmpleadoController.class.getName());
-	
-	
+
 	private boolean existeEnHistoricoIngresosCaido(List<Long> legajos, Long legajoAGuardar) {
 		for (Long legajo : legajos) {
-			if(legajo == legajoAGuardar) {
+			if (legajo.equals(legajoAGuardar)) {
 				return true;
 			}
 		}
-		
+
 		return false;
-		
+
 	}
 
 	/**
@@ -78,11 +77,12 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 
 			final Long numeroLegajoAGuardar = dto.getNumeroLegajo();
 			Boolean existsNumeroLegajo = this.empleadoService.existsByNumeroLegajo(numeroLegajoAGuardar);
-			
+
 			List<Long> legajosEnHistoricoIngresoCaido = this.empleadoService.numerosLegajoEnHistoricoIngresoCaido();
-			
-			boolean existeEnHistoricoIngresosCaido = this.existeEnHistoricoIngresosCaido(legajosEnHistoricoIngresoCaido, numeroLegajoAGuardar);
-			
+
+			boolean existeEnHistoricoIngresosCaido = this.existeEnHistoricoIngresosCaido(legajosEnHistoricoIngresoCaido,
+					numeroLegajoAGuardar);
+
 			if (!existsNumeroLegajo || existeEnHistoricoIngresosCaido) {
 				Empleado empleado = empleadoBuilder.dtoToModel(dto);
 				Empleado empleadoGuardado = empleadoService.save(empleado);
