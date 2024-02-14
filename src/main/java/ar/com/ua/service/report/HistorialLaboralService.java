@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import ar.com.ua.builder.report.HistorialLaboralBuilder;
 import ar.com.ua.dto.report.HistorialLaboralDTO;
 import ar.com.ua.dto.report.HistorialLaboralResponseDTO;
+import ar.com.ua.projection.report.HistorialLaboralProjection;
 import ar.com.ua.repository.report.HistorialLaboralRepository;
 
 @Component
@@ -21,7 +22,7 @@ public class HistorialLaboralService {
 
 	public List<HistorialLaboralResponseDTO> generar(HistorialLaboralDTO hlDto) {
 
-		List<String> resultado = this.hlRepository.reporte(hlDto.getPais(), hlDto.getIdDireccion(), hlDto.getEstado(),
+		List<HistorialLaboralProjection> resultado = this.hlRepository.reporte(hlDto.getPais(), hlDto.getIdDireccion(), hlDto.getEstado(),
 				hlDto.getFechaDesde(), hlDto.getFechaHasta());
 
 		return this.hlBuilder.listToDto(resultado);

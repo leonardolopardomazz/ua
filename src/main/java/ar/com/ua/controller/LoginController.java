@@ -82,7 +82,7 @@ public class LoginController {
 	 */
 	private void determinarLogicaBloqueoUsuario(Login login) {
 		int cantidadReintentos = login.getCantidadReintentos();
-		int cantidadReintentosSistema = this.pscService.findAll().get(0).getCantidadReintentosValidos();
+		int cantidadReintentosSistema = this.pscService.findFirstByActivoTrue().getCantidadReintentosValidos();
 		Usuario usuario = login.getUsuario();
 
 		if (cantidadReintentos >= cantidadReintentosSistema) {

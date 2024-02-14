@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import ar.com.ua.builder.report.VueltaAlColegioBuilder;
 import ar.com.ua.dto.report.VueltaAlColegioDTO;
 import ar.com.ua.dto.report.VueltaAlColegioResponseDTO;
+import ar.com.ua.projection.report.VueltaAlColegioProjection;
 import ar.com.ua.repository.report.VueltaAlColegioRepository;
 
 @Component
@@ -21,8 +22,8 @@ public class VueltaAlColegioService {
 
 	public List<VueltaAlColegioResponseDTO> generar(VueltaAlColegioDTO dto) {
 		
-		List<String> result = this.repository.reporte(dto.getPais());
-		List<VueltaAlColegioResponseDTO> vacDto = vacBuilder.listToDto(result);
+		List<VueltaAlColegioProjection> vacP = this.repository.reporte(dto.getPais());
+		List<VueltaAlColegioResponseDTO> vacDto = vacBuilder.listToDto(vacP);
 		return vacDto;
 	}
 

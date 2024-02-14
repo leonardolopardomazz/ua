@@ -19,7 +19,7 @@ public class AccesoPermiso {
 	private boolean tieneAcceso(List<Rol> roles, String permisoAlRecurso) {
 		for (Rol rol : roles) {
 			for (Permiso permiso : rol.getPermisos()) {
-				if (permiso.getDescripcion().equals(permisoAlRecurso)) {
+				if (permiso.getCodigo().equals(permisoAlRecurso)) {
 					return true;
 				}
 			}

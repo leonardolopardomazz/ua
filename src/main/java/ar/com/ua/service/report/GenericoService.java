@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import ar.com.ua.builder.report.GenericoBuilder;
 import ar.com.ua.dto.report.GenericoDTO;
 import ar.com.ua.dto.report.GenericoResponseDTO;
+import ar.com.ua.projection.report.GenericoProjection;
 import ar.com.ua.repository.report.GenericoRepository;
 
 @Component
@@ -21,7 +22,7 @@ public class GenericoService {
 
 	public List<GenericoResponseDTO> generar(GenericoDTO dto) {
 
-		List<String> resultado = this.repository.reporte(dto.getEstadoEmpleado(), dto.getIdDireccion(), dto.getIdGerencia());
+		List<GenericoProjection> resultado = this.repository.reporte(dto.getEstadoEmpleado(), dto.getIdDireccion(), dto.getIdGerencia());
 
 		return this.builder.listToDto(resultado);
 	}

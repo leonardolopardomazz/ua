@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import ar.com.ua.builder.report.ExternosBuilder;
 import ar.com.ua.dto.report.ExternosDTO;
 import ar.com.ua.dto.report.ExternosResponseDTO;
+import ar.com.ua.projection.report.ExternosProjection;
 import ar.com.ua.repository.report.ExternosRepository;
 
 @Component
@@ -21,7 +22,7 @@ public class ExternosService {
 
 	public List<ExternosResponseDTO> generar(ExternosDTO extDto) {
 
-		List<String> resultado = this.extRepository.reporte(extDto.getActivo());
+		List<ExternosProjection> resultado = this.extRepository.reporte(extDto.getActivo());
 
 		return this.builder.listToDto(resultado);
 	}

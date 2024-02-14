@@ -1,7 +1,7 @@
 package ar.com.ua.builder.report;
 
-public interface IBuilderResponse<List, Dto> {
+public interface IBuilderResponse<ListProjection, ListDto> {
 
-	public List listToDto(List list);
+	public ListDto listToDto(ListProjection list);
 
 }

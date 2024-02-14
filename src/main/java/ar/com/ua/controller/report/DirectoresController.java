@@ -39,7 +39,7 @@ public class DirectoresController implements IReport<DirectoresDTO> {
 					.deteminarAccesoAlRecurso(PermisosConstant.PERMISO_REPORTE_DIRECTORES);
 
 			if (!tieneAcceso) {
-				return ManejoErrores.errorGenerico(EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO,
+				return ManejoErrores.errorGenerico(EndPointPathConstant.DIRECTORES,
 						TipoMetodoConstant.POST, MensajeError.ACCESS_DENIED);
 			}
 

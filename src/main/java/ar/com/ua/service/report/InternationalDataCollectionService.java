@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import ar.com.ua.builder.report.InternationalDataCollectionBuilder;
 import ar.com.ua.dto.report.InternationalDataCollectionDTO;
 import ar.com.ua.dto.report.InternationalDataCollectionResponseDTO;
+import ar.com.ua.projection.report.InternationalDataCollectionProjection;
 import ar.com.ua.repository.report.InternationalDataCollectionRepository;
 
 @Component
@@ -21,7 +22,7 @@ public class InternationalDataCollectionService {
 
 	public List<InternationalDataCollectionResponseDTO> generar(InternationalDataCollectionDTO dto) {
 
-		List<String> resultado = this.repository.reporte(dto.getFechaHasta());
+		List<InternationalDataCollectionProjection> resultado = this.repository.reporte(dto.getFechaHasta());
 		return this.builder.listToDto(resultado);
 	}
 

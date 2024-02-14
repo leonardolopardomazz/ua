@@ -7,24 +7,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import ar.com.ua.dto.report.CentroDeCostoResponseDTO;
-import ar.com.ua.wrapper.report.CentroDeCostosWrapper;
+import ar.com.ua.projection.report.CentroDeCostoProjection;
+import ar.com.ua.repository.report.CommonsRepository;
 
 @Component
-public class CentroDeCostoBuilder implements IBuilderResponse<List<?>, CentroDeCostoResponseDTO> {
+public class CentroDeCostoBuilder
+		implements IBuilderResponse<List<CentroDeCostoProjection>, List<CentroDeCostoResponseDTO>> {
 
 	@Autowired
-	private CentroDeCostosWrapper wrapper;
+	private CommonsRepository commonsRepository;
 
 	@Override
-	public List<CentroDeCostoResponseDTO> listToDto(List<?> list) {
+	public List<CentroDeCostoResponseDTO> listToDto(List<CentroDeCostoProjection> listProjection) {
 
 		List<CentroDeCostoResponseDTO> listDto = new ArrayList<>();
 
 		try {
-			for (Object object : list) {
-				List<String> parseResult = CommonsBuilder.arrayToList(object.toString().split(","));
 
-				listDto.add(wrapper.result(parseResult));
+			for (CentroDeCostoProjection projection : listProjection) {
+				CentroDeCostoResponseDTO dto = new CentroDeCostoResponseDTO();
+				dto.setNumeroLegajo(projection.getNumeroLegajo());
+				dto.setApellido(projection.getApellido());
+				dto.setNombre(projection.getNombre());
+				dto.setIdDireccion(projection.getCodigoDireccion());
+				dto.setDireccion(commonsRepository.descripcion(projection.getDireccion()));
+				dto.setIdGerencia(projection.getCodigoGerencia());
+				dto.setGerencia(commonsRepository.descripcion(projection.getGerencia()));
+				dto.setCodigoCentroDeCosto(commonsRepository.codigo(projection.getCodigoCentroDeCosto()));
+				dto.setDescripcionCentroDeCosto(commonsRepository.descripcion(projection.getCodigoCentroDeCosto()));
+				dto.setFte(commonsRepository.texto2(projection.getFte()));
+
+				listDto.add(dto);
 			}
 		} catch (Exception e) {
 			throw e;

@@ -9,17 +9,25 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.com.ua.model.Empleado;
+import ar.com.ua.projection.report.CentroDeCostoProjection;
 
 @Repository
 @Transactional(readOnly = true)
 public interface CentroDeCostoRepository extends JpaRepository<Empleado, Long> {
 
-	@Query(value = "SELECT emp.nro_legajo, emp.apellido, emp.nombre, emp.cod_direccion, p.cod_gerencia, emp.cod_centro_de_costo, emp.fte "
+	@Query(value = "SELECT emp.nro_legajo as numeroLegajo, "
+			+ "emp.apellido as apellido, "
+			+ "emp.nombre as nombre, "
+			+ "emp.cod_direccion as codigoDireccion, "
+			+ "p.cod_gerencia as codigoGerencia, "
+			+ "emp.cod_centro_de_costo as codigoCentroDeCosto, "
+			+ "emp.fte as fte "
 			+ "FROM empleados emp JOIN puesto p ON emp.cod_puesto = p.id "
 			+ "WHERE (emp.cod_centro_de_costo = :idCentroDeCosto OR :idCentroDeCosto IS NULL) "
 			+ "AND (emp.cod_direccion = :idDireccion OR :idDireccion IS NULL) "
-			+ "AND (emp.cod_estado_empleado IN :estado) ", nativeQuery = true)
-	List<String> reporte(@Param("idCentroDeCosto") String idCentroDeCosto, @Param("estado") List<String> estado,
+			+ "AND (emp.cod_estado_empleado IN :estado) "
+			, nativeQuery = true)
+	List<CentroDeCostoProjection> reporte(@Param("idCentroDeCosto") String idCentroDeCosto, @Param("estado") List<String> estado,
 			@Param("idDireccion") String idDireccion);
 
 }

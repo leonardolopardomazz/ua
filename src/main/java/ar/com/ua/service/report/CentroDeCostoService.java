@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import ar.com.ua.builder.report.CentroDeCostoBuilder;
 import ar.com.ua.dto.report.CentroDeCostoDTO;
 import ar.com.ua.dto.report.CentroDeCostoResponseDTO;
+import ar.com.ua.projection.report.CentroDeCostoProjection;
 import ar.com.ua.repository.report.CentroDeCostoRepository;
 
 @Component
@@ -22,7 +23,7 @@ public class CentroDeCostoService {
 	public List<CentroDeCostoResponseDTO> generar(CentroDeCostoDTO dto) {
 
 		try {
-			List<String> resultado = this.cdcRepository.reporte(dto.getIdCentroDeCosto(), dto.getEstado(),
+			List<CentroDeCostoProjection> resultado = this.cdcRepository.reporte(dto.getIdCentroDeCosto(), dto.getEstado(),
 					dto.getIdDireccion());
 
 			return this.cdcBuilder.listToDto(resultado);

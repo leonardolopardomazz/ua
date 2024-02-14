@@ -20,6 +20,7 @@ public class DirectoresResponseDTO {
 	private String descripcionDivision;
 	private String descripcionCentroDeCostos;
 	private String descripcionConvenio;
+	private String apellidoNombreManager;
 
 	public String getNumeroLegajo() {
 		return numeroLegajo;
@@ -164,5 +165,15 @@ public class DirectoresResponseDTO {
 	public void setDescripcionConvenio(String descripcionConvenio) {
 		this.descripcionConvenio = descripcionConvenio;
 	}
+
+	public String getApellidoNombreManager() {
+		return apellidoNombreManager;
+	}
+
+	public void setApellidoNombreManager(String apellidoNombreManager) {
+		this.apellidoNombreManager = apellidoNombreManager;
+	}
+	
+	
 
 }

@@ -1,33 +1,85 @@
 package ar.com.ua.builder.report;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import ar.com.ua.dto.report.VueltaAlColegioResponseDTO;
-import ar.com.ua.wrapper.report.VueltaAlColegioWrapper;
+import ar.com.ua.projection.report.VueltaAlColegioProjection;
 
 @Component
-public class VueltaAlColegioBuilder implements IBuilderResponse<List<?>, VueltaAlColegioResponseDTO> {
+public class VueltaAlColegioBuilder
+		implements IBuilderResponse<List<VueltaAlColegioProjection>, List<VueltaAlColegioResponseDTO>> {
 
-	@Autowired
-	private VueltaAlColegioWrapper wrapper;
+	private String devolverEdadesAcumuladas(List<Integer> edades) {
+		String edadesAcumuladas = "";
+
+		for (Integer edad : edades) {
+			if (edad <= 20) {
+				edadesAcumuladas = edadesAcumuladas + ", " + edad;
+			}
+		}
+		String beutyResult = (edadesAcumuladas.replaceFirst(",", "")).trim();
+		return beutyResult;
+	}
+
+	private int calcularCantidadHijos(List<Integer> edades) {
+		int cantidadHijos = 0;
+
+		for (Integer edad : edades) {
+			if (edad <= 20) {
+				cantidadHijos++;
+			}
+		}
+		return cantidadHijos;
+	}
+
+	private int calcularEdad(String fecha) {
+		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+		LocalDate fechaNac = LocalDate.parse(fecha, fmt);
+		LocalDate ahora = LocalDate.now();
+
+		Period periodo = Period.between(fechaNac, ahora);
+
+		return periodo.getYears();
+	}
+
+	private List<Integer> calcularEdades(String fechas) {
+		List<Integer> edades = new ArrayList<>();
+		List<String> parseResult = CommonsBuilder.arrayToList(fechas.split(","));
+
+		for (String fecha : parseResult) {
+			int edad = calcularEdad(fecha);
+			edades.add(edad);
+		}
+
+		return edades;
+	}
 
 	@Override
-	public List<VueltaAlColegioResponseDTO> listToDto(List<?> list) {
+	public List<VueltaAlColegioResponseDTO> listToDto(List<VueltaAlColegioProjection> listProjection) {
 
 		List<VueltaAlColegioResponseDTO> listDto = new ArrayList<>();
+
 		try {
-			for (Object object : list) {
-				List<String> parserResult = CommonsBuilder.arrayToList(object.toString().split(","));
-				List<String> initialData = parserResult.subList(0, 4);
+			for (VueltaAlColegioProjection projection : listProjection) {
+				VueltaAlColegioResponseDTO dto = new VueltaAlColegioResponseDTO();
 
-				int size = parserResult.size();
-				List<String> dates = parserResult.subList(4, size);
+				dto.setApellido(projection.getApellido());
+				dto.setNombre(projection.getNombre());
+				dto.setNumeroLegajo(projection.getNumeroLegajo());
+				dto.setPais(projection.getPais());
 
-				listDto.add(wrapper.result(initialData, dates));
+				List<Integer> edades = this.calcularEdades(projection.getFechaNacimiento());
+				dto.setCantidadHijos(calcularCantidadHijos(edades));
+				dto.setEdades(devolverEdadesAcumuladas(edades));
+
+				listDto.add(dto);
 			}
 			return listDto;
 		} catch (Exception e) {

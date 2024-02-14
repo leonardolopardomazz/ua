@@ -41,13 +41,13 @@ public class LoginResponseBuilder {
 		}
 		dto.setRoles(rolesDescripcion);
 
-		List<String> permisosDescripcion = new ArrayList<>();
+		List<String> permisosCodigo = new ArrayList<>();
 		for (Rol rol : listRoles) {
 			for (Permiso permiso : rol.getPermisos()) {
-				permisosDescripcion.add(permiso.getDescripcion());
+				permisosCodigo.add(permiso.getCodigo());
 			}
 		}
-		dto.setPermisos(permisosDescripcion);
+		dto.setPermisos(permisosCodigo);
 
 		return dto;
 	}

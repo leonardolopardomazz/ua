@@ -22,7 +22,8 @@ import ar.com.ua.service.report.VueltaAlColegioService;
 
 @RequestMapping("/reporte/vueltaalcolegio")
 @RestController
-public class VueltaAlColegioController implements IReport<VueltaAlColegioDTO> {
+public class VueltaAlColegioController implements IReport<VueltaAlColegioDTO> 
+{
 
 	@Autowired
 	private VueltaAlColegioService reporteService;
@@ -32,7 +33,7 @@ public class VueltaAlColegioController implements IReport<VueltaAlColegioDTO> {
 
 	@Override
 	public ResponseDto generar(@RequestBody VueltaAlColegioDTO dto) {
-		List<VueltaAlColegioResponseDTO> vacDto = new ArrayList<>();
+		List<VueltaAlColegioResponseDTO> listVacDto = new ArrayList<>();
 
 		try {
 			// Chequeo de acceso al reporte
@@ -42,8 +43,9 @@ public class VueltaAlColegioController implements IReport<VueltaAlColegioDTO> {
 				return ManejoErrores.errorGenerico(EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO,
 						TipoMetodoConstant.POST, MensajeError.ACCESS_DENIED);
 			}
+			
+			listVacDto = this.reporteService.generar(dto);
 
-			vacDto = this.reporteService.generar(dto);
 
 		} catch (Exception e) {
 			return ManejoErrores.errorGenerico(EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO, TipoMetodoConstant.POST,
@@ -51,7 +53,7 @@ public class VueltaAlColegioController implements IReport<VueltaAlColegioDTO> {
 		}
 
 		return new ResponseOKListDto<VueltaAlColegioResponseDTO>(EndPointPathConstant.REPORTE_VUELTA_AL_COLEGIO,
-				TipoMetodoConstant.POST, CodigoRespuestaConstant.OK, vacDto);
+				TipoMetodoConstant.POST, CodigoRespuestaConstant.OK, listVacDto);
 	}
 
 }

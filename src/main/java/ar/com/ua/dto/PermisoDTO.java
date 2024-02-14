@@ -8,8 +8,9 @@ public class PermisoDTO {
 
 	private Long id;
 	private String descripcion;
+	private String codigo;
 	private boolean activo;
-	
+
 	private List<Rol> roles;
 
 	public Long getId() {
@@ -26,6 +27,14 @@ public class PermisoDTO {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
 	public boolean isActivo() {

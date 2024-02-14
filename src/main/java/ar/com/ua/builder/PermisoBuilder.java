@@ -16,6 +16,7 @@ public class PermisoBuilder implements IBuilder<Permiso, PermisoDTO> {
 		Permiso permiso = new Permiso();
 		permiso.setId(dto.getId());
 		permiso.setDescripcion(dto.getDescripcion());
+		permiso.setCodigo(dto.getCodigo());
 		permiso.setActivo(dto.isActivo());
 		
 		return permiso;
@@ -27,6 +28,7 @@ public class PermisoBuilder implements IBuilder<Permiso, PermisoDTO> {
 		dto.setActivo(model.isActivo());
 		dto.setId(model.getId());
 		dto.setDescripcion(model.getDescripcion());
+		dto.setCodigo(model.getCodigo());
 		dto.setRoles(model.getRoles());
 
 		return dto;
@@ -41,6 +43,7 @@ public class PermisoBuilder implements IBuilder<Permiso, PermisoDTO> {
 			dto.setActivo(permiso.isActivo());
 			dto.setId(permiso.getId());
 			dto.setDescripcion(permiso.getDescripcion());
+			dto.setCodigo(permiso.getCodigo());
 			dto.setRoles(permiso.getRoles());
 			dtoList.add(dto);
 		}

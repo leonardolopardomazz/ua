@@ -23,6 +23,9 @@ public class Permiso extends Auditable {
 
 	@Column(name = "descripcion")
 	private String descripcion;
+	
+	@Column(name = "codigo")
+	private String codigo;
 
 	@Column(name = "activo")
 	private boolean activo;
@@ -45,6 +48,14 @@ public class Permiso extends Auditable {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+	
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
 	public boolean isActivo() {
