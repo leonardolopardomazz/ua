@@ -23,6 +23,7 @@ import ar.com.ua.constant.EndPointPathConstant;
 import ar.com.ua.constant.MensajeError;
 import ar.com.ua.constant.TipoMetodoConstant;
 import ar.com.ua.dto.LoginResponseDTO;
+import ar.com.ua.dto.SesionDTO;
 import ar.com.ua.dto.UsuarioDTO;
 import ar.com.ua.dto.response.ResponseDto;
 import ar.com.ua.dto.response.ResponseOKDto;
@@ -152,6 +153,23 @@ public class LoginController {
 		this.manejoSesion.setAttributtePermisos(httpSession, "permisosUsuario", permisos);
 	}
 
+	@GetMapping(value = "/isalive")
+	public ResponseDto isSessionActive () {
+		try {
+			SesionDTO dto = new SesionDTO();
+			
+			if(manejoSesion.getHttpSession().getAttribute("nombreUsuario") != null) {
+				dto.setActivo(true);
+			}
+			
+			return new ResponseOKDto<SesionDTO>(EndPointPathConstant.LOGIN, TipoMetodoConstant.POST,
+					CodigoRespuestaConstant.OK, dto);
+		} catch (Exception e) {
+			return ManejoErrores.errorGenerico(EndPointPathConstant.LOGIN, TipoMetodoConstant.POST,
+					MensajeError.ERROR_SESSION);
+		}
+	}
+	
 	// @PreAuthorize
 	@PostMapping(value = "")
 	public ResponseDto login(@RequestBody UsuarioDTO dto) {

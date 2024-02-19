@@ -16,7 +16,8 @@ public class ManejoSesion {
 	public HttpSession getHttpSession () {
 		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
 		HttpSession httpSession = attr.getRequest().getSession();
-		
+		//Setteo la sesion en 30 minutos
+		httpSession.setMaxInactiveInterval(900);
 		return httpSession;
 	}
 	
