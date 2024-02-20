@@ -1,5 +1,7 @@
 package ar.com.ua.projection.report;
 
+import java.time.ZonedDateTime;
+
 public interface InternationalDataCollectionProjection {
 
 	String getGlobalId();
@@ -48,7 +50,7 @@ public interface InternationalDataCollectionProjection {
 
 	String getDepartment();
 
-	String getTermDate();
+	ZonedDateTime getTermDate();
 
 	String getTermReason();
 
