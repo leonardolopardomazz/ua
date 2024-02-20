@@ -1,5 +1,7 @@
 package ar.com.ua.dto.report;
 
+import java.time.ZonedDateTime;
+
 public class InternationalDataCollectionResponseDTO {
 
 	private String globalId;
@@ -25,7 +27,7 @@ public class InternationalDataCollectionResponseDTO {
 	private String employmentType;
 	private String personnelType;
 	private String department;
-	private String termDate; // feche egreso
+	private ZonedDateTime termDate; // feche egreso
 	private String termReason;
 	private String antiguedad;
 	private String age;
@@ -223,11 +225,11 @@ public class InternationalDataCollectionResponseDTO {
 		this.department = department;
 	}
 
-	public String getTermDate() {
+	public ZonedDateTime getTermDate() {
 		return termDate;
 	}
 
-	public void setTermDate(String termDate) {
+	public void setTermDate(ZonedDateTime termDate) {
 		this.termDate = termDate;
 	}
 
