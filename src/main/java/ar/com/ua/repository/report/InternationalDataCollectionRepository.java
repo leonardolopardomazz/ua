@@ -41,16 +41,16 @@ public interface InternationalDataCollectionRepository extends JpaRepository<Emp
 			+ "emp.cod_direccion as direccion, "
 			+ "p.cod_gerencia as gerencia, "
 			+ "emp.cod_oficina as oficina, "
-			+ "l.id AS idLicencia, "
+			+ "l.id AS active, "
 			+ "p.cod_categoria AS codigoCategoria "
 			+ "FROM empleados emp JOIN pais ON emp.cod_pais = pais.id JOIN puesto p ON p.id = emp.cod_puesto "
 			+ "LEFT JOIN historial_de_licencias l ON emp.id = l.id_empleado AND l.fecha_inicio <= :fechaHasta AND l.fecha_fin >= :fechaHasta "
 			+ "LEFT JOIN puesto puesto_manager ON p.cod_puesto_al_que_reporta = puesto_manager.id "
-			+ "LEFT JOIN empleados manager ON manager.cod_puesto = puesto_manager.id "
-			+ "WHERE "
-			+ " :fechaHasta IS NOT NULL "
-			+ " AND emp.fecha_ingreso_reconocida <= :fechaHasta "
-			+ " AND (emp.fecha_egreso >= :fechaHasta OR emp.fecha_egreso IS NULL) ", 
+			+ "LEFT JOIN empleados manager ON manager.cod_puesto = puesto_manager.id ",
+			// + "WHERE "
+			// + " :fechaHasta IS NOT NULL "
+			// + " AND emp.fecha_ingreso_reconocida <= :fechaHasta "
+			// + " AND (emp.fecha_egreso >= :fechaHasta OR emp.fecha_egreso IS NULL) ", 
 			nativeQuery = true)
 	List<InternationalDataCollectionProjection> reporte(@Param("fechaHasta") String fechaHasta);
 

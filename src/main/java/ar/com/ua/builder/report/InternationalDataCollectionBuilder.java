@@ -36,7 +36,7 @@ public class InternationalDataCollectionBuilder implements
 				dto.setPreferedName(projection.getPreferedName());
 				dto.setDateOfBirth(projection.getDateOfBirth());
 				dto.setGender(commonsRepository.descripcion(projection.getGender()));
-				dto.setTitle(commonsRepository.texto1(projection.getTitle()));
+				dto.setTitle(commonsRepository.texto1(projection.getGender()));
 				dto.setCountry(projection.getCountry());
 				dto.setMailLaboral(projection.getMailLaboral());
 				dto.setStartDate(projection.getStartDate());
@@ -50,14 +50,14 @@ public class InternationalDataCollectionBuilder implements
 				dto.setJefatura(commonsRepository.descripcion(projection.getJefatura()));
 				dto.setTermDate(projection.getTermDate()); // feche egreso
 				dto.setTermReason(commonsRepository.descripcion(projection.getTermReason()));
-				dto.setAntiguedad(String.valueOf(commonsRepository.calcularEdad(projection.getAntiguedad())));
-				dto.setAge(String.valueOf(commonsRepository.calcularEdad(projection.getAge())));
+				dto.setAntiguedad(String.valueOf(commonsRepository.calcularEdad(projection.getStartDate())));
+				dto.setAge(String.valueOf(commonsRepository.calcularEdad(projection.getDateOfBirth())));
 				dto.setGeneration(commonsRepository.descripcion(projection.getGeneration()));
 				dto.setDivission(commonsRepository.texto1(projection.getDivission()));
 				dto.setDireccion(commonsRepository.descripcion(projection.getDireccion()));
-				dto.setGerencia(commonsRepository.descripcion(projection.getGeneration()));
+				dto.setGerencia(commonsRepository.descripcion(projection.getGerencia()));
 				dto.setSubgerencia(null);
-				dto.setDepartment(commonsRepository.descripcion(projection.getDepartment()));
+				dto.setDepartment(commonsRepository.descripcion(projection.getDireccion()));
 				dto.setOficina(commonsRepository.descripcion(projection.getOficina()));
 				dto.setActive(String.valueOf("null".equals(projection.getActive())));
 				dto.setCategory(commonsRepository.descripcion(projection.getCategory()));
