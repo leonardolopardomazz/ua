@@ -1,7 +1,5 @@
 package ar.com.ua.dto.report;
 
-import java.time.ZonedDateTime;
-
 public class InternationalDataCollectionResponseDTO {
 
 	private String globalId;

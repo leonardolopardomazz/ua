@@ -65,6 +65,7 @@ public class InternationalDataCollectionBuilder implements
 				listDto.add(dto);
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw e;
 		}
 
