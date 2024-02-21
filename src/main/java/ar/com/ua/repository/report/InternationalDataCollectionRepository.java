@@ -41,7 +41,7 @@ public interface InternationalDataCollectionRepository extends JpaRepository<Emp
 			+ "emp.cod_direccion as direccion, "
 			+ "p.cod_gerencia as gerencia, "
 			+ "emp.cod_oficina as oficina, "
-			+ "IF(nvl(l.id, 99) = 99 , 'Activo', 'Inactivo') AS active, "
+			+ "IF(l.id is NULL, 'Activo', 'Inactivo') AS active, "
 			+ "p.cod_categoria AS codigoCategoria "
 			+ "FROM empleados emp JOIN pais ON emp.cod_pais = pais.id JOIN puesto p ON p.id = emp.cod_puesto "
 			+ "LEFT JOIN historial_de_licencias l ON emp.id = l.id_empleado AND l.fecha_inicio <= :fechaHasta AND l.fecha_fin >= :fechaHasta "
