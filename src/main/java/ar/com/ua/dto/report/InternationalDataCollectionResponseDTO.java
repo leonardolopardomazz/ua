@@ -27,7 +27,7 @@ public class InternationalDataCollectionResponseDTO {
 	private String employmentType;
 	private String personnelType;
 	private String department;
-	private ZonedDateTime termDate; // feche egreso
+	private String termDate; // feche egreso
 	private String termReason;
 	private String antiguedad;
 	private String age;
@@ -225,11 +225,11 @@ public class InternationalDataCollectionResponseDTO {
 		this.department = department;
 	}
 
-	public ZonedDateTime getTermDate() {
+	public String getTermDate() {
 		return termDate;
 	}
 
-	public void setTermDate(ZonedDateTime termDate) {
+	public void setTermDate(String termDate) {
 		this.termDate = termDate;
 	}
 

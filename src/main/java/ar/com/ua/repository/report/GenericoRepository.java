@@ -79,11 +79,14 @@ public interface GenericoRepository extends JpaRepository<Empleado, Long> {
 			+ "            LEFT JOIN empleados manager ON manager.cod_puesto = puesto_manager.id "
 			+ "            LEFT JOIN cargas_de_familia cdf "
 			+ "            ON emp.nro_legajo = cdf.nro_legajo "
+			/*
 			+ "			WHERE "
 			+ "                emp.cod_estado_empleado IN :estadoEmpleado "
 			+ "            AND (p.cod_direccion = :idDireccion OR :idDireccion IS NULL) "
 			+ "            AND (p.cod_gerencia = :idGerencia OR :idGerencia IS NULL) "
-			+ "            GROUP BY emp.nro_legajo", nativeQuery = true)
+			+ "            GROUP BY emp.nro_legajo"
+			*/
+			, nativeQuery = true)
 	List<GenericoProjection> reporte(@Param("estadoEmpleado") List<String> estado, @Param("idDireccion") String idDireccion,
 			@Param("idGerencia") String idGerencia);
 }
