@@ -59,7 +59,7 @@ public class InternationalDataCollectionBuilder implements
 				dto.setSubgerencia(null);
 				dto.setDepartment(commonsRepository.descripcion(projection.getDireccion()));
 				dto.setOficina(commonsRepository.descripcion(projection.getOficina()));
-				dto.setActive(String.valueOf("null".equals(projection.getActive())));
+				dto.setActive(projection.getActive());
 				dto.setCategory(commonsRepository.descripcion(projection.getCategory()));
 
 				listDto.add(dto);
