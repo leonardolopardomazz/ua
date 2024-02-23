@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import ar.com.ua.dto.UsuarioDTO;
 import ar.com.ua.model.Usuario;
+import ar.com.ua.utils.PasswordEncrypt;
 
 @Component
 public class UsuarioBuilder implements IBuilder<Usuario, UsuarioDTO> {
@@ -23,7 +24,7 @@ public class UsuarioBuilder implements IBuilder<Usuario, UsuarioDTO> {
 		usuario.setActivo(dto.isActivo());
 		usuario.setBloqueado(dto.isBloqueado());
 		usuario.setContrasena(dto.getContrasena());
-		
+
 		return usuario;
 	}
 
@@ -39,7 +40,7 @@ public class UsuarioBuilder implements IBuilder<Usuario, UsuarioDTO> {
 		dto.setContrasena(model.getContrasena());
 		dto.setNumeroLegajo(model.getNumeroLegajo());
 		dto.setRoles(model.getRoles());
-		
+
 		return dto;
 	}
 

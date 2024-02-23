@@ -43,6 +43,7 @@ import ar.com.ua.service.HistoricoContrasenaService;
 import ar.com.ua.service.LoginService;
 import ar.com.ua.service.SeguridadContrasenaService;
 import ar.com.ua.service.UsuarioService;
+import ar.com.ua.utils.PasswordEncrypt;
 
 @RequestMapping("/usuario")
 @RestController
@@ -203,16 +204,9 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 
 			}
 
-//			final Long numeroLegajo = dto.getNumeroLegajo();
-//			Usuario usuarioByNumeroLegajo = this.usuarioService.findByNumeroLegajo(numeroLegajo);
-
-//			if (usuarioByNumeroLegajo != null) {
-//				// ERROR contrasena ya utilizadas
-//				if (!noExisteEnHistoricoContrasena(usuarioAGuardar, contrasena)) {
-//					return this.manejoErrorGuardar(MensajeError.REPEATED_PASSWORD, tipoMetodoConstant);
-//				}
-//			}
-
+			//Encripto la contrasena para guardarla
+			usuarioAGuardar.setContrasena(PasswordEncrypt.encrypt(usuarioAGuardar.getContrasena()));
+			
 			Usuario usuarioGuardado = usuarioService.save(usuarioAGuardar);
 			UsuarioDTO usuarioDto = usuarioBuilder.modelToDto(usuarioGuardado);
 
@@ -389,7 +383,7 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 	@PutMapping(value = "/cambiarcontrasena/{id}")
 	public ResponseDto cambiarContrasena(@PathVariable Long id, @RequestBody UsuarioDTO dto) {
 		try {
-			final String contrasena = dto.getContrasena();
+			final String contrasenaIngresada = dto.getContrasena();
 
 			Optional<Usuario> value = this.usuarioService.findById(id);
 
@@ -399,12 +393,17 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 				
 				// Valida la contrasena ingresada con la regex proporcionada por seguridad
 				// informatica
-				if (!this.validarContrasenaConRegex(contrasena)) {
+				if (!this.validarContrasenaConRegex(contrasenaIngresada)) {
 					return this.manejoErrorGuardar(MensajeError.PATTERN_NO_VALID, MensajeError.PATTERN_NO_VALID);
 				}
 
 				// Verifico si la contrasena ingresada no existe en las ultimas 5 ingresadas
-				if (noExisteEnHistoricoContrasena(usuario, contrasena)) {
+				
+				String contrasenaEncriptada = PasswordEncrypt.encrypt(contrasenaIngresada);
+				
+				if (noExisteEnHistoricoContrasena(usuario, contrasenaEncriptada)) {
+					//Encripto la contrasena antes de guardarla
+					usuario.setContrasena(contrasenaEncriptada);
 					this.usuarioService.save(usuario);
 
 					HistoricoContrasena hc = populateHistoricoContrasena(usuario);

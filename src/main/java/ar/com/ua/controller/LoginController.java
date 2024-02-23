@@ -34,6 +34,7 @@ import ar.com.ua.model.Usuario;
 import ar.com.ua.service.LoginService;
 import ar.com.ua.service.ParametrosSeguridadContrasenaService;
 import ar.com.ua.service.UsuarioService;
+import ar.com.ua.utils.PasswordEncrypt;
 import jakarta.servlet.http.HttpSession;
 
 @RequestMapping("/login")
@@ -175,8 +176,11 @@ public class LoginController {
 	public ResponseDto login(@RequestBody UsuarioDTO dto) {
 		try {
 			final String nombreUsuario = dto.getNombreUsuario();
-			final String contrasena = dto.getContrasena();
+			String contrasena = dto.getContrasena();
 
+			contrasena = PasswordEncrypt.encrypt(contrasena);
+			
+			
 			// No existe un usuario con el nombreUsuario
 			if (!this.usuarioService.existsByNombreUsuario(nombreUsuario)) {
 				return ManejoErrores.errorGenerico(EndPointPathConstant.LOGIN, TipoMetodoConstant.POST,

@@ -11,7 +11,7 @@ public class ManejoFechas {
 			new Exception();
 		}
 		
-		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		LocalDate fechaNac = LocalDate.parse(fecha, fmt);
 		LocalDate ahora = LocalDate.now();
 		Period periodo = Period.between(fechaNac, ahora);
