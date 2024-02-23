@@ -438,7 +438,7 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 			Optional<Usuario> value = this.usuarioService.findById(id);
 			if (value.isPresent()) {
 				Usuario usuario = value.get();
-				usuario.setContrasena(this.generateRandomPassword());
+				usuario.setContrasena(PasswordEncrypt.encrypt(this.generateRandomPassword()));
 
 				// Marco el usuario como primer acceso para que cambie la contrasena
 				this.marcarUsuarioPrimerIngreso(usuario);
@@ -446,7 +446,6 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 				// Convierto el usuario a dto
 				contrasenaDTO.setContrasena(usuario.getContrasena());
 				
-				usuario.setContrasena(PasswordEncrypt.encrypt(usuario.getContrasena()));
 				this.usuarioService.save(usuario);
 			}
 		} catch (Exception e) {
@@ -465,7 +464,7 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 				Usuario usuario = value.get();
 				usuario.setBloqueado(false);
 
-				usuario.setContrasena(this.generateRandomPassword());
+				usuario.setContrasena(PasswordEncrypt.encrypt(this.generateRandomPassword()));
 				
 				// Marco el usuario como primer acceso para que cambie la contrasena
 				this.marcarUsuarioPrimerIngreso(usuario);
@@ -474,7 +473,6 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 				UsuarioDTO usuarioDTO = this.usuarioBuilder.modelToDto(usuario);
 
 				// Guardo el usuario
-				usuario.setContrasena(PasswordEncrypt.encrypt(usuario.getContrasena()));
 				this.usuarioService.save(usuario);
 
 				return new ResponseOKDto<UsuarioDTO>(EndPointPathConstant.DESBLOQUEAR_USUARIO, TipoMetodoConstant.GET,
