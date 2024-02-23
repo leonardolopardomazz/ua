@@ -9,7 +9,6 @@ public class PasswordEncrypt {
 
 		try {
 			encryptedString = Base64.getEncoder().encodeToString(originalString.getBytes());
-			System.out.println("Texto encriptado: " + encryptedString);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception(e);

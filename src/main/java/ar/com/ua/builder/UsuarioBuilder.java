@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import ar.com.ua.dto.UsuarioDTO;
 import ar.com.ua.model.Usuario;
-import ar.com.ua.utils.PasswordEncrypt;
 
 @Component
 public class UsuarioBuilder implements IBuilder<Usuario, UsuarioDTO> {
