@@ -445,7 +445,8 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 
 				// Convierto el usuario a dto
 				contrasenaDTO.setContrasena(usuario.getContrasena());
-
+				
+				usuario.setContrasena(PasswordEncrypt.encrypt(usuario.getContrasena()));
 				this.usuarioService.save(usuario);
 			}
 		} catch (Exception e) {
@@ -473,6 +474,7 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 				UsuarioDTO usuarioDTO = this.usuarioBuilder.modelToDto(usuario);
 
 				// Guardo el usuario
+				usuario.setContrasena(PasswordEncrypt.encrypt(usuario.getContrasena()));
 				this.usuarioService.save(usuario);
 
 				return new ResponseOKDto<UsuarioDTO>(EndPointPathConstant.DESBLOQUEAR_USUARIO, TipoMetodoConstant.GET,
