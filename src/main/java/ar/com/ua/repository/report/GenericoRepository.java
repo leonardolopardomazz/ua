@@ -80,7 +80,7 @@ public interface GenericoRepository extends JpaRepository<Empleado, Long> {
 			+ "            LEFT JOIN cargas_de_familia cdf "
 			+ "            ON emp.nro_legajo = cdf.nro_legajo "
 			+ "			WHERE "
-			+ "                emp.cod_estado_empleado IN :estadoEmpleado "
+			+ "                emp.cod_estado_empleado IN ( :estadoEmpleado ) "
 			+ "            AND (p.cod_direccion = :idDireccion OR :idDireccion IS NULL) "
 			+ "            AND (p.cod_gerencia = :idGerencia OR :idGerencia IS NULL) "
 			+ "            GROUP BY emp.nro_legajo"
