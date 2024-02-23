@@ -438,13 +438,15 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 			Optional<Usuario> value = this.usuarioService.findById(id);
 			if (value.isPresent()) {
 				Usuario usuario = value.get();
-				usuario.setContrasena(PasswordEncrypt.encrypt(this.generateRandomPassword()));
+				
+				final String randomPassword = this.generateRandomPassword();
+				usuario.setContrasena(PasswordEncrypt.encrypt(randomPassword));
 
 				// Marco el usuario como primer acceso para que cambie la contrasena
 				this.marcarUsuarioPrimerIngreso(usuario);
 
 				// Convierto el usuario a dto
-				contrasenaDTO.setContrasena(usuario.getContrasena());
+				contrasenaDTO.setContrasena(randomPassword);
 				
 				this.usuarioService.save(usuario);
 			}
@@ -463,8 +465,9 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 			if (value.isPresent()) {
 				Usuario usuario = value.get();
 				usuario.setBloqueado(false);
-
-				usuario.setContrasena(PasswordEncrypt.encrypt(this.generateRandomPassword()));
+				
+				final String randomPassword = this.generateRandomPassword();
+				usuario.setContrasena(PasswordEncrypt.encrypt(randomPassword));
 				
 				// Marco el usuario como primer acceso para que cambie la contrasena
 				this.marcarUsuarioPrimerIngreso(usuario);
