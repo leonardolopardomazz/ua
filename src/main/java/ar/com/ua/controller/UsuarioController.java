@@ -474,7 +474,8 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 
 				// Convierto el usuario a dto
 				UsuarioDTO usuarioDTO = this.usuarioBuilder.modelToDto(usuario);
-
+				usuarioDTO.setContrasena(randomPassword);
+				
 				// Guardo el usuario
 				this.usuarioService.save(usuario);
 
