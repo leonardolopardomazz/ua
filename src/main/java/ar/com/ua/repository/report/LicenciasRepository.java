@@ -33,7 +33,7 @@ public interface LicenciasRepository extends JpaRepository<Empleado, Long> {
 			+ "WHERE (emp.cod_estado_empleado IN :estadoEmpleado) "
 			+ "AND (emp.cod_pais = :idPais OR :idPais IS NULL) "
 			+ "AND (p.cod_direccion = :idDireccion OR :idDireccion IS NULL) "
-			+ "AND (hdl.activo IN :estadoLicencia) ", 
+			+ "AND (hdl.activo IN ( :estadoLicencia )) ", 
 			nativeQuery = true)
 	List<LicenciasProjection> reporte(@Param("estadoEmpleado") List<String> estadoEmpleado, @Param("idPais") String pais,
 			@Param("idDireccion") String direccion, @Param("estadoLicencia") List<String> estadoLicencia);
