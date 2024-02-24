@@ -22,7 +22,7 @@ public interface LicenciasProjection {
 
 	String getCodigoGerencia();
 
-	String getCdigoJefatura();
+	String getCodigoJefatura();
 
 	String getDescripcion();
 

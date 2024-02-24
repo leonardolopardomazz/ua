@@ -30,9 +30,9 @@ public class CentroDeCostoBuilder
 				dto.setApellido(projection.getApellido());
 				dto.setNombre(projection.getNombre());
 				dto.setIdDireccion(projection.getCodigoDireccion());
-				dto.setDireccion(commonsRepository.descripcion(projection.getDireccion()));
+				dto.setDireccion(commonsRepository.descripcion(projection.getCodigoDireccion()));
 				dto.setIdGerencia(projection.getCodigoGerencia());
-				dto.setGerencia(commonsRepository.descripcion(projection.getGerencia()));
+				dto.setGerencia(commonsRepository.descripcion(projection.getCodigoGerencia()));
 				dto.setCodigoCentroDeCosto(commonsRepository.codigo(projection.getCodigoCentroDeCosto()));
 				dto.setDescripcionCentroDeCosto(commonsRepository.descripcion(projection.getCodigoCentroDeCosto()));
 				dto.setFte(commonsRepository.texto2(projection.getFte()));

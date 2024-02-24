@@ -27,14 +27,14 @@ public class LicenciasBuilder implements IBuilderResponse<List<LicenciasProjecti
 				dto.setNumeroLegajo(licenciasProjection.getNumeroLegajo());
 				dto.setApellido(licenciasProjection.getApellido());
 				dto.setNombre(licenciasProjection.getNombre());
-				dto.setDescripcionLicencia(commonsRepository.descripcion(licenciasProjection.getDescripcion()));
+				dto.setDescripcionLicencia(commonsRepository.descripcion(licenciasProjection.getCodigoLicencia()));
 				dto.setFechaInicio(licenciasProjection.getFechaInicio());
 				dto.setFechaFin(licenciasProjection.getFechaFin());
 				dto.setEstado(licenciasProjection.getActivo());
 				dto.setPais(licenciasProjection.getPaisDescripcion());
 				dto.setDireccion(commonsRepository.descripcion(licenciasProjection.getCodigoDireccion()));
 				dto.setGerencia(commonsRepository.descripcion(licenciasProjection.getCodigoGerencia()));
-				dto.setJefatura(commonsRepository.descripcion(licenciasProjection.getCdigoJefatura()));
+				dto.setJefatura(commonsRepository.descripcion(licenciasProjection.getCodigoJefatura()));
 				dto.setPuesto(licenciasProjection.getDescripcion());
 
 				listDto.add(dto);
