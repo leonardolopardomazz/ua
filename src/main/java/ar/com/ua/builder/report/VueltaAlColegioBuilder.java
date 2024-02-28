@@ -39,7 +39,7 @@ public class VueltaAlColegioBuilder
 	}
 
 	private int calcularEdad(String fecha) {
-		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
 		LocalDate fechaNac = LocalDate.parse(fecha, fmt);
 		LocalDate ahora = LocalDate.now();
