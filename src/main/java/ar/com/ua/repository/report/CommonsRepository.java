@@ -45,7 +45,7 @@ public class CommonsRepository {
 	public int calcularEdad(String fecha) {
 		if (fecha == null)
 			return 0;
-		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
 
 		LocalDate fechaNac = LocalDate.parse(fecha, fmt);
 		LocalDate ahora = LocalDate.now();
@@ -54,7 +54,7 @@ public class CommonsRepository {
 
 		return periodo.getYears();
 	}
-	
+
 	public String codigo(String id) {
 		Parametro param = parametroRepository.getParametro(id);
 		if (param != null) {
