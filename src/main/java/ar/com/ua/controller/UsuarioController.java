@@ -204,9 +204,9 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 
 			}
 
-			//Encripto la contrasena para guardarla
+			// Encripto la contrasena para guardarla
 			usuarioAGuardar.setContrasena(PasswordEncrypt.encrypt(usuarioAGuardar.getContrasena()));
-			
+
 			Usuario usuarioGuardado = usuarioService.save(usuarioAGuardar);
 			UsuarioDTO usuarioDto = usuarioBuilder.modelToDto(usuarioGuardado);
 
@@ -390,7 +390,7 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 			if (value.isPresent()) {
 				Usuario usuario = value.get();
 				usuario.setContrasena(dto.getContrasena());
-				
+
 				// Valida la contrasena ingresada con la regex proporcionada por seguridad
 				// informatica
 				if (!this.validarContrasenaConRegex(contrasenaIngresada)) {
@@ -398,17 +398,17 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 				}
 
 				// Verifico si la contrasena ingresada no existe en las ultimas 5 ingresadas
-				
+
 				String contrasenaEncriptada = PasswordEncrypt.encrypt(contrasenaIngresada);
-				
+
 				if (noExisteEnHistoricoContrasena(usuario, contrasenaEncriptada)) {
-					//Encripto la contrasena antes de guardarla
+					// Encripto la contrasena antes de guardarla
 					usuario.setContrasena(contrasenaEncriptada);
 					this.usuarioService.save(usuario);
 
 					HistoricoContrasena hc = populateHistoricoContrasena(usuario);
 					this.hcService.save(hc);
-					
+
 					Login login = new Login();
 					login.setUsuario(usuario);
 					login.setPrimerAcceso(false);
@@ -438,7 +438,7 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 			Optional<Usuario> value = this.usuarioService.findById(id);
 			if (value.isPresent()) {
 				Usuario usuario = value.get();
-				
+
 				final String randomPassword = this.generateRandomPassword();
 				usuario.setContrasena(PasswordEncrypt.encrypt(randomPassword));
 
@@ -447,7 +447,7 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 
 				// Convierto el usuario a dto
 				contrasenaDTO.setContrasena(randomPassword);
-				
+
 				this.usuarioService.save(usuario);
 			}
 		} catch (Exception e) {
@@ -465,17 +465,17 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 			if (value.isPresent()) {
 				Usuario usuario = value.get();
 				usuario.setBloqueado(false);
-				
+
 				final String randomPassword = this.generateRandomPassword();
 				usuario.setContrasena(PasswordEncrypt.encrypt(randomPassword));
-				
+
 				// Marco el usuario como primer acceso para que cambie la contrasena
 				this.marcarUsuarioPrimerIngreso(usuario);
 
 				// Convierto el usuario a dto
 				UsuarioDTO usuarioDTO = this.usuarioBuilder.modelToDto(usuario);
 				usuarioDTO.setContrasena(randomPassword);
-				
+
 				// Guardo el usuario
 				this.usuarioService.save(usuario);
 
@@ -490,6 +490,16 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 			}
 		} catch (Exception e) {
 			return ManejoErrores.errorGenerico(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET, e.getMessage());
+		}
+	}
+
+	@GetMapping(value = "/existeusuarioactivo/{nombreUsuario}")
+	public Boolean findUsuarioActivo(@PathVariable String nombreUsuario) {
+		try {
+			return this.usuarioService.existsByNombreUsuarioAndActivoTrue(nombreUsuario);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Boolean.FALSE;
 		}
 	}
 

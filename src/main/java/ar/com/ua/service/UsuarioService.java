@@ -14,4 +14,5 @@ public interface UsuarioService extends JpaRepository<Usuario, Long> {
 	Boolean existsByNombreUsuarioAndBloqueadoTrue(String nombreUsuario);
 	Boolean existsByNombreUsuario(String nombreUsuario);
 	Boolean existsByNombreUsuarioAndContrasena(String nombreUsuario, String contrasena);
+	Boolean existsByNombreUsuarioAndActivoTrue(String nombreUsuario);
 }
