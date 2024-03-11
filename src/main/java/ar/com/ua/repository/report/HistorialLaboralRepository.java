@@ -21,13 +21,12 @@ public interface HistorialLaboralRepository extends JpaRepository<Empleado, Long
 			+ "p.descripcion as puesto, "
 			+ "hp.fecha_inicio_puesto as fechaInicioPuesto, "
 			+ "hp.fecha_fin_puesto as fechaFinPuesto, "
-			+ "emp.cod_direccion as codigoDireccion "
+			+ "p.cod_direccion as codigoDireccion "
 			+ "FROM empleados emp JOIN historial_de_puestos hp ON emp.nro_legajo = hp.nro_legajo JOIN  puesto p ON p.id = hp.cod_puesto "
 			+ "WHERE emp.cod_estado_empleado IN :estado "
 			+ "AND (p.cod_direccion = :idDireccion OR :idDireccion IS NULL) "
 			+ "AND emp.cod_pais IN :idPais "
-			+ "AND fecha_inicio_puesto between IFNULL(:fechaDesde, \"1900-01-01\") AND IFNULL(:fechaHasta, now() + INTERVAL 30 DAY) ", 
-			nativeQuery = true)
+			+ "AND fecha_inicio_puesto between IFNULL(:fechaDesde, \"1900-01-01\") AND IFNULL(:fechaHasta, now() + INTERVAL 30 DAY) ", nativeQuery = true)
 	List<HistorialLaboralProjection> reporte(@Param("idPais") List<String> idPais,
 			@Param("idDireccion") String idDireccion, @Param("estado") List<String> estado,
 			@Param("fechaDesde") String fechaDesde,

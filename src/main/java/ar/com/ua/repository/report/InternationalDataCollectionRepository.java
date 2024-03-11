@@ -38,7 +38,7 @@ public interface InternationalDataCollectionRepository extends JpaRepository<Emp
 			+ "emp.cod_tipo_egreso as termReason, "
 			+ "emp.cod_generacion as generation, "
 			+ "emp.cod_division as divission, "
-			+ "emp.cod_direccion as direccion, "
+			+ "p.cod_direccion as direccion, "
 			+ "p.cod_gerencia as gerencia, "
 			+ "emp.cod_oficina as oficina, "
 			+ "IF(l.id is NULL, 'Activo', 'Inactivo') AS active, "
@@ -50,8 +50,7 @@ public interface InternationalDataCollectionRepository extends JpaRepository<Emp
 			+ "WHERE "
 			+ " :fechaHasta IS NOT NULL "
 			+ " AND emp.fecha_ingreso_reconocida <= :fechaHasta "
-			+ " AND (emp.fecha_egreso >= :fechaHasta OR emp.fecha_egreso IS NULL) ", 
-			nativeQuery = true)
+			+ " AND (emp.fecha_egreso >= :fechaHasta OR emp.fecha_egreso IS NULL) ", nativeQuery = true)
 	List<InternationalDataCollectionProjection> reporte(@Param("fechaHasta") String fechaHasta);
 
 }

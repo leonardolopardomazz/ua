@@ -43,11 +43,11 @@ public interface GenericoRepository extends JpaRepository<Empleado, Long> {
 			+ "			emp.email_laboral as emailLaboral, "
 			+ "			p.descripcion as puesto, "
 			+ "			p.cod_categoria as codigoCategoria, "
-			+ "			emp.cod_direccion as codigoDireccion, "
+			+ "			p.cod_direccion as codigoDireccion, "
 			+ "			p.cod_gerencia as codigoGerencia, "
 			+ "			p.cod_jefatura as codigoJefatura, "
 			+ "			emp.cod_division as codigoDivision, "
-			+ "			emp.cod_centro_de_costo as codigoCentroDeCosto, "
+			+ "			p.cod_centro_de_costo as codigoCentroDeCosto, "
 			+ "			emp.cod_prepaga as codigoPrepaga, "
 			+ "			emp.cod_obra_social as codigoObraSocial, "
 			+ "			emp.cod_plan_prepaga as codigoPlanPrepaga, "
@@ -83,8 +83,8 @@ public interface GenericoRepository extends JpaRepository<Empleado, Long> {
 			+ "                emp.cod_estado_empleado IN ( :estadoEmpleado ) "
 			+ "            AND (p.cod_direccion = :idDireccion OR :idDireccion IS NULL) "
 			+ "            AND (p.cod_gerencia = :idGerencia OR :idGerencia IS NULL) "
-			+ "            GROUP BY emp.nro_legajo"
-			, nativeQuery = true)
-	List<GenericoProjection> reporte(@Param("estadoEmpleado") List<String> estado, @Param("idDireccion") String idDireccion,
+			+ "            GROUP BY emp.nro_legajo", nativeQuery = true)
+	List<GenericoProjection> reporte(@Param("estadoEmpleado") List<String> estado,
+			@Param("idDireccion") String idDireccion,
 			@Param("idGerencia") String idGerencia);
 }

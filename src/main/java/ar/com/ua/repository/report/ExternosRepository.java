@@ -21,7 +21,7 @@ public interface ExternosRepository extends JpaRepository<EmpleadoExterno, Long>
 			+ "pais.descripcion as codigoPais, "
 			+ "ext.cod_proveedor as codigoProveedor, "
 			+ "p.descripcion as codigoPuesto, "
-			+ "ext.cod_direccion as departamento, "
+			+ "p.cod_direccion as departamento, "
 			+ "ext.cod_division as codigoDivision, "
 			+ "CONCAT (ext.apellido, \" \", ext.nombre) as apellidoNombre, "
 			+ "puesto_manager.cod_direccion as codigoDireccion, "
@@ -35,8 +35,7 @@ public interface ExternosRepository extends JpaRepository<EmpleadoExterno, Long>
 			+ "FROM externos ext JOIN pais pais ON ext.cod_pais = pais.id JOIN puesto p ON ext.cod_puesto = p.id  "
 			+ "LEFT JOIN puesto puesto_manager ON p.cod_puesto_al_que_reporta = puesto_manager.id "
 			+ "WHERE ext.activo IN :activo "
-			+ "GROUP BY ext.nro_legajo", 
-			nativeQuery = true)
+			+ "GROUP BY ext.nro_legajo", nativeQuery = true)
 	List<ExternosProjection> reporte(@Param("activo") List<String> activo);
 
 }
