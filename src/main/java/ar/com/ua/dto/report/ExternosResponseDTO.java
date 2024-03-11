@@ -2,7 +2,7 @@ package ar.com.ua.dto.report;
 
 public class ExternosResponseDTO {
 
-	private String numeroLegajo;
+	private String numeroLegajoExterno;
 	private String codigoTipoDocumento;
 	private String numeroDocumento;
 	private String codigoPais;
@@ -19,12 +19,12 @@ public class ExternosResponseDTO {
 	private String fechaEgreso;
 	private String email;
 
-	public String getNumeroLegajo() {
-		return numeroLegajo;
+	public String getNumeroLegajoExterno() {
+		return numeroLegajoExterno;
 	}
 
-	public void setNumeroLegajo(String numeroLegajo) {
-		this.numeroLegajo = numeroLegajo;
+	public void setNumeroLegajoExterno(String numeroLegajoExterno) {
+		this.numeroLegajoExterno = numeroLegajoExterno;
 	}
 
 	public String getCodigoTipoDocumento() {

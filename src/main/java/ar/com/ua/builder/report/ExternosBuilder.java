@@ -29,7 +29,7 @@ public class ExternosBuilder implements IBuilderResponse<List<ExternosProjection
 		try {
 			for (ExternosProjection projection : listProjection) {
 				ExternosResponseDTO dto = new ExternosResponseDTO();
-				dto.setNumeroLegajo(projection.getNumeroLegajo());
+				dto.setNumeroLegajoExterno(projection.getNumeroLegajo());
 				dto.setCodigoTipoDocumento(commonsRepository.descripcion(projection.getCodigoTipoDocumento()));
 				dto.setNumeroDocumento(projection.getNumeroDocumento());
 				dto.setCodigoPais(projection.getCodigoPais());

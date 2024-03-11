@@ -9,7 +9,7 @@ import ar.com.ua.model.Puesto;
 public class EmpleadoExternoDTO {
 
 	private Long id;
-	private String numeroLegajo;
+	private String numeroLegajoExterno;
 	private String apellido;
 	private String nombre;
 	private Parametro codigoTipoDocumento;
@@ -37,12 +37,12 @@ public class EmpleadoExternoDTO {
 		this.id = id;
 	}
 
-	public String getNumeroLegajo() {
-		return numeroLegajo;
+	public String getNumeroLegajoExterno() {
+		return numeroLegajoExterno;
 	}
 
-	public void setNumeroLegajo(String legajoExterno) {
-		this.numeroLegajo = legajoExterno;
+	public void setNumeroLegajoExterno(String numeroLegajoExterno) {
+		this.numeroLegajoExterno = numeroLegajoExterno;
 	}
 
 	public String getApellido() {

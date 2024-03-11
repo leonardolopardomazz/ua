@@ -28,7 +28,8 @@ import ar.com.ua.service.EmpleadoExternoService;
 
 @RequestMapping("/empleadoexterno")
 @RestController
-public class EmpleadoExternosController implements IABMController<EmpleadoExternoDTO>, IListController<EmpleadoExternoDTO>{
+public class EmpleadoExternosController
+		implements IABMController<EmpleadoExternoDTO>, IListController<EmpleadoExternoDTO> {
 
 	@Autowired
 	private EmpleadoExternoService eexternoService;
@@ -154,7 +155,7 @@ public class EmpleadoExternosController implements IABMController<EmpleadoExtern
 					CodigoRespuestaConstant.ERROR, mensajes);
 		}
 	}
-	
+
 	@GetMapping(value = "/siguientelegajo")
 	public ResponseDto getMaxValue() {
 
@@ -163,7 +164,7 @@ public class EmpleadoExternosController implements IABMController<EmpleadoExtern
 			String numeroLegajo = this.eexternoService.findMaxNumeroLegajo();
 			EmpleadoExterno eext = new EmpleadoExterno();
 			eext.setNumeroLegajo(numeroLegajo);
-			
+
 			EmpleadoExternoDTO dto = this.eexternoBuilder.modelToDto(eext);
 
 			return new ResponseOKDto<EmpleadoExternoDTO>(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
