@@ -24,7 +24,7 @@ public interface CentroDeCostoRepository extends JpaRepository<Empleado, Long> {
 			+ "emp.fte as fte "
 			+ "FROM empleados emp JOIN puesto p ON emp.cod_puesto = p.id "
 			+ "WHERE (emp.cod_centro_de_costo = :idCentroDeCosto OR :idCentroDeCosto IS NULL) "
-			+ "AND (emp.cod_direccion = :idDireccion OR :idDireccion IS NULL) "
+			+ "AND (p.cod_direccion = :idDireccion OR :idDireccion IS NULL) "
 			+ "AND (emp.cod_estado_empleado IN ( :estado )) ", nativeQuery = true)
 	List<CentroDeCostoProjection> reporte(@Param("idCentroDeCosto") String idCentroDeCosto,
 			@Param("estado") List<String> estado,
