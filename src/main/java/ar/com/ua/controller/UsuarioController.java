@@ -179,33 +179,10 @@ public class UsuarioController implements IABMController<UsuarioDTO>, IListContr
 			// Validacion existe Numero legajo en la tabla Empleado
 			this.existeNumeroLegajo(dto);
 
-			if (tipoMetodoConstant.equals(TipoMetodoConstant.PUT) && dto.getContrasena() != null) {
-				final String contrasena = dto.getContrasena();
-				// Valida la contrasena ingresada con la regex proporcionada por seguridad
-				// informatica
-				if (!this.validarContrasenaConRegex(contrasena)) {
-					return this.manejoErrorGuardar(MensajeError.PATTERN_NO_VALID, MensajeError.PATTERN_NO_VALID);
-				}
-			} else if (tipoMetodoConstant.equals(TipoMetodoConstant.PUT) && dto.getContrasena() == null) {
-				try {
-					Optional<Usuario> value = usuarioService.findById(dto.getId());
-					if (value.isPresent()) {
-						Usuario usuario = value.get();
-
-						usuarioAGuardar.setContrasena(usuario.getContrasena());
-					} else {
-						return ManejoErrores.errorGenerico(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
-								MensajeError.ELEMENT_NOTFOUND_MESSAGE);
-					}
-				} catch (Exception e) {
-					return ManejoErrores.errorGenerico(EndPointConstant.FIND_ONE, TipoMetodoConstant.GET,
-							e.getMessage());
-				}
-
+			if (tipoMetodoConstant.equals(TipoMetodoConstant.POST)) {
+				// Encripto la contrasena para guardarla
+				usuarioAGuardar.setContrasena(PasswordEncrypt.encrypt(usuarioAGuardar.getContrasena()));
 			}
-
-			// Encripto la contrasena para guardarla
-			usuarioAGuardar.setContrasena(PasswordEncrypt.encrypt(usuarioAGuardar.getContrasena()));
 
 			Usuario usuarioGuardado = usuarioService.save(usuarioAGuardar);
 			UsuarioDTO usuarioDto = usuarioBuilder.modelToDto(usuarioGuardado);

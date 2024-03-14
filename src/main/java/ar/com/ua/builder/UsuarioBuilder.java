@@ -55,6 +55,7 @@ public class UsuarioBuilder implements IBuilder<Usuario, UsuarioDTO> {
 			dto.setFechaBaja(usuario.getFechaBaja());
 			dto.setId(usuario.getId());
 			dto.setNombreUsuario(usuario.getNombreUsuario());
+			dto.setContrasena(usuario.getContrasena());
 			dto.setNumeroLegajo(usuario.getNumeroLegajo());
 			dto.setRoles(usuario.getRoles());
 			dtoList.add(dto);
