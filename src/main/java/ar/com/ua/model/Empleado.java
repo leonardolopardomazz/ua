@@ -139,14 +139,6 @@ public class Empleado extends Auditable {
 	private String emailLaboral;
 
 	@OneToOne()
-	@JoinColumn(name = "cod_categoria_empleado", referencedColumnName = "id")
-	private Parametro codigoCategoriaEmpleado;
-
-	@OneToOne()
-	@JoinColumn(name = "cod_division", referencedColumnName = "id")
-	private Parametro codigoDivision;
-
-	@OneToOne()
 	@JoinColumn(name = "cod_centro_de_costo", referencedColumnName = "id")
 	private Parametro codigoCentroDeCosto;
 
@@ -476,22 +468,6 @@ public class Empleado extends Auditable {
 
 	public void setEmailLaboral(String emailLaboral) {
 		this.emailLaboral = emailLaboral;
-	}
-
-	public Parametro getCodigoCategoriaEmpleado() {
-		return codigoCategoriaEmpleado;
-	}
-
-	public void setCodigoCategoriaEmpleado(Parametro codigoCategoriaEmpleado) {
-		this.codigoCategoriaEmpleado = codigoCategoriaEmpleado;
-	}
-
-	public Parametro getCodigoDivision() {
-		return codigoDivision;
-	}
-
-	public void setCodigoDivision(Parametro codigoDivision) {
-		this.codigoDivision = codigoDivision;
 	}
 
 	public Parametro getCodigoCentroDeCosto() {
