@@ -37,7 +37,7 @@ public class EmpleadoDTO {
 	private String cbu;
 	private Date fechaIngresoReconocida;
 	private Parametro codigoTipoContratacion;
-	private int horasSemanales;
+	private Parametro horasSemanales;
 	private Parametro fte;
 	private Parametro codigoFrecuenciaLiquidacion;
 	private Parametro codigoTipoEmpleo;
@@ -292,11 +292,11 @@ public class EmpleadoDTO {
 		this.codigoTipoContratacion = codigoTipoContratacion;
 	}
 
-	public int getHorasSemanales() {
+	public Parametro getHorasSemanales() {
 		return horasSemanales;
 	}
 
-	public void setHorasSemanales(int horasSemanales) {
+	public void setHorasSemanales(Parametro horasSemanales) {
 		this.horasSemanales = horasSemanales;
 	}
 

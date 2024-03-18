@@ -115,8 +115,9 @@ public class Empleado extends Auditable {
 	@JoinColumn(name = "cod_tipo_contratacion", referencedColumnName = "id")
 	private Parametro codigoTipoContratacion;
 
-	@Column(name = "horas_semanales")
-	private int horasSemanales;
+	@OneToOne()
+	@JoinColumn(name = "horas_semanales", referencedColumnName = "id")
+	private Parametro horasSemanales;
 
 	@OneToOne()
 	@JoinColumn(name = "fte", referencedColumnName = "id")
@@ -429,11 +430,11 @@ public class Empleado extends Auditable {
 		this.codigoTipoContratacion = codigoTipoContratacion;
 	}
 
-	public int getHorasSemanales() {
+	public Parametro getHorasSemanales() {
 		return horasSemanales;
 	}
 
-	public void setHorasSemanales(int horasSemanales) {
+	public void setHorasSemanales(Parametro horasSemanales) {
 		this.horasSemanales = horasSemanales;
 	}
 
@@ -604,5 +605,4 @@ public class Empleado extends Auditable {
 	public void setCodigoGrado(Parametro codigoGrado) {
 		this.codigoGrado = codigoGrado;
 	}
-
 }
