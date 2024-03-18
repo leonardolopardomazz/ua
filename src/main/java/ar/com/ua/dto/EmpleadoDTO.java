@@ -19,7 +19,6 @@ public class EmpleadoDTO {
 	private Date fechaIngreso;
 	private Pais codigoPais;
 	private Parametro codigoOficina;
-	private Parametro codigoDireccion;
 	private Puesto codigoPuesto;
 	private String segundoNombre;
 	private String nombrePreferido;
@@ -43,6 +42,7 @@ public class EmpleadoDTO {
 	private Parametro codigoTipoEmpleo;
 	private Parametro codigoTipoJornada;
 	private String emailLaboral;
+	private Parametro codigoDivision;
 	private Parametro codigoCentroDeCosto;
 	private Parametro codigoPrepaga;
 	private Parametro codigoObraSocial;
@@ -144,14 +144,6 @@ public class EmpleadoDTO {
 
 	public void setCodigoOficina(Parametro codigoOficina) {
 		this.codigoOficina = codigoOficina;
-	}
-
-	public Parametro getCodigoDireccion() {
-		return codigoDireccion;
-	}
-
-	public void setCodigoDireccion(Parametro codigoDireccion) {
-		this.codigoDireccion = codigoDireccion;
 	}
 
 	public Puesto getCodigoPuesto() {
@@ -336,6 +328,14 @@ public class EmpleadoDTO {
 
 	public void setEmailLaboral(String emailLaboral) {
 		this.emailLaboral = emailLaboral;
+	}
+
+	public Parametro getCodigoDivision() {
+		return codigoDivision;
+	}
+
+	public void setCodigoDivision(Parametro codigoDivision) {
+		this.codigoDivision = codigoDivision;
 	}
 
 	public Parametro getCodigoCentroDeCosto() {

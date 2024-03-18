@@ -25,7 +25,7 @@ public class EmpleadoBuilder implements IBuilder<Empleado, EmpleadoDTO> {
 		empleado.setCodigoCategoriaConvenio(dto.getCodigoCategoriaConvenio());
 		empleado.setCodigoCentroDeCosto(dto.getCodigoCentroDeCosto());
 		empleado.setCodigoConvenio(dto.getCodigoConvenio());
-		empleado.setCodigoDireccion(dto.getCodigoDireccion());
+		empleado.setCodigoDivision(dto.getCodigoDivision());
 		empleado.setCodigoEstadoEmpleado(dto.getCodigoEstadoEmpleado());
 		empleado.setCodigoFrecuenciaLiquidacion(dto.getCodigoFrecuenciaLiquidacion());
 		empleado.setCodigoGeneracion(dto.getCodigoGeneracion());
@@ -84,7 +84,7 @@ public class EmpleadoBuilder implements IBuilder<Empleado, EmpleadoDTO> {
 		empleadoDto.setCodigoCategoriaConvenio(model.getCodigoCategoriaConvenio());
 		empleadoDto.setCodigoCentroDeCosto(model.getCodigoCentroDeCosto());
 		empleadoDto.setCodigoConvenio(model.getCodigoConvenio());
-		empleadoDto.setCodigoDireccion(model.getCodigoDireccion());
+		empleadoDto.setCodigoDivision(model.getCodigoDivision());
 		empleadoDto.setCodigoEstadoEmpleado(model.getCodigoEstadoEmpleado());
 		empleadoDto.setCodigoFrecuenciaLiquidacion(model.getCodigoFrecuenciaLiquidacion());
 		empleadoDto.setCodigoGeneracion(model.getCodigoGeneracion());
@@ -147,7 +147,7 @@ public class EmpleadoBuilder implements IBuilder<Empleado, EmpleadoDTO> {
 			empleadoDto.setCodigoCategoriaConvenio(empleado.getCodigoCategoriaConvenio());
 			empleadoDto.setCodigoCentroDeCosto(empleado.getCodigoCentroDeCosto());
 			empleadoDto.setCodigoConvenio(empleado.getCodigoConvenio());
-			empleadoDto.setCodigoDireccion(empleado.getCodigoDireccion());
+			empleadoDto.setCodigoDivision(empleado.getCodigoDivision());
 			empleadoDto.setCodigoEstadoEmpleado(empleado.getCodigoEstadoEmpleado());
 			empleadoDto.setCodigoFrecuenciaLiquidacion(empleado.getCodigoFrecuenciaLiquidacion());
 			empleadoDto.setCodigoGeneracion(empleado.getCodigoGeneracion());
