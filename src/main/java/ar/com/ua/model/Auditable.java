@@ -24,12 +24,12 @@ import lombok.Setter;
 public abstract class Auditable {
 
 	@CreatedBy
-	@Column(name = "usuario_creacion")
-    protected String usuarioCreacion;
+	@Column(name = "usuario_creacion", nullable = false, updatable = false)
+	protected String usuarioCreacion;
     
 	@CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "fecha_creacion")
+	@Column(name = "fecha_creacion", nullable = false, updatable = false)
     protected Date fechaCreacion;
 	
     @LastModifiedBy
