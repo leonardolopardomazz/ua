@@ -270,8 +270,6 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 		} else {
 			return false;
 		}
-		
-
 	}
 
 	// @PutMapping(value = "/{id}")
