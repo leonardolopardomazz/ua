@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import ar.com.ua.model.Empleado;
+import ar.com.ua.model.Puesto;
 
 public interface EmpleadoService extends JpaRepository<Empleado, Long> {
 	boolean existsByNumeroLegajo(Long numeroLegajo);
@@ -14,4 +15,6 @@ public interface EmpleadoService extends JpaRepository<Empleado, Long> {
 	
 	@Query(value = "SELECT emp.nro_legajo FROM historial_de_ingresos_caidos hic, empleados emp WHERE hic.id_empleado = emp.id", nativeQuery = true)
 	public List<Long> numerosLegajoEnHistoricoIngresoCaido();
+	
+	public Boolean existsByCodigoPuesto(Puesto puesto);
 }

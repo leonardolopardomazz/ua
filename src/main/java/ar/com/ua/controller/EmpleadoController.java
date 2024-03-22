@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +28,9 @@ import ar.com.ua.dto.response.ResponseErrorDto;
 import ar.com.ua.dto.response.ResponseOKDto;
 import ar.com.ua.dto.response.ResponseOKListDto;
 import ar.com.ua.model.Empleado;
+import ar.com.ua.model.Puesto;
 import ar.com.ua.service.EmpleadoService;
+import ar.com.ua.service.PuestoService;
 import jakarta.servlet.http.HttpSession;
 
 @RequestMapping("/empleado")
@@ -36,6 +39,9 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 
 	@Autowired
 	private EmpleadoService empleadoService;
+
+	@Autowired
+	private PuestoService puestoService;
 
 	@Autowired
 	private EmpleadoBuilder empleadoBuilder;
@@ -252,6 +258,20 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 			return new ResponseErrorDto(EndPointConstant.FIND_ALL, TipoMetodoConstant.GET,
 					CodigoRespuestaConstant.ERROR, mensajes);
 		}
+	}
+
+	@GetMapping(value = "/existeempleadoenpuesto/{id}")
+	public Boolean existeEmpleadoEnPuesto(@PathVariable Long id) {
+		Optional<Puesto> value = this.puestoService.findById(id);
+		
+		if (value.isPresent()) {
+			Puesto puesto = value.get();
+			return this.empleadoService.existsByCodigoPuesto(puesto);
+		} else {
+			return false;
+		}
+		
+
 	}
 
 	// @PutMapping(value = "/{id}")
