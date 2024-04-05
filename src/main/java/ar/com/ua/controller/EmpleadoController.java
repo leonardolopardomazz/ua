@@ -28,9 +28,7 @@ import ar.com.ua.dto.response.ResponseErrorDto;
 import ar.com.ua.dto.response.ResponseOKDto;
 import ar.com.ua.dto.response.ResponseOKListDto;
 import ar.com.ua.model.Empleado;
-import ar.com.ua.model.Puesto;
 import ar.com.ua.service.EmpleadoService;
-import ar.com.ua.service.PuestoService;
 import jakarta.servlet.http.HttpSession;
 
 @RequestMapping("/empleado")
@@ -39,9 +37,6 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 
 	@Autowired
 	private EmpleadoService empleadoService;
-
-	@Autowired
-	private PuestoService puestoService;
 
 	@Autowired
 	private EmpleadoBuilder empleadoBuilder;
@@ -262,22 +257,10 @@ public class EmpleadoController implements IABMController<EmpleadoDTO>, IListCon
 
 	@GetMapping(value = "/existeempleadoenpuesto/{id}")
 	public Boolean existeEmpleadoEnPuesto(@PathVariable Long id) {
-		Optional<Puesto> value = this.puestoService.findById(id);
-		
-		if (value.isPresent()) {
-			Puesto puesto = value.get();
-			return this.empleadoService.existsByCodigoPuesto(puesto);
-		} else {
+		if(this.empleadoService.existsByCodigoPuesto(id) == 0) {
 			return false;
 		}
+		return true;
 	}
-
-	// @PutMapping(value = "/{id}")
-	// public ResponseDto changeState(@PathVariable Long id, @RequestBody
-	// EmpleadoDTO dto) {
-	//
-	//
-	// return this.save(id, dto, TipoMetodoConstant.PUT);
-	// }
 
 }
