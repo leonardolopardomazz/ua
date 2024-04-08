@@ -7,6 +7,6 @@ import ar.com.ua.model.EmpleadoExterno;
 
 public interface EmpleadoExternoService extends JpaRepository<EmpleadoExterno, Long> {
 	
-	@Query(value = "SELECT MAX(CAST(eext.numeroLegajo AS UNSIGNED)) FROM EmpleadoExterno eext")
+	@Query(value = "SELECT MAX(CAST(eext.nro_Legajo AS UNSIGNED)) FROM externos eext", nativeQuery = true)
 	public String findMaxNumeroLegajo();
 }
